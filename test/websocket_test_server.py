@@ -1,4 +1,4 @@
-# !/usr/bin/env python
+#!/usr/bin/env python
 
 # This file starts a websocket server on localhost, port 8765, and
 # prints what it receives. This is a tool to check that Godot is
