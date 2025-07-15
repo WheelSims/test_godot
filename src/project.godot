@@ -21,3 +21,7 @@ window/size/initial_screen=1
 window/size/resizable=false
 window/subwindows/embed_subwindows=false
 window/stretch/aspect="expand"
+
+[editor]
+
+import/use_multiple_threads=false
