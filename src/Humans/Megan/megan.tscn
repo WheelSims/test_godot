@@ -1,12 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://dk7allqav38g8"]
+[gd_scene load_steps=3 format=3 uid="uid://dk7allqav38g8"]
 
 [ext_resource type="PackedScene" uid="uid://cclt12mtoo2ln" path="res://Humans/Megan/Megan.glb" id="1_gef2h"]
-[ext_resource type="Animation" uid="uid://daovub3hi42ke" path="res://Humans/Walking.res" id="2_6p25h"]
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_2dkpq"]
-_data = {
-&"Walking": ExtResource("2_6p25h")
-}
+[ext_resource type="AnimationLibrary" uid="uid://i4ky1kqpry7b" path="res://Humans/AnimWalk.res" id="2_gef2h"]
 
 [node name="Megan" instance=ExtResource("1_gef2h")]
 
@@ -68,6 +63,6 @@ bones/63/rotation = Quaternion(2.13204e-08, 0.999707, 0.0241982, -4.33816e-08)
 
 [node name="AnimationPlayer" parent="." index="1"]
 libraries = {
-&"": SubResource("AnimationLibrary_2dkpq")
+&"AnimWalk": ExtResource("2_gef2h")
 }
-autoplay = "Walking"
+autoplay = "AnimWalk/Walking"
