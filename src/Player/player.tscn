@@ -30,3 +30,9 @@ debug_color = Color(8.27849e-06, 0.774194, 0.900788, 0.42)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.2, -0.5)
 shape = SubResource("SphereShape3D_jka67")
 debug_color = Color(8.27849e-06, 0.774194, 0.900788, 0.42)
+
+[node name="Camera3DFace" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25008, 0)
+
+[node name="Camera3DBas" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.683427, 0.730019, 0, -0.730019, 0.683427, 0, 1.25, 0)

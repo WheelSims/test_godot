@@ -1,5 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://cetjxf77eh2pr"]
+[gd_scene load_steps=8 format=3 uid="uid://cetjxf77eh2pr"]
 
+[ext_resource type="Script" uid="uid://tbqm120p3iek" path="res://sim_irglm.gd" id="1_oi341"]
 [ext_resource type="Texture2D" uid="uid://wacfloxc8is" path="res://HDR/daytime.hdr" id="2_jka67"]
 [ext_resource type="PackedScene" uid="uid://biluq7vv8ghsm" path="res://Player/player.tscn" id="2_r3fl7"]
 [ext_resource type="PackedScene" uid="uid://y2xjjvq3l33t" path="res://Environments/park_environment.tscn" id="2_rbkky"]
@@ -17,6 +18,7 @@ tonemap_mode = 2
 glow_enabled = true
 
 [node name="SimIRGLM" type="Node3D"]
+script = ExtResource("1_oi341")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_i5arm")
@@ -30,8 +32,21 @@ light_energy = 0.825
 [node name="Player" parent="." instance=ExtResource("2_r3fl7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.605, 0, 28.774)
 
-[node name="Camera3D" type="Camera3D" parent="Player"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-current = true
+[node name="SecondDisplayWindow" type="Window" parent="."]
+position = Vector2i(0, 36)
+size = Vector2i(1150, 615)
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="SecondDisplayWindow"]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="SubViewport" type="SubViewport" parent="SecondDisplayWindow/SubViewportContainer"]
+handle_input_locally = false
+size = Vector2i(1172, 607)
+render_target_update_mode = 4
+
+[node name="CameraRig2" type="Node3D" parent="SecondDisplayWindow/SubViewportContainer/SubViewport"]
+
+[node name="SecondCamera" type="Camera3D" parent="SecondDisplayWindow/SubViewportContainer/SubViewport/CameraRig2"]
 
 [connection signal="ready" from="." to="." method="_on_ready"]
