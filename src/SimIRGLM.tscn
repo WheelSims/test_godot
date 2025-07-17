@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://wacfloxc8is" path="res://HDR/daytime.hdr" id="2_jka67"]
 [ext_resource type="PackedScene" uid="uid://biluq7vv8ghsm" path="res://Player/player.tscn" id="2_r3fl7"]
 [ext_resource type="PackedScene" uid="uid://y2xjjvq3l33t" path="res://Environments/park_environment.tscn" id="2_rbkky"]
-[ext_resource type="PackedScene" uid="uid://dk7allqav38g8" path="res://Humans/Megan/megan.tscn" id="5_syadr"]
+[ext_resource type="PackedScene" uid="uid://csv20r21uxym3" path="res://Humans/Josh/Josh.tscn" id="3_2x147"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_i5arm"]
 panorama = ExtResource("2_jka67")
@@ -45,80 +45,78 @@ transform = Transform3D(0.857462, 0, -0.514475, 0, 0.999975, 0, 0.514477, 0, 0.8
 rotation_mode = 1
 use_model_front = true
 
-[node name="Megan" parent="ParkEnvironment/Path3D/PathFollow3D" instance=ExtResource("5_syadr")]
-acceleration = 2.0
+[node name="Josh" parent="ParkEnvironment/Path3D/PathFollow3D" instance=ExtResource("3_2x147")]
+max_speed = 1.0
 
-[node name="GeneralSkeleton" parent="ParkEnvironment/Path3D/PathFollow3D/Megan/Armature" index="0"]
-bones/0/position = Vector3(0.000873702, 0.992009, 0.00901769)
-bones/0/rotation = Quaternion(-0.032323, -0.0328479, -0.0202266, 0.998733)
-bones/1/rotation = Quaternion(0.0237955, 0.0108151, 0.0205407, 0.999447)
-bones/2/rotation = Quaternion(0.0106315, -0.000818826, 0.0132858, 0.999855)
-bones/3/rotation = Quaternion(0.00602807, -0.000786833, 0.012546, 0.999903)
-bones/4/rotation = Quaternion(0.036453, -0.00161722, 0.00306433, 0.999329)
-bones/5/rotation = Quaternion(-0.0576253, 0.0107396, -0.000873384, 0.99828)
-bones/7/rotation = Quaternion(0.446078, 0.506642, 0.627225, -0.38848)
-bones/8/rotation = Quaternion(0.148978, 0.823293, -0.5421, -0.0782361)
-bones/9/rotation = Quaternion(0.0491304, -0.704346, -0.0435155, 0.706817)
-bones/10/rotation = Quaternion(0.0150846, 0.5307, -0.0220547, 0.847138)
-bones/11/rotation = Quaternion(-0.139235, 0.755372, 0.133125, 0.626342)
-bones/12/rotation = Quaternion(0.109646, 0.0889561, -0.10802, 0.984071)
-bones/13/rotation = Quaternion(-0.0667928, -0.0755237, -0.0252346, 0.994584)
+[node name="GeneralSkeleton" parent="ParkEnvironment/Path3D/PathFollow3D/Josh/Model/Armature" index="0"]
+bones/0/position = Vector3(0.00321601, 1.00541, 0.000465056)
+bones/0/rotation = Quaternion(-0.030321, -0.0499118, -0.0278593, 0.997905)
+bones/1/rotation = Quaternion(0.0289126, 0.0118534, 0.0199524, 0.999313)
+bones/2/rotation = Quaternion(0.010189, 0.00319229, 0.0136231, 0.99985)
+bones/3/rotation = Quaternion(0.0100635, 0.00345672, 0.0137112, 0.999849)
+bones/4/rotation = Quaternion(0.0482414, -0.000955506, 0.00438645, 0.998826)
+bones/5/rotation = Quaternion(-0.0661444, 0.0108651, -0.00114403, 0.99775)
+bones/7/rotation = Quaternion(0.456549, 0.501177, 0.631487, -0.376311)
+bones/8/rotation = Quaternion(0.159824, 0.818682, -0.542064, -0.101892)
+bones/9/rotation = Quaternion(0.0122326, -0.705185, -0.0799913, 0.704391)
+bones/10/rotation = Quaternion(0.0180974, 0.488922, -0.0387358, 0.871279)
+bones/11/rotation = Quaternion(-0.125914, 0.739741, 0.146881, 0.64448)
+bones/12/rotation = Quaternion(0.113023, 0.119238, -0.131371, 0.977625)
+bones/13/rotation = Quaternion(-0.0510217, -0.0938972, -0.0354148, 0.993643)
 bones/13/scale = Vector3(1.00002, 0.999977, 1)
-bones/15/rotation = Quaternion(0.0386205, 0.00825308, 0.0266627, 0.998864)
-bones/16/rotation = Quaternion(0.0617747, 0.00892005, -0.0183576, 0.997881)
-bones/17/rotation = Quaternion(0.0420782, 0.00636553, -0.00657908, 0.999072)
-bones/19/rotation = Quaternion(0.119334, 0.00517607, 0.0264844, 0.992487)
-bones/20/rotation = Quaternion(0.0498671, 0.0051392, -0.0192311, 0.998557)
-bones/21/rotation = Quaternion(0.171965, 0.0109685, -0.0127381, 0.98496)
-bones/23/rotation = Quaternion(0.149628, 0.00152981, 0.0370269, 0.988048)
-bones/24/rotation = Quaternion(0.0781663, 0.00414522, -0.0198624, 0.996734)
-bones/25/rotation = Quaternion(0.258812, 0.00160225, -0.00990316, 0.965876)
-bones/27/rotation = Quaternion(0.200837, 0.00459931, 0.0284324, 0.979201)
-bones/28/rotation = Quaternion(0.0741974, 0.00184395, -0.0172645, 0.997092)
-bones/29/rotation = Quaternion(0.134402, 0.000288816, -0.0127515, 0.990845)
-bones/31/rotation = Quaternion(0.483092, -0.479274, -0.622058, -0.38725)
-bones/32/rotation = Quaternion(-0.161098, 0.84394, -0.48442, 0.164771)
-bones/33/rotation = Quaternion(0.0591877, 0.705559, 0.0341712, 0.705348)
-bones/34/rotation = Quaternion(-0.00409855, -0.631112, 0.0462169, 0.774303)
-bones/35/rotation = Quaternion(-0.14115, -0.74095, -0.137647, 0.641968)
-bones/36/rotation = Quaternion(0.107536, -0.110421, 0.110455, 0.981857)
-bones/37/rotation = Quaternion(0.033457, 0.0664316, 0.14858, 0.986099)
-bones/39/rotation = Quaternion(0.0202191, -0.00160169, -0.0427961, 0.998878)
-bones/40/rotation = Quaternion(0.0703561, -0.00791324, 0.0108112, 0.997432)
-bones/41/rotation = Quaternion(0.107697, -0.00962043, 0.000415219, 0.994137)
-bones/43/rotation = Quaternion(0.101435, -0.00428744, -0.0296692, 0.99439)
-bones/44/rotation = Quaternion(0.0652424, -0.00451329, 0.0112624, 0.997796)
-bones/45/rotation = Quaternion(0.166225, -0.0105744, 0.00614683, 0.986012)
-bones/47/rotation = Quaternion(0.138013, -0.0009507, -0.0440786, 0.989449)
-bones/48/rotation = Quaternion(0.0732294, -0.00290835, 0.0112898, 0.997247)
-bones/49/rotation = Quaternion(0.252553, -0.00138829, 0.00186209, 0.96758)
-bones/51/rotation = Quaternion(0.23809, -0.00931815, -0.0356851, 0.970543)
-bones/52/rotation = Quaternion(0.0655567, -0.000172897, 0.0101765, 0.997797)
-bones/53/rotation = Quaternion(0.153834, 0.00104573, 0.00499351, 0.988084)
-bones/55/rotation = Quaternion(0.127303, 0.071261, 0.988603, -0.0371442)
-bones/56/rotation = Quaternion(-0.0400055, 0.991337, -0.124413, 0.0130822)
-bones/57/rotation = Quaternion(-0.0213287, 0.712502, -0.701229, 0.0128564)
-bones/58/rotation = Quaternion(-1.47462e-05, 0.997795, 0.0663575, -0.0012075)
-bones/60/rotation = Quaternion(-0.0918779, 0.0227457, 0.99377, -0.0588361)
-bones/61/rotation = Quaternion(0.033402, 0.994564, -0.0624628, -0.0763292)
-bones/62/rotation = Quaternion(-0.0139983, 0.68771, -0.725835, -0.00478677)
-bones/63/rotation = Quaternion(8.56758e-08, 0.997939, 0.0641648, -8.14827e-07)
+bones/15/rotation = Quaternion(0.0452635, 0.00496081, 0.027229, 0.998592)
+bones/16/rotation = Quaternion(0.0616442, 0.00907046, -0.0177486, 0.997899)
+bones/17/rotation = Quaternion(0.0428656, 0.00671479, -0.00716969, 0.999033)
+bones/19/rotation = Quaternion(0.120704, 0.00535318, 0.028327, 0.99227)
+bones/20/rotation = Quaternion(0.0396823, 0.00450224, -0.0178486, 0.999043)
+bones/21/rotation = Quaternion(0.175113, 0.0110579, -0.0125325, 0.984406)
+bones/23/rotation = Quaternion(0.138639, 0.00180557, 0.0390879, 0.98957)
+bones/24/rotation = Quaternion(0.0819485, 0.00413533, -0.0197931, 0.996431)
+bones/25/rotation = Quaternion(0.272457, 0.0014434, -0.00988984, 0.962116)
+bones/27/rotation = Quaternion(0.199702, 0.0049127, 0.0345719, 0.979234)
+bones/28/rotation = Quaternion(0.0597304, 0.00133815, -0.0164359, 0.998078)
+bones/29/rotation = Quaternion(0.141664, 3.13818e-05, -0.0126769, 0.989834)
+bones/31/rotation = Quaternion(0.475548, -0.480324, -0.633167, -0.377151)
+bones/32/rotation = Quaternion(-0.194288, 0.839162, -0.472304, 0.187055)
+bones/33/rotation = Quaternion(0.0424148, 0.706392, 0.0498149, 0.704791)
+bones/34/rotation = Quaternion(0.00591023, -0.595636, 0.0531869, 0.80147)
+bones/35/rotation = Quaternion(-0.142258, -0.728557, -0.148363, 0.653419)
+bones/36/rotation = Quaternion(0.129152, -0.11799, 0.104113, 0.97906)
+bones/37/rotation = Quaternion(0.0450268, 0.0567341, 0.164406, 0.98373)
+bones/39/rotation = Quaternion(0.026843, -0.00209011, -0.04108, 0.998793)
+bones/40/rotation = Quaternion(0.0598052, -0.00662622, 0.00948855, 0.998143)
+bones/41/rotation = Quaternion(0.0959109, -0.00860639, 0.00095275, 0.995352)
+bones/43/rotation = Quaternion(0.0996384, -0.00406869, -0.0299125, 0.994566)
+bones/44/rotation = Quaternion(0.0499857, -0.00430898, 0.00950012, 0.998695)
+bones/45/rotation = Quaternion(0.161595, -0.010637, 0.00514936, 0.986786)
+bones/47/rotation = Quaternion(0.127143, -0.00101228, -0.0474003, 0.990751)
+bones/48/rotation = Quaternion(0.0689173, -0.00273193, 0.0105748, 0.997563)
+bones/49/rotation = Quaternion(0.25474, -0.00178799, 0.00281695, 0.967004)
+bones/51/rotation = Quaternion(0.228401, -0.0100397, -0.038932, 0.972737)
+bones/52/rotation = Quaternion(0.0345657, -0.00085032, 0.00849438, 0.999366)
+bones/53/rotation = Quaternion(0.127365, -0.000864565, 0.00498259, 0.991843)
+bones/55/rotation = Quaternion(0.131236, 0.100931, 0.985201, -0.0443683)
+bones/56/rotation = Quaternion(-0.0388894, 0.991263, -0.123549, 0.0249236)
+bones/57/rotation = Quaternion(-0.0176477, 0.712008, -0.701484, 0.0255619)
+bones/58/rotation = Quaternion(-1.38294e-07, 0.999075, 0.0429963, 5.33421e-07)
+bones/60/rotation = Quaternion(-0.0903275, -0.00608018, 0.994042, -0.0607033)
+bones/61/rotation = Quaternion(0.0315935, 0.99514, -0.0349205, -0.0864782)
+bones/62/rotation = Quaternion(-0.0129831, 0.696366, -0.717569, -0.000883801)
+bones/63/rotation = Quaternion(-4.03965e-08, 0.998024, 0.0628281, -9.24597e-07)
 
-[node name="AnimationPlayer" parent="ParkEnvironment/Path3D/PathFollow3D/Megan" index="2"]
-autoplay = ""
+[node name="AnimationTree" parent="ParkEnvironment/Path3D/PathFollow3D/Josh/Model" index="2"]
+parameters/blend_position = -0.0846344
 
-[node name="AnimationTree" parent="ParkEnvironment/Path3D/PathFollow3D/Megan" index="3"]
-parameters/blend_position = 0.0977814
+[node name="CollisionShape3D" parent="ParkEnvironment/Path3D/PathFollow3D/Josh/Area3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.034288, 0.813131, 0.648338)
 
 [node name="Player" parent="." groups=["Player"] instance=ExtResource("2_r3fl7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.65882, 0.0108747, -38.7478)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.46191, 0.0108742, -42.1283)
 
 [node name="Camera3D" type="Camera3D" parent="Player"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 current = true
 
 [connection signal="ready" from="." to="." method="_on_ready"]
-[connection signal="body_entered" from="ParkEnvironment/Path3D/PathFollow3D/Megan/Area3D" to="ParkEnvironment/Path3D/PathFollow3D/Megan" method="_on_area_3d_body_entered"]
-[connection signal="body_exited" from="ParkEnvironment/Path3D/PathFollow3D/Megan/Area3D" to="ParkEnvironment/Path3D/PathFollow3D/Megan" method="_on_area_3d_body_exited"]
 
-[editable path="ParkEnvironment/Path3D/PathFollow3D/Megan"]
+[editable path="ParkEnvironment/Path3D/PathFollow3D/Josh"]

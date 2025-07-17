@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://bhxvs50jkdty7"]
+
+[ext_resource type="Script" uid="uid://bg2a6m8054t5p" path="res://Humans/MovingObject.gd" id="1_ldhpp"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_f65ib"]
+size = Vector3(0.536499, 1, 0.695557)
+
+[node name="WalkingPedestrian" type="Node3D"]
+script = ExtResource("1_ldhpp")
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.51, 0.648)
+shape = SubResource("BoxShape3D_f65ib")
