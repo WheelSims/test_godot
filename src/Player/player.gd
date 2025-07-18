@@ -15,15 +15,9 @@ extends RigidBody3D
 @export var KB_ANGULAR_SPEED: float = 1  # rad/s
 
 
-
-
 @export_group("Motion platform")
 ## The URL for the custom motion platform control app
 @export var MOTION_PLATFORM_URL = "localhost:8765"
-
-# --------------
-# Roller Control
-# --------------
 
 
 # ---------------------------------
