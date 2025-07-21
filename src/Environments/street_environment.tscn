@@ -1,0 +1,56 @@
+[gd_scene load_steps=6 format=3 uid="uid://bdghjlyhxwas4"]
+
+[ext_resource type="PackedScene" uid="uid://c8jlfg36cadx8" path="res://Objects/Car/Car.tscn" id="1_0dw41"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_syadr"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jls4h"]
+albedo_color = Color(0.251927, 0.245355, 0.21947, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2x147"]
+size = Vector3(1.44284, 1, 1.43045)
+
+[sub_resource type="Curve3D" id="Curve3D_syadr"]
+bake_interval = 0.01
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 9.33484, 0, -8.15379, -9.33484, 0, 8.15379, -3.12962, 0.347399, 89.1878, 0, 0, 0, 0, 0, 0, -54.6045, -3.05176e-05, 92.8668),
+"tilts": PackedFloat32Array(0, 0, 0)
+}
+point_count = 3
+
+[node name="StreetEnvironment" type="Node3D"]
+
+[node name="Road1" type="MeshInstance3D" parent="."]
+transform = Transform3D(-2.52106e-07, 3.82137e-15, -96.4669, 5.04212e-07, 1, 0, -5.76751, 8.74228e-08, 4.2167e-06, -0.0809021, 0, -0.221344)
+mesh = SubResource("PlaneMesh_syadr")
+surface_material_override/0 = SubResource("StandardMaterial3D_jls4h")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Road1"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Road1/StaticBody3D"]
+transform = Transform3D(1.39779, 2.06398e-17, -2.95586e-12, 8.41283e-12, 0.0162411, 7.10152e-18, 5.06262e-14, 3.84445e-26, 1.39779, -0.00923538, -8.18545e-12, -0.00143099)
+shape = SubResource("BoxShape3D_2x147")
+
+[node name="Road2" type="MeshInstance3D" parent="."]
+transform = Transform3D(5.76751, 8.74228e-08, 0, -5.04212e-07, 1, 0, 0, 0, -96.4669, -0.0809021, 0, -0.221344)
+mesh = SubResource("PlaneMesh_syadr")
+surface_material_override/0 = SubResource("StandardMaterial3D_jls4h")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Road2"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Road2/StaticBody3D"]
+transform = Transform3D(1.39779, 2.06398e-17, -2.95586e-12, 8.41283e-12, 0.0162411, 7.10152e-18, 5.06262e-14, 3.84445e-26, 1.39779, -0.00923538, -8.18545e-12, -0.00143099)
+shape = SubResource("BoxShape3D_2x147")
+
+[node name="CarPath" type="Path3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.171494, -3.8147e-06, -91.8344)
+curve = SubResource("Curve3D_syadr")
+
+[node name="PathFollow3D" type="PathFollow3D" parent="CarPath"]
+transform = Transform3D(0.999333, 0.000136511, -0.0350681, 0, 0.999984, 0.00389268, 0.0350668, -0.00389029, 0.999369, 0, 0, 0)
+rotation_mode = 4
+use_model_front = true
+cubic_interp = false
+tilt_enabled = false
+
+[node name="TunedCar" parent="CarPath/PathFollow3D" instance=ExtResource("1_0dw41")]

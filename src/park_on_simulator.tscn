@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://c2swcg3mxb5mv"]
+
+[ext_resource type="PackedScene" uid="uid://y2xjjvq3l33t" path="res://Environments/park_environment.tscn" id="1_32pop"]
+[ext_resource type="PackedScene" uid="uid://biluq7vv8ghsm" path="res://Player/player_on_simulator.tscn" id="2_sgu1o"]
+
+[node name="ParkOnSimulator" type="Node3D"]
+
+[node name="ParkEnvironment" parent="." instance=ExtResource("1_32pop")]
+
+[node name="PlayerOnSimulator" parent="." instance=ExtResource("2_sgu1o")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.1184, 0, -4.94736)
+
+[connection signal="ready" from="." to="." method="_on_ready"]
