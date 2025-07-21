@@ -1,12 +1,30 @@
-[gd_scene load_steps=4 format=3 uid="uid://biluq7vv8ghsm"]
+[gd_scene load_steps=7 format=3 uid="uid://biluq7vv8ghsm"]
 
 [ext_resource type="Script" uid="uid://bo3s2kc1arfun" path="res://Player/player.gd" id="1_l8h54"]
+[ext_resource type="Script" path="res://Player/motors.gd" id="2_4ntmi"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_r3fl7"]
 radius = 0.25
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_jka67"]
 radius = 0.2
+
+[sub_resource type="FontFile" id="FontFile_2x147"]
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+cache/0/50/0/ascent = 0.0
+cache/0/50/0/descent = 0.0
+cache/0/50/0/underline_position = 0.0
+cache/0/50/0/underline_thickness = 0.0
+cache/0/50/0/scale = 1.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_btcbx"]
+font = SubResource("FontFile_2x147")
+font_size = 50
+font_color = Color(0, 0, 0, 1)
 
 [node name="Player" type="RigidBody3D"]
 mass = 80.0
@@ -30,3 +48,24 @@ debug_color = Color(8.27849e-06, 0.774194, 0.900788, 0.42)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.2, -0.5)
 shape = SubResource("SphereShape3D_jka67")
 debug_color = Color(8.27849e-06, 0.774194, 0.900788, 0.42)
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+current = true
+
+[node name="UI" type="Polygon2D" parent="."]
+position = Vector2(55, 534)
+scale = Vector2(0.61, 0.78)
+polygon = PackedVector2Array(0, 100, 0, 0, 300, 0, 300, 100)
+
+[node name="PlayerText" type="Label" parent="UI"]
+offset_right = 300.0
+offset_bottom = 99.0
+text = "Test"
+label_settings = SubResource("LabelSettings_btcbx")
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Motors" type="Node3D" parent="."]
+script = ExtResource("2_4ntmi")

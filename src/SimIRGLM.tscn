@@ -1,24 +1,9 @@
-[gd_scene load_steps=13 format=3 uid="uid://cetjxf77eh2pr"]
+[gd_scene load_steps=6 format=3 uid="uid://cetjxf77eh2pr"]
 
-[ext_resource type="Texture2D" uid="uid://wacfloxc8is" path="res://HDR/daytime.hdr" id="2_jka67"]
 [ext_resource type="PackedScene" uid="uid://biluq7vv8ghsm" path="res://Player/player.tscn" id="2_r3fl7"]
 [ext_resource type="PackedScene" uid="uid://y2xjjvq3l33t" path="res://Environments/park_environment.tscn" id="2_rbkky"]
-[ext_resource type="Script" uid="uid://bl2jb2dwfya7b" path="res://path_follow_3d.gd" id="3_2x147"]
+[ext_resource type="Script" path="res://path_follow_3d.gd" id="3_2x147"]
 [ext_resource type="PackedScene" uid="uid://dk7allqav38g8" path="res://Humans/Megan/megan.tscn" id="5_syadr"]
-[ext_resource type="Script" uid="uid://boe632ih0j5mm" path="res://Player/motors.gd" id="6_syadr"]
-
-[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_i5arm"]
-panorama = ExtResource("2_jka67")
-
-[sub_resource type="Sky" id="Sky_jka67"]
-sky_material = SubResource("PanoramaSkyMaterial_i5arm")
-
-[sub_resource type="Environment" id="Environment_i5arm"]
-background_mode = 2
-sky = SubResource("Sky_jka67")
-ambient_light_color = Color(0.733333, 0.854902, 0.909804, 1)
-ambient_light_sky_contribution = 0.0
-reflected_light_source = 2
 
 [sub_resource type="Curve3D" id="Curve3D_2x147"]
 bake_interval = 0.01
@@ -28,32 +13,7 @@ _data = {
 }
 point_count = 6
 
-[sub_resource type="FontFile" id="FontFile_2x147"]
-cache/0/16/0/ascent = 0.0
-cache/0/16/0/descent = 0.0
-cache/0/16/0/underline_position = 0.0
-cache/0/16/0/underline_thickness = 0.0
-cache/0/16/0/scale = 1.0
-cache/0/50/0/ascent = 0.0
-cache/0/50/0/descent = 0.0
-cache/0/50/0/underline_position = 0.0
-cache/0/50/0/underline_thickness = 0.0
-cache/0/50/0/scale = 1.0
-
-[sub_resource type="LabelSettings" id="LabelSettings_syadr"]
-font = SubResource("FontFile_2x147")
-font_size = 50
-font_color = Color(0, 0, 0, 1)
-
 [node name="SimIRGLM" type="Node3D"]
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_i5arm")
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -0.728969, 0.684547, 0, -0.684547, -0.728969, 0, -2.50862, 0)
-light_energy = 0.825
-shadow_enabled = true
 
 [node name="ParkEnvironment" parent="." instance=ExtResource("2_rbkky")]
 
@@ -74,27 +34,6 @@ transform = Transform3D(1, 0, -2.98023e-08, 0, 1, 0, 0, 0, 1, 0, 0.0906955, 0)
 [node name="Player" parent="." instance=ExtResource("2_r3fl7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.395, 0, -44.226)
 inertia = Vector3(10, 1, 10)
-
-[node name="Camera3D" type="Camera3D" parent="Player"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-current = true
-
-[node name="UI" type="Polygon2D" parent="Player"]
-position = Vector2(55, 534)
-scale = Vector2(0.61, 0.78)
-polygon = PackedVector2Array(0, 100, 0, 0, 300, 0, 300, 100)
-
-[node name="PlayerText" type="Label" parent="Player/UI"]
-offset_right = 300.0
-offset_bottom = 99.0
-text = "Test"
-label_settings = SubResource("LabelSettings_syadr")
-horizontal_alignment = 1
-vertical_alignment = 1
-metadata/_edit_use_anchors_ = true
-
-[node name="Motors" type="Node3D" parent="Player"]
-script = ExtResource("6_syadr")
 
 [connection signal="ready" from="." to="." method="_on_ready"]
 
