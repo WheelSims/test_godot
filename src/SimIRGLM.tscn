@@ -16,8 +16,9 @@ sky_material = SubResource("PanoramaSkyMaterial_i5arm")
 [sub_resource type="Environment" id="Environment_i5arm"]
 background_mode = 2
 sky = SubResource("Sky_jka67")
-tonemap_mode = 2
-glow_enabled = true
+ambient_light_color = Color(0.733333, 0.854902, 0.909804, 1)
+ambient_light_sky_contribution = 0.0
+reflected_light_source = 2
 
 [sub_resource type="Curve3D" id="Curve3D_2x147"]
 bake_interval = 0.01
@@ -50,8 +51,9 @@ font_color = Color(0, 0, 0, 1)
 environment = SubResource("Environment_i5arm")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, -2.50862, 0)
+transform = Transform3D(1, 0, 0, 0, -0.728969, 0.684547, 0, -0.684547, -0.728969, 0, -2.50862, 0)
 light_energy = 0.825
+shadow_enabled = true
 
 [node name="ParkEnvironment" parent="." instance=ExtResource("2_rbkky")]
 
