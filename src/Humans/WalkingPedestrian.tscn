@@ -13,12 +13,14 @@ height = 2.3493
 script = ExtResource("1_ldhpp")
 
 [node name="Trigger" type="Area3D" parent="."]
+monitorable = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Trigger"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.51, 0.648)
 shape = SubResource("BoxShape3D_f65ib")
 
 [node name="DetectionArea" type="Area3D" parent="." groups=["NPC"]]
+monitoring = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="DetectionArea"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.11351, 0)

@@ -3,8 +3,11 @@ extends Node3D
 @onready var pathFollow: PathFollow3D = get_parent()
 @export var triggers_on_curve: Array[Area3D]
 var triggers_on_curve_offsets: Array[float]
-@export var current_speed: float
+@export var max_speed: float
+@export var acceleration: float
 var nb_obstacle: float = 0
+var current_speed : float = 0
+var target_speed : float
 
 # Store the original Z offsets of the triggers before resetting their positions.
 func _on_ready() -> void:
@@ -12,10 +15,11 @@ func _on_ready() -> void:
 		var offset = triggers_on_curve[i].position.z
 		triggers_on_curve_offsets.append(offset)
 		triggers_on_curve[i].position = Vector3(0,0,0)
-		print(triggers_on_curve_offsets)
 
 func _process(delta: float) -> void:
 	if (nb_obstacle < 1):
+		target_speed = max_speed
+		current_speed = move_toward(current_speed, target_speed, delta * acceleration)
 		carprogress(delta)
 
 func carprogress(delta: float) -> void:
@@ -38,9 +42,9 @@ func _on_front_trigger_body_exited(body: Node3D) -> void:
 
 
 func _on_front_trigger_area_entered(area: Area3D) -> void:
-	if (area.is_in_group("NPC")):
+	if (area.is_in_group("NPC") and not self.is_ancestor_of(area)):
 		nb_obstacle += 1
 
 func _on_front_trigger_area_exited(area: Area3D) -> void:
-	if (area.is_in_group("NPC")):
+	if (area.is_in_group("NPC") and not self.is_ancestor_of(area)):
 		nb_obstacle -= 1

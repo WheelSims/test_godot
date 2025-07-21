@@ -366,7 +366,8 @@ size = Vector3(2.14301, 1.56146, 5.00439)
 transform = Transform3D(1.00001, 0, 0, 0, 1.0001, -0.00349069, 0, 0.00349102, 1.00001, 0, 0, 0)
 script = ExtResource("2_v636r")
 triggers_on_curve = [NodePath("Triggers/FrontTrigger")]
-current_speed = 10.0
+max_speed = 10.0
+acceleration = 2.0
 
 [node name="Car_geo" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 7.54979e-08, 0, -7.54979e-08, 1, 0, 0, 0)
@@ -397,12 +398,14 @@ skeleton = NodePath("")
 
 [node name="FrontTrigger" type="Area3D" parent="Triggers"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 4.65661e-10, 1, 0, 0.0141325, 4.04904)
+monitorable = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Triggers/FrontTrigger"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 2.32831e-10, 1, 0, 0, 0)
 shape = SubResource("SphereShape3D_32r3e")
 
 [node name="DetectionArea" type="Area3D" parent="." groups=["NPC"]]
+monitoring = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="DetectionArea"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 8.00937e-08, 1, 0.00942996, 0.813873, 0.0627442)
