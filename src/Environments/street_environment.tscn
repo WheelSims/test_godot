@@ -1,6 +1,20 @@
-[gd_scene load_steps=6 format=3 uid="uid://bdghjlyhxwas4"]
+[gd_scene load_steps=10 format=3 uid="uid://bdghjlyhxwas4"]
 
 [ext_resource type="PackedScene" uid="uid://c8jlfg36cadx8" path="res://Objects/Car/Car.tscn" id="1_0dw41"]
+[ext_resource type="Texture2D" uid="uid://wacfloxc8is" path="res://Environments/HDR/daytime.hdr" id="1_pmujg"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_eyx0o"]
+panorama = ExtResource("1_pmujg")
+
+[sub_resource type="Sky" id="Sky_jka67"]
+sky_material = SubResource("PanoramaSkyMaterial_eyx0o")
+
+[sub_resource type="Environment" id="Environment_lbknl"]
+background_mode = 2
+sky = SubResource("Sky_jka67")
+ambient_light_color = Color(0.733333, 0.854902, 0.909804, 1)
+ambient_light_sky_contribution = 0.0
+reflected_light_source = 2
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_syadr"]
 
@@ -19,6 +33,14 @@ _data = {
 point_count = 3
 
 [node name="StreetEnvironment" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_lbknl")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.728969, 0.684547, 0, -0.684547, -0.728969, 0, -2.50862, 0)
+light_energy = 0.825
+shadow_enabled = true
 
 [node name="Road1" type="MeshInstance3D" parent="."]
 transform = Transform3D(-2.52106e-07, 3.82137e-15, -96.4669, 5.04212e-07, 1, 0, -5.76751, 8.74228e-08, 4.2167e-06, -0.0809021, 0, -0.221344)

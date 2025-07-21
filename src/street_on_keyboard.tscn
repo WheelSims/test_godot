@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://brtx5rljqbrgh"]
+
+[ext_resource type="PackedScene" uid="uid://bdghjlyhxwas4" path="res://Environments/street_environment.tscn" id="1_op6tu"]
+[ext_resource type="PackedScene" uid="uid://k8nnhdqlvvje" path="res://Player/player_on_keyboard.tscn" id="2_ojto2"]
+
+[node name="StreetOnKeyboard" type="Node3D"]
+
+[node name="StreetEnvironment" parent="." instance=ExtResource("1_op6tu")]
+
+[node name="PlayerOnKeyboard" parent="." instance=ExtResource("2_ojto2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.4117, 0, 0.736029)
+
+[connection signal="ready" from="." to="." method="_on_ready"]
