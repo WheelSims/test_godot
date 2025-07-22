@@ -76,3 +76,6 @@ cubic_interp = false
 tilt_enabled = false
 
 [node name="TunedCar" parent="CarPath/PathFollow3D" instance=ExtResource("1_0dw41")]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 127.774, 0)
