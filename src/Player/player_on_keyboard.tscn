@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://k8nnhdqlvvje"]
+[gd_scene load_steps=5 format=3 uid="uid://k8nnhdqlvvje"]
 
 [ext_resource type="Script" uid="uid://bo3s2kc1arfun" path="res://Player/player.gd" id="1_of35a"]
 
@@ -7,6 +7,9 @@ radius = 0.25
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_jka67"]
 radius = 0.2
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mrv34"]
+size = Vector3(1, 1.00635, 1)
 
 [node name="PlayerOnKeyboard" type="RigidBody3D" groups=["Player"]]
 mass = 80.0
@@ -34,3 +37,9 @@ debug_color = Color(8.27849e-06, 0.774194, 0.900788, 0.42)
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 current = true
+
+[node name="DetectionArea" type="Area3D" parent="." groups=["Player"]]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DetectionArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.506104, 0)
+shape = SubResource("BoxShape3D_mrv34")

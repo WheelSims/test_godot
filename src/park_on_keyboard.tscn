@@ -8,6 +8,6 @@
 [node name="ParkEnvironment" parent="." instance=ExtResource("1_bab7w")]
 
 [node name="PlayerOnKeyboard" parent="." instance=ExtResource("2_147tv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.4481, 0, -6.93033)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.4481, -0.0546246, -6.93033)
 
 [connection signal="ready" from="." to="." method="_on_ready"]

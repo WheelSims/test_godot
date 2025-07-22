@@ -1,7 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://biluq7vv8ghsm"]
+[gd_scene load_steps=8 format=3 uid="uid://biluq7vv8ghsm"]
 
 [ext_resource type="Script" uid="uid://bo3s2kc1arfun" path="res://Player/player.gd" id="1_l8h54"]
-[ext_resource type="Script" uid="uid://boe632ih0j5mm" path="res://Player/motors.gd" id="2_4ntmi"]
+[ext_resource type="Script" path="res://Player/motors.gd" id="2_4ntmi"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_r3fl7"]
 radius = 0.25
@@ -28,6 +28,9 @@ cache/0/50/0/scale = 1.0
 font = SubResource("FontFile_2x147")
 font_size = 50
 font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4jxmm"]
+size = Vector3(1, 1.00635, 1)
 
 [node name="PlayerOnSimulator" type="RigidBody3D" groups=["Player"]]
 mass = 80.0
@@ -72,3 +75,9 @@ metadata/_edit_use_anchors_ = true
 
 [node name="Motors" type="Node3D" parent="."]
 script = ExtResource("2_4ntmi")
+
+[node name="DetectionArea" type="Area3D" parent="." groups=["Player"]]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DetectionArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.506104, 0)
+shape = SubResource("BoxShape3D_4jxmm")

@@ -30,17 +30,6 @@ func carprogress(delta: float) -> void:
 		var global_position = position_on_curve + pathFollow.get_parent().position
 		triggers_on_curve[i].global_transform.origin = global_position
 
-
-func _on_front_trigger_body_entered(body: Node3D) -> void:
-	if (body.is_in_group("Player")):
-		nb_obstacle += 1
-
-
-func _on_front_trigger_body_exited(body: Node3D) -> void:
-	if (body.is_in_group("Player")):
-		nb_obstacle -= 1
-
-
 func _on_front_trigger_area_entered(area: Area3D) -> void:
 	if (area.is_in_group("NPC") and not self.is_ancestor_of(area)):
 		nb_obstacle += 1

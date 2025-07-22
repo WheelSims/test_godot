@@ -6,8 +6,8 @@ extends Node3D
 var current_speed : float
 var target_speed : float
 
-@onready var detection_area: Area3D = $Area3D
-@onready var pathFollow: PathFollow3D = get_parent()
+@export var detection_area: Area3D
+@onready var pathFollow: PathFollow3D = get_parent().get_parent()
 var nb_obstacle : int = 0
 
 func _ready():
@@ -24,18 +24,11 @@ func _process(delta):
 	anim_tree.set("parameters/blend_position", current_speed/target_speed)
 	pathFollow.progress += current_speed * delta
 
-func _on_area_3d_area_shape_entered(area_rid: RID, area: Area3D, area_shape_index: int, local_shape_index: int) -> void:
+func _on_trigger_area_entered(area: Area3D) -> void:
 	if (area.is_in_group("NPC")):
 		nb_obstacle += 1
 
-func _on_area_3d_area_shape_exited(area_rid: RID, area: Area3D, area_shape_index: int, local_shape_index: int) -> void:
+
+func _on_trigger_area_exited(area: Area3D) -> void:
 	if (area.is_in_group("NPC")):
-		nb_obstacle -= 1
-
-func _on_trigger_body_entered(body: Node3D) -> void:
-	if (body.is_in_group("Player")):
-		nb_obstacle += 1
-
-func _on_trigger_body_exited(body: Node3D) -> void:
-	if (body.is_in_group("Player")):
 		nb_obstacle -= 1
