@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://biluq7vv8ghsm"]
+[gd_scene load_steps=8 format=3 uid="uid://biluq7vv8ghsm"]
 
 [ext_resource type="Script" uid="uid://bo3s2kc1arfun" path="res://Player/player.gd" id="1_l8h54"]
 [ext_resource type="Script" uid="uid://boe632ih0j5mm" path="res://Player/motors.gd" id="2_4ntmi"]
+[ext_resource type="Script" uid="uid://da3tqctbq8isk" path="res://Player/d_box.gd" id="3_muua7"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_r3fl7"]
 radius = 0.25
@@ -72,3 +73,6 @@ metadata/_edit_use_anchors_ = true
 
 [node name="Motors" type="Node3D" parent="."]
 script = ExtResource("2_4ntmi")
+
+[node name="DBox" type="Node3D" parent="."]
+script = ExtResource("3_muua7")
