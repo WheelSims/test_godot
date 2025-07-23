@@ -1,6 +1,7 @@
 extends Node3D
 
 @onready var pathFollow: PathFollow3D = get_parent()
+@onready var motor_sound = $AudioStreamPlayer3D
 @export var triggers_on_curve: Array[Area3D]
 var triggers_on_curve_offsets: Array[float]
 @export var max_speed: float
@@ -29,6 +30,10 @@ func carprogress(delta: float) -> void:
 		var position_on_curve = pathFollow.get_parent().curve.sample_baked(offset_progress)
 		var global_position = position_on_curve + pathFollow.get_parent().position
 		triggers_on_curve[i].global_transform.origin = global_position
+		
+func carAudio() -> void:
+	motor_sound.pitch_scale = lerp(1, 2, current_speed/max_speed)
+	
 
 func _on_front_trigger_area_entered(area: Area3D) -> void:
 	if (area.is_in_group("NPC") and not self.is_ancestor_of(area)):

@@ -1,5 +1,6 @@
-[gd_scene load_steps=19 format=4 uid="uid://c8jlfg36cadx8"]
+[gd_scene load_steps=20 format=4 uid="uid://c8jlfg36cadx8"]
 
+[ext_resource type="AudioStream" uid="uid://cr67rcgnvkq56" path="res://Objects/Sounds&Musics/Sounds/StreetZone/CarIdleLoop.wav" id="2_ly6kp"]
 [ext_resource type="Script" uid="uid://caocvec12vany" path="res://Objects/Car/Car.gd" id="2_v636r"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_endym"]
@@ -410,6 +411,11 @@ monitoring = false
 [node name="CollisionShape3D" type="CollisionShape3D" parent="DetectionArea"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 8.00937e-08, 1, 0.00942996, 0.813873, 0.0627442)
 shape = SubResource("BoxShape3D_v636r")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("2_ly6kp")
+autoplay = true
+bus = &"Street"
 
 [connection signal="ready" from="." to="." method="_on_ready"]
 [connection signal="area_entered" from="Triggers/FrontTrigger" to="." method="_on_front_trigger_area_entered"]

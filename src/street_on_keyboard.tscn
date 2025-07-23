@@ -8,6 +8,6 @@
 [node name="StreetEnvironment" parent="." instance=ExtResource("1_op6tu")]
 
 [node name="PlayerOnKeyboard" parent="." instance=ExtResource("2_ojto2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.4117, 0, 0.736029)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.05033, 0, -75.4906)
 
 [connection signal="ready" from="." to="." method="_on_ready"]
