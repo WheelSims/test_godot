@@ -10,7 +10,7 @@ var current_speed : float = 0
 var target_speed : float
 
 # Store the original Z offsets of the triggers before resetting their positions.
-func _on_ready() -> void:
+func _ready():
 	for i in triggers_on_curve.size():
 		var offset = triggers_on_curve[i].position.z
 		triggers_on_curve_offsets.append(offset)

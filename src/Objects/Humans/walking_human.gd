@@ -1,5 +1,6 @@
 extends Node3D
 
+@onready var footstep_player = $AudioStreamPlayer3D
 @export var anim_tree: AnimationTree
 @export var max_speed : float = 2
 @export var acceleration : float = 1
@@ -11,6 +12,7 @@ var target_speed : float
 var nb_obstacle : int = 0
 
 func _ready():
+	anim_tree.set("parameters/TimeScale/scale", max_speed / 1.8)
 	anim_tree.active = true
 
 func _process(delta):
@@ -21,7 +23,7 @@ func _process(delta):
 	else:
 		current_speed = 0
 
-	anim_tree.set("parameters/blend_position", current_speed/target_speed)
+	anim_tree.set("parameters/Blend2/blend_amount", current_speed/target_speed)
 	pathFollow.progress += current_speed * delta
 
 func _on_trigger_area_entered(area: Area3D) -> void:
@@ -32,3 +34,7 @@ func _on_trigger_area_entered(area: Area3D) -> void:
 func _on_trigger_area_exited(area: Area3D) -> void:
 	if (area.is_in_group("NPC")):
 		nb_obstacle -= 1
+		
+func play_footstep():
+	if not footstep_player.playing:
+		footstep_player.play()
