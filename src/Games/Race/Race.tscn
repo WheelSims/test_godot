@@ -1,0 +1,145 @@
+[gd_scene load_steps=2 format=3 uid="uid://b2lsq08mbnhw0"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_cy171"]
+font_size = 30
+
+[node name="Race" type="Node3D"]
+
+[node name="RaceMenu" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="RaceMenu"]
+layout_mode = 3
+anchor_right = 1.003
+anchor_bottom = 0.992
+offset_right = 0.543945
+offset_bottom = 0.18396
+
+[node name="ColorRect" type="ColorRect" parent="RaceMenu"]
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 73.0
+offset_top = 41.0
+offset_right = -89.0
+offset_bottom = -84.0
+color = Color(0, 0, 0, 0.466667)
+
+[node name="Title" type="Label" parent="RaceMenu"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -82.0
+offset_top = 72.0
+offset_right = 57.0
+offset_bottom = 141.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 50
+text = "Races"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RaceLength" type="Label" parent="RaceMenu/Title"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.826
+anchor_top = -1.075
+anchor_right = 2.019
+anchor_bottom = 8.103
+offset_left = -60.186
+offset_top = 138.175
+offset_right = 50.359
+offset_bottom = -445.107
+text = "MaxLength: 200 meters"
+label_settings = SubResource("LabelSettings_cy171")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TimeTrial" type="Label" parent="RaceMenu"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -456.0
+offset_top = 238.0
+offset_right = -254.0
+offset_bottom = 293.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 40
+text = "TimeTrial :"
+vertical_alignment = 1
+
+[node name="Description" type="Label" parent="RaceMenu/TimeTrial"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.555
+anchor_top = -2.434
+anchor_right = 4.655
+anchor_bottom = 4.976
+offset_left = 332.11
+offset_top = 142.87
+offset_right = -202.88
+offset_bottom = -222.68
+theme_override_font_sizes/font_size = 30
+text = "Finish race as fast as you can"
+
+[node name="Distance" type="Label" parent="RaceMenu/TimeTrial"]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 60.0
+offset_right = 600.0
+offset_bottom = 104.0
+theme_override_font_sizes/font_size = 20
+text = "Set your race length : "
+
+[node name="SpinBox" type="SpinBox" parent="RaceMenu/TimeTrial/Distance"]
+layout_mode = 0
+offset_left = 217.0
+offset_top = -1.0
+offset_right = 303.563
+offset_bottom = 30.0
+max_value = 200.0
+
+[node name="DistanceChallenge" type="Label" parent="RaceMenu"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -461.0
+offset_top = 378.0
+offset_right = -73.0
+offset_bottom = 433.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 40
+text = "DistanceChallenge : "
+vertical_alignment = 1
+
+[node name="Description" type="Label" parent="RaceMenu/DistanceChallenge"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.288
+anchor_top = -5.437
+anchor_right = 2.585
+anchor_bottom = 3.865
+offset_left = 507.744
+offset_top = 308.035
+offset_right = -124.218
+offset_bottom = -161.575
+theme_override_font_sizes/font_size = 30
+text = "Go as far as you can in x seconds"
+
+[node name="Time" type="Label" parent="RaceMenu/DistanceChallenge"]
+offset_left = 9.0
+offset_top = 60.0
+offset_right = 600.0
+offset_bottom = 104.0
+theme_override_font_sizes/font_size = 20
+text = "Set your minutor X :"
+
+[node name="SpinBox" type="SpinBox" parent="RaceMenu/DistanceChallenge/Time"]
+layout_mode = 0
+offset_left = 213.0
+offset_top = -1.0
+offset_right = 299.563
+offset_bottom = 30.0
+max_value = 1000.0
+allow_greater = true
+
+[node name="Camera3D" type="Camera3D" parent="."]
