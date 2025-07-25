@@ -69,7 +69,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.171494, -3.8147e-06, -91.83
 curve = SubResource("Curve3D_syadr")
 
 [node name="PathFollow3D" type="PathFollow3D" parent="CarPath"]
-transform = Transform3D(0.999403, -1.46651e-09, 0.0333381, 0, 1.00006, 4.39849e-08, -0.0333372, -4.39639e-08, 0.999428, 0, 0, 0)
+transform = Transform3D(0.999403, -1.46651e-09, 0.0333381, 0, 1.00006, 4.39849e-08, -0.0333373, -4.39638e-08, 0.999428, 0, 0, 0)
 rotation_mode = 4
 use_model_front = true
 cubic_interp = false
