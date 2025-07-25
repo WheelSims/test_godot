@@ -1,0 +1,12 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://dhsapoj2reyva"]
+
+[ext_resource type="Texture2D" uid="uid://c7ps3obr5fcpy" path="res://Objects/Park/Trees/Art/leafs.png" id="1_8j855"]
+
+[resource]
+resource_name = "leafs"
+transparency = 4
+cull_mode = 2
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("1_8j855")
+emission_enabled = true
+texture_repeat = false
