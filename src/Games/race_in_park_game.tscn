@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://ren1j3ljjk5q"]
+
+[ext_resource type="PackedScene" uid="uid://y2xjjvq3l33t" path="res://Environments/park_environment.tscn" id="1_trtnn"]
+
+[node name="RaceInParkGame" type="Node3D"]
+
+[node name="ParkEnvironment" parent="." instance=ExtResource("1_trtnn")]
+
+[node name="Game stuff" type="Node3D" parent="."]
+
+[node name="Other game stuff" type="Node3D" parent="."]
+
+[node name="Still more game stuff" type="Node3D" parent="."]

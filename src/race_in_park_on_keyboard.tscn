@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://c5gx80wmbdbog"]
+
+[ext_resource type="PackedScene" uid="uid://ren1j3ljjk5q" path="res://Games/race_in_park_game.tscn" id="1_lr7ph"]
+[ext_resource type="PackedScene" uid="uid://k8nnhdqlvvje" path="res://Player/player_on_keyboard.tscn" id="2_joluy"]
+
+[node name="RaceInParkOnKeyboard" type="Node3D"]
+
+[node name="RaceInParkGame" parent="." instance=ExtResource("1_lr7ph")]
+
+[node name="PlayerOnKeyboard" parent="." instance=ExtResource("2_joluy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.4481, 0, -6.93033)
+
+[connection signal="ready" from="." to="." method="_on_ready"]
