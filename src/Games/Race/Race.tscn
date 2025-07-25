@@ -49,78 +49,102 @@ vertical_alignment = 1
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/margin_left = 50
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 10
 
-[node name="Races" type="VBoxContainer" parent="RaceMenu/PanelContainer/VBoxContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="RaceMenu/PanelContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 70
+
+[node name="Races" type="VBoxContainer" parent="RaceMenu/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 100
 
-[node name="TimeTrial" type="VBoxContainer" parent="RaceMenu/PanelContainer/VBoxContainer/MarginContainer/Races"]
+[node name="TimeTrial" type="VBoxContainer" parent="RaceMenu/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer/Races"]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="TimeTrial" type="HBoxContainer" parent="RaceMenu/PanelContainer/VBoxContainer/MarginContainer/Races/TimeTrial"]
+[node name="TimeTrial" type="HBoxContainer" parent="RaceMenu/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer/Races/TimeTrial"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="TimeTrialButton" type="Button" parent="RaceMenu/PanelContainer/VBoxContainer/MarginContainer/Races/TimeTrial/TimeTrial"]
+[node name="TimeTrialButton" type="Button" parent="RaceMenu/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer/Races/TimeTrial/TimeTrial"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 40
 text = "TimeTrial: "
 
-[node name="Description" type="Label" parent="RaceMenu/PanelContainer/VBoxContainer/MarginContainer/Races/TimeTrial/TimeTrial"]
+[node name="Description" type="Label" parent="RaceMenu/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer/Races/TimeTrial/TimeTrial"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
 text = "Finish race as fast as you can"
 vertical_alignment = 2
 
-[node name="Parameter" type="HBoxContainer" parent="RaceMenu/PanelContainer/VBoxContainer/MarginContainer/Races/TimeTrial"]
+[node name="Parameter" type="HBoxContainer" parent="RaceMenu/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer/Races/TimeTrial"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 40
 
-[node name="Distance" type="Label" parent="RaceMenu/PanelContainer/VBoxContainer/MarginContainer/Races/TimeTrial/Parameter"]
+[node name="Distance" type="Label" parent="RaceMenu/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer/Races/TimeTrial/Parameter"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
 text = "Set your race length : "
 
-[node name="SpinBox" type="SpinBox" parent="RaceMenu/PanelContainer/VBoxContainer/MarginContainer/Races/TimeTrial/Parameter"]
+[node name="SpinBox" type="SpinBox" parent="RaceMenu/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer/Races/TimeTrial/Parameter"]
 layout_mode = 2
 size_flags_vertical = 4
 max_value = 200.0
 
-[node name="DistanceChallenge" type="VBoxContainer" parent="RaceMenu/PanelContainer/VBoxContainer/MarginContainer/Races"]
+[node name="DistanceChallenge" type="VBoxContainer" parent="RaceMenu/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer/Races"]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="DistanceChallenge" type="HBoxContainer" parent="RaceMenu/PanelContainer/VBoxContainer/MarginContainer/Races/DistanceChallenge"]
+[node name="DistanceChallenge" type="HBoxContainer" parent="RaceMenu/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer/Races/DistanceChallenge"]
 layout_mode = 2
 
-[node name="Button" type="Button" parent="RaceMenu/PanelContainer/VBoxContainer/MarginContainer/Races/DistanceChallenge/DistanceChallenge"]
+[node name="Button" type="Button" parent="RaceMenu/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer/Races/DistanceChallenge/DistanceChallenge"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 40
 text = "DistanceChallenge: 
 "
 
-[node name="Description2" type="Label" parent="RaceMenu/PanelContainer/VBoxContainer/MarginContainer/Races/DistanceChallenge/DistanceChallenge"]
+[node name="Description2" type="Label" parent="RaceMenu/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer/Races/DistanceChallenge/DistanceChallenge"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
 text = "Go as far as you can in x seconds"
 vertical_alignment = 2
 
-[node name="Parameter" type="HBoxContainer" parent="RaceMenu/PanelContainer/VBoxContainer/MarginContainer/Races/DistanceChallenge"]
+[node name="Parameter" type="HBoxContainer" parent="RaceMenu/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer/Races/DistanceChallenge"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 40
 
-[node name="Time" type="Label" parent="RaceMenu/PanelContainer/VBoxContainer/MarginContainer/Races/DistanceChallenge/Parameter"]
+[node name="Time" type="Label" parent="RaceMenu/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer/Races/DistanceChallenge/Parameter"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
 text = "Set your minutor X :"
 
-[node name="SpinBox" type="SpinBox" parent="RaceMenu/PanelContainer/VBoxContainer/MarginContainer/Races/DistanceChallenge/Parameter"]
+[node name="SpinBox" type="SpinBox" parent="RaceMenu/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer/Races/DistanceChallenge/Parameter"]
 layout_mode = 2
 size_flags_vertical = 4
 max_value = 1000.0
 allow_greater = true
+
+[node name="Buttons" type="HBoxContainer" parent="RaceMenu/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 130
+
+[node name="Cancel" type="Button" parent="RaceMenu/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer/Buttons"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 40
+text = "Cancel"
+
+[node name="Start" type="Button" parent="RaceMenu/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer/Buttons"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 40
+text = "Start
+"
 
 [node name="Camera3D" type="Camera3D" parent="."]
