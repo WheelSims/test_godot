@@ -1,4 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://b2lsq08mbnhw0"]
+[gd_scene load_steps=6 format=3 uid="uid://b2lsq08mbnhw0"]
+
+[ext_resource type="Script" uid="uid://756ao1ivufpd" path="res://Games/Race/RaceManager.gd" id="1_dv7no"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cy171"]
 bg_color = Color(0.162066, 0.162066, 0.162065, 1)
@@ -8,11 +10,19 @@ expand_margin_bottom = 10.0
 [sub_resource type="LabelSettings" id="LabelSettings_cy171"]
 font_size = 30
 
-[node name="Race" type="Node3D"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_cy171"]
+size = Vector3(1, 0.796936, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_dv7no"]
+
+[node name="Race" type="Node3D" node_paths=PackedStringArray("race_choice_menu")]
+script = ExtResource("1_dv7no")
+race_choice_menu = NodePath("RaceMenu/PanelContainer")
 
 [node name="RaceMenu" type="CanvasLayer" parent="."]
 
 [node name="PanelContainer" type="PanelContainer" parent="RaceMenu"]
+visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -84,12 +94,12 @@ layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 40
 
-[node name="Distance" type="Label" parent="RaceMenu/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer/Races/TimeTrial/Parameter"]
+[node name="Instruction" type="Label" parent="RaceMenu/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer/Races/TimeTrial/Parameter"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
 text = "Set your race length : "
 
-[node name="SpinBox" type="SpinBox" parent="RaceMenu/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer/Races/TimeTrial/Parameter"]
+[node name="Distance" type="SpinBox" parent="RaceMenu/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer/Races/TimeTrial/Parameter"]
 layout_mode = 2
 size_flags_vertical = 4
 max_value = 200.0
@@ -101,7 +111,7 @@ theme_override_constants/separation = 0
 [node name="DistanceChallenge" type="HBoxContainer" parent="RaceMenu/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer/Races/DistanceChallenge"]
 layout_mode = 2
 
-[node name="Button" type="Button" parent="RaceMenu/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer/Races/DistanceChallenge/DistanceChallenge"]
+[node name="DistanceChallengeButton" type="Button" parent="RaceMenu/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer/Races/DistanceChallenge/DistanceChallenge"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 40
 text = "DistanceChallenge: 
@@ -118,12 +128,12 @@ layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 40
 
-[node name="Time" type="Label" parent="RaceMenu/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer/Races/DistanceChallenge/Parameter"]
+[node name="Instruction" type="Label" parent="RaceMenu/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer/Races/DistanceChallenge/Parameter"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
 text = "Set your minutor X :"
 
-[node name="SpinBox" type="SpinBox" parent="RaceMenu/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer/Races/DistanceChallenge/Parameter"]
+[node name="Timer" type="SpinBox" parent="RaceMenu/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer/Races/DistanceChallenge/Parameter"]
 layout_mode = 2
 size_flags_vertical = 4
 max_value = 1000.0
@@ -148,3 +158,22 @@ text = "Start
 "
 
 [node name="Camera3D" type="Camera3D" parent="."]
+
+[node name="Trigger" type="Area3D" parent="."]
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Trigger"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.406403, 0)
+shape = SubResource("BoxShape3D_cy171")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.629862, 0, 0, 0, 0.768014, 0, 0, 0, 0.785038, 0, 0.506703, 0)
+mesh = SubResource("BoxMesh_dv7no")
+
+[connection signal="pressed" from="RaceMenu/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer/Races/TimeTrial/TimeTrial/TimeTrialButton" to="." method="_on_time_trial_button_pressed"]
+[connection signal="value_changed" from="RaceMenu/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer/Races/TimeTrial/Parameter/Distance" to="." method="_on_distance_value_changed"]
+[connection signal="pressed" from="RaceMenu/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer/Races/DistanceChallenge/DistanceChallenge/DistanceChallengeButton" to="." method="_on_distance_challenge_button_pressed"]
+[connection signal="value_changed" from="RaceMenu/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer/Races/DistanceChallenge/Parameter/Timer" to="." method="_on_timer_value_changed"]
+[connection signal="pressed" from="RaceMenu/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer/Buttons/Cancel" to="." method="_on_cancel_pressed"]
+[connection signal="pressed" from="RaceMenu/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer/Buttons/Start" to="." method="_on_start_pressed"]
+[connection signal="area_entered" from="Trigger" to="." method="_on_trigger_area_entered"]
