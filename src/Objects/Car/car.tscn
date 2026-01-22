@@ -1,7 +1,9 @@
-[gd_scene load_steps=22 format=4 uid="uid://dmltfs83e8g7f"]
+[gd_scene load_steps=25 format=4 uid="uid://dmltfs83e8g7f"]
 
-[ext_resource type="Script" uid="uid://caocvec12vany" path="res://Objects/Car/car.gd" id="1_ly6kp"]
+[ext_resource type="Script" uid="uid://caocvec12vany" path="res://Objects/Car/car_controller.gd" id="1_ly6kp"]
 [ext_resource type="AudioStream" uid="uid://cr67rcgnvkq56" path="res://Sound/Sounds/StreetZone/CarIdleLoop.wav" id="2_ly6kp"]
+[ext_resource type="Script" uid="uid://c4r7r047n0dmv" path="res://Objects/Car/car_visuals.gd" id="2_tvrm5"]
+[ext_resource type="Script" uid="uid://s148kj6woyi0" path="res://Objects/Car/car_audio.gd" id="3_22k07"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_endym"]
 resource_name = "Window"
@@ -64,7 +66,8 @@ _surfaces = [{
 }]
 blend_shape_mode = 0
 
-[sub_resource type="ArrayMesh" id="ArrayMesh_3ttwq"]
+[sub_resource type="ArrayMesh" id="ArrayMesh_ly6kp"]
+resource_local_to_scene = true
 resource_name = "Mesh"
 _surfaces = [{
 "aabb": AABB(-0.997148, 0.941334, -1.80125, 1.9943, 0.580895, 3.0574),
@@ -108,6 +111,8 @@ _surfaces = [{
 }]
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_1xqg3")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ly6kp"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lp2lf"]
 resource_name = "Rims"
@@ -358,7 +363,8 @@ blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_8l5sd")
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_asns1"]
-height = 2.29161
+radius = 1.23294
+height = 3.04007
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_slanq"]
 radius = 1.21117
@@ -370,7 +376,7 @@ height = 5.153
 [sub_resource type="BoxShape3D" id="BoxShape3D_v636r"]
 size = Vector3(2.14301, 1.56146, 5.00439)
 
-[node name="Car" type="Node3D" node_paths=PackedStringArray("_triggers_on_curve", "_wheels", "_front_pivots")]
+[node name="Car" type="Node3D" node_paths=PackedStringArray("_triggers_on_curve", "car_audio", "car_visuals")]
 transform = Transform3D(1.00001, 0, 0, 0, 1.0001, -0.00349069, 0, 0.00349102, 1.00001, 0, 0, 0)
 script = ExtResource("1_ly6kp")
 _triggers_on_curve = [NodePath("Triggers/FrontTrigger"), NodePath("Triggers/FarTrigger")]
@@ -378,13 +384,17 @@ _max_speed = 10.0
 _slow_speed = 2.0
 _acceleration = 4.0
 _decceleration = 5.0
-_wheels = [NodePath("Car_geo/FrontRight/WheelFrontRight"), NodePath("Car_geo/FrontLeft/WheelFrontLeft"), NodePath("Car_geo/WheelBackLeft"), NodePath("Car_geo/WheelBackRight")]
-_front_pivots = [NodePath("Car_geo/FrontRight"), NodePath("Car_geo/FrontLeft")]
+car_audio = NodePath("AudioStreamPlayer3D")
+car_visuals = NodePath("Car_geo")
 
-[node name="Car_geo" type="MeshInstance3D" parent="."]
+[node name="Car_geo" type="MeshInstance3D" parent="." node_paths=PackedStringArray("wheels", "front_pivots")]
 transform = Transform3D(1, 0, 0, 0, 1, 7.54371e-08, 0, -7.49715e-08, 1, 0, 0.00484802, 1.38898)
-mesh = SubResource("ArrayMesh_3ttwq")
+mesh = SubResource("ArrayMesh_ly6kp")
 skeleton = NodePath("")
+surface_material_override/1 = SubResource("StandardMaterial3D_ly6kp")
+script = ExtResource("2_tvrm5")
+wheels = [NodePath("FrontLeft/WheelFrontLeft"), NodePath("FrontRight/WheelFrontRight"), NodePath("WheelBackLeft"), NodePath("WheelBackRight")]
+front_pivots = [NodePath("FrontRight"), NodePath("FrontLeft")]
 
 [node name="FrontRight" type="Node3D" parent="Car_geo"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 4.65661e-10, 1, -0.842698, 0.422383, 1.53348)
@@ -416,22 +426,22 @@ skeleton = NodePath("")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 4.65661e-10, 1, 0, 0.00484802, 1.38898)
 
 [node name="CloseTrigger" type="Area3D" parent="Triggers"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 4.65661e-10, 1, 0, 0.524762, 3.19021)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 6.98492e-10, 1, 0, 0.526809, 3.77667)
 monitorable = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Triggers/CloseTrigger"]
-transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
+transform = Transform3D(0.00349032, 4.35588e-08, 0.999994, 0.999988, 0.00349028, -0.0034903, -0.00349025, 0.999994, 1.21386e-05, 0, 0, 0)
 shape = SubResource("CapsuleShape3D_asns1")
 
 [node name="FrontTrigger" type="Area3D" parent="Triggers"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 2.32831e-10, 1, 0, -4.65661e-10, 4.69141)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 4.65661e-10, 1, 0, 0.00334207, 5.64893)
 monitorable = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Triggers/FrontTrigger"]
 shape = SubResource("SphereShape3D_slanq")
 
 [node name="FarTrigger" type="Area3D" parent="Triggers"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 6.98492e-10, 1, 0, 0.630152, 8.4894)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 9.31323e-10, 1, 0, 0.632592, 9.1886)
 monitorable = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Triggers/FarTrigger"]
@@ -450,6 +460,7 @@ shape = SubResource("BoxShape3D_v636r")
 transform = Transform3D(0.99999, 0, 0, 0, 0.999894, -1.58325e-08, 0, 0, 0.999984, 0, 0.00484802, 1.38898)
 stream = ExtResource("2_ly6kp")
 autoplay = true
+script = ExtResource("3_22k07")
 
 [node name="Raycasts" type="Node3D" parent="."]
 

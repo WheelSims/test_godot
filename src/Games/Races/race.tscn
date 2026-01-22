@@ -778,8 +778,6 @@ monitorable = false
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.406403, 0.300842)
 shape = SubResource("BoxShape3D_cy171")
 
-[node name="Camera3D" type="Camera3D" parent="."]
-
 [node name="Crowd" parent="." node_paths=PackedStringArray("race_manager") instance=ExtResource("2_usaem")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -1.05313, 0, 5.69131)
 race_manager = NodePath("..")

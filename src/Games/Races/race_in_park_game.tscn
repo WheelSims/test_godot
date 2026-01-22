@@ -3,7 +3,6 @@
 [ext_resource type="PackedScene" uid="uid://y2xjjvq3l33t" path="res://Environments/park_environment.tscn" id="1_trtnn"]
 [ext_resource type="PackedScene" uid="uid://b2lsq08mbnhw0" path="res://Games/Races/race.tscn" id="2_g5yr7"]
 
-
 [sub_resource type="Curve3D" id="Curve3D_n6s4s"]
 _data = {
 "points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 11.685, 1.90735e-06, -6.41877, 0, 0, 0, 0, 0, 0, 25.9747, 1.90735e-06, -13.9269, 0, 0, 0, 0, 0, 0, 47.4447, 1.90735e-06, -17.1226, 0, 0, 0, 0, 0, 0, 67.5708, 1.90735e-06, -10.849, 0, 0, 0, 0, 0, 0, 76.9544, 1.90735e-06, 5.00327, 0, 0, 0, 0, 0, 0, 71.8837, -3.61702e-05, 19.1521, 0, 0, 0, 0, 0, 0, 53.5974, -3.61702e-05, 26.5174, 0, 0, 0, 0, 0, 0, 40.6447, -3.61702e-05, 36.1685),

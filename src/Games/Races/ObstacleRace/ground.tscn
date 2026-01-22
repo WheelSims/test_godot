@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=3 uid="uid://jqktvq65k2vj"]
+
+[ext_resource type="Texture2D" uid="uid://csbwjfuwod7oo" path="res://Terrain/Park/Textures/gravel.jpg" id="1_i15id"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_r34yr"]
+albedo_texture = ExtResource("1_i15id")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_bvsuw"]
+material = SubResource("StandardMaterial3D_r34yr")
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_erjiv"]
+data = PackedVector3Array(1, 0, 1, -1, 0, 1, 1, 0, -1, -1, 0, 1, -1, 0, -1, 1, 0, -1)
+
+[node name="Ground" type="MeshInstance3D"]
+mesh = SubResource("PlaneMesh_bvsuw")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_erjiv")

@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://2uxhkhrx4tgf"]
 
-[ext_resource type="PackedScene" uid="uid://ren1j3ljjk5q" path="res://Games/Race/race_in_park_game.tscn" id="1_6f5yu"]
+[ext_resource type="PackedScene" uid="uid://ren1j3ljjk5q" path="res://Games/Races/race_in_park_game.tscn" id="1_6f5yu"]
 [ext_resource type="PackedScene" uid="uid://biluq7vv8ghsm" path="res://Player/player.tscn" id="2_t10na"]
 
 [node name="RaceInPark" type="Node3D"]
