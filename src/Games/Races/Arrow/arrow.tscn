@@ -1,6 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://83fy70dgr8u8"]
 
-[ext_resource type="Texture2D" uid="uid://q8k730wim8e0" path="res://Games/Race/Arrow/arrow_texture.png" id="1_5lnqj"]
+[ext_resource type="Texture2D" uid="uid://q8k730wim8e0" path="res://Games/Races/Arrow/arrow_texture.png" id="1_5lnqj"]
+
 
 [sub_resource type="Animation" id="Animation_5lnqj"]
 resource_name = "Fade_in_out"

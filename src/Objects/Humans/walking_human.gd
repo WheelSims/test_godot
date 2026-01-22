@@ -8,7 +8,7 @@ var _current_speed : float
 var _target_speed : float
 
 @export var detection_area: Area3D
-@onready var pathFollow: PathFollow3D = get_parent().get_parent()
+@onready var path_follow: PathFollow3D = get_parent().get_parent()
 var _nb_obstacle : int = 0
 
 @onready var down_ray = $Raycasts/RayCast3DDown
@@ -20,27 +20,27 @@ func _ready():
 	anim_tree.active = true
 
 func _process(delta):
+	# Transform Correction
+	if (path_follow.progress > 2 and _current_speed > 0):	
+		_transform_correction()
+		get_parent().position -= y_offset * Vector3.UP
+	else:
+		get_parent().position.y = 0
+	
 	# There is speed lerp only for going on walk, not for stopping
 	if (_nb_obstacle < 1):
 		_target_speed = max_speed
 		_current_speed = move_toward(_current_speed, _target_speed, delta * acceleration)
-		if (pathFollow.progress > 2):	
-			_transform_correction()
-			get_parent().position -= y_offset * Vector3.UP
-		else:
-			get_parent().position.y = 0
 	else:
 		_current_speed = 0
 	
-	
-	anim_tree.set("parameters/Blend2/blend_amount", _current_speed/_target_speed)
-	pathFollow.progress += _current_speed * delta
+	anim_tree.set("parameters/Blend2/blend_amount", _current_speed/max_speed)
+	path_follow.progress += _current_speed * delta
 
 func _on_trigger_area_entered(area: Area3D) -> void:
 	if self.is_ancestor_of(area):
 		return
 	_nb_obstacle += 1
-
 
 func _on_trigger_area_exited(area: Area3D) -> void:
 	if self.is_ancestor_of(area):

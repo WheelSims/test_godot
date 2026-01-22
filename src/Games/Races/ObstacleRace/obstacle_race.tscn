@@ -1,0 +1,57 @@
+[gd_scene load_steps=11 format=3 uid="uid://hnxp88a0five"]
+
+[ext_resource type="Script" uid="uid://cn4e2xmcav5ft" path="res://Games/Races/ObstacleRace/obstacle_race_generator.gd" id="1_rnfno"]
+[ext_resource type="Script" uid="uid://epb7xgmjyv72" path="res://Games/Races/Scripts/race_data.gd" id="2_ogs1q"]
+[ext_resource type="PackedScene" uid="uid://36jj7pd344xn" path="res://Games/Races/ObstacleRace/obstacle_sample.tscn" id="3_8r2kh"]
+[ext_resource type="PackedScene" uid="uid://c4jen6mmu7mgu" path="res://Games/Races/Arch/finish_line.tscn" id="4_nl003"]
+[ext_resource type="PackedScene" uid="uid://bqcqt6d3sec64" path="res://Games/Races/Arch/start_line.glb" id="4_ogs1q"]
+[ext_resource type="PackedScene" uid="uid://cctnfvdwdceio" path="res://Games/Races/Arch/start_line.tscn" id="5_7pb3g"]
+[ext_resource type="PackedScene" uid="uid://d4dm6lh1tu5fw" path="res://Games/Races/Crowd/crowd.tscn" id="5_8r2kh"]
+
+[sub_resource type="Resource" id="Resource_bvkxh"]
+script = ExtResource("2_ogs1q")
+race_length = 100
+race_width = 10.0
+object_size_range = Vector2(0.5, 3)
+depth_dist_btw_object_range = Vector2(5, 20)
+horiz_dist_btw_object_range = Vector2(3, 5)
+min_passage_size = 2
+metadata/_custom_type_script = "uid://epb7xgmjyv72"
+
+[sub_resource type="Resource" id="Resource_pno21"]
+script = ExtResource("2_ogs1q")
+race_length = 100
+race_width = 10.0
+object_size_range = Vector2(0.5, 3)
+depth_dist_btw_object_range = Vector2(5, 20)
+horiz_dist_btw_object_range = Vector2(3, 5)
+min_passage_size = 2
+metadata/_custom_type_script = "uid://epb7xgmjyv72"
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8r2kh"]
+size = Vector3(7, 1, 1)
+
+[node name="ObstacleRace" type="Node3D"]
+script = ExtResource("1_rnfno")
+race_data = Array[ExtResource("2_ogs1q")]([SubResource("Resource_bvkxh"), SubResource("Resource_pno21")])
+border_sample = ExtResource("3_8r2kh")
+obstacle_sample = ExtResource("3_8r2kh")
+finish_line = ExtResource("4_nl003")
+start_line = ExtResource("5_7pb3g")
+
+[node name="start_line" parent="." instance=ExtResource("4_ogs1q")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
+
+[node name="Crowd" parent="start_line" instance=ExtResource("5_8r2kh")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -7.05313, 0, -3.30869)
+
+[node name="Crowd2" parent="start_line" instance=ExtResource("5_8r2kh")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 7.94687, 0, -3.30869)
+
+[node name="Area3D" type="Area3D" parent="start_line"]
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="start_line/Area3D"]
+shape = SubResource("BoxShape3D_8r2kh")
+
+[connection signal="body_entered" from="start_line/Area3D" to="." method="_on_area_3d_body_entered"]

@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://bqcqt6d3sec64"
-path="res://.godot/imported/start_line.glb-283b14a66d4ce8f32c797ad15be4c6e2.scn"
+path="res://.godot/imported/start_line.glb-69aab2b876687b910db239fe3b84a76e.scn"
 
 [deps]
 
-source_file="res://Games/Race/Arch/start_line.glb"
-dest_files=["res://.godot/imported/start_line.glb-283b14a66d4ce8f32c797ad15be4c6e2.scn"]
+source_file="res://Games/Races/Arch/start_line.glb"
+dest_files=["res://.godot/imported/start_line.glb-69aab2b876687b910db239fe3b84a76e.scn"]
 
 [params]
 

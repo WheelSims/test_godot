@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://q8k730wim8e0"
-path.s3tc="res://.godot/imported/arrow_texture.png-ce6a79d2c1e223b641e964b825b8220a.s3tc.ctex"
+path.s3tc="res://.godot/imported/arrow_texture.png-42fc5f0ba993ce1fa74a490afe1440b2.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Games/Race/Arrow/arrow_texture.png"
-dest_files=["res://.godot/imported/arrow_texture.png-ce6a79d2c1e223b641e964b825b8220a.s3tc.ctex"]
+source_file="res://Games/Races/Arrow/arrow_texture.png"
+dest_files=["res://.godot/imported/arrow_texture.png-42fc5f0ba993ce1fa74a490afe1440b2.s3tc.ctex"]
 
 [params]
 

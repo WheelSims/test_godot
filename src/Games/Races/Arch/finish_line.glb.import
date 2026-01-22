@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://qp8vhybnks2f"
-path="res://.godot/imported/finish_line.glb-bd24917205e059abb37a4234530a4141.scn"
+path="res://.godot/imported/finish_line.glb-c250b7ec0f64f725cdff12f31c62aea6.scn"
 
 [deps]
 
-source_file="res://Games/Race/Arch/finish_line.glb"
-dest_files=["res://.godot/imported/finish_line.glb-bd24917205e059abb37a4234530a4141.scn"]
+source_file="res://Games/Races/Arch/finish_line.glb"
+dest_files=["res://.godot/imported/finish_line.glb-c250b7ec0f64f725cdff12f31c62aea6.scn"]
 
 [params]
 

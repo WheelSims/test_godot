@@ -1,16 +1,16 @@
 [gd_scene load_steps=66 format=3 uid="uid://b2lsq08mbnhw0"]
 
-[ext_resource type="Script" uid="uid://756ao1ivufpd" path="res://Games/Race/Scripts/race_manager.gd" id="1_dv7no"]
-[ext_resource type="Script" uid="uid://ky26bjjr4xpn" path="res://Games/Race/Scripts/countdown.gd" id="2_7p264"]
-[ext_resource type="PackedScene" uid="uid://83fy70dgr8u8" path="res://Games/Race/Arrow/arrow.tscn" id="2_13pu7"]
-[ext_resource type="PackedScene" uid="uid://d4dm6lh1tu5fw" path="res://Games/Race/Crowd/crowd.tscn" id="2_usaem"]
+[ext_resource type="Script" uid="uid://756ao1ivufpd" path="res://Games/Races/Scripts/race_manager.gd" id="1_dv7no"]
+[ext_resource type="Script" uid="uid://ky26bjjr4xpn" path="res://Games/Races/Scripts/countdown.gd" id="2_7p264"]
+[ext_resource type="PackedScene" uid="uid://83fy70dgr8u8" path="res://Games/Races/Arrow/arrow.tscn" id="2_13pu7"]
+[ext_resource type="PackedScene" uid="uid://d4dm6lh1tu5fw" path="res://Games/Races/Crowd/crowd.tscn" id="2_usaem"]
 [ext_resource type="StyleBox" uid="uid://bge2kgncvebc" path="res://UI/UIRacePanel.tres" id="2_ve0sf"]
 [ext_resource type="StyleBox" uid="uid://cwsk7s5ocdxrj" path="res://UI/Buttons/DistanceChallenge_Button/OrangeButtonColor_default.tres" id="2_xi6vc"]
-[ext_resource type="PackedScene" uid="uid://c4jen6mmu7mgu" path="res://Games/Race/Arch/finish_line.tscn" id="3_4ad36"]
+[ext_resource type="PackedScene" uid="uid://c4jen6mmu7mgu" path="res://Games/Races/Arch/finish_line.tscn" id="3_4ad36"]
 [ext_resource type="AudioStream" uid="uid://bkv2spkxm5euk" path="res://Sound/Sounds/SFX/UI/Click_error.wav" id="3_8ermj"]
-[ext_resource type="PackedScene" uid="uid://bqcqt6d3sec64" path="res://Games/Race/Arch/start_line.glb" id="3_ewi6o"]
+[ext_resource type="PackedScene" uid="uid://bqcqt6d3sec64" path="res://Games/Races/Arch/start_line.glb" id="3_ewi6o"]
 [ext_resource type="AudioStream" uid="uid://cqvdgldce0xfc" path="res://Sound/Sounds/SFX/UI/Click_tone.wav" id="3_jgags"]
-[ext_resource type="Script" uid="uid://puwppin43lhv" path="res://Games/Race/Scripts/inform_panels.gd" id="3_qqkar"]
+[ext_resource type="Script" uid="uid://puwppin43lhv" path="res://Games/Races/Scripts/inform_panels.gd" id="3_qqkar"]
 [ext_resource type="FontFile" uid="uid://d2yf0x212xaf2" path="res://UI/Font/Clear_font/ClearSans-Bold.ttf" id="3_sqdhg"]
 [ext_resource type="StyleBox" uid="uid://b620mgbausmw4" path="res://UI/Buttons/DistanceChallenge_Button/OrangeButtonColor_hover.tres" id="3_ssgmn"]
 [ext_resource type="StyleBox" uid="uid://blrwvqnf0el8y" path="res://UI/StyleBoxWhiteColor.tres" id="3_ts1jy"]
@@ -770,7 +770,6 @@ vertical_alignment = 1
 
 [node name="SFXPlayer" type="AudioStreamPlayer" parent="UI"]
 stream = ExtResource("3_jgags")
-bus = &"Ext_SFX"
 
 [node name="Trigger" type="Area3D" parent="."]
 monitorable = false
@@ -778,8 +777,6 @@ monitorable = false
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Trigger"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.406403, 0.300842)
 shape = SubResource("BoxShape3D_cy171")
-
-[node name="Camera3D" type="Camera3D" parent="."]
 
 [node name="Crowd" parent="." node_paths=PackedStringArray("race_manager") instance=ExtResource("2_usaem")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -1.05313, 0, 5.69131)

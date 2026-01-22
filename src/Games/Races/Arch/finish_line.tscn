@@ -1,8 +1,9 @@
 [gd_scene load_steps=4 format=3 uid="uid://c4jen6mmu7mgu"]
 
-[ext_resource type="PackedScene" uid="uid://qp8vhybnks2f" path="res://Games/Race/Arch/finish_line.glb" id="1_swjo5"]
-[ext_resource type="PackedScene" uid="uid://d4dm6lh1tu5fw" path="res://Games/Race/Crowd/crowd.tscn" id="2_nhs2w"]
+[ext_resource type="PackedScene" uid="uid://qp8vhybnks2f" path="res://Games/Races/Arch/finish_line.glb" id="1_swjo5"]
+[ext_resource type="PackedScene" uid="uid://d4dm6lh1tu5fw" path="res://Games/Races/Crowd/crowd.tscn" id="2_nhs2w"]
 [ext_resource type="AudioStream" uid="uid://owaj5m5lpk1b" path="res://Sound/Sounds/Humans/No_Loop_applause-cheerfully.wav" id="3_a5w7r"]
+
 
 [node name="EndArch" instance=ExtResource("1_swjo5")]
 
