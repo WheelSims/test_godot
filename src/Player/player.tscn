@@ -121,7 +121,6 @@ position = Vector2i(0, 36)
 size = Vector2i(1150, 615)
 
 [node name="FloorCamera" type="Camera3D" parent="FloorProjector"]
-fov = 100.0
 
 [node name="Polygon2D" type="Polygon2D" parent="FloorProjector"]
 scale = Vector2(1280, 100)
