@@ -6,10 +6,10 @@ extends Node3D
 @export var UDP_RECEIVE_PORT: int = 25100
 
 # Public variables (read)
-var current_increment_index: int = 0
+var index: int = 0
 var angular_velocity: float = 0
 var linear_velocity: float = 0
-var emergency_stop: bool = false
+var stopped: bool = false
 
 # Public variables (sent)
 var hardware_enabled: float = 1
@@ -61,17 +61,20 @@ func receive() -> void:
 	if _udp_receiver.get_available_packet_count() > 0:  # We received something
 		if not _udp_receiver_connected:
 			_udp_receiver_connected = true
-			print("Rollers connected.")			
+			print("Motors connected.")
 		var array_bytes = _udp_receiver.get_packet()
 		
 		# Discard everything until the very last packet we received
 		while _udp_receiver.get_available_packet_count() > 0:
 			array_bytes = _udp_receiver.get_packet()
 		
-		current_increment_index = int(array_bytes.decode_double(0))
-		angular_velocity = float(array_bytes.decode_double(8))
-		linear_velocity = float(array_bytes.decode_double(16))
-		emergency_stop = bool(array_bytes.decode_double(24))
+		var header = int(array_bytes.decode_double(0))
+		index = (header / 2^28)
+		var cmd = (header / 2^16) % 2^12
+		stopped = header % 1
+
+		linear_velocity = float(array_bytes.decode_double(4))
+		angular_velocity = float(array_bytes.decode_double(12))
 
 func send() -> void:
 	var bytes = PackedByteArray()

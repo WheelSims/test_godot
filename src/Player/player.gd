@@ -75,7 +75,7 @@ func _physics_process(delta: float) -> void:
 	# Affichage vitesse
 	if motors and player_text_node:
 		var text: String
-		if motors.emergency_stop:
+		if motors.stopped:
 			text = "\nMotors OFF"
 		else:
 			text = str(abs(desired_linear_velocity)).pad_decimals(1) + " m/s"
