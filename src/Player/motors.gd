@@ -69,24 +69,31 @@ func receive() -> void:
 			array_bytes = _udp_receiver.get_packet()
 		
 		var header = int(array_bytes.decode_double(0))
-		index = (header / 2^28)
-		var cmd = (header / 2^16) % 2^12
-		stopped = header % 1
+		index = (header / 2**28)
+		var cmd = (header / 2**16) % 2**12
+		stopped = header % 2**1
 
 		linear_velocity = float(array_bytes.decode_double(4))
 		angular_velocity = float(array_bytes.decode_double(12))
 
 func send() -> void:
-	var bytes = PackedByteArray()
-	bytes.resize(40)
-	bytes.encode_double(0, hardware_enabled)
-	bytes.encode_double(8, friction)
-	bytes.encode_u32(16, collision_detected)
-	bytes.encode_double(20, mass)
-	bytes.encode_double(28, wheel_distance)
-	bytes.encode_u32(36, force_reset)
+	send_data(2, hardware_enabled, friction, 0)
+	#if collision_detected:
+		#send_data(3, hardware_enabled, friction, 0)
+	#else:
+		#send_data(4, hardware_enabled, friction, 0)
+
+func set_inertia(mass, moment_of_inertia) -> void:
+	send_data(1, hardware_enabled, mass, moment_of_inertia)
 	
+func send_data(cmd, enable, arg1, arg2) -> void:
+	var bytes = PackedByteArray()
+	bytes.resize(20)
+	bytes.encode_u32(0, int(cmd) * (2**16) + int(enable))
+	bytes.encode_double(4, arg1)
+	bytes.encode_double(12, arg2)
 	_udp_sender.put_packet(bytes)
+
 
 func _on_obstacle_colliders_body_shape_entered(body_rid: RID, body: Node3D, body_shape_index: int, local_shape_index: int) -> void:
 	if body.get_groups().is_empty() and  body is not Surface:
