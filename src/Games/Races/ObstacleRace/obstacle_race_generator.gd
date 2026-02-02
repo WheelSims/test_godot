@@ -1,9 +1,12 @@
 extends Node3D
 
 var player: Node3D
+# Storage to delete current objects if needed
 var current_race_objects: Array[Node3D] = []
 @export var restart_pos: Node3D
+## Distance between levels
 @export var end_offset_to_restart: float
+## List of races and their parameters
 @export var race_data: Array[RaceData]
 var current_race_data_indice := 0
 var current_race_data
@@ -16,10 +19,10 @@ var finish_line_instance : Node3D
 @export var start_line: PackedScene
 var start_line_instance : Node3D
 @export var ground_tile: PackedScene
-var tile_length : float = 2  #the tile is a square
+var tile_length : float  #the tile is a square
 var current_tiles: Array[Node3D] = []
 
-
+#Race parameters
 var race_length: int = 100
 var race_width: float = 10
 var object_size_range: Vector2 = Vector2(0.5,3)
@@ -32,17 +35,27 @@ var _depth_dist: float
 var _horiz_dist: float
 var _object_size: float
 
+# _race_start_x and _end_race_x_pos reset at every new level
 var _race_start_x : float = 0
-var _current_x_pos : float = 0
 var _end_race_x_pos : float = 0
+# _current_x_pos progresses as the levels build up
+var _current_x_pos : float = 0
+# _start_ground_tile_x_pos is the position where the ground starts to be built for every level. Not the same same than _race_start_x
+var _start_ground_tile_x_pos : float = 0
+
 
 func _ready() -> void:
 	_rng.randomize()
 	default_border_sample = border_sample
 	default_obstacle_sample = obstacle_sample
+	var ground_tile : Node3D = ground_tile.instantiate()
+	var mesh : PlaneMesh = ground_tile.mesh
+	tile_length = mesh.size.x
+	ground_tile.queue_free()
 	if race_data.size()>0:
 		current_race_data = race_data[0]
 		_change_current_parameters()
+	_start_ground_tile_x_pos = _current_x_pos
 	_obstacle_generation()
 	_arches_generation()
 	_border_generation()
@@ -68,18 +81,19 @@ func _next_level() -> void:
 
 func _ground_generation():
 	var x_count = ceil((race_length + end_offset_to_restart) / tile_length)
-	var z_count = ceil(race_width / tile_length)
+	var z_count = ceil(race_width / tile_length) + 1
 
 	for i in range(x_count):
 		for j in range(z_count):
 			var tile: Node3D = ground_tile.instantiate()
 			tile.position = Vector3(
-				_race_start_x + i * tile_length + tile_length / 2.0,
+				_start_ground_tile_x_pos + i * tile_length + tile_length / 2.0,
 				0,
-				j * tile_length - race_width / 2 + tile_length / 2.0
+				j * tile_length - race_width / 2
 			)
 			add_child(tile)
 			current_tiles.append(tile)
+	_start_ground_tile_x_pos += + x_count * tile_length
 	
 func _arches_generation()->void:
 	if (current_race_data_indice>0):
