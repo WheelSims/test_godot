@@ -77,11 +77,7 @@ func receive() -> void:
 		angular_velocity = float(array_bytes.decode_double(12))
 
 func send() -> void:
-	send_data(2, hardware_enabled, friction, 0)
-	#if collision_detected:
-		#send_data(3, hardware_enabled, friction, 0)
-	#else:
-		#send_data(4, hardware_enabled, friction, 0)
+	send_data(2, hardware_enabled, friction, friction)
 
 func set_inertia(mass, moment_of_inertia) -> void:
 	send_data(1, hardware_enabled, mass, moment_of_inertia)
