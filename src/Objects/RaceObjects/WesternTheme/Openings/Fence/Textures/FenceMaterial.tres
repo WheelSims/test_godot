@@ -1,0 +1,22 @@
+[gd_resource type="StandardMaterial3D" load_steps=6 format=3 uid="uid://db363ysga8imt"]
+
+[ext_resource type="Texture2D" uid="uid://b5yeyv0t6wxy2" path="res://Objects/RaceObjects/WesternTheme/Openings/Fence/Textures/fence_DefaultMaterial_BaseColor.png" id="1_mb1j7"]
+[ext_resource type="Texture2D" uid="uid://b6rle81ah81js" path="res://Objects/RaceObjects/WesternTheme/Openings/Fence/Textures/fence_DefaultMaterial_Height.png" id="2_yli0s"]
+[ext_resource type="Texture2D" uid="uid://dpptxoy12yc0k" path="res://Objects/RaceObjects/WesternTheme/Openings/Fence/Textures/fence_DefaultMaterial_Metallic.png" id="3_onhs7"]
+[ext_resource type="Texture2D" uid="uid://4nfamft5r361" path="res://Objects/RaceObjects/WesternTheme/Openings/Fence/Textures/fence_DefaultMaterial_Normal.png" id="4_gp8qp"]
+[ext_resource type="Texture2D" uid="uid://bx3kuyonlx51g" path="res://Objects/RaceObjects/WesternTheme/Openings/Fence/Textures/fence_DefaultMaterial_Roughness.png" id="5_fpvxm"]
+
+[resource]
+transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
+cull_mode = 2
+albedo_texture = ExtResource("1_mb1j7")
+albedo_texture_force_srgb = true
+metallic = 1.0
+metallic_texture = ExtResource("3_onhs7")
+roughness_texture = ExtResource("5_fpvxm")
+normal_enabled = true
+normal_texture = ExtResource("4_gp8qp")
+heightmap_enabled = true
+heightmap_texture = ExtResource("2_yli0s")
