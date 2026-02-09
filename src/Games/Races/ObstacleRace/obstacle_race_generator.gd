@@ -26,9 +26,9 @@ var current_tiles: Array[Node3D] = []
 #Race parameters
 var race_length: int = 100
 var race_width: float = 10
-var object_size_range: Vector2 = Vector2(0.5,3)
-var depth_dist_btw_object_range: Vector2 = Vector2(5,20)
-var horiz_dist_btw_object_range: Vector2 = Vector2(3,5)
+var obst_size_range: Vector2 = Vector2(0.5,3)
+var depth_dist_btw_challenge_range: Vector2 = Vector2(5,20)
+var horiz_dist_btw_obst_range: Vector2 = Vector2(3,5)
 var min_passage_size = 2
 ## min and max of openings size
 var opening_size_range: Vector2 = Vector2(3,5)
@@ -39,12 +39,11 @@ var obstacle_opening_prob: float
 ## probability of having transparent (0) walls or not (1) (fence or brick walls)
 var transparent_op_wall_prob: float
 
-
-
 var _rng = RandomNumberGenerator.new()
 var _depth_dist: float
 var _horiz_dist: float
 var _object_size: float
+var remainder: float
 
 # _race_start_x and _end_race_x_pos reset at every new level
 var _race_start_x : float = 0
@@ -62,7 +61,6 @@ class Wall:
 
 var walls_on_current_challenge: Array[Wall] = []
 
-
 func _ready() -> void:
 	_rng.randomize()
 	default_border_sample = border_sample
@@ -75,14 +73,13 @@ func _ready() -> void:
 		current_race_data = race_data[0]
 		_change_current_parameters()
 	_start_ground_tile_x_pos = _current_x_pos
-	_obstacle_generation()
+	_challenge_generation()
 	_arches_generation()
 	_border_generation()
 	_ground_generation()
 	
 	for i in range(race_data.size()):
 		_next_level()
-
 
 func _next_level() -> void:
 	current_race_data_indice += 1
@@ -93,7 +90,7 @@ func _next_level() -> void:
 	_race_start_x = _current_x_pos
 
 	_change_current_parameters()
-	_obstacle_generation()
+	_challenge_generation()
 	_arches_generation()
 	_border_generation()
 	_ground_generation()
@@ -140,8 +137,8 @@ func _arches_generation()->void:
 func _border_generation() -> void:
 	for i in range(race_length):
 		var x = i + _race_start_x
-		_spawn_border(x, -race_width/2 - 1)  # left border
-		_spawn_border(x,  race_width/2 + 1)  # right border
+		_spawn_border(x, -race_width/2 - 0.5)  # left border
+		_spawn_border(x,  race_width/2 + 0.5)  # right border
 
 func _spawn_border(x_pos: float, z_pos: float):
 	var border = default_border_sample.instantiate()
@@ -150,81 +147,96 @@ func _spawn_border(x_pos: float, z_pos: float):
 	border.position.z = z_pos
 	add_child(border)
 
-
-func _obstacle_generation() -> void:
-	_depth_dist = _rng.randf_range(depth_dist_btw_object_range.x, depth_dist_btw_object_range.y)
+func _challenge_generation() -> void:
+	_depth_dist = _rng.randf_range(depth_dist_btw_challenge_range.x, depth_dist_btw_challenge_range.y)
 	_current_x_pos += _depth_dist
 	while _current_x_pos < race_length + _race_start_x:
 		#_obstacles_pos_and_scale(_current_x_pos, -race_width/2, race_width/2, 5)
 		walls_on_current_challenge.clear()
-		_opening_builder(_current_x_pos, -race_width/2, race_width/2, 2)
-		#_depth_dist = _rng.randf_range(depth_dist_btw_object_range.x, depth_dist_btw_object_range.y)
+		if _rng.randf() < obstacle_opening_prob:
+			#_obstacles_pos_and_scale(_current_x_pos, -race_width/2, race_width/2, 2)
+			_obstacle_builder(_current_x_pos, -race_width/2, race_width/2, 0.25)
+		else:
+			_opening_builder(_current_x_pos, -race_width/2, race_width/2)
+		#_depth_dist = _rng.randf_range(depth_dist_btw_challenge_range.x, depth_dist_btw_challenge_range.y)
 		_current_x_pos += _depth_dist
+		
+func _obstacle_builder(pos_x: float, left_border_pos, right_border_pos: float, quantum: float)->void:
+	var generator := SegmentGenerator.new()
+	var segments : Array[Segment]= generator.generate_segments(
+		int(race_width / quantum),
+		int(obst_size_range.x / quantum),
+		int(obst_size_range.y / quantum),
+		int(horiz_dist_btw_obst_range.x / quantum),
+		int(horiz_dist_btw_obst_range.y / quantum),
+		_rng
+	)
 
-func _obstacles_pos_and_scale(pos_x: float, left_border_pos: float, right_border_pos: float, nb_obs: int)->void:
-	if (nb_obs == 0):
-		return 
+	generator.print_segments(segments)
+	
+	_segments_to_real_obsts(segments, quantum, pos_x)
+
+func _segments_to_real_obsts(segments: Array[Segment], quantum: float, pos_x: float)->void:
+	var pos_z: float
+	var scale_z: float 
+	var first_pos_z: float
+	var last_pos_z: float
+	var cursor_z: float = -race_width/2
+	for i in range(segments.size()):
+		cursor_z += quantum * segments[i].length/2
+		if segments[i].type == Segment.SegmentType.WALL:
+			scale_z = segments[i].length * quantum
+			_obstacle_spawn(pos_x, cursor_z, scale_z)
+		cursor_z += quantum * segments[i].length/2
+	
+func _obstacle_spawn(pos_x: float, pos_z: float, scale_z: float)->void:
 	var obstacle: Node3D = obstacle_sample.instantiate()
 	current_race_objects.append(obstacle)
 	obstacle.position.x = pos_x
-	while true:
-		var pos_z = _rng.randf_range(left_border_pos, right_border_pos)
-		var size_z = _rng.randf_range(object_size_range.x, object_size_range.y)
-
-		var in_race_space = pos_z - size_z/2 > left_border_pos and pos_z + size_z/2 < right_border_pos
-		var enough_space = pos_z - size_z/2 - left_border_pos > min_passage_size or pos_z + size_z/2 - right_border_pos > min_passage_size
-
-		if in_race_space and enough_space:
-			obstacle.position.z = pos_z
-			obstacle.scale.z = size_z
-			break
+	obstacle.position.z = pos_z
+	obstacle.scale.z = scale_z
 	add_child(obstacle)
-
-	var dist_right = right_border_pos - (obstacle.position.z + obstacle.scale.z/2)
-	var dist_left = (obstacle.position.z - obstacle.scale.z/2) - left_border_pos
-
-	if (dist_right > dist_left):
-		if dist_right > min_passage_size + object_size_range.x:
-			_obstacles_pos_and_scale(pos_x, obstacle.position.z + obstacle.scale.z/2, right_border_pos, nb_obs - 1)
-	else:
-		if dist_left > min_passage_size + object_size_range.x:
-			_obstacles_pos_and_scale(pos_x, left_border_pos, obstacle.position.z - obstacle.scale.z/2, nb_obs - 1)
 			
-func _opening_builder(pos_x: float, left_border_pos, right_border_pos: float, nb_openings: int)->void:
-	if (nb_openings == 0):
-		return 
+func _opening_builder(pos_x: float, left_border_pos, right_border_pos: float)->void:
 	var wall: WorldScaleCalculator = opening_sample.instantiate()
+	var wall_size = wall.get_world_scale().x
 	
-	while true:
-		var pos_z = _rng.randf_range(left_border_pos, right_border_pos)
-		var size_z = wall.get_world_scale().x
+	_wall_builder(pos_x, left_border_pos, right_border_pos, opening_sample, wall.get_world_scale().x)
+	
+	var generator := SegmentGenerator.new()
+	var segments : Array[Segment]= generator.generate_segments(
+		walls_on_current_challenge.size(),
+		int(wall_size_range.x / wall_size)+1,
+		int(wall_size_range.y / wall_size),
+		int(opening_size_range.x / wall_size)+1,
+		int(opening_size_range.y / wall_size),
+		_rng
+	)
 
-		var in_race_space: bool = pos_z - size_z/2 > left_border_pos and pos_z + size_z/2 < right_border_pos
+	generator.print_segments(segments)
+	_segments_to_real_walls(segments)
 		
-		if in_race_space:
-			var opening: Wall = Wall.new()
-			opening.wall_nature = WallNature.opening
-			opening.z = pos_z
-			_wall_builder(pos_x, pos_z, left_border_pos, right_border_pos, opening_sample, size_z)
-			break
-			
-	var possible_openings: Array[Wall] = _get_possible_walls_to_open(_get_openings(), left_border_pos, right_border_pos)
-	while !possible_openings.is_empty():
-		var wall_to_destroy: Wall = possible_openings.pick_random()
-		wall_to_destroy.wall_nature = WallNature.opening
-		wall_to_destroy.node.queue_free()
-		var openings := _get_openings()
-		possible_openings = _get_possible_walls_to_open(openings, left_border_pos, right_border_pos)
-
-func _wall_builder(pos_x:float, opening_pos_z: float, left_border_pos: float, right_border_pos: float, wall: PackedScene, wall_size_z: float)->void:
-	var wall_info: Wall = Wall.new()
-	wall_info.wall_nature = WallNature.opening
-	wall_info.z = opening_pos_z
-	walls_on_current_challenge.append(wall_info)
+func _segments_to_real_walls(segments: Array[Segment])->void:
+	var cursor_i: int = 0
+	for i in range (segments.size()):
+		var segment: Segment = segments[i]
+		if segment.type == Segment.SegmentType.WALL:
+			cursor_i += segment.length
+		elif segment.type == Segment.SegmentType.OPENING:
+			var cursor_i_for = cursor_i
+			for j in range(cursor_i_for, cursor_i_for + segment.length):
+				cursor_i += 1
+				var wall : Wall = walls_on_current_challenge[j]
+				wall.wall_nature = WallNature.opening
+				wall.node.queue_free()
+		
 	
-	var cursor_z: float = opening_pos_z + wall_size_z
+func _wall_builder(pos_x:float, left_border_pos: float, right_border_pos: float, wall: PackedScene, wall_size_z: float)->void:
+	var wall_info: Wall
+	remainder = fmod(race_width, wall_size_z) ## remainder
+	var cursor_z: float = left_border_pos + wall_size_z/2 - remainder/2
 	
-	while(cursor_z < right_border_pos):
+	while(cursor_z < right_border_pos + wall_size_z / 2):
 		var wall_instance = wall.instantiate()
 		wall_instance.position.z = cursor_z
 		wall_instance.position.x = pos_x
@@ -235,21 +247,7 @@ func _wall_builder(pos_x:float, opening_pos_z: float, left_border_pos: float, ri
 		walls_on_current_challenge.append(wall_info)
 		add_child(wall_instance)
 		cursor_z += wall_size_z
-	cursor_z = opening_pos_z - wall_size_z
-	while(cursor_z > left_border_pos):
-		var wall_instance = wall.instantiate()
-		wall_instance.position.z = cursor_z
-		wall_instance.position.x = pos_x
-		wall_info = Wall.new()
-		wall_info.wall_nature = WallNature.transp
-		wall_info.node = wall_instance
-		wall_info.z = cursor_z
-		walls_on_current_challenge.append(wall_info)
-		add_child(wall_instance)
-		cursor_z -= wall_size_z
 	_sort_wall_list()
-	_check_walls()
-	
 	
 func _sort_wall_list()->void:
 	var min: float = INF
@@ -265,36 +263,6 @@ func _sort_wall_list()->void:
 		list.append(min_wall)
 		walls_on_current_challenge.erase(min_wall)
 	walls_on_current_challenge = list
-		
-func _get_walls_in_range(min_z: float, max_z: float) -> Array[Wall]:
-	var walls: Array[Wall] = []
-	var z: float
-	for wall in walls_on_current_challenge:
-		z = wall.z
-		if  z < max_z and z > min_z:
-			walls.append(wall)
-	return walls
-	
-func _get_openings() -> Array[Wall]:
-	var openings: Array[Wall] = []
-	for wall in walls_on_current_challenge:
-		if (wall.wall_nature == WallNature.opening):
-			openings.append(wall)
-	return openings
-	
-func _get_possible_walls_to_open(_openings: Array[Wall], left_border_pos_z: float, right_border_pos_z)->Array[Wall]:
-	var walls_to_open: Array[Wall] = []
-	var opening_info: WorldScaleCalculator = opening_sample.instantiate()
-	var offset: float = wall_size_range.x + opening_info.get_world_scale().x/2
-	if _openings.size() == 0:
-		return walls_on_current_challenge
-	for i in range(0, _openings.size() - 1):
-		if (i == 0):
-			walls_to_open.append_array(_get_walls_in_range(left_border_pos_z, _openings[0].z - offset))
-		else:
-			walls_to_open.append_array(_get_walls_in_range(_openings[i-1].z + offset, _openings[i].z - offset))
-	walls_to_open.append_array(_get_walls_in_range(_openings[-1].z + offset, right_border_pos_z))
-	return walls_to_open
 
 func _destroy_current_race_objects()->void:
 	for i in range(current_race_objects.size() - 1, -1, -1):
@@ -305,9 +273,9 @@ func _change_current_parameters() -> void:
 	current_race_data = race_data[current_race_data_indice]
 	race_length = current_race_data.race_length
 	race_width = current_race_data.race_width
-	object_size_range = current_race_data.object_size_range
-	depth_dist_btw_object_range = current_race_data.depth_dist_btw_object_range
-	horiz_dist_btw_object_range = current_race_data.horiz_dist_btw_object_range
+	obst_size_range = current_race_data.obst_size_range
+	depth_dist_btw_challenge_range = current_race_data.depth_dist_btw_challenge_range
+	horiz_dist_btw_obst_range = current_race_data.horiz_dist_btw_obst_range
 	min_passage_size = current_race_data.min_passage_size
 	opening_size_range = current_race_data.opening_size_range
 	wall_size_range = current_race_data.wall_size_range
