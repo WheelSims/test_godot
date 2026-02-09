@@ -56,28 +56,28 @@ angular_damp = 50.0
 script = ExtResource("1_l8h54")
 
 [node name="RRWheelCollider" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.25, 0.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, 0.25, 0)
 shape = SubResource("SphereShape3D_r3fl7")
 
 [node name="LRWheelCollider" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0.25, 0.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3, 0.25, 0)
 shape = SubResource("SphereShape3D_r3fl7")
 
 [node name="LFWheelCollider" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0.2, -0.5)
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -0.25, 0.125, -0.6)
 shape = SubResource("SphereShape3D_jka67")
 debug_color = Color(8.27849e-06, 0.774194, 0.900788, 0.42)
 
-[node name="LFWheelCollider2" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.2, -0.5)
+[node name="RFWheelCollider" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.25, 0.125, -0.6)
 shape = SubResource("SphereShape3D_jka67")
 debug_color = Color(8.27849e-06, 0.774194, 0.900788, 0.42)
 
 [node name="FrontCameraPose" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.04082, -1.43828)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.783312, -0.534015)
 
 [node name="FloorCameraPose" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 1.64864, -1.8884)
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 1.72265, -1.37178)
 
 [node name="Motors" type="Node3D" parent="."]
 script = ExtResource("2_4ntmi")
@@ -88,23 +88,23 @@ script = ExtResource("3_muua7")
 [node name="ObstacleColliders" type="Area3D" parent="."]
 
 [node name="Front" type="CollisionShape3D" parent="ObstacleColliders"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000305176, 0.330711, -0.821177)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, -0.5)
 shape = SubResource("BoxShape3D_btcbx")
 
 [node name="FrontLeft" type="CollisionShape3D" parent="ObstacleColliders"]
-transform = Transform3D(0.895028, 0, 0.44601, 0, 1, 0, -0.44601, 0, 0.895028, -0.489695, 0.328923, -0.72723)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25, 0.4, -0.45)
 shape = SubResource("BoxShape3D_gwnis")
 
 [node name="FrontRight" type="CollisionShape3D" parent="ObstacleColliders"]
-transform = Transform3D(0.894934, 0, -0.446198, 0, 1, 0, 0.446198, 0, 0.894934, 0.49, 0.329674, -0.727)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.4, -0.45)
 shape = SubResource("BoxShape3D_k53q1")
 
 [node name="BackLeft" type="CollisionShape3D" parent="ObstacleColliders"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.409396, 0.340336, 0.714338)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25, 0.34, 0.1)
 shape = SubResource("BoxShape3D_fhl08")
 
 [node name="BackRight" type="CollisionShape3D" parent="ObstacleColliders"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.409, 0.338955, 0.716494)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.339, 0.1)
 shape = SubResource("BoxShape3D_vtle1")
 
 [node name="DetectionArea" type="Area3D" parent="." groups=["Player"]]
@@ -112,7 +112,7 @@ editor_description = "Area3D to be detected"
 monitoring = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="DetectionArea"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.506104, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.506104, -0.278171)
 shape = SubResource("BoxShape3D_muua7")
 
 [node name="FloorProjector" type="Window" parent="."]
@@ -153,19 +153,19 @@ vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
 [node name="CollidersShape" type="CSGPolygon3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.0652708, 0)
 material_override = ExtResource("4_gwnis")
 transparency = 0.5
-polygon = PackedVector2Array(-0.78, -0.79, -0.65, 0.89, 0.645, 0.885, 0.775, -0.78, 0.385, -0.985, -0.34, -1)
+polygon = PackedVector2Array(-0.478078, -0.630423, -0.480694, 0.219973, 0.482216, 0.227823, 0.484832, -0.625189, 0.220555, -0.677522, -0.2295, -0.674905)
 depth = 0.06
 
 [node name="WheelShapeL" type="CSGPolygon3D" parent="."]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.574296, -0.943111, -0.56182)
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.321546, -0.686058, -0.56182)
 material_override = ExtResource("4_gwnis")
 depth = 0.15
 
 [node name="WheelShapeR" type="CSGPolygon3D" parent="."]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.431234, -0.943111, -0.56182)
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.174924, -0.702537, -0.56182)
 material_override = ExtResource("4_gwnis")
 depth = 0.15
 
