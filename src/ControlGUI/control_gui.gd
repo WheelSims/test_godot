@@ -316,10 +316,7 @@ func update_selected_patient_mass() -> void:
 		if (row.get_node("CheckBox") as CheckBox).button_pressed:
 			var player := _get_player()
 			if player:
-				player.send_inertia(
-					(row.get_node("LineMass") as LineEdit).text.to_float(),
-					0
-				)
+				player.mass = (row.get_node("LineMass") as LineEdit).text.to_float()
 # -------------------------------------------------------------------
 # DBox : manuel + maintien
 # -------------------------------------------------------------------

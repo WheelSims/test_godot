@@ -107,7 +107,3 @@ func set_player_text(text: String):
 	if player_text_node:
 		player_text_node.text = text
 		
-func send_inertia(mass, moment_of_inertia) -> void:
-	if motors != null:
-		motors.set_inertia(mass, moment_of_inertia)
-		

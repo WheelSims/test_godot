@@ -16,17 +16,18 @@ var hardware_enabled: float = 1
 var collision_detected: bool = false
 #var friction: float = 0.01325
 var friction: float = 0.03
-var mass: float = 90
 var wheel_distance: float = 0.6
 var force_reset: bool = true
 
 # Private variables
+var _player  # The player instance, to access its parameters
 var _udp_receiver = PacketPeerUDP.new()
 var _udp_receiver_connected = false
 var _udp_sender = PacketPeerUDP.new()
 var _default_friction: float = 0.01325
 var _current_ground_friction: float
 var _obstacle_friction: float = 1
+var _old_mass: float = 1  # Used to send new value on mass change
 
 # Obstacle variables
 var on_any_obstacle = false
@@ -43,6 +44,7 @@ var on_foot_obstacle = false
 
 # Functions
 func _ready() -> void:
+	_player = get_parent()
 	_current_ground_friction = _default_friction
 	_udp_receiver.bind(UDP_RECEIVE_PORT)
 	_udp_sender.connect_to_host(UDP_SEND_IP, UDP_SEND_PORT)
@@ -50,7 +52,12 @@ func _ready() -> void:
 	send()
 	force_reset = false
 	send()
-		
+
+func _process(delta: float) -> void:
+	if _player.mass != _old_mass:
+		send_data(1, hardware_enabled, _player.mass, 0)
+		_old_mass = _player.mass
+
 func _notification(what):
 	if what == NOTIFICATION_WM_CLOSE_REQUEST:
 		hardware_enabled = false
@@ -79,9 +86,7 @@ func receive() -> void:
 func send() -> void:
 	send_data(2, hardware_enabled, friction, friction)
 
-func set_inertia(mass, moment_of_inertia) -> void:
-	send_data(1, hardware_enabled, mass, moment_of_inertia)
-	
+
 func send_data(cmd, enable, arg1, arg2) -> void:
 	var bytes = PackedByteArray()
 	bytes.resize(20)
