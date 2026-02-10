@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://b2pvklx5fxccb"]
+[gd_scene load_steps=13 format=3 uid="uid://b2pvklx5fxccb"]
 
 [ext_resource type="Texture2D" uid="uid://csbwjfuwod7oo" path="res://Terrain/Park/Textures/gravel.jpg" id="1_j5cfv"]
 [ext_resource type="PackedScene" uid="uid://biluq7vv8ghsm" path="res://Player/player.tscn" id="2_mhd6p"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://jqktvq65k2vj" path="res://Games/Races/ObstacleRace/ground.tscn" id="5_ami1h"]
 [ext_resource type="PackedScene" uid="uid://cmkbfhcn3klys" path="res://Objects/RaceObjects/WesternTheme/Openings/Fence/fence_opening.tscn" id="6_bvkxh"]
 [ext_resource type="PackedScene" uid="uid://diyc4k3lfoq2t" path="res://Objects/RaceObjects/WesternTheme/Openings/Fence/fence.tscn" id="6_pno21"]
+[ext_resource type="PackedScene" uid="uid://blm1wlle8dcqr" path="res://Objects/RaceObjects/WesternTheme/Openings/BrickWall/brick_wall.tscn" id="8_orefh"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ami1h"]
 albedo_texture = ExtResource("1_j5cfv")
@@ -23,9 +24,8 @@ depth_dist_btw_challenge_range = Vector2(5, 5)
 horiz_dist_btw_obst_range = Vector2(3, 5)
 opening_size_range = Vector2(3, 5)
 wall_size_range = Vector2(2, 9)
-min_passage_size = 2
 obstacle_opening_prob = 0.5
-transparent_op_wall_prob = 0.0
+transparent_op_wall_prob = 0.5
 metadata/_custom_type_script = "uid://epb7xgmjyv72"
 
 [sub_resource type="Resource" id="Resource_ami1h"]
@@ -37,7 +37,6 @@ depth_dist_btw_challenge_range = Vector2(5, 20)
 horiz_dist_btw_obst_range = Vector2(3, 5)
 opening_size_range = Vector2(3, 5)
 wall_size_range = Vector2(4, 7)
-min_passage_size = 2
 obstacle_opening_prob = 0.0
 transparent_op_wall_prob = 0.0
 metadata/_custom_type_script = "uid://epb7xgmjyv72"
@@ -61,7 +60,8 @@ transform = Transform3D(1, 0, 0, 0, 0.25742, 0.9663, 0, -0.9663, 0.25742, -70, 1
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -69.9983, 1.90735e-06, -0.05933)
 end_offset_to_restart = 20.0
 race_data = Array[ExtResource("4_ami1h")]([SubResource("Resource_mrrh3"), SubResource("Resource_ami1h"), SubResource("Resource_mrrh3")])
-opening_sample = ExtResource("6_pno21")
+fence_sample = ExtResource("6_pno21")
+brick_sample = ExtResource("8_orefh")
 ground_tile = ExtResource("5_ami1h")
 
 [node name="FenceOpening" parent="." instance=ExtResource("6_bvkxh")]

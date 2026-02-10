@@ -14,7 +14,8 @@ var default_border_sample: PackedScene
 var default_obstacle_sample: PackedScene
 @export var border_sample: PackedScene
 @export var obstacle_sample: PackedScene
-@export var opening_sample: PackedScene
+@export var fence_sample: PackedScene
+@export var brick_sample: PackedScene
 @export var finish_line: PackedScene
 var finish_line_instance : Node3D
 @export var start_line: PackedScene
@@ -29,7 +30,6 @@ var race_width: float = 10
 var obst_size_range: Vector2 = Vector2(0.5,3)
 var depth_dist_btw_challenge_range: Vector2 = Vector2(5,20)
 var horiz_dist_btw_obst_range: Vector2 = Vector2(3,5)
-var min_passage_size = 2
 ## min and max of openings size
 var opening_size_range: Vector2 = Vector2(3,5)
 ## min and max of walls size between openings
@@ -151,32 +151,54 @@ func _challenge_generation() -> void:
 	_depth_dist = _rng.randf_range(depth_dist_btw_challenge_range.x, depth_dist_btw_challenge_range.y)
 	_current_x_pos += _depth_dist
 	while _current_x_pos < race_length + _race_start_x:
-		#_obstacles_pos_and_scale(_current_x_pos, -race_width/2, race_width/2, 5)
 		walls_on_current_challenge.clear()
 		if _rng.randf() < obstacle_opening_prob:
-			#_obstacles_pos_and_scale(_current_x_pos, -race_width/2, race_width/2, 2)
-			_obstacle_builder(_current_x_pos, -race_width/2, race_width/2, 0.25)
+			_object_builder(_current_x_pos, 0.25, true, false)
 		else:
-			_opening_builder(_current_x_pos, -race_width/2, race_width/2)
+			if _rng.randf() < transparent_op_wall_prob:
+				#fence is already scaled
+				_object_builder(_current_x_pos, 0, false, true)
+			else:
+				_object_builder(_current_x_pos, 0.25, false, false)
 		#_depth_dist = _rng.randf_range(depth_dist_btw_challenge_range.x, depth_dist_btw_challenge_range.y)
 		_current_x_pos += _depth_dist
 		
-func _obstacle_builder(pos_x: float, left_border_pos, right_border_pos: float, quantum: float)->void:
+func _object_builder(pos_x: float, quantum: float, is_obst: bool, already_scaled: bool)->void:
+	var total_length: float
+	if already_scaled:
+		var wall: WorldScaleCalculator = fence_sample.instantiate()
+		quantum = wall.get_world_scale().x
+		_wall_builder(pos_x, -race_width/2, race_width/2, fence_sample, wall.get_world_scale().x)
+		total_length = walls_on_current_challenge.size()
+	else:
+		total_length = int(race_width / quantum)
+	
+	var wall_min: float = int(obst_size_range.x / quantum) if is_obst else int(wall_size_range.x / quantum)
+	var wall_max: float = int(obst_size_range.y / quantum) if is_obst else int(wall_size_range.y / quantum)
+	if already_scaled: 
+		wall_min+=1
+		wall_max+=1
+	var open_min: float = int(horiz_dist_btw_obst_range.x / quantum) if is_obst else int(opening_size_range.x / quantum)
+	var open_max: float = int(horiz_dist_btw_obst_range.y / quantum) if is_obst else int(opening_size_range.y / quantum)
+	
 	var generator := SegmentGenerator.new()
 	var segments : Array[Segment]= generator.generate_segments(
-		int(race_width / quantum),
-		int(obst_size_range.x / quantum),
-		int(obst_size_range.y / quantum),
-		int(horiz_dist_btw_obst_range.x / quantum),
-		int(horiz_dist_btw_obst_range.y / quantum),
+		total_length,
+		wall_min,
+		wall_max,
+		open_min,
+		open_max,
 		_rng
 	)
-
 	generator.print_segments(segments)
 	
-	_segments_to_real_obsts(segments, quantum, pos_x)
+	if !already_scaled:
+		var object_sample: PackedScene = obstacle_sample if is_obst else brick_sample
+		_segments_to_real_obsts(segments, quantum, pos_x, object_sample)
+	else:
+		_segments_to_real_unit_walls(segments)
 
-func _segments_to_real_obsts(segments: Array[Segment], quantum: float, pos_x: float)->void:
+func _segments_to_real_obsts(segments: Array[Segment], quantum: float, pos_x: float, obj_sample: PackedScene)->void:
 	var pos_z: float
 	var scale_z: float 
 	var first_pos_z: float
@@ -186,37 +208,18 @@ func _segments_to_real_obsts(segments: Array[Segment], quantum: float, pos_x: fl
 		cursor_z += quantum * segments[i].length/2
 		if segments[i].type == Segment.SegmentType.WALL:
 			scale_z = segments[i].length * quantum
-			_obstacle_spawn(pos_x, cursor_z, scale_z)
+			_obstacle_spawn(pos_x, cursor_z, scale_z, obj_sample)
 		cursor_z += quantum * segments[i].length/2
 	
-func _obstacle_spawn(pos_x: float, pos_z: float, scale_z: float)->void:
-	var obstacle: Node3D = obstacle_sample.instantiate()
+func _obstacle_spawn(pos_x: float, pos_z: float, scale_z: float, obj_sample: PackedScene)->void:
+	var obstacle: Node3D = obj_sample.instantiate()
 	current_race_objects.append(obstacle)
 	obstacle.position.x = pos_x
 	obstacle.position.z = pos_z
 	obstacle.scale.z = scale_z
 	add_child(obstacle)
-			
-func _opening_builder(pos_x: float, left_border_pos, right_border_pos: float)->void:
-	var wall: WorldScaleCalculator = opening_sample.instantiate()
-	var wall_size = wall.get_world_scale().x
-	
-	_wall_builder(pos_x, left_border_pos, right_border_pos, opening_sample, wall.get_world_scale().x)
-	
-	var generator := SegmentGenerator.new()
-	var segments : Array[Segment]= generator.generate_segments(
-		walls_on_current_challenge.size(),
-		int(wall_size_range.x / wall_size)+1,
-		int(wall_size_range.y / wall_size),
-		int(opening_size_range.x / wall_size)+1,
-		int(opening_size_range.y / wall_size),
-		_rng
-	)
-
-	generator.print_segments(segments)
-	_segments_to_real_walls(segments)
 		
-func _segments_to_real_walls(segments: Array[Segment])->void:
+func _segments_to_real_unit_walls(segments: Array[Segment])->void:
 	var cursor_i: int = 0
 	for i in range (segments.size()):
 		var segment: Segment = segments[i]
@@ -276,7 +279,6 @@ func _change_current_parameters() -> void:
 	obst_size_range = current_race_data.obst_size_range
 	depth_dist_btw_challenge_range = current_race_data.depth_dist_btw_challenge_range
 	horiz_dist_btw_obst_range = current_race_data.horiz_dist_btw_obst_range
-	min_passage_size = current_race_data.min_passage_size
 	opening_size_range = current_race_data.opening_size_range
 	wall_size_range = current_race_data.wall_size_range
 	obstacle_opening_prob = current_race_data.obstacle_opening_prob
