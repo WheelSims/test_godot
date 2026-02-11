@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://c2swcg3mxb5mv"]
 
-[ext_resource type="PackedScene" uid="uid://y2xjjvq3l33t" path="res://_environments/park_environment.tscn" id="1_32pop"]
-[ext_resource type="PackedScene" uid="uid://biluq7vv8ghsm" path="res://_player/player.tscn" id="2_sgu1o"]
+[ext_resource type="PackedScene" uid="uid://y2xjjvq3l33t" path="res://environments/park_environment.tscn" id="1_32pop"]
+[ext_resource type="PackedScene" uid="uid://biluq7vv8ghsm" path="res://player/player.tscn" id="2_sgu1o"]
 
 [node name="Park" type="Node3D"]
 

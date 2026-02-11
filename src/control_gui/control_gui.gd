@@ -2,7 +2,7 @@ extends Control
 
 @export var SIMULATOR_USERS_FILENAME = "user://simulator_users.json"
 @export var PLAYABLE_SCENES_FOLDER_PATH = "res://playable_scenes"
-@export var THUMBNAIL_FOLDER_PATH = "res://control_gui/_thumbnails"
+@export var THUMBNAIL_FOLDER_PATH = "res://control_gui/thumbnails"
 var _current_scene_node: Node3D = null
 
 # --- UI users ---
