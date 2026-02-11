@@ -1,0 +1,55 @@
+[gd_scene format=3 uid="uid://83fy70dgr8u8"]
+
+[ext_resource type="Texture2D" uid="uid://q8k730wim8e0" path="res://_games/_races/_arrow/arrow_texture.png" id="1_5lnqj"]
+
+
+[sub_resource type="Animation" id="Animation_5lnqj"]
+resource_name = "Fade_in_out"
+length = 1.5
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.0666667, 1.43333),
+"transitions": PackedFloat32Array(1, 0.965937),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_i0ldd"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qhtdk"]
+_data = {
+&"Fade_in_out": SubResource("Animation_5lnqj"),
+&"RESET": SubResource("Animation_i0ldd")
+}
+
+[node name="Arrow" type="Sprite3D"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
+axis = 1
+texture = ExtResource("1_5lnqj")
+region_enabled = true
+region_rect = Rect2(147, 156, 274, 145)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_qhtdk")
+}
+autoplay = "Fade_in_out"
