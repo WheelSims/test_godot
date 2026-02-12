@@ -74,10 +74,10 @@ shape = SubResource("SphereShape3D_jka67")
 debug_color = Color(8.27849e-06, 0.774194, 0.900788, 0.42)
 
 [node name="FrontCameraPose" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.783312, -0.534015)
+transform = Transform3D(1, 0, 0, 0, 0.999391, -0.0348995, 0, 0.0348995, 0.999391, 0, 0.980403, -0.686312)
 
 [node name="FloorCameraPose" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 1.72265, -1.37178)
+transform = Transform3D(1, 0, 0, 0, 0.481754, 0.876307, 0, -0.876307, 0.481754, 0, 1.6689, -0.520708)
 
 [node name="Motors" type="Node3D" parent="."]
 script = ExtResource("2_4ntmi")
