@@ -1,4 +1,4 @@
-[gd_resource type="VisualShader" load_steps=7 format=3 uid="uid://b3qxxd21tkpnf"]
+[gd_resource type="VisualShader" format=3 uid="uid://b3qxxd21tkpnf"]
 
 [sub_resource type="VisualShaderNodeColorParameter" id="VisualShaderNodeColorParameter_bsbym"]
 parameter_name = "MainColor"
@@ -26,47 +26,6 @@ operator = 2
 parameter_name = "Texture"
 
 [resource]
-code = "shader_type spatial;
-render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_lambert, specular_schlick_ggx;
-
-uniform vec4 MainColor : source_color;
-uniform sampler2D Texture;
-uniform float FloatParameter = 5.0;
-uniform vec4 EmissionColor : source_color = vec4(1.000000, 0.000000, 0.000000, 1.000000);
-
-
-
-void fragment() {
-// ColorParameter:2
-	vec4 n_out2p0 = MainColor;
-
-
-	vec4 n_out4p0;
-// Texture2D:4
-	n_out4p0 = texture(Texture, UV);
-	float n_out4p4 = n_out4p0.a;
-
-
-// FloatParameter:5
-	float n_out5p0 = FloatParameter;
-
-
-// ColorParameter:3
-	vec4 n_out3p0 = EmissionColor;
-
-
-// VectorOp:6
-	vec4 n_out6p0 = vec4(n_out5p0) * n_out3p0;
-
-
-// Output:0
-	ALBEDO = vec3(n_out2p0.xyz);
-	ALPHA = n_out4p4;
-	EMISSION = vec3(n_out6p0.xyz);
-
-
-}
-"
 nodes/fragment/0/position = Vector2(380, 160)
 nodes/fragment/2/node = SubResource("VisualShaderNodeColorParameter_bsbym")
 nodes/fragment/2/position = Vector2(-100, -40)
