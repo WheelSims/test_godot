@@ -317,9 +317,6 @@ func update_selected_patient_mass() -> void:
 			var player := _get_player()
 			if player:
 				player.mass = (row.get_node("LineMass") as LineEdit).text.to_float()
-				print("Updated user mass to ", player.mass)
-			else:
-				print("Player not found.")
 # -------------------------------------------------------------------
 # DBox : manuel + maintien
 # -------------------------------------------------------------------

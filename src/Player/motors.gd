@@ -6,51 +6,80 @@ extends Node3D
 @export var UDP_RECEIVE_PORT: int = 25100
 
 # Public variables (read)
-var current_increment_index: int = 0
+var index: int = 0
 var angular_velocity: float = 0
 var linear_velocity: float = 0
-var emergency_stop: bool = false
+var stopped: bool = false
 
 # Public variables (sent)
 var hardware_enabled: float = 1
 var collision_detected: bool = false
-#var friction: float = 0.01325
 var friction: float = 0.03
-var mass: float = 90
 var wheel_distance: float = 0.6
 var force_reset: bool = true
 
 # Private variables
+var _player  # The player instance, to access its parameters
 var _udp_receiver = PacketPeerUDP.new()
 var _udp_receiver_connected = false
 var _udp_sender = PacketPeerUDP.new()
-var _default_friction: float = 0.01325
-var _current_ground_friction: float
-var _obstacle_friction: float = 1
+var _obstacle_friction_coefficient: float = 10
 
-# Obstacle variables
-var on_any_obstacle = false
-var _nb_rr_obstacle = 0
-var on_rr_obstacle = false
-var _nb_lr_obstacle = 0
-var on_lr_obstacle = false
-var _nb_rf_obstacle = 0
-var on_rf_obstacle = false
-var _nb_lf_obstacle = 0
-var on_lf_obstacle = false
-var _nb_foot_obstacle = 0
-var on_foot_obstacle = false
+# Used to monitor value changes
+var _old_mass: float = 1 
+var _old_rolling_resistance_coefficient: float = 1
+var _old_is_front_collision: bool = false
+var _old_is_rear_collision: bool = false
+
 
 # Functions
 func _ready() -> void:
-	_current_ground_friction = _default_friction
+	_player = get_parent()
 	_udp_receiver.bind(UDP_RECEIVE_PORT)
 	_udp_sender.connect_to_host(UDP_SEND_IP, UDP_SEND_PORT)
 	get_tree().set_auto_accept_quit(false)  # to send hw_enable false on quit
 	send()
 	force_reset = false
 	send()
+
+func _process(delta: float) -> void:
+	if _player.mass != _old_mass:
+		send_data(1, hardware_enabled, _player.mass, 0)
+		_old_mass = _player.mass
+	if _player.rolling_resistance_coefficient != _old_rolling_resistance_coefficient:
+		_update_friction()
+		_old_rolling_resistance_coefficient = _player.rolling_resistance_coefficient
+	if _player.is_front_collision != _old_is_front_collision:
+		_update_friction()
+		_old_is_front_collision = _player.is_front_collision
+	if _player.is_rear_collision != _old_is_rear_collision:
+		_update_friction()
+		_old_is_rear_collision = _player.is_rear_collision
 		
+		
+func _update_friction():
+	var front_friction_coefficient: float
+	var rear_friction_coefficient: float
+	
+	if _player.is_front_collision:
+		front_friction_coefficient = _obstacle_friction_coefficient
+	else:
+		front_friction_coefficient = _player.rolling_resistance_coefficient
+		
+	if _player.is_rear_collision:
+		rear_friction_coefficient = _obstacle_friction_coefficient
+	else:
+		rear_friction_coefficient = _player.rolling_resistance_coefficient
+		
+	print(
+		"Rollers: Front friction update: Front = ",
+		front_friction_coefficient,
+		" Rear = ",
+		rear_friction_coefficient,
+	)
+	send_data(2, hardware_enabled, front_friction_coefficient, rear_friction_coefficient)
+
+
 func _notification(what):
 	if what == NOTIFICATION_WM_CLOSE_REQUEST:
 		hardware_enabled = false
@@ -61,83 +90,32 @@ func receive() -> void:
 	if _udp_receiver.get_available_packet_count() > 0:  # We received something
 		if not _udp_receiver_connected:
 			_udp_receiver_connected = true
-			print("Rollers connected.")			
+			print("Motors connected.")
 		var array_bytes = _udp_receiver.get_packet()
 		
 		# Discard everything until the very last packet we received
 		while _udp_receiver.get_available_packet_count() > 0:
 			array_bytes = _udp_receiver.get_packet()
 		
-		current_increment_index = int(array_bytes.decode_double(0))
-		angular_velocity = float(array_bytes.decode_double(8))
-		linear_velocity = float(array_bytes.decode_double(16))
-		emergency_stop = bool(array_bytes.decode_double(24))
+		var header = int(array_bytes.decode_double(0))
+		index = (header / 2**28)
+		var cmd = (header / 2**16) % 2**12
+		stopped = header % 2**1
+
+		linear_velocity = float(array_bytes.decode_double(4))
+		angular_velocity = float(array_bytes.decode_double(12))
 
 func send() -> void:
+	send_data(2, hardware_enabled, friction, friction)
+
+
+func send_data(cmd, enable, arg1, arg2) -> void:
 	var bytes = PackedByteArray()
-	bytes.resize(40)
-	bytes.encode_double(0, hardware_enabled)
-	bytes.encode_double(8, friction)
-	bytes.encode_u32(16, collision_detected)
-	bytes.encode_double(20, mass)
-	bytes.encode_double(28, wheel_distance)
-	bytes.encode_u32(36, force_reset)
-	
+	bytes.resize(20)
+	bytes.encode_u32(0, int(cmd) * (2**16) + int(enable))
+	bytes.encode_double(4, arg1)
+	bytes.encode_double(12, arg2)
 	_udp_sender.put_packet(bytes)
-
-func _on_obstacle_colliders_body_shape_entered(body_rid: RID, body: Node3D, body_shape_index: int, local_shape_index: int) -> void:
-	if body.get_groups().is_empty() and  body is not Surface:
-		match body_shape_index:
-			0:
-				_nb_foot_obstacle += 1
-				on_foot_obstacle = true
-			1:
-				_nb_rf_obstacle += 1
-				on_rf_obstacle = true
-			2:
-				_nb_lf_obstacle += 1
-				on_lf_obstacle = true
-			3:
-				_nb_lr_obstacle += 1
-				on_lr_obstacle = true
-			4:
-				_nb_rr_obstacle += 1
-				on_rr_obstacle = true
-		if on_rr_obstacle or on_lr_obstacle or on_lf_obstacle or on_rf_obstacle or on_foot_obstacle:
-			on_any_obstacle	 = true
-			friction = _obstacle_friction
-
-func _on_obstacle_colliders_body_shape_exited(body_rid: RID, body: Node3D, body_shape_index: int, local_shape_index: int) -> void:
-	if body.get_groups().is_empty() and body is not Surface:
-		match body_shape_index:
-			0:
-				_nb_foot_obstacle -= 1
-				if _nb_foot_obstacle == 0:
-					on_foot_obstacle = false
-			1:
-				_nb_rf_obstacle -= 1
-				if _nb_rf_obstacle == 0:
-					on_rf_obstacle = false
-			2:
-				_nb_lf_obstacle -= 1
-				if _nb_lf_obstacle == 0:
-					on_lf_obstacle = false
-			3:
-				_nb_lr_obstacle -= 1
-				if _nb_lf_obstacle == 0:
-					on_lr_obstacle = false
-			4:
-				_nb_rr_obstacle -= 1
-				if _nb_rr_obstacle == 0:
-					on_rr_obstacle = false
-		if !on_rr_obstacle and !on_lr_obstacle and !on_lf_obstacle and !on_rf_obstacle and !on_foot_obstacle:
-			on_any_obstacle = false
-			friction = _current_ground_friction
-
-func _on_player_on_simulator_body_shape_entered(body_rid: RID, body: Node, body_shape_index: int, local_shape_index: int) -> void:
-	if body is Surface and not on_any_obstacle:
-		friction = body.resistance
-		_current_ground_friction = friction
 
 
 func _on_tree_exiting() -> void:

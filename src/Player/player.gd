@@ -24,6 +24,19 @@ extends RigidBody3D
 	"FrontProjector/UI/PlayerText"
 )
 
+# -----------------------
+# Dynamics/collisions
+# -----------------------
+var is_front_collision: bool = false
+var is_rear_collision: bool = false
+var _default_rolling_resistance_coefficient: float = 0.01325
+var rolling_resistance_coefficient: float = _default_rolling_resistance_coefficient
+var _n_rr_obstacle = 0
+var _n_lr_obstacle = 0
+var _n_rf_obstacle = 0
+var _n_lf_obstacle = 0
+var _n_foot_obstacle = 0
+
 #Access to race_manager
 var race_manager: RaceManager = null
 
@@ -54,28 +67,22 @@ func _physics_process(delta: float) -> void:
 	# Rollers navigation
 	if motors != null:
 		motors.receive()
-	
-		if Input.is_key_pressed(KEY_Z):
-			var saved_friction = motors.friction
-			motors.friction = 1
-			motors.force_reset = true
-			motors.send()
-			motors.friction = saved_friction
-			motors.force_reset = false
-		else:
-			motors.send()
 		
 		desired_linear_velocity += motors.linear_velocity
 		desired_angular_velocity += motors.angular_velocity
 
 	# Appliquer les mouvements
-	translate(Vector3(0, 0, -1) * desired_linear_velocity * delta)
+	if (
+		(desired_linear_velocity >= 0 and not is_front_collision)
+		or (desired_linear_velocity <= 0 and not is_rear_collision)
+	):
+		translate(Vector3(0, 0, -1) * desired_linear_velocity * delta)
 	rotate(Vector3.UP, desired_angular_velocity * delta)
 
 	# Affichage vitesse
 	if motors and player_text_node:
 		var text: String
-		if motors.emergency_stop:
+		if motors.stopped:
 			text = "\nMotors OFF"
 		else:
 			text = str(abs(desired_linear_velocity)).pad_decimals(1) + " m/s"
@@ -106,3 +113,52 @@ func inputs()->void:
 func set_player_text(text: String):
 	if player_text_node:
 		player_text_node.text = text
+		
+
+func _on_obstacle_colliders_body_shape_entered(body_rid: RID, body: Node3D, body_shape_index: int, local_shape_index: int) -> void:
+	if body.get_groups().is_empty() and  body is not Surface:
+		match local_shape_index:
+			0:
+				_n_foot_obstacle += 1
+				is_front_collision = true
+			1:
+				_n_rf_obstacle += 1
+				is_front_collision = true
+			2:
+				_n_lf_obstacle += 1
+				is_front_collision = true
+			3:
+				_n_lr_obstacle += 1
+				is_rear_collision = true
+			4:
+				_n_rr_obstacle += 1
+				is_rear_collision = true
+
+func _on_obstacle_colliders_body_shape_exited(body_rid: RID, body: Node3D, body_shape_index: int, local_shape_index: int) -> void:
+	if body.get_groups().is_empty() and body is not Surface:
+		match local_shape_index:
+			0:
+				_n_foot_obstacle -= 1
+			1:
+				_n_rf_obstacle -= 1
+			2:
+				_n_lf_obstacle -= 1
+			3:
+				_n_lr_obstacle -= 1
+			4:
+				_n_rr_obstacle -= 1
+		if (
+			(_n_foot_obstacle == 0)
+			and (_n_rf_obstacle == 0)
+			and (_n_lf_obstacle == 0)
+		):
+			is_front_collision = false
+		if (
+			(_n_rr_obstacle == 0)
+			and (_n_lr_obstacle == 0)
+		):
+			is_rear_collision = false
+
+func _on_player_on_simulator_body_shape_entered(body_rid: RID, body: Node, body_shape_index: int, local_shape_index: int) -> void:
+	if body is Surface:
+		rolling_resistance_coefficient = body.resistance
