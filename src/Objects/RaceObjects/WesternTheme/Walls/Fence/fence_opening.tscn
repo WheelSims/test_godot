@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://cmkbfhcn3klys"]
+
+[ext_resource type="PackedScene" uid="uid://diyc4k3lfoq2t" path="res://Objects/RaceObjects/WesternTheme/Walls/Fence/fence.tscn" id="1_7csmj"]
+
+[node name="FenceOpening" type="Node3D"]
+
+[node name="Fence" parent="." instance=ExtResource("1_7csmj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.15, 0, 0)
+
+[node name="Fence2" parent="." instance=ExtResource("1_7csmj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.15, 0, 0)

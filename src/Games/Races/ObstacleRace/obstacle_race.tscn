@@ -1,8 +1,7 @@
-[gd_scene load_steps=11 format=3 uid="uid://hnxp88a0five"]
+[gd_scene load_steps=10 format=3 uid="uid://hnxp88a0five"]
 
 [ext_resource type="Script" uid="uid://cn4e2xmcav5ft" path="res://Games/Races/ObstacleRace/obstacle_race_generator.gd" id="1_rnfno"]
 [ext_resource type="Script" uid="uid://epb7xgmjyv72" path="res://Games/Races/Scripts/race_data.gd" id="2_ogs1q"]
-[ext_resource type="PackedScene" uid="uid://36jj7pd344xn" path="res://Games/Races/ObstacleRace/obstacle_sample.tscn" id="3_8r2kh"]
 [ext_resource type="PackedScene" uid="uid://c4jen6mmu7mgu" path="res://Games/Races/Arch/finish_line.tscn" id="4_nl003"]
 [ext_resource type="PackedScene" uid="uid://bqcqt6d3sec64" path="res://Games/Races/Arch/start_line.glb" id="4_ogs1q"]
 [ext_resource type="PackedScene" uid="uid://cctnfvdwdceio" path="res://Games/Races/Arch/start_line.tscn" id="5_7pb3g"]
@@ -10,6 +9,8 @@
 
 [sub_resource type="Resource" id="Resource_bvkxh"]
 script = ExtResource("2_ogs1q")
+border_samples = Array[PackedScene]([])
+obstacle_samples = Array[PackedScene]([])
 race_length = 100
 race_width = 10.0
 obst_size_range = Vector2(0.5, 3)
@@ -23,6 +24,8 @@ metadata/_custom_type_script = "uid://epb7xgmjyv72"
 
 [sub_resource type="Resource" id="Resource_pno21"]
 script = ExtResource("2_ogs1q")
+border_samples = Array[PackedScene]([])
+obstacle_samples = Array[PackedScene]([])
 race_length = 100
 race_width = 10.0
 obst_size_range = Vector2(0.5, 3)
@@ -40,8 +43,6 @@ size = Vector3(7, 1, 1)
 [node name="ObstacleRace" type="Node3D"]
 script = ExtResource("1_rnfno")
 race_data = Array[ExtResource("2_ogs1q")]([SubResource("Resource_bvkxh"), SubResource("Resource_pno21")])
-border_sample = ExtResource("3_8r2kh")
-obstacle_sample = ExtResource("3_8r2kh")
 finish_line = ExtResource("4_nl003")
 start_line = ExtResource("5_7pb3g")
 

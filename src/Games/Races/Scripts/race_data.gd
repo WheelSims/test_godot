@@ -1,8 +1,8 @@
 extends Resource
 class_name RaceData
 
-@export var border_sample: PackedScene
-@export var obstacle_sample: PackedScene
+@export var border_samples: Array[PackedScene]
+@export var obstacle_samples: Array[PackedScene]
 @export var race_length: int = 100
 @export var race_width: float = 10
 @export var obst_size_range: Vector2 = Vector2(0.5,3)

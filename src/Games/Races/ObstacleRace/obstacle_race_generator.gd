@@ -10,12 +10,12 @@ var current_race_objects: Array[Node3D] = []
 @export var race_data: Array[RaceData]
 var current_race_data_indice := 0
 var current_race_data
-var default_border_sample: PackedScene
-var default_obstacle_sample: PackedScene
-@export var border_sample: PackedScene
-@export var obstacle_sample: PackedScene
-@export var fence_sample: PackedScene
-@export var brick_sample: PackedScene
+var default_border_samples: Array[PackedScene]
+var default_obstacle_samples: Array[PackedScene]
+@export var border_samples: Array[PackedScene]
+@export var obstacle_samples: Array[PackedScene]
+@export var transparent_wall_samples: Array[PackedScene]
+@export var opaque_wall_samples: Array[PackedScene]
 @export var finish_line: PackedScene
 var finish_line_instance : Node3D
 @export var start_line: PackedScene
@@ -43,7 +43,7 @@ var _rng = RandomNumberGenerator.new()
 var _depth_dist: float
 var _horiz_dist: float
 var _object_size: float
-var remainder: float
+var _remainder: float
 
 # _race_start_x and _end_race_x_pos reset at every new level
 var _race_start_x : float = 0
@@ -63,8 +63,8 @@ var walls_on_current_challenge: Array[Wall] = []
 
 func _ready() -> void:
 	_rng.randomize()
-	default_border_sample = border_sample
-	default_obstacle_sample = obstacle_sample
+	default_border_samples = border_samples
+	default_obstacle_samples = obstacle_samples
 	var ground_tile : Node3D = ground_tile.instantiate()
 	var mesh : PlaneMesh = ground_tile.mesh
 	tile_length = mesh.size.x
@@ -137,11 +137,12 @@ func _arches_generation()->void:
 func _border_generation() -> void:
 	for i in range(race_length):
 		var x = i + _race_start_x
-		_spawn_border(x, -race_width/2 - 0.5)  # left border
-		_spawn_border(x,  race_width/2 + 0.5)  # right border
+		var border_sample : PackedScene = default_border_samples.pick_random()
+		_spawn_border(x, -race_width/2 - 0.5, border_sample)  # left border
+		_spawn_border(x,  race_width/2 + 0.5, border_sample)  # right border
 
-func _spawn_border(x_pos: float, z_pos: float):
-	var border = default_border_sample.instantiate()
+func _spawn_border(x_pos: float, z_pos: float, border_sample: PackedScene):
+	var border = border_sample.instantiate()
 	current_race_objects.append(border)
 	border.position.x = x_pos
 	border.position.z = z_pos
@@ -153,22 +154,22 @@ func _challenge_generation() -> void:
 	while _current_x_pos < race_length + _race_start_x:
 		walls_on_current_challenge.clear()
 		if _rng.randf() < obstacle_opening_prob:
-			_object_builder(_current_x_pos, 0.25, true, false)
+			_object_builder(_current_x_pos, 0.25, true, false, obstacle_samples.pick_random())
 		else:
 			if _rng.randf() < transparent_op_wall_prob:
 				#fence is already scaled
-				_object_builder(_current_x_pos, 0, false, true)
+				_object_builder(_current_x_pos, 0, false, true, transparent_wall_samples.pick_random())
 			else:
-				_object_builder(_current_x_pos, 0.25, false, false)
+				_object_builder(_current_x_pos, 0.25, false, false, opaque_wall_samples.pick_random())
 		#_depth_dist = _rng.randf_range(depth_dist_btw_challenge_range.x, depth_dist_btw_challenge_range.y)
 		_current_x_pos += _depth_dist
 		
-func _object_builder(pos_x: float, quantum: float, is_obst: bool, already_scaled: bool)->void:
+func _object_builder(pos_x: float, quantum: float, is_obst: bool, already_scaled: bool, sample: PackedScene)->void:
 	var total_length: float
 	if already_scaled:
-		var wall: WorldScaleCalculator = fence_sample.instantiate()
+		var wall: WorldScaleCalculator = sample.instantiate()
 		quantum = wall.get_world_scale().x
-		_wall_builder(pos_x, -race_width/2, race_width/2, fence_sample, wall.get_world_scale().x)
+		_wall_builder(pos_x, -race_width/2, race_width/2, sample, wall.get_world_scale().x)
 		total_length = walls_on_current_challenge.size()
 	else:
 		total_length = int(race_width / quantum)
@@ -193,8 +194,7 @@ func _object_builder(pos_x: float, quantum: float, is_obst: bool, already_scaled
 	generator.print_segments(segments)
 	
 	if !already_scaled:
-		var object_sample: PackedScene = obstacle_sample if is_obst else brick_sample
-		_segments_to_real_obsts(segments, quantum, pos_x, object_sample)
+		_segments_to_real_obsts(segments, quantum, pos_x, sample)
 	else:
 		_segments_to_real_unit_walls(segments)
 
@@ -231,13 +231,14 @@ func _segments_to_real_unit_walls(segments: Array[Segment])->void:
 				cursor_i += 1
 				var wall : Wall = walls_on_current_challenge[j]
 				wall.wall_nature = WallNature.opening
+				current_race_objects.erase(wall.node)
 				wall.node.queue_free()
 		
 	
 func _wall_builder(pos_x:float, left_border_pos: float, right_border_pos: float, wall: PackedScene, wall_size_z: float)->void:
 	var wall_info: Wall
-	remainder = fmod(race_width, wall_size_z) ## remainder
-	var cursor_z: float = left_border_pos + wall_size_z/2 - remainder/2
+	_remainder = fmod(race_width, wall_size_z) ## _remainder
+	var cursor_z: float = left_border_pos + wall_size_z/2 - _remainder/2
 	
 	while(cursor_z < right_border_pos + wall_size_z / 2):
 		var wall_instance = wall.instantiate()
@@ -249,6 +250,7 @@ func _wall_builder(pos_x:float, left_border_pos: float, right_border_pos: float,
 		wall_info.z = cursor_z
 		walls_on_current_challenge.append(wall_info)
 		add_child(wall_instance)
+		current_race_objects.append(wall_instance)
 		cursor_z += wall_size_z
 	_sort_wall_list()
 	
@@ -283,10 +285,10 @@ func _change_current_parameters() -> void:
 	wall_size_range = current_race_data.wall_size_range
 	obstacle_opening_prob = current_race_data.obstacle_opening_prob
 	transparent_op_wall_prob = current_race_data.transparent_op_wall_prob
-	if current_race_data.border_sample == null:
-		current_race_data.border_sample = default_border_sample
-	if current_race_data.obstacle_sample == null:
-		current_race_data.obstacle_sample = default_obstacle_sample
+	if current_race_data.border_samples == null:
+		current_race_data.border_samples = default_border_samples
+	if current_race_data.obstacle_samples == null:
+		current_race_data.obstacle_samples = default_obstacle_samples
 
 func _on_area_3d_body_entered(body: Node3D) -> void:
 	if body.is_in_group("Player"):
