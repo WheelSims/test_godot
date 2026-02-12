@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b8jlopfehhtyr"
-path="res://.godot/imported/irglm_lindsay_ramp.png-21c6dd45a9cd7ee46ca7cc40819a010d.ctex"
+uid="uid://bjka0e0fk8adr"
+path="res://.godot/imported/street_corner.png-9dc54532a23721b1f13b0cbb91946723.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://control_gui/thumbnails/irglm_lindsay_ramp.png"
-dest_files=["res://.godot/imported/irglm_lindsay_ramp.png-21c6dd45a9cd7ee46ca7cc40819a010d.ctex"]
+source_file="res://playable_scenes/street_corner.png"
+dest_files=["res://.godot/imported/street_corner.png-9dc54532a23721b1f13b0cbb91946723.ctex"]
 
 [params]
 

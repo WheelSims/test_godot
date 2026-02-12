@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://ren1j3ljjk5q"]
 
-[ext_resource type="PackedScene" uid="uid://y2xjjvq3l33t" path="res://environments/park_environment.tscn" id="1_trtnn"]
+[ext_resource type="PackedScene" uid="uid://y2xjjvq3l33t" path="res://environments/park/park_environment.tscn" id="1_trtnn"]
 [ext_resource type="PackedScene" uid="uid://b2lsq08mbnhw0" path="res://games/races/race.tscn" id="2_g5yr7"]
 
 [sub_resource type="Curve3D" id="Curve3D_n6s4s"]

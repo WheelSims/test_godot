@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://btb6if6cvhayk"
-path="res://.godot/imported/park.png-a400d427f36526c8ffc6f0461b836cfa.ctex"
+uid="uid://ifwgt5drqr4v"
+path="res://.godot/imported/irglm_4th_floor.png-db13e5c283f137abfe8868d33a60a9dd.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://control_gui/thumbnails/park.png"
-dest_files=["res://.godot/imported/park.png-a400d427f36526c8ffc6f0461b836cfa.ctex"]
+source_file="res://playable_scenes/irglm_4th_floor.png"
+dest_files=["res://.godot/imported/irglm_4th_floor.png-db13e5c283f137abfe8868d33a60a9dd.ctex"]
 
 [params]
 

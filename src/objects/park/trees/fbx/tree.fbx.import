@@ -41,12 +41,12 @@ _subresources={
 "materials": {
 "leafs": {
 "use_external/enabled": true,
-"use_external/fallback_path": "res://objects/park/trees/_art/leafs.tres",
+"use_external/fallback_path": "res://objects/park/trees/textures/leafs.tres",
 "use_external/path": "uid://dhsapoj2reyva"
 },
 "trunk": {
 "use_external/enabled": true,
-"use_external/fallback_path": "res://objects/park/trees/_art/trunk.tres",
+"use_external/fallback_path": "res://objects/park/trees/textures/trunk.tres",
 "use_external/path": "uid://oe341vy80sjj"
 }
 }

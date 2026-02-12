@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://y8nlacn4g65h"]
 
-[ext_resource type="Texture2D" uid="uid://btb6if6cvhayk" path="res://control_gui/thumbnails/park.png" id="1_7v0sa"]
+[ext_resource type="Texture2D" uid="uid://btb6if6cvhayk" path="res://playable_scenes/park.png" id="1_7v0sa"]
 
 [node name="SelectPark" type="Button"]
 custom_minimum_size = Vector2(170, 120)

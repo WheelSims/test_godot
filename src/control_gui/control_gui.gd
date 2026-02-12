@@ -2,7 +2,7 @@ extends Control
 
 @export var SIMULATOR_USERS_FILENAME = "user://simulator_users.json"
 @export var PLAYABLE_SCENES_FOLDER_PATH = "res://playable_scenes"
-@export var THUMBNAIL_FOLDER_PATH = "res://control_gui/thumbnails"
+@export var THUMBNAIL_FOLDER_PATH = "res://playable_scenes"
 var _current_scene_node: Node3D = null
 
 # --- UI users ---
@@ -59,19 +59,19 @@ func _process(delta: float) -> void:
 func _get_player() -> Node:
 	var root := get_tree().get_root()
 
-	var n := root.get_node_or_null("Park/Player")
+	var n := root.get_node_or_null("Park/player")
 	if n and n.has_node("DBox"):
 		return n
 
-	n = root.get_node_or_null("Player")
+	n = root.get_node_or_null("player")
 	if n and n.has_node("DBox"):
 		return n
 
 	for child in root.get_children():
-		if child.name == "Player" and child.has_node("DBox"):
+		if child.name == "player" and child.has_node("DBox"):
 			return child
-		if child.has_node("Player"):
-			var p := child.get_node_or_null("Player")
+		if child.has_node("player"):
+			var p := child.get_node_or_null("player")
 			if p and p.has_node("DBox"):
 				return p
 	return null
@@ -245,16 +245,16 @@ func _set_scene(scene_instance: Node3D)->void:
 
 	
 	get_tree().get_root().add_child(scene_instance)
-	var second_window := scene_instance.get_node_or_null("Player/FloorProjector")
-	var motors := scene_instance.get_node_or_null("Player/Motors")
-	var dbox := scene_instance.get_node_or_null("Player/DBox")
+	var second_window := scene_instance.get_node_or_null("player/FloorProjector")
+	var motors := scene_instance.get_node_or_null("player/Motors")
+	var dbox := scene_instance.get_node_or_null("player/DBox")
 	
 	
 
 	var screen_count: int = DisplayServer.get_screen_count()
 	
 	if _parameters["has_floor_cam"]:
-		second_window = scene_instance.get_node_or_null("Player/FloorProjector") as Window
+		second_window = scene_instance.get_node_or_null("player/FloorProjector") as Window
 		if second_window and screen_count > 1:
 			_prepare_display_window(second_window, 1)
 	else:
@@ -264,7 +264,7 @@ func _set_scene(scene_instance: Node3D)->void:
 	if not _parameters["has_motors"]:
 		motors.queue_free()
 
-	var third_window := scene_instance.get_node_or_null("Player/FrontProjector") as Window
+	var third_window := scene_instance.get_node_or_null("player/FrontProjector") as Window
 	if third_window and screen_count > 2:
 		_prepare_display_window(third_window, 2)
 		
