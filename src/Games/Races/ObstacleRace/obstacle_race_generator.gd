@@ -168,8 +168,11 @@ func _object_builder(pos_x: float, quantum: float, is_obst: bool, already_scaled
 	var total_length: float
 	if already_scaled:
 		var wall: WorldScaleCalculator = sample.instantiate()
-		quantum = wall.get_world_scale().x
-		_wall_builder(pos_x, -race_width/2, race_width/2, sample, wall.get_world_scale().x)
+		add_child(wall)
+		wall.force_update_transform()
+		quantum = wall.size_z
+		wall.queue_free()
+		_wall_builder(pos_x, -race_width/2, race_width/2, sample, quantum)
 		total_length = walls_on_current_challenge.size()
 	else:
 		total_length = int(race_width / quantum)
@@ -191,7 +194,7 @@ func _object_builder(pos_x: float, quantum: float, is_obst: bool, already_scaled
 		open_max,
 		_rng
 	)
-	generator.print_segments(segments)
+	#generator.print_segments(segments)
 	
 	if !already_scaled:
 		_segments_to_real_obsts(segments, quantum, pos_x, sample)

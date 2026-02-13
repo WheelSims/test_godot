@@ -1,11 +1,10 @@
-[gd_scene load_steps=14 format=3 uid="uid://b2pvklx5fxccb"]
+[gd_scene load_steps=13 format=3 uid="uid://b2pvklx5fxccb"]
 
 [ext_resource type="Texture2D" uid="uid://csbwjfuwod7oo" path="res://Terrain/Park/Textures/gravel.jpg" id="1_j5cfv"]
 [ext_resource type="PackedScene" uid="uid://biluq7vv8ghsm" path="res://Player/player.tscn" id="2_mhd6p"]
 [ext_resource type="PackedScene" uid="uid://hnxp88a0five" path="res://Games/Races/ObstacleRace/obstacle_race.tscn" id="3_svacw"]
 [ext_resource type="Script" uid="uid://epb7xgmjyv72" path="res://Games/Races/Scripts/race_data.gd" id="4_ami1h"]
 [ext_resource type="PackedScene" uid="uid://jqktvq65k2vj" path="res://Games/Races/ObstacleRace/ground.tscn" id="5_ami1h"]
-[ext_resource type="PackedScene" uid="uid://cmkbfhcn3klys" path="res://Objects/RaceObjects/WesternTheme/Walls/Fence/fence_opening.tscn" id="6_bvkxh"]
 [ext_resource type="PackedScene" uid="uid://diyc4k3lfoq2t" path="res://Objects/RaceObjects/WesternTheme/Walls/Fence/fence.tscn" id="6_pno21"]
 [ext_resource type="PackedScene" uid="uid://36jj7pd344xn" path="res://Games/Races/ObstacleRace/obstacle_sample.tscn" id="6_xlm5y"]
 [ext_resource type="PackedScene" uid="uid://blm1wlle8dcqr" path="res://Objects/RaceObjects/WesternTheme/Walls/BrickWall/brick_wall.tscn" id="8_orefh"]
@@ -71,5 +70,4 @@ transparent_wall_samples = Array[PackedScene]([ExtResource("6_pno21")])
 opaque_wall_samples = Array[PackedScene]([ExtResource("8_orefh")])
 ground_tile = ExtResource("5_ami1h")
 
-[node name="FenceOpening" parent="." instance=ExtResource("6_bvkxh")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -69, 0, 0)
+[connection signal="body_shape_entered" from="Player" to="Player/Motors" method="_on_player_on_simulator_body_shape_entered"]
