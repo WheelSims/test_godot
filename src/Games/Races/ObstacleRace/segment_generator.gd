@@ -1,13 +1,31 @@
 class_name SegmentGenerator
 extends RefCounted
 
+var _obstacle_sizes: Array[int]
+var _opening_range: Array[int]
+
 func generate_segments(
 		total_length: int,
 		wall_min: int,
 		wall_max: int,
 		open_min: int,
 		open_max: int,
-		rng: RandomNumberGenerator
+		rng: RandomNumberGenerator,
+		obstacle_sizes: Array[int] = []
+		) -> Array[Segment]:
+			
+	if (obstacle_sizes.size() == 0):
+		return generate_wall_segments(total_length, wall_min, wall_max, open_min, open_max, rng)
+	else:
+		return _generate_obstacle_segments(total_length, open_min, open_max, rng, obstacle_sizes)
+
+func generate_wall_segments(
+		total_length: int,
+		wall_min: int,
+		wall_max: int,
+		open_min: int,
+		open_max: int,
+		rng: RandomNumberGenerator,
 		) -> Array[Segment]:
 
 	var segments: Array[Segment] = []
@@ -30,7 +48,7 @@ func generate_segments(
 		# End case : last segment
 		if remaining <= max_len:
 			if remaining < min_len:
-				push_error("No valid segmentation possible")
+				push_error("No valid segmentation possible for last segment")
 				return []
 			segments.append(Segment.new(current_type, remaining))
 			break
@@ -45,13 +63,14 @@ func generate_segments(
 				wall_min,
 				wall_max,
 				open_min,
-				open_max
+				open_max,
 			):
 				possible_lengths.append(l)
-
+		
 		if possible_lengths.is_empty():
 			push_error("No valid segmentation possible")
 			return []
+		
 
 		var chosen := possible_lengths[rng.randi_range(0, possible_lengths.size() - 1)]
 		segments.append(Segment.new(current_type, chosen))
@@ -90,6 +109,50 @@ func _can_fill_rest(
 
 	return false
 	
+func _generate_obstacle_segments(
+		total_length: int,
+		open_min: int,
+		open_max: int,
+		rng: RandomNumberGenerator,
+		obstacle_sizes: Array[int] = []
+		) -> Array[Segment]:
+	_obstacle_sizes = obstacle_sizes
+	for i in range(open_min, open_max + 1): _opening_range.append(i)
+	var remaining := total_length
+	var current_type := Segment.SegmentType.WALL
+	if (rng.randf()>0.5):
+		current_type = Segment.SegmentType.OPENING
+	return _recursive_build(remaining, current_type)
+	
+func _recursive_build(remaining: int, type: Segment.SegmentType) -> Array[Segment]:
+	
+	if remaining == 0:
+		return []
+	
+	var shuffled_obst_sizes = _obstacle_sizes
+	var valid_lengths: Array[int]
+	if type == Segment.SegmentType.WALL:
+		shuffled_obst_sizes.shuffle()
+		valid_lengths = shuffled_obst_sizes
+	else:
+		_opening_range.shuffle()
+		valid_lengths = _opening_range
+	
+	for length in valid_lengths:
+		var rest = remaining - length
+		if rest < 0:
+			continue
+		
+		var sub = _recursive_build(rest, _next_type(type))
+		if sub!=[null]:
+			var seg_array : Array[Segment]
+			seg_array.append(Segment.new(type,length))
+			seg_array.append_array(sub)
+			return seg_array
+	
+	return [null]
+		
+	
 func _next_type(t: Segment.SegmentType) -> Segment.SegmentType:
 	return Segment.SegmentType.OPENING if t == Segment.SegmentType.WALL else Segment.SegmentType.WALL
 	
@@ -104,3 +167,10 @@ func print_segments(segments: Array[Segment]) -> void:
 		parts.append("(%s, %d)" % [type_str, seg.length])
 
 	print("[" + ", ".join(parts) + "]")
+	
+func _intersect_lists(list_a: Array[int], list_b: Array[int]) -> Array[int]:
+	var result: Array[int] = []
+	for item in list_a:
+		if item in list_b and item not in result:
+			result.append(item)
+	return result

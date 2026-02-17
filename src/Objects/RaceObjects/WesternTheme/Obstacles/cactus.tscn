@@ -1,28 +1,23 @@
-[gd_scene load_steps=5 format=3 uid="uid://cuk0l0062jdte"]
+[gd_scene load_steps=4 format=3 uid="uid://cuk0l0062jdte"]
 
 [ext_resource type="PackedScene" uid="uid://da20gld48xjqf" path="res://Objects/RaceObjects/WesternTheme/DesertPack/Models/cactus02.fbx" id="1_vytl1"]
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_vytl1"]
-size = Vector3(1.34668, 0.617798, 0.428955)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_6j4js"]
-size = Vector3(0.781891, 0.202545, 0.428955)
+[ext_resource type="Script" uid="uid://comdhddtuflvn" path="res://Objects/RaceObjects/WesternTheme/world_scale_calculator.gd" id="2_6j4js"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ikxe4"]
-size = Vector3(0.480507, 1.3731, 0.428955)
+size = Vector3(0.480507, 2.07527, 0.428955)
 
-[node name="Cactus" instance=ExtResource("1_vytl1")]
+[node name="Cactus" node_paths=PackedStringArray("visual_instance", "collision_shape") instance=ExtResource("1_vytl1")]
+script = ExtResource("2_6j4js")
+visual_instance = NodePath("Cactuss_02")
+collision_shape = NodePath("Cactuss_02/StaticBody3D/CollisionShape3D3")
+baked_size_z = 0.480507
+metadata/baked_size_z = 0.0
+
+[node name="Cactuss_02" parent="." index="0"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Cactuss_02" index="0"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Cactuss_02/StaticBody3D" index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0708008, 1.9248, 0.00402832)
-shape = SubResource("BoxShape3D_vytl1")
-
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="Cactuss_02/StaticBody3D" index="1"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0528412, 1.50309, 0.00402832)
-shape = SubResource("BoxShape3D_6j4js")
-
-[node name="CollisionShape3D3" type="CollisionShape3D" parent="Cactuss_02/StaticBody3D" index="2"]
-transform = Transform3D(0.999519, -0.0310095, 0, 0.0310095, 0.999519, 0, 0, 0, 1, -0.0318612, 0.70804, 0.00402832)
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="Cactuss_02/StaticBody3D" index="0"]
+transform = Transform3D(0.999519, -0.0310095, 0, 0.0310095, 0.999519, 0, 0, 0, 1, -0.0427482, 1.05896, 0.00402832)
 shape = SubResource("BoxShape3D_ikxe4")

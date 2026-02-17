@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://b2pvklx5fxccb"]
+[gd_scene load_steps=17 format=3 uid="uid://b2pvklx5fxccb"]
 
 [ext_resource type="Texture2D" uid="uid://csbwjfuwod7oo" path="res://Terrain/Park/Textures/gravel.jpg" id="1_j5cfv"]
 [ext_resource type="PackedScene" uid="uid://biluq7vv8ghsm" path="res://Player/player.tscn" id="2_mhd6p"]
@@ -7,7 +7,11 @@
 [ext_resource type="PackedScene" uid="uid://jqktvq65k2vj" path="res://Games/Races/ObstacleRace/ground.tscn" id="5_ami1h"]
 [ext_resource type="PackedScene" uid="uid://diyc4k3lfoq2t" path="res://Objects/RaceObjects/WesternTheme/Walls/Fence/fence.tscn" id="6_pno21"]
 [ext_resource type="PackedScene" uid="uid://36jj7pd344xn" path="res://Games/Races/ObstacleRace/obstacle_sample.tscn" id="6_xlm5y"]
+[ext_resource type="PackedScene" uid="uid://t4035q8axi6v" path="res://Objects/RaceObjects/WesternTheme/Obstacles/HayBale/Scenes/front_hay_bale.tscn" id="7_xlm5y"]
+[ext_resource type="PackedScene" uid="uid://cuk0l0062jdte" path="res://Objects/RaceObjects/WesternTheme/Obstacles/cactus.tscn" id="8_c8tb6"]
 [ext_resource type="PackedScene" uid="uid://blm1wlle8dcqr" path="res://Objects/RaceObjects/WesternTheme/Walls/BrickWall/brick_wall.tscn" id="8_orefh"]
+[ext_resource type="PackedScene" uid="uid://c688htco2q4j4" path="res://Objects/RaceObjects/WesternTheme/Obstacles/HayBale/Scenes/side45_hay_bale.tscn" id="8_x1ela"]
+[ext_resource type="PackedScene" uid="uid://bd610rx5nuyy4" path="res://Objects/RaceObjects/WesternTheme/Obstacles/HayBale/Scenes/side_hay_bale.tscn" id="9_efk0u"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ami1h"]
 albedo_texture = ExtResource("1_j5cfv")
@@ -65,9 +69,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -69.9983, 1.90735e-06, -0.059
 end_offset_to_restart = 20.0
 race_data = Array[ExtResource("4_ami1h")]([SubResource("Resource_mrrh3"), SubResource("Resource_ami1h"), SubResource("Resource_mrrh3")])
 border_samples = Array[PackedScene]([ExtResource("6_xlm5y")])
-obstacle_samples = Array[PackedScene]([ExtResource("6_xlm5y")])
+obstacle_samples = Array[PackedScene]([ExtResource("7_xlm5y"), ExtResource("8_x1ela"), ExtResource("9_efk0u"), ExtResource("8_c8tb6")])
 transparent_wall_samples = Array[PackedScene]([ExtResource("6_pno21")])
 opaque_wall_samples = Array[PackedScene]([ExtResource("8_orefh")])
 ground_tile = ExtResource("5_ami1h")
+
+[node name="StawBale" parent="." instance=ExtResource("7_xlm5y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -63.0198, 0, -3.1353)
 
 [connection signal="body_shape_entered" from="Player" to="Player/Motors" method="_on_player_on_simulator_body_shape_entered"]

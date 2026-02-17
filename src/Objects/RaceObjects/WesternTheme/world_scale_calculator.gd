@@ -1,16 +1,26 @@
+@tool
 class_name WorldScaleCalculator
 extends Node3D
 
+##If a node is scaled. It must be this one
 @export var visual_instance: VisualInstance3D
-var size_z: float = 0
+##The shape of the collision_shape must be one BoxShape3D.
+@export var collision_shape: CollisionShape3D
+@export var baked_size_z: float = 0
 func _ready() -> void:
 	if not visual_instance.is_node_ready():
 		visual_instance.ready.connect(get_precise_size_z)
 	else:
 		get_precise_size_z()
-		
+
 func get_precise_size_z()->float:
-	var aabb = visual_instance.global_transform * visual_instance.get_aabb()
+	var box_shape: BoxShape3D
+	if collision_shape.shape is BoxShape3D:
+		box_shape = collision_shape.shape
+	else:
+		push_error("CollisionShape have to be one BoxShape3D")
+		return 0
+	var aabb = visual_instance.global_transform * AABB(collision_shape.position, box_shape.size)
 		
 	var min_z = INF
 	var max_z = -INF
@@ -22,6 +32,15 @@ func get_precise_size_z()->float:
 				min_z = min(min_z, z)
 				max_z = max(max_z, z)
 	
-	size_z = max_z - min_z
-	return size_z
+	baked_size_z = max_z - min_z
+	#print(baked_size_z)
+	return baked_size_z
 	
+func scale_from_real_size(value: float)->void:
+	if baked_size_z>0:
+		print(value)
+		print(baked_size_z)
+		scale *= value/baked_size_z
+		print(scale)
+	else:
+		push_error("Cannot scale object because it's not baked.")

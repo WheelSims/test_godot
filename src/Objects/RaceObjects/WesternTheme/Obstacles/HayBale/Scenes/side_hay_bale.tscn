@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://bd610rx5nuyy4"]
+
+[ext_resource type="PackedScene" uid="uid://dnqryjoi8sr4d" path="res://Objects/RaceObjects/WesternTheme/Obstacles/HayBale/straw_bale.fbx" id="1_e2gwl"]
+[ext_resource type="Script" uid="uid://comdhddtuflvn" path="res://Objects/RaceObjects/WesternTheme/world_scale_calculator.gd" id="2_0cmkk"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_0cweb"]
+size = Vector3(1.66595, 1.71033, 1.69348)
+
+[node name="StawBale" node_paths=PackedStringArray("visual_instance", "collision_shape") instance=ExtResource("1_e2gwl")]
+transform = Transform3D(0.756881, 0, 0.653553, 0, 1, 0, -0.653553, 0, 0.756881, 0, 0, 0)
+script = ExtResource("2_0cmkk")
+visual_instance = NodePath("StrawBale")
+collision_shape = NodePath("StrawBale/StaticBody3D/CollisionShape3D")
+baked_size_z = 2.3677
+
+[node name="StrawBale" parent="." index="0"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="StrawBale" index="0"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StrawBale/StaticBody3D" index="0"]
+transform = Transform3D(-4.37127e-08, -1, 0, 1, -4.37114e-08, 0, -5.66214e-15, 0, 1, -0.00338744, 0.846542, 0.0106507)
+shape = SubResource("BoxShape3D_0cweb")
