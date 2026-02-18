@@ -53,7 +53,13 @@ size = Vector3(0.480507, 2.07527, 0.428955)
 script = ExtResource("2_6j4js")
 visual_instance = NodePath("Cactuss_02")
 collision_shape = NodePath("Cactuss_02/StaticBody3D/CollisionShape3D3")
-baked_size_z = 0.480507
+baked_size_z = 0.428955
+baked_sizes_dict = {
+-45.0: 0.643087,
+0.0: 0.428955,
+45.0: 0.643087,
+90.0: 0.480507
+}
 object_type = 2
 metadata/baked_size_z = 0.0
 

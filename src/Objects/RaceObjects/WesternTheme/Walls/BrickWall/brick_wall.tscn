@@ -11,7 +11,7 @@
 script = ExtResource("1_qew7g")
 visual_instance = NodePath("MeshInstance")
 collision_shape = NodePath("MeshInstance/StaticBody3D/CollisionShape3D")
-baked_size_z = 1.0
+baked_size_z = 0.887062
 object_type = 1
 
 [node name="MeshInstance" type="MeshInstance3D" parent="."]

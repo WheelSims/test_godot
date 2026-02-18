@@ -12,7 +12,9 @@ func _run():
 		instance.force_update_transform()
 		if instance is WorldScaleCalculator:
 			var inst: WorldScaleCalculator = instance
-			var size = inst.get_precise_size_z()
+			inst.get_precise_size_z()
+			if inst.object_type == WorldScaleCalculator.ObjectType.Obstacle:
+				inst.write_sizes_with_rotation([90, 45, -45, 0])
 		#instance.baked_size_z = size
 		scene.pack(instance)
 		ResourceSaver.save(scene)

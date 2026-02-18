@@ -8,12 +8,21 @@ enum ObjectType {UnitWall, ScalableWall, Obstacle}
 ##The shape of the collision_shape must be one BoxShape3D.
 @export var collision_shape: CollisionShape3D
 @export var baked_size_z: float = 0
+@export var baked_sizes_dict: Dictionary
 @export var object_type: ObjectType
+
 func _ready() -> void:
 	if not visual_instance.is_node_ready():
 		visual_instance.ready.connect(get_precise_size_z)
 	else:
 		get_precise_size_z()
+
+func write_sizes_with_rotation(rotations: Array[float])->void:
+	var origin_rot = visual_instance.rotation.y
+	for rot in rotations:
+		visual_instance.rotation_degrees.y = rot
+		baked_sizes_dict[rot] = get_precise_size_z()
+	#visual_instance.rotation.y = origin_rot
 
 func get_precise_size_z()->float:
 	var box_shape: BoxShape3D

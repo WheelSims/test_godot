@@ -44,7 +44,7 @@ var _horiz_dist: float
 var _object_size: float
 var _remainder: float
 var _object_types: Dictionary = {}
-var _obstacles_size: Dictionary = {}
+var _obstacles_sizes: Dictionary = {}
 var _obstacles_rounded_size: Dictionary = {}
 var _transp_wall_size: Dictionary = {}
 var _opaque_wall_size: Dictionary = {}
@@ -77,7 +77,7 @@ func _ready() -> void:
 		current_race_data = race_data[0]
 		_change_current_parameters()
 	_set_type_object_dict()
-	_set_size_object_dict(obstacle_samples, _obstacles_size)
+	_set_size_object_dict(obstacle_samples, _obstacles_sizes)
 	_set_size_object_dict(transparent_wall_samples, _transp_wall_size)
 	_set_size_object_dict(opaque_wall_samples, _opaque_wall_size)
 	_start_ground_tile_x_pos = _current_x_pos
@@ -105,32 +105,49 @@ func _set_size_object_dict(object_list: Array[PackedScene], list_to_edit: Dictio
 	for object in object_list:
 		if object == null:
 			pass
-		list_to_edit[object] = _get_size_from_object(object)
+		list_to_edit[object] = _get_sizes_from_object(object)
 		
-func _get_size_from_object(sample: PackedScene)->float:
+func _get_sizes_from_object(sample: PackedScene)->Array[float]:
 	var object := sample.instantiate()
 	add_child(object)
-	var size : float = 0
+	var sizes : Array[float] = []
 	if (object is WorldScaleCalculator):
-		size = object.baked_size_z
+		if object.object_type == WorldScaleCalculator.ObjectType.Obstacle:
+			sizes.append_array(object.baked_sizes_dict.values())
+		else:
+			sizes.append(object.baked_size_z)
 	object.queue_free()
-	return size
+	return sizes
 	
+#to get n*quantum clother number from number
+#ex: number = 1.666 => return 1.75 with quantum = 0.25
 func _clother_xquantum(quantum: float, number_to_round: float)->int:
-	var min_dif := INF
-	var dif := min_dif
 	if number_to_round - int(number_to_round/quantum)*quantum < (int(number_to_round/quantum)+1)*quantum - number_to_round:
 		return int(number_to_round/quantum)
 	else:
 		return int(number_to_round/quantum)+1
+
+#to make the inverse operation. Get the clother number from the list
+#ex: number = 1.75 => get 1.666
+func _clother_number(list: Array, y: float)->float:
+	var min_dif := INF
+	var number: float
+	for x in list:
+		if abs(y-x) < min_dif:
+			min_dif = abs(y-x)
+			number = x
+	return number
 	
-func _rounded_int_lengths(quantum:float, dict: Dictionary, dict_to_edit: Dictionary)->Array[int]:
+func _rounded_int_obst_lengths(quantum:float)->Array[int]:
 	var list: Array[int] = []
-	for object in dict:
-		var n := _clother_xquantum(quantum, dict[object])
-		dict_to_edit[object] = n*quantum
-		list.append(n)
+	for object in _obstacles_sizes:
+		for length in _obstacles_sizes[object]:
+			var n := _clother_xquantum(quantum, length)
+			_obstacles_rounded_size[object] = n*quantum
+			if not n in list:
+				list.append(n)
 	list.sort()
+	print(list)
 	return list
 
 func _next_level() -> void:
@@ -223,7 +240,7 @@ func _object_builder(pos_x: float, quantum: float,  sample: PackedScene)->void:
 	var is_obst: bool = _object_types[sample] == WorldScaleCalculator.ObjectType.Obstacle
 	var is_unit_wall: bool = _object_types[sample] == WorldScaleCalculator.ObjectType.UnitWall
 	if is_unit_wall:
-		quantum = _transp_wall_size[sample]
+		quantum = _transp_wall_size[sample][0]
 		_wall_builder(pos_x, -race_width/2, race_width/2, sample, quantum)
 		total_length = walls_on_current_challenge.size()
 	else:
@@ -243,7 +260,7 @@ func _object_builder(pos_x: float, quantum: float,  sample: PackedScene)->void:
 	
 	var length_obst_list: Array[int] = []
 	if is_obst:
-		length_obst_list = _rounded_int_lengths(quantum, _obstacles_size, _obstacles_rounded_size)
+		length_obst_list = _rounded_int_obst_lengths(quantum)
 		if length_obst_list.size() > 0:
 			wall_min = length_obst_list.front()
 			wall_max = length_obst_list.back()
@@ -259,7 +276,7 @@ func _object_builder(pos_x: float, quantum: float,  sample: PackedScene)->void:
 		_rng,
 		length_obst_list
 	)
-	#generator.print_segments(segments)
+	if is_obst: generator.print_segments(segments)
 	
 	if is_obst:
 		_segments_to_obstacles(segments, quantum, pos_x)
@@ -285,9 +302,18 @@ func _obstacle_spawn(pos_x: float, pos_z: float, scale_z: float)->void:
 	var obstacle: PackedScene = find_random_key(_obstacles_rounded_size, scale_z, _rng)
 	if obstacle == null:
 		return
+	else:
+		print("obstacle = null")
 	var instance := obstacle.instantiate()
+	var list: Array = instance.baked_sizes_dict.values()
+	var origin_scale = _clother_number(list, scale_z)
+	var rotation = find_random_key(instance.baked_sizes_dict, origin_scale, _rng)
+	print(rotation)
+	
 	current_race_objects.append(instance)
 	instance.position.x = pos_x
+	if rotation != null:
+		instance.visual_instance.rotation_degrees.y = rotation
 	instance.position.z = pos_z
 	instance.scale_from_real_size(scale_z)
 	add_child(instance)
