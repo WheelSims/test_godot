@@ -43,12 +43,11 @@ var _depth_dist: float
 var _horiz_dist: float
 var _object_size: float
 var _remainder: float
+var _object_types: Dictionary = {}
 var _obstacles_size: Dictionary = {}
 var _obstacles_rounded_size: Dictionary = {}
 var _transp_wall_size: Dictionary = {}
-var _transp_wall_rounded_size: Dictionary = {}
 var _opaque_wall_size: Dictionary = {}
-var _opaque_wall_rounded_size: Dictionary = {}
 
 # _race_start_x and _end_race_x_pos reset at every new level
 var _race_start_x : float = 0
@@ -77,9 +76,10 @@ func _ready() -> void:
 	if race_data.size()>0:
 		current_race_data = race_data[0]
 		_change_current_parameters()
-	_set_object_dict(obstacle_samples, _obstacles_size)
-	_set_object_dict(transparent_wall_samples, _transp_wall_size)
-	_set_object_dict(opaque_wall_samples, _opaque_wall_size)
+	_set_type_object_dict()
+	_set_size_object_dict(obstacle_samples, _obstacles_size)
+	_set_size_object_dict(transparent_wall_samples, _transp_wall_size)
+	_set_size_object_dict(opaque_wall_samples, _opaque_wall_size)
 	_start_ground_tile_x_pos = _current_x_pos
 	_challenge_generation()
 	_arches_generation()
@@ -89,7 +89,19 @@ func _ready() -> void:
 	for i in range(race_data.size()):
 		_next_level()
 		
-func _set_object_dict(object_list: Array[PackedScene], list_to_edit: Dictionary)->void:
+func _set_type_object_dict()->void:
+	for sample in obstacle_samples + transparent_wall_samples + opaque_wall_samples:
+		if sample == null:
+			pass
+		var instance := sample.instantiate()
+		add_child(instance)
+		var type : WorldScaleCalculator.ObjectType
+		if (instance is WorldScaleCalculator):
+			type = instance.object_type
+		_object_types[sample] = type
+		instance.queue_free()
+
+func _set_size_object_dict(object_list: Array[PackedScene], list_to_edit: Dictionary)->void:
 	for object in object_list:
 		if object == null:
 			pass
@@ -195,21 +207,22 @@ func _challenge_generation() -> void:
 		walls_on_current_challenge.clear()
 		if _rng.randf() < obstacle_opening_prob:
 			# Obstacle case
-			_object_builder(_current_x_pos, 0.25, true, false, obstacle_samples.pick_random())
+			_object_builder(_current_x_pos, 0.25, obstacle_samples.pick_random())
 		else:
 			if _rng.randf() < transparent_op_wall_prob: 
 				# Transparant wall case
-				#fence is already scaled
-				_object_builder(_current_x_pos, 0, false, true, transparent_wall_samples.pick_random())
+				_object_builder(_current_x_pos, 0, transparent_wall_samples.pick_random())
 			else:
 				# Opaque wall case
-				_object_builder(_current_x_pos, 0.25, false, false, opaque_wall_samples.pick_random())
+				_object_builder(_current_x_pos, 0.25,  opaque_wall_samples.pick_random())
 		#_depth_dist = _rng.randf_range(depth_dist_btw_challenge_range.x, depth_dist_btw_challenge_range.y)
 		_current_x_pos += _depth_dist
 		
-func _object_builder(pos_x: float, quantum: float, is_obst: bool, already_scaled: bool, sample: PackedScene)->void:
+func _object_builder(pos_x: float, quantum: float,  sample: PackedScene)->void:
 	var total_length: float
-	if already_scaled:
+	var is_obst: bool = _object_types[sample] == WorldScaleCalculator.ObjectType.Obstacle
+	var is_unit_wall: bool = _object_types[sample] == WorldScaleCalculator.ObjectType.UnitWall
+	if is_unit_wall:
 		quantum = _transp_wall_size[sample]
 		_wall_builder(pos_x, -race_width/2, race_width/2, sample, quantum)
 		total_length = walls_on_current_challenge.size()
@@ -224,7 +237,7 @@ func _object_builder(pos_x: float, quantum: float, is_obst: bool, already_scaled
 	var open_min: int = int(gap_range.x / quantum)
 	var open_max: int = int(gap_range.y / quantum)
 	
-	if already_scaled:
+	if is_unit_wall:
 		wall_min += 1
 		wall_max += 1
 	
@@ -246,11 +259,11 @@ func _object_builder(pos_x: float, quantum: float, is_obst: bool, already_scaled
 		_rng,
 		length_obst_list
 	)
-	generator.print_segments(segments)
+	#generator.print_segments(segments)
 	
 	if is_obst:
 		_segments_to_obstacles(segments, quantum, pos_x)
-	elif !already_scaled:
+	elif !is_unit_wall:
 		_segments_to_scalable_walls(segments, quantum, pos_x, sample)
 	else:
 		_segments_to_unit_walls(segments)

@@ -14,7 +14,7 @@ func _run():
 			var inst: WorldScaleCalculator = instance
 			var size = inst.get_precise_size_z()
 		#instance.baked_size_z = size
-#
+		scene.pack(instance)
 		ResourceSaver.save(scene)
 
 		instance.queue_free()

@@ -10,10 +10,11 @@ size = Vector3(1.66595, 1.71033, 1.69348)
 script = ExtResource("2_yufr4")
 visual_instance = NodePath("StrawBale")
 collision_shape = NodePath("StrawBale/StaticBody3D/CollisionShape3D")
-baked_size_z = 1.66595
+baked_size_z = 2.37548
+object_type = 2
 
 [node name="StrawBale" parent="." index="0"]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 0, 0, 0)
 
 [node name="StaticBody3D" type="StaticBody3D" parent="StrawBale" index="0"]
 

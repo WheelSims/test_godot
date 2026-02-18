@@ -74,7 +74,4 @@ transparent_wall_samples = Array[PackedScene]([ExtResource("6_pno21")])
 opaque_wall_samples = Array[PackedScene]([ExtResource("8_orefh")])
 ground_tile = ExtResource("5_ami1h")
 
-[node name="StawBale" parent="." instance=ExtResource("7_xlm5y")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -63.0198, 0, -3.1353)
-
 [connection signal="body_shape_entered" from="Player" to="Player/Motors" method="_on_player_on_simulator_body_shape_entered"]

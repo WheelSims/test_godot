@@ -2,11 +2,13 @@
 class_name WorldScaleCalculator
 extends Node3D
 
+enum ObjectType {UnitWall, ScalableWall, Obstacle}
 ##If a node is scaled. It must be this one
 @export var visual_instance: VisualInstance3D
 ##The shape of the collision_shape must be one BoxShape3D.
 @export var collision_shape: CollisionShape3D
 @export var baked_size_z: float = 0
+@export var object_type: ObjectType
 func _ready() -> void:
 	if not visual_instance.is_node_ready():
 		visual_instance.ready.connect(get_precise_size_z)
@@ -38,9 +40,6 @@ func get_precise_size_z()->float:
 	
 func scale_from_real_size(value: float)->void:
 	if baked_size_z>0:
-		print(value)
-		print(baked_size_z)
 		scale *= value/baked_size_z
-		print(scale)
 	else:
 		push_error("Cannot scale object because it's not baked.")

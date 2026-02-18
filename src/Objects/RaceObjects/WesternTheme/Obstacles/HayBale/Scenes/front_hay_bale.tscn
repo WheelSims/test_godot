@@ -11,6 +11,7 @@ script = ExtResource("2_3ewrv")
 visual_instance = NodePath("StrawBale")
 collision_shape = NodePath("StrawBale/StaticBody3D/CollisionShape3D")
 baked_size_z = 1.69348
+object_type = 2
 
 [node name="StaticBody3D" type="StaticBody3D" parent="StrawBale" index="0"]
 
