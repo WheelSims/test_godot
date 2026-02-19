@@ -127,6 +127,7 @@ shape = SubResource("BoxShape3D_muua7")
 [node name="floor_projector" type="Window" parent="." unique_id=1775090399]
 auto_translate_mode = 1
 oversampling_override = 1.0
+title = "Floor Projection"
 position = Vector2i(0, 36)
 size = Vector2i(1150, 615)
 
@@ -142,6 +143,7 @@ auto_translate_mode = 1
 audio_listener_enable_2d = true
 audio_listener_enable_3d = true
 oversampling_override = 1.0
+title = "Front Projection"
 position = Vector2i(0, 36)
 size = Vector2i(1150, 615)
 
