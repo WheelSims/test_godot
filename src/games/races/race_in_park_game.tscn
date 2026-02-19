@@ -5,20 +5,20 @@
 
 [sub_resource type="Curve3D" id="Curve3D_n6s4s"]
 _data = {
-"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 11.685, 1.90735e-06, -6.41877, 0, 0, 0, 0, 0, 0, 25.9747, 1.90735e-06, -13.9269, 0, 0, 0, 0, 0, 0, 47.4447, 1.90735e-06, -17.1226, 0, 0, 0, 0, 0, 0, 67.5708, 1.90735e-06, -10.849, 0, 0, 0, 0, 0, 0, 76.9544, 1.90735e-06, 5.00327, 0, 0, 0, 0, 0, 0, 71.8837, -3.61702e-05, 19.1521, 0, 0, 0, 0, 0, 0, 53.5974, -3.61702e-05, 26.5174, 0, 0, 0, 0, 0, 0, 40.6447, -3.61702e-05, 36.1685),
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10.070244, 1.9073486e-06, -10.052269, 0, 0, 0, 0, 0, 0, 25.49747, 1.9073486e-06, -20.39164, 0, 0, 0, 0, 0, 0, 44.08363, 1.9073486e-06, -15.497566, 0, 0, 0, 0, 0, 0, 57.722683, 1.9073486e-06, 1.5085487, 0, 0, 0, 0, 0, 0, 62.575237, 1.9073486e-06, 19.326721, 0, 0, 0, 0, 0, 0, 65.65314, -3.61702e-05, 33.270107, 0, 0, 0, 0, 0, 0, 70.27948, -3.61702e-05, 52.18902, 0, 0, 0, 0, 0, 0, 74.6593, -3.61702e-05, 71.18001),
 "tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0)
 }
 point_count = 9
 
-[node name="RaceInParkGame" type="Node3D"]
+[node name="RaceInParkGame" type="Node3D" unique_id=358657336]
 
-[node name="ParkEnvironment" parent="." instance=ExtResource("1_trtnn")]
+[node name="ParkEnvironment" parent="." unique_id=1813439283 instance=ExtResource("1_trtnn")]
 
-[node name="Race" parent="." node_paths=PackedStringArray("path") instance=ExtResource("2_g5yr7")]
-transform = Transform3D(-0.719073, 0, -0.694934, 0, 1, 0, 0.694934, 0, -0.719073, 4.62002, 3.61702e-05, -60.0613)
+[node name="Race" parent="." unique_id=396843458 node_paths=PackedStringArray("path") instance=ExtResource("2_g5yr7")]
+transform = Transform3D(-0.005026847, 0, -0.99998695, 0, 1, 0, 0.99998695, 0, -0.005026847, 4.62002, 3.61702e-05, -60.0613)
 path = NodePath("Path3D")
 end_arch_left_crowd = true
 
-[node name="Path3D" type="Path3D" parent="Race"]
+[node name="Path3D" type="Path3D" parent="Race" unique_id=1393479340]
 transform = Transform3D(-0.719074, 0, 0.694934, 0, 1, 0, -0.694934, 0, -0.719074, 0, 0, 0)
 curve = SubResource("Curve3D_n6s4s")
