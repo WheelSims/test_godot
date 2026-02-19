@@ -79,7 +79,7 @@ corner_radius_bottom_left = 10
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_d7bjb"]
 
-[node name="ControlGUI" type="Control" unique_id=728106337 node_paths=PackedStringArray("patient_list", "scene_container", "btn_dbox", "btn_dbox_up", "btn_dbox_down", "_dbox_toggle", "_floor_cam_toggle", "_motors_toggle")]
+[node name="control_gui" type="Control" unique_id=728106337 node_paths=PackedStringArray("patient_list", "scene_container", "btn_dbox", "btn_dbox_up", "btn_dbox_down", "_dbox_toggle", "_floor_cam_toggle", "_motors_toggle")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

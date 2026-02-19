@@ -45,7 +45,7 @@ func _ready() -> void:
 	#Preferences
 	load_preferences()
 	
-	_create_map_buttons()
+	_create_scene_buttons()
 
 func _process(delta: float) -> void:
 	if dbox_manual_mode and dbox_hold_dir != 0:
@@ -159,13 +159,10 @@ func load_preferences()->void:
 	_motors_toggle.set_pressed_no_signal(_parameters["has_motors"])
 
 # -------------------------------------------------------------------
-# Lancement PARK + plein écran sans bordure
+# Load scenes
 # -------------------------------------------------------------------
-func _kill_existing_simulators() -> void:
-	if _current_scene_node:
-		_current_scene_node.queue_free()
-
-func _create_map_buttons()->void:
+## Create all the scene buttons with their thumbnail if they exist.
+func _create_scene_buttons()->void:
 	var dir := DirAccess.open(PLAYABLE_SCENES_FOLDER_PATH)
 	if dir:
 		dir.list_dir_begin()
@@ -197,7 +194,7 @@ func _create_map_buttons()->void:
 						var path = _scene_button_instance.get_meta("scene_path")
 						var scene_instance = load(path).instantiate()
 						get_tree().get_root().add_child(scene_instance)
-						_set_scene(scene_instance)
+						_enter_scene(scene_instance)
 				)
 				scene_container.add_child(_scene_button_instance)
 				
@@ -206,41 +203,44 @@ func _create_map_buttons()->void:
 	else:
 		push_error("Error while opening PlayableScenes folder")
 
-func _set_scene(scene_instance: Node3D)->void:
-	_kill_existing_simulators()
+## Enter the selected scene
+func _enter_scene(scene_instance: Node3D)->void:
+
+	# Quit the current scene if there is one loaded
+	if _current_scene_node:
+		_current_scene_node.queue_free()
+
 	_current_scene_node = scene_instance
 
 	await get_tree().process_frame
 	await get_tree().process_frame
-
 	
 	get_tree().get_root().add_child(scene_instance)
-	var second_window := scene_instance.get_node_or_null("player/floor_projector")
+	var floor_window := scene_instance.get_node_or_null("player/floor_projector")
 	var motors := scene_instance.get_node_or_null("player/motors")
 	var dbox := scene_instance.get_node_or_null("player/dbox")
 
 	var screen_count: int = DisplayServer.get_screen_count()
 	
 	if _parameters["has_floor_cam"]:
-		second_window = scene_instance.get_node_or_null("player/floor_projector") as Window
-		if second_window and screen_count > 1:
-			_prepare_display_window(second_window, 1)
+		floor_window = scene_instance.get_node_or_null("player/floor_projector") as Window
+		if floor_window and screen_count > 1:
+			_set_window_full_screen(floor_window, 1)
 	else:
-		second_window.queue_free()
+		floor_window.queue_free()
 	if (not _parameters["has_dbox"]) and (dbox != null):
 		dbox.queue_free()
 	if (not _parameters["has_motors"]) and (motors != null):
 		motors.queue_free()
 
-	var third_window := scene_instance.get_node_or_null("player/front_projector") as Window
-	if third_window and screen_count > 2:
-		_prepare_display_window(third_window, 2)
+	var front_window := scene_instance.get_node_or_null("player/front_projector") as Window
+	if front_window and screen_count > 2:
+		_set_window_full_screen(front_window, 2)
 		
 	update_selected_patient_mass()
 
-# Met la Window en plein écran exclusif sur l'écran demandé
-# et adapte SubViewportContainer/SubViewport pour remplir la fenêtre.
-func _prepare_display_window(win: Window, screen_index: int) -> void:
+## Set a window full screen on the selected screen.
+func _set_window_full_screen(win: Window, screen_index: int) -> void:
 	win.set_current_screen(screen_index)
 	win.mode = Window.MODE_EXCLUSIVE_FULLSCREEN
 	_fit_subviewport_to_window(win)
