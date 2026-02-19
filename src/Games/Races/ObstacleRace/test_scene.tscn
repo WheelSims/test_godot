@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://b2pvklx5fxccb"]
+[gd_scene format=3 uid="uid://b2pvklx5fxccb"]
 
 [ext_resource type="Texture2D" uid="uid://csbwjfuwod7oo" path="res://Terrain/Park/Textures/gravel.jpg" id="1_j5cfv"]
 [ext_resource type="PackedScene" uid="uid://biluq7vv8ghsm" path="res://Player/player.tscn" id="2_mhd6p"]
@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://jqktvq65k2vj" path="res://Games/Races/ObstacleRace/ground.tscn" id="5_ami1h"]
 [ext_resource type="PackedScene" uid="uid://diyc4k3lfoq2t" path="res://Objects/RaceObjects/WesternTheme/Walls/Fence/fence.tscn" id="6_pno21"]
 [ext_resource type="PackedScene" uid="uid://36jj7pd344xn" path="res://Games/Races/ObstacleRace/obstacle_sample.tscn" id="6_xlm5y"]
-[ext_resource type="PackedScene" uid="uid://t4035q8axi6v" path="res://Objects/RaceObjects/WesternTheme/Obstacles/HayBale/Scenes/front_hay_bale.tscn" id="7_xlm5y"]
+[ext_resource type="PackedScene" uid="uid://t4035q8axi6v" path="res://Objects/RaceObjects/WesternTheme/Obstacles/HayBale/Scenes/hay_bale.tscn" id="7_xlm5y"]
 [ext_resource type="PackedScene" uid="uid://cuk0l0062jdte" path="res://Objects/RaceObjects/WesternTheme/Obstacles/cactus.tscn" id="8_c8tb6"]
 [ext_resource type="PackedScene" uid="uid://blm1wlle8dcqr" path="res://Objects/RaceObjects/WesternTheme/Walls/BrickWall/brick_wall.tscn" id="8_orefh"]
 
@@ -19,50 +19,34 @@ material = SubResource("StandardMaterial3D_ami1h")
 
 [sub_resource type="Resource" id="Resource_mrrh3"]
 script = ExtResource("4_ami1h")
-border_samples = Array[PackedScene]([])
-obstacle_samples = Array[PackedScene]([])
 race_length = 50
 race_width = 20.0
-obst_size_range = Vector2(0.5, 3)
 depth_dist_btw_challenge_range = Vector2(5, 5)
-horiz_dist_btw_obst_range = Vector2(3, 5)
-opening_size_range = Vector2(3, 5)
 wall_size_range = Vector2(2, 9)
-obstacle_opening_prob = 0.5
+obstacle_opening_prob = 1.0
 transparent_op_wall_prob = 0.5
 metadata/_custom_type_script = "uid://epb7xgmjyv72"
 
 [sub_resource type="Resource" id="Resource_ami1h"]
 script = ExtResource("4_ami1h")
-border_samples = Array[PackedScene]([])
-obstacle_samples = Array[PackedScene]([])
-race_length = 100
-race_width = 10.0
-obst_size_range = Vector2(0.5, 3)
-depth_dist_btw_challenge_range = Vector2(5, 20)
-horiz_dist_btw_obst_range = Vector2(3, 5)
-opening_size_range = Vector2(3, 5)
-wall_size_range = Vector2(4, 7)
-obstacle_opening_prob = 0.0
-transparent_op_wall_prob = 0.0
 metadata/_custom_type_script = "uid://epb7xgmjyv72"
 
-[node name="Node3D" type="Node3D"]
+[node name="Node3D" type="Node3D" unique_id=2023283073]
 
-[node name="Ground" parent="." instance=ExtResource("5_ami1h")]
+[node name="Ground" parent="." unique_id=336683422 instance=ExtResource("5_ami1h")]
 transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, -169, 0, -4)
 visible = false
 mesh = SubResource("PlaneMesh_bvkxh")
 skeleton = NodePath("")
 
-[node name="Player" parent="." instance=ExtResource("2_mhd6p")]
+[node name="Player" parent="." unique_id=210937793 instance=ExtResource("2_mhd6p")]
 transform = Transform3D(0.00247831, 0, -0.999997, 0, 1, 0, 0.999997, 0, 0.00247831, -71.456, 0, 0.13656)
 KB_LINEAR_SPEED = 5.0
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=773565405]
 transform = Transform3D(1, 0, 0, 0, 0.25742, 0.9663, 0, -0.9663, 0.25742, -70, 16.9321, 0)
 
-[node name="ObstacleRace" parent="." instance=ExtResource("3_svacw")]
+[node name="ObstacleRace" parent="." unique_id=910084682 instance=ExtResource("3_svacw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -69.9983, 1.90735e-06, -0.05933)
 end_offset_to_restart = 20.0
 race_data = Array[ExtResource("4_ami1h")]([SubResource("Resource_mrrh3"), SubResource("Resource_ami1h"), SubResource("Resource_mrrh3")])

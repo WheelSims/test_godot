@@ -45,7 +45,7 @@ var _object_size: float
 var _remainder: float
 var _object_types: Dictionary = {}
 var _obstacles_sizes: Dictionary = {}
-var _obstacles_rounded_size: Dictionary = {}
+var _quanted_race_obst_sizes: Dictionary = {}
 var _transp_wall_size: Dictionary = {}
 var _opaque_wall_size: Dictionary = {}
 
@@ -138,16 +138,19 @@ func _clother_number(list: Array, y: float)->float:
 			number = x
 	return number
 	
-func _rounded_int_obst_lengths(quantum:float)->Array[int]:
+func _quant_race_obst_sizes(quantum:float)->Array[int]:
 	var list: Array[int] = []
 	for object in _obstacles_sizes:
+		var list_lengths: Array[float] = []
 		for length in _obstacles_sizes[object]:
 			var n := _clother_xquantum(quantum, length)
-			_obstacles_rounded_size[object] = n*quantum
+			if n*quantum < obst_size_range.x or n*quantum > obst_size_range.y:
+				continue
+			list_lengths.append(n*quantum)
 			if not n in list:
 				list.append(n)
+		_quanted_race_obst_sizes[object] = list_lengths
 	list.sort()
-	print(list)
 	return list
 
 func _next_level() -> void:
@@ -260,7 +263,7 @@ func _object_builder(pos_x: float, quantum: float,  sample: PackedScene)->void:
 	
 	var length_obst_list: Array[int] = []
 	if is_obst:
-		length_obst_list = _rounded_int_obst_lengths(quantum)
+		length_obst_list = _quant_race_obst_sizes(quantum)
 		if length_obst_list.size() > 0:
 			wall_min = length_obst_list.front()
 			wall_max = length_obst_list.back()
@@ -299,23 +302,21 @@ func _segments_to_obstacles(segments: Array[Segment], quantum: float, pos_x: flo
 		cursor_z += quantum * segments[i].length/2
 		
 func _obstacle_spawn(pos_x: float, pos_z: float, scale_z: float)->void:
-	var obstacle: PackedScene = find_random_key(_obstacles_rounded_size, scale_z, _rng)
+	var obstacle: PackedScene = find_random_key(_quanted_race_obst_sizes, scale_z, _rng)
 	if obstacle == null:
+		push_error("Didn't find an obstacle for that scale: %.3f" % scale_z)
 		return
-	else:
-		print("obstacle = null")
 	var instance := obstacle.instantiate()
 	var list: Array = instance.baked_sizes_dict.values()
-	var origin_scale = _clother_number(list, scale_z)
-	var rotation = find_random_key(instance.baked_sizes_dict, origin_scale, _rng)
-	print(rotation)
+	var original_scale = _clother_number(list, scale_z)
+	var rotation = find_random_key(instance.baked_sizes_dict, original_scale, _rng)
 	
 	current_race_objects.append(instance)
 	instance.position.x = pos_x
 	if rotation != null:
 		instance.visual_instance.rotation_degrees.y = rotation
 	instance.position.z = pos_z
-	instance.scale_from_real_size(scale_z)
+	instance.scale_from_real_size(scale_z, original_scale)
 	add_child(instance)
 
 func _segments_to_scalable_walls(segments: Array[Segment], quantum: float, pos_x: float, obj_sample: PackedScene)->void:
@@ -417,7 +418,11 @@ func find_random_key(dict: Dictionary, value: Variant, rng: RandomNumberGenerato
 	var matches: Array = []
 	
 	for k in dict:
-		if dict[k] == value:
+		if dict[k] is Array:
+			for i in dict[k]:
+				if i == value:
+					matches.append(k)
+		elif dict[k] == value:
 			matches.append(k)
 	
 	if matches.is_empty():

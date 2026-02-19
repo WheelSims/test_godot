@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=4 uid="uid://t4035q8axi6v"]
+[gd_scene format=4 uid="uid://t4035q8axi6v"]
 
 [ext_resource type="Script" uid="uid://comdhddtuflvn" path="res://Objects/RaceObjects/WesternTheme/world_scale_calculator.gd" id="2_3ewrv"]
 [ext_resource type="Material" uid="uid://j1ewfukvkr5t" path="res://Objects/RaceObjects/WesternTheme/Obstacles/HayBale/hay_bale_mat.tres" id="2_arv4q"]
@@ -40,7 +40,7 @@ shadow_mesh = SubResource("ArrayMesh_bcgwb")
 [sub_resource type="BoxShape3D" id="BoxShape3D_0cweb"]
 size = Vector3(1.66595, 1.71033, 1.69348)
 
-[node name="StawBale2" type="Node3D" node_paths=PackedStringArray("visual_instance", "collision_shape")]
+[node name="StawBale2" type="Node3D" unique_id=900396534 node_paths=PackedStringArray("visual_instance", "collision_shape")]
 script = ExtResource("2_3ewrv")
 visual_instance = NodePath("StrawBale")
 collision_shape = NodePath("StrawBale/StaticBody3D/CollisionShape3D")
@@ -53,12 +53,12 @@ baked_sizes_dict = {
 }
 object_type = 2
 
-[node name="StrawBale" type="MeshInstance3D" parent="."]
+[node name="StrawBale" type="MeshInstance3D" parent="." unique_id=1229910942]
 mesh = SubResource("ArrayMesh_bg580")
 skeleton = NodePath("")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="StrawBale"]
+[node name="StaticBody3D" type="StaticBody3D" parent="StrawBale" unique_id=192787075]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StrawBale/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StrawBale/StaticBody3D" unique_id=1204489647]
 transform = Transform3D(-4.37127e-08, -1, 0, 1, -4.37114e-08, 0, -5.66214e-15, 0, 1, -0.00338744, 0.846542, 0.0106507)
 shape = SubResource("BoxShape3D_0cweb")
