@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://gd1egjxy26gv"
 path.s3tc="res://.godot/imported/picnic_table_Albedo.png-7ac64c5ba9cc77ce045787056d8e60b7.s3tc.ctex"
+path.etc2="res://.godot/imported/picnic_table_Albedo.png-7ac64c5ba9cc77ce045787056d8e60b7.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://objects/park/benches_and_tables/picnic_table/textures/picnic_table_Albedo.png"
-dest_files=["res://.godot/imported/picnic_table_Albedo.png-7ac64c5ba9cc77ce045787056d8e60b7.s3tc.ctex"]
+dest_files=["res://.godot/imported/picnic_table_Albedo.png-7ac64c5ba9cc77ce045787056d8e60b7.s3tc.ctex", "res://.godot/imported/picnic_table_Albedo.png-7ac64c5ba9cc77ce045787056d8e60b7.etc2.ctex"]
 
 [params]
 

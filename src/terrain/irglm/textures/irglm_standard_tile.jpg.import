@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://chu3chwrk3t6i"
 path.s3tc="res://.godot/imported/irglm_standard_tile.jpg-3fcbe0874472259f2af443b12f194874.s3tc.ctex"
+path.etc2="res://.godot/imported/irglm_standard_tile.jpg-3fcbe0874472259f2af443b12f194874.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://terrain/irglm/textures/irglm_standard_tile.jpg"
-dest_files=["res://.godot/imported/irglm_standard_tile.jpg-3fcbe0874472259f2af443b12f194874.s3tc.ctex"]
+dest_files=["res://.godot/imported/irglm_standard_tile.jpg-3fcbe0874472259f2af443b12f194874.s3tc.ctex", "res://.godot/imported/irglm_standard_tile.jpg-3fcbe0874472259f2af443b12f194874.etc2.ctex"]
 
 [params]
 

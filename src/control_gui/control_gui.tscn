@@ -2,20 +2,10 @@
 
 [ext_resource type="Script" uid="uid://djgralvk1dv5a" path="res://control_gui/control_gui.gd" id="1_21f17"]
 
-[sub_resource type="Theme" id="Theme_2vys5"]
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_21f17"]
 bg_color = Color(0, 0, 0, 1)
 
-[sub_resource type="LabelSettings" id="LabelSettings_euxdb"]
-font_size = 30
-outline_size = 1
-
-[sub_resource type="LabelSettings" id="LabelSettings_limkw"]
-font_size = 20
-
-[sub_resource type="LabelSettings" id="LabelSettings_25mam"]
-font_size = 20
+[sub_resource type="LabelSettings" id="LabelSettings_fevny"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y75hh"]
 bg_color = Color(0.327078, 0.386669, 0.653433, 1)
@@ -27,9 +17,6 @@ corner_radius_bottom_left = 10
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eyqqv"]
 bg_color = Color(0, 0, 0, 1)
 
-[sub_resource type="LabelSettings" id="LabelSettings_gi8mn"]
-font_size = 30
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fo410"]
 bg_color = Color(0.626862, 0.403022, 0.230489, 1)
 corner_radius_top_left = 10
@@ -39,19 +26,25 @@ corner_radius_bottom_left = 10
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fo410"]
 
+[sub_resource type="LabelSettings" id="LabelSettings_h5sux"]
+
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_y75hh"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_v6try"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6olqd"]
 
+[sub_resource type="LabelSettings" id="LabelSettings_spoes"]
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gi8mn"]
-bg_color = Color(1, 0.0156863, 0, 1)
+bg_color = Color(0.57254905, 0.015686275, 0, 1)
 corner_radius_top_left = 10
 corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yuhh0"]
-bg_color = Color(0.651251, 0.00598981, 2.40654e-07, 1)
+bg_color = Color(0.45882353, 0.007843138, 0, 1)
 corner_radius_top_left = 10
 corner_radius_top_right = 10
 corner_radius_bottom_right = 10
@@ -121,10 +114,9 @@ layout_mode = 2
 
 [node name="users_label" type="Label" parent="main_panel/margin_container/main_vbox_container/panels/users_panel" unique_id=1282611956]
 layout_mode = 2
-theme = SubResource("Theme_2vys5")
 theme_override_styles/normal = SubResource("StyleBoxFlat_21f17")
 text = "Users"
-label_settings = SubResource("LabelSettings_euxdb")
+label_settings = SubResource("LabelSettings_fevny")
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -141,7 +133,6 @@ custom_minimum_size = Vector2(80, 40)
 layout_mode = 2
 size_flags_horizontal = 2
 text = "    Name"
-label_settings = SubResource("LabelSettings_limkw")
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -150,7 +141,6 @@ custom_minimum_size = Vector2(80, 40)
 layout_mode = 2
 size_flags_horizontal = 2
 text = "Mass     "
-label_settings = SubResource("LabelSettings_25mam")
 vertical_alignment = 1
 
 [node name="user_list_container" type="ScrollContainer" parent="main_panel/margin_container/main_vbox_container/panels/users_panel" unique_id=1040315823]
@@ -189,11 +179,10 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="scenes_label" type="Label" parent="main_panel/margin_container/main_vbox_container/panels/scenes_panel" unique_id=1052754353]
-custom_minimum_size = Vector2(450, 40)
+custom_minimum_size = Vector2(450, 0)
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_eyqqv")
 text = "Scenes"
-label_settings = SubResource("LabelSettings_gi8mn")
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -221,7 +210,6 @@ layout_mode = 2
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_21f17")
 text = "Settings"
-label_settings = SubResource("LabelSettings_euxdb")
 horizontal_alignment = 1
 
 [node name="settings_list" type="VBoxContainer" parent="main_panel/margin_container/main_vbox_container/panels/settings_panel" unique_id=1228794127]
@@ -242,6 +230,7 @@ button_pressed = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 20
 text = "Dbox"
+label_settings = SubResource("LabelSettings_h5sux")
 
 [node name="floor_projector" type="HBoxContainer" parent="main_panel/margin_container/main_vbox_container/panels/settings_panel/settings_list" unique_id=2059983752]
 layout_mode = 2
@@ -257,6 +246,7 @@ button_pressed = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 20
 text = "Floor Projector"
+label_settings = SubResource("LabelSettings_v6try")
 
 [node name="motors" type="HBoxContainer" parent="main_panel/margin_container/main_vbox_container/panels/settings_panel/settings_list" unique_id=63747274]
 layout_mode = 2
@@ -272,6 +262,7 @@ button_pressed = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 20
 text = "Motors"
+label_settings = SubResource("LabelSettings_spoes")
 
 [node name="stop_button" type="Button" parent="main_panel/margin_container/main_vbox_container" unique_id=87039680]
 layout_mode = 2

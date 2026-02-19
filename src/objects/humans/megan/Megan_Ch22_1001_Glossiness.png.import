@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://dfb8e3pil27dy"
 path.s3tc="res://.godot/imported/Megan_Ch22_1001_Glossiness.png-cb3da45522479eb4881b70b4dc205016.s3tc.ctex"
+path.etc2="res://.godot/imported/Megan_Ch22_1001_Glossiness.png-cb3da45522479eb4881b70b4dc205016.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -15,7 +16,7 @@ generator_parameters={
 [deps]
 
 source_file="res://objects/humans/megan/Megan_Ch22_1001_Glossiness.png"
-dest_files=["res://.godot/imported/Megan_Ch22_1001_Glossiness.png-cb3da45522479eb4881b70b4dc205016.s3tc.ctex"]
+dest_files=["res://.godot/imported/Megan_Ch22_1001_Glossiness.png-cb3da45522479eb4881b70b4dc205016.s3tc.ctex", "res://.godot/imported/Megan_Ch22_1001_Glossiness.png-cb3da45522479eb4881b70b4dc205016.etc2.ctex"]
 
 [params]
 

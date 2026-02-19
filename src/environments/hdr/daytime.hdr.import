@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://wacfloxc8is"
 path.bptc="res://.godot/imported/daytime.hdr-75d3cdf099b4fc6682f13894609955da.bptc.ctex"
+path.astc="res://.godot/imported/daytime.hdr-75d3cdf099b4fc6682f13894609955da.astc.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://environments/hdr/daytime.hdr"
-dest_files=["res://.godot/imported/daytime.hdr-75d3cdf099b4fc6682f13894609955da.bptc.ctex"]
+dest_files=["res://.godot/imported/daytime.hdr-75d3cdf099b4fc6682f13894609955da.bptc.ctex", "res://.godot/imported/daytime.hdr-75d3cdf099b4fc6682f13894609955da.astc.ctex"]
 
 [params]
 
