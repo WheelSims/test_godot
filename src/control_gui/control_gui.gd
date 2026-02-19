@@ -38,6 +38,7 @@ var _parameters := {
 }
 
 
+
 func _ready() -> void:
 	# Patients
 	load_users()
@@ -53,33 +54,6 @@ func _process(delta: float) -> void:
 			manual_heave = new_heave
 			_send_heave_target()
 
-# -------------------------------------------------------------------
-# Helpers : récupération du player et du nœud DBox
-# -------------------------------------------------------------------
-func _get_player() -> Node:
-	var root := get_tree().get_root()
-
-	var n = root.get_node_or_null("player")
-	if n and n.has_node("DBox"):
-		return n
-
-	for child in root.get_children():
-		if child.name == "player" and child.has_node("DBox"):
-			return child
-		if child.has_node("player"):
-			var p := child.get_node_or_null("player")
-			if p and p.has_node("DBox"):
-				return p
-	return null
-
-func _get_dbox_node() -> Node:
-	var p := _get_player()
-	if p:
-		var d := p.get_node_or_null("DBox")
-		if d:
-			return d
-	print("⚠️ DBox introuvable : player trouvé =", p)
-	return null
 
 # -------------------------------------------------------------------
 # User management
@@ -241,26 +215,24 @@ func _set_scene(scene_instance: Node3D)->void:
 
 	
 	get_tree().get_root().add_child(scene_instance)
-	var second_window := scene_instance.get_node_or_null("player/FloorProjector")
-	var motors := scene_instance.get_node_or_null("player/Motors")
-	var dbox := scene_instance.get_node_or_null("player/DBox")
-	
-	
+	var second_window := scene_instance.get_node_or_null("player/floor_projector")
+	var motors := scene_instance.get_node_or_null("player/motors")
+	var dbox := scene_instance.get_node_or_null("player/dbox")
 
 	var screen_count: int = DisplayServer.get_screen_count()
 	
 	if _parameters["has_floor_cam"]:
-		second_window = scene_instance.get_node_or_null("player/FloorProjector") as Window
+		second_window = scene_instance.get_node_or_null("player/floor_projector") as Window
 		if second_window and screen_count > 1:
 			_prepare_display_window(second_window, 1)
 	else:
 		second_window.queue_free()
-	if not _parameters["has_dbox"]:
+	if (not _parameters["has_dbox"]) and (dbox != null):
 		dbox.queue_free()
-	if not _parameters["has_motors"]:
+	if (not _parameters["has_motors"]) and (motors != null):
 		motors.queue_free()
 
-	var third_window := scene_instance.get_node_or_null("player/FrontProjector") as Window
+	var third_window := scene_instance.get_node_or_null("player/front_projector") as Window
 	if third_window and screen_count > 2:
 		_prepare_display_window(third_window, 2)
 		
@@ -310,7 +282,7 @@ func _on_button_stop_pressed() -> void:
 func update_selected_patient_mass() -> void:
 	for row in patient_list.get_children():
 		if (row.get_node("CheckBox") as CheckBox).button_pressed:
-			var player := _get_player()
+			var player := get_node_or_null("player")
 			if player:
 				player.mass = (row.get_node("LineMass") as LineEdit).text.to_float()
 # -------------------------------------------------------------------
@@ -322,7 +294,7 @@ func _on_btn_dbox_pressed() -> void:
 	btn_dbox_up.visible = dbox_manual_mode
 	btn_dbox_down.visible = dbox_manual_mode
 	dbox_hold_dir = 0
-	var dbox := _get_dbox_node()
+	var dbox := get_node_or_null("player/dbox")
 	print("Toggle DBox manual ->", dbox_manual_mode, " | dbox=", dbox)
 	if dbox:
 		dbox.manual_mode = dbox_manual_mode
@@ -343,7 +315,7 @@ func _on_dbox_button_up() -> void:
 	_send_heave_target()
 
 func _send_heave_target() -> void:
-	var dbox := _get_dbox_node()
+	var dbox := get_node_or_null("player/dbox")
 	if dbox:
 		dbox.manual_target_heave = manual_heave
 		dbox.send(7, manual_heave, 0.0, 0.0)
