@@ -7,16 +7,27 @@ func _run():
 	var objects_to_bake: Array[PackedScene] = config.objects_to_bake
 	for scene in objects_to_bake:
 		var instance = scene.instantiate()
-		get_editor_interface().get_edited_scene_root().add_child(instance)
+		EditorInterface.get_edited_scene_root().add_child(instance)
 
 		instance.force_update_transform()
+		var object_info = ObjectInfo.new()
 		if instance is WorldScaleCalculator:
+			object_info.scene = scene
 			var inst: WorldScaleCalculator = instance
 			inst.get_precise_size_z()
+			object_info.type = inst.object_type
 			if inst.object_type == WorldScaleCalculator.ObjectType.Obstacle:
-				inst.write_sizes_with_rotation([90, 45, -45, 0])
-		#instance.baked_size_z = size
-		scene.pack(instance)
-		ResourceSaver.save(scene)
+				object_info.z_sizes = inst.write_sizes_with_rotation([90, 45, -45, 0])
+			else:
+				object_info.z_sizes = inst.write_sizes_with_rotation()
+		else:
+			push_error("The PackedeScene %s is not a WorldScaleCalculator" %scene.resource_name)
+		
+		if not DirAccess.dir_exists_absolute(config.object_info_folder_path):	
+			DirAccess.make_dir_recursive_absolute(config.object_info_folder_path)
+			
+		var path = config.object_info_folder_path + instance.name + ".tres"
+		ResourceSaver.save(object_info, path)
+		print(path)
 
 		instance.queue_free()

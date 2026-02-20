@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=4 uid="uid://diyc4k3lfoq2t"]
+[gd_scene format=4 uid="uid://diyc4k3lfoq2t"]
 
 [ext_resource type="Material" uid="uid://db363ysga8imt" path="res://Objects/RaceObjects/WesternTheme/Walls/Fence/Textures/fence_material.tres" id="2_8gl8h"]
 [ext_resource type="Script" uid="uid://comdhddtuflvn" path="res://Objects/RaceObjects/WesternTheme/world_scale_calculator.gd" id="2_joa5a"]
@@ -40,19 +40,18 @@ shadow_mesh = SubResource("ArrayMesh_utrdp")
 [sub_resource type="BoxShape3D" id="BoxShape3D_y8wwd"]
 size = Vector3(4.50698, 5.0174, 0.502869)
 
-[node name="Fence" type="Node3D" node_paths=PackedStringArray("visual_instance", "collision_shape")]
+[node name="Fence" type="Node3D" unique_id=726337448 node_paths=PackedStringArray("visual_instance", "collision_shape")]
 script = ExtResource("2_joa5a")
 visual_instance = NodePath("wire fence")
 collision_shape = NodePath("wire fence/StaticBody3D/CollisionShape3D")
-baked_size_z = 1.59412
 
-[node name="wire fence" type="MeshInstance3D" parent="."]
+[node name="wire fence" type="MeshInstance3D" parent="." unique_id=1528583590]
 transform = Transform3D(-1.96701e-08, 0, 0.45, 0, 0.45, 0, -0.45, 0, -1.96701e-08, 0, 1.693, 0)
 mesh = SubResource("ArrayMesh_6686k")
 skeleton = NodePath("")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="wire fence"]
+[node name="StaticBody3D" type="StaticBody3D" parent="wire fence" unique_id=203588673]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="wire fence/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="wire fence/StaticBody3D" unique_id=725878407]
 transform = Transform3D(1, 0, -1.77636e-14, 0, 1, 0, 1.77636e-14, 0, 1, -0.00799966, -1.24002, 0.0290833)
 shape = SubResource("BoxShape3D_y8wwd")

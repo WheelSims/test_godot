@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=4 uid="uid://cuk0l0062jdte"]
+[gd_scene format=4 uid="uid://cuk0l0062jdte"]
 
 [ext_resource type="Script" uid="uid://comdhddtuflvn" path="res://Objects/RaceObjects/WesternTheme/world_scale_calculator.gd" id="2_6j4js"]
 [ext_resource type="Texture2D" uid="uid://bjtxc1nu2go6k" path="res://Objects/RaceObjects/WesternTheme/DesertPack/Models/cactus02_0.png" id="2_ikxe4"]
@@ -49,27 +49,26 @@ shadow_mesh = SubResource("ArrayMesh_0hn23")
 [sub_resource type="BoxShape3D" id="BoxShape3D_ikxe4"]
 size = Vector3(0.480507, 2.07527, 0.428955)
 
-[node name="Cactus" type="Node3D" node_paths=PackedStringArray("visual_instance", "collision_shape")]
+[node name="Cactus" type="Node3D" unique_id=1048503868 node_paths=PackedStringArray("visual_instance", "collision_shape")]
 script = ExtResource("2_6j4js")
 visual_instance = NodePath("Cactuss_02")
 collision_shape = NodePath("Cactuss_02/StaticBody3D/CollisionShape3D3")
 baked_size_z = 0.428955
 baked_sizes_dict = {
--45.0: 0.643087,
+-45.0: 0.64308673,
 0.0: 0.428955,
-45.0: 0.643087,
-90.0: 0.480507
+45.0: 0.6430867,
+90.0: 0.48050702
 }
 object_type = 2
 metadata/baked_size_z = 0.0
 
-[node name="Cactuss_02" type="MeshInstance3D" parent="."]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
+[node name="Cactuss_02" type="MeshInstance3D" parent="." unique_id=788888584]
 mesh = SubResource("ArrayMesh_24dgq")
 skeleton = NodePath("")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Cactuss_02"]
+[node name="StaticBody3D" type="StaticBody3D" parent="Cactuss_02" unique_id=1812655368]
 
-[node name="CollisionShape3D3" type="CollisionShape3D" parent="Cactuss_02/StaticBody3D"]
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="Cactuss_02/StaticBody3D" unique_id=620800162]
 transform = Transform3D(0.999519, -0.0310095, 0, 0.0310095, 0.999519, 0, 0, 0, 1, -0.0427482, 1.05896, 0.00402832)
 shape = SubResource("BoxShape3D_ikxe4")

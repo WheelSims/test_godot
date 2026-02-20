@@ -7,11 +7,7 @@ enum ObjectType {UnitWall, ScalableWall, Obstacle}
 @export var visual_instance: VisualInstance3D
 ##The shape of the collision_shape must be one BoxShape3D.
 @export var collision_shape: CollisionShape3D
-## baked_size_z is used for objects that don't rotate (ex: walls). 
-@export var baked_size_z: float = 0
-## baked_sizes_dict is used for obstacles that rotates (ex: cactus, straw bales).
-## It's a dictionary with rotations as keys and their sizes as values.
-@export var baked_sizes_dict: Dictionary
+
 @export var object_type: ObjectType
 
 func _ready() -> void:
@@ -20,13 +16,18 @@ func _ready() -> void:
 	else:
 		get_precise_size_z()
 
-## Calculate baked_sizes_dict to give size for every rotations
-func write_sizes_with_rotation(rotations: Array[float])->void:
-	var origin_rot = visual_instance.rotation.y
+## Calculate baked_sizes_dict to give size for every rotations. If no argument is filled: it calculates one size for the default rotation.
+func write_sizes_with_rotation(rotations: Array[float] = [])->Dictionary:
+	var origin_rot = visual_instance.rotation_degrees.y
+	var baked_sizes_dict: Dictionary = {}
+	if rotations.size() == 0:
+		rotations.append(origin_rot)
+		
 	for rot in rotations:
 		visual_instance.rotation_degrees.y = rot
 		baked_sizes_dict[rot] = get_precise_size_z()
-	#visual_instance.rotation.y = origin_rot
+	visual_instance.rotation_degrees.y = origin_rot
+	return baked_sizes_dict
 
 ## Calculate the z-axis size that takes the object in the current state (current rotation)
 func get_precise_size_z()->float:
@@ -48,7 +49,7 @@ func get_precise_size_z()->float:
 				min_z = min(min_z, z)
 				max_z = max(max_z, z)
 	
-	baked_size_z = max_z - min_z
+	var baked_size_z = max_z - min_z
 	#print(baked_size_z)
 	return baked_size_z
 

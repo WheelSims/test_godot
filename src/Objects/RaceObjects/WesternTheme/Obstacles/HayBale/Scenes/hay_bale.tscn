@@ -46,10 +46,10 @@ visual_instance = NodePath("StrawBale")
 collision_shape = NodePath("StrawBale/StaticBody3D/CollisionShape3D")
 baked_size_z = 1.69348
 baked_sizes_dict = {
--45.0: 2.37548,
+-45.0: 2.3754756,
 0.0: 1.69348,
-45.0: 2.37548,
-90.0: 1.66595
+45.0: 2.375476,
+90.0: 1.6659501
 }
 object_type = 2
 
