@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://y1vjh6go277s"
 path.s3tc="res://.godot/imported/irglm_red_tile.jpg-137f625949767f6f736c6ba19ce17654.s3tc.ctex"
+path.etc2="res://.godot/imported/irglm_red_tile.jpg-137f625949767f6f736c6ba19ce17654.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://terrain/irglm/textures/irglm_red_tile.jpg"
-dest_files=["res://.godot/imported/irglm_red_tile.jpg-137f625949767f6f736c6ba19ce17654.s3tc.ctex"]
+dest_files=["res://.godot/imported/irglm_red_tile.jpg-137f625949767f6f736c6ba19ce17654.s3tc.ctex", "res://.godot/imported/irglm_red_tile.jpg-137f625949767f6f736c6ba19ce17654.etc2.ctex"]
 
 [params]
 

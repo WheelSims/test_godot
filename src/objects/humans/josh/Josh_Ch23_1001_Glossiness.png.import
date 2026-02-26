@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://escbtk0epoft"
 path.s3tc="res://.godot/imported/Josh_Ch23_1001_Glossiness.png-bea48e404ff936485fccd787b5621460.s3tc.ctex"
+path.etc2="res://.godot/imported/Josh_Ch23_1001_Glossiness.png-bea48e404ff936485fccd787b5621460.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -15,7 +16,7 @@ generator_parameters={
 [deps]
 
 source_file="res://objects/humans/josh/Josh_Ch23_1001_Glossiness.png"
-dest_files=["res://.godot/imported/Josh_Ch23_1001_Glossiness.png-bea48e404ff936485fccd787b5621460.s3tc.ctex"]
+dest_files=["res://.godot/imported/Josh_Ch23_1001_Glossiness.png-bea48e404ff936485fccd787b5621460.s3tc.ctex", "res://.godot/imported/Josh_Ch23_1001_Glossiness.png-bea48e404ff936485fccd787b5621460.etc2.ctex"]
 
 [params]
 

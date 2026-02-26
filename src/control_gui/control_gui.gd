@@ -1,32 +1,29 @@
 extends Control
 
-@export var SIMULATOR_USERS_FILENAME = "user://simulator_users.json"
-@export var PLAYABLE_SCENES_FOLDER_PATH = "res://playable_scenes"
-@export var THUMBNAIL_FOLDER_PATH = "res://playable_scenes"
+# -------------------------------------------------------------------
+# Constants
+# -------------------------------------------------------------------
+var SIMULATOR_USERS_FILENAME = "user://simulator_users.json"
+var PLAYABLE_SCENES_FOLDER_PATH = "res://playable_scenes"
+
+
+
+
 var _current_scene_node: Node3D = null
 
 # --- UI users ---
+
+## Select user_list node in the arborescence
 @export var user_list: VBoxContainer
-var current_node_patient
+
+var selected_user
 var user_row := preload("user.tscn")
 
 # --- Scene Buttons ---
 var scene_button := preload("scene_button.tscn")
 @export var scene_container: GridContainer
 
-# --- UI DBox ---
-@export var btn_dbox: Button
-@export var btn_dbox_up: Button
-@export var btn_dbox_down: Button
-# --- DBox manuel ---
-var dbox_manual_mode := false
-var manual_heave := 0.0
-var dbox_step := 0.02
-# --- maintien appuyé ---
-var dbox_hold_dir := 0
-var dbox_speed := 0.2
-
-#Preferences
+# --- Settings ---
 @export var PREFERENCES_FILENAME = "user://preferences.json"
 @export var _dbox_toggle: CheckButton
 @export var _floor_cam_toggle: CheckButton
@@ -38,21 +35,10 @@ var _parameters := {
 }
 
 
-
 func _ready() -> void:
-	# Patients
 	load_users()
-	#Preferences
 	load_preferences()
-	
 	_create_scene_buttons()
-
-func _process(delta: float) -> void:
-	if dbox_manual_mode and dbox_hold_dir != 0:
-		var new_heave := clampf(manual_heave + dbox_speed * dbox_hold_dir * delta, -0.5, 0.5)
-		if absf(new_heave - manual_heave) > 0.0001:
-			manual_heave = new_heave
-			_send_heave_target()
 
 
 # -------------------------------------------------------------------
@@ -87,7 +73,7 @@ func load_users() -> void:
 
 		user_list.add_child(new_row)
 		if (new_row.get_node("selected") as CheckBox).button_pressed:
-			current_node_patient = new_row
+			selected_user = new_row
 
 	#_enforce_single_selection()
 
@@ -108,10 +94,10 @@ func _on_btn_add_user_pressed() -> void:
 
 func _on_btn_remove_user_pressed() -> void:
 	if user_list.get_child_count() > 0:
-		if not current_node_patient:
-			current_node_patient = user_list.get_child(user_list.get_child_count() - 1)
-		user_list.remove_child(current_node_patient)
-		current_node_patient.queue_free()
+		if not selected_user:
+			selected_user = user_list.get_child(user_list.get_child_count() - 1)
+		user_list.remove_child(selected_user)
+		selected_user.queue_free()
 		save_users()
 		_enforce_single_selection()
 
@@ -178,7 +164,7 @@ func _create_scene_buttons()->void:
 					label.text = display_name
 					
 				#Thumbnail of the button
-				var image_path = THUMBNAIL_FOLDER_PATH + "/" + name_without_ext + ".png"
+				var image_path = PLAYABLE_SCENES_FOLDER_PATH + "/" + name_without_ext + ".png"
 				var image := load(image_path)
 				var thumbail: TextureRect = _scene_button_instance.get_node_or_null("Thumbnail")
 				if thumbail:
@@ -284,48 +270,13 @@ func update_selected_patient_mass() -> void:
 # -------------------------------------------------------------------
 # DBox : manuel + maintien
 # -------------------------------------------------------------------
-func _on_btn_dbox_pressed() -> void:
-	dbox_manual_mode = !dbox_manual_mode
-	btn_dbox.text = "DBox : Manual" if dbox_manual_mode else "DBox : Auto"
-	btn_dbox_up.visible = dbox_manual_mode
-	btn_dbox_down.visible = dbox_manual_mode
-	dbox_hold_dir = 0
-	var dbox := get_node_or_null("player/dbox")
-	print("Toggle DBox manual ->", dbox_manual_mode, " | dbox=", dbox)
-	if dbox:
-		dbox.manual_mode = dbox_manual_mode
-		if not dbox_manual_mode:
-			manual_heave = 0.0
-			dbox.manual_target_heave = 0.0
-
-func _on_dbox_up_button_down() -> void:
-	if dbox_manual_mode:
-		dbox_hold_dir = +1
-
-func _on_dbox_down_button_down() -> void:
-	if dbox_manual_mode:
-		dbox_hold_dir = -1
-
-func _on_dbox_button_up() -> void:
-	dbox_hold_dir = 0
-	_send_heave_target()
-
-func _send_heave_target() -> void:
-	var dbox := get_node_or_null("player/dbox")
-	if dbox:
-		dbox.manual_target_heave = manual_heave
-		dbox.send(7, manual_heave, 0.0, 0.0)
-		print("DBox MANUAL heave =", manual_heave, "  path=", dbox.get_path())
-	else:
-		print("DBox introuvable (chemin) — scène/chemins à vérifier")
-
 
 # =========================
 # Sélection unique patients
 # =========================
 func _on_row_checkbox_toggled(pressed: bool, row: Node) -> void:
 	if pressed:
-		current_node_patient = row
+		selected_user = row
 		for other in user_list.get_children():
 			if other != row:
 				var ocb := other.get_node("selected") as CheckBox
