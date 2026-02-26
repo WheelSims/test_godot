@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="BakeConfig" format=3 uid="uid://bbcvt5y1uilt5"]
+
+[ext_resource type="PackedScene" uid="uid://t4035q8axi6v" path="res://objects/_race_objects/_western_theme/_obstacles/_hay_bale/_scenes/hay_bale.tscn" id="1_asyjn"]
+[ext_resource type="PackedScene" uid="uid://cuk0l0062jdte" path="res://objects/_race_objects/_western_theme/_obstacles/cactus.tscn" id="2_m05ui"]
+[ext_resource type="PackedScene" uid="uid://diyc4k3lfoq2t" path="res://objects/_race_objects/_western_theme/_walls/_fence/fence.tscn" id="3_asyjn"]
+[ext_resource type="PackedScene" uid="uid://blm1wlle8dcqr" path="res://objects/_race_objects/_western_theme/_walls/_brick_wall/brick_wall.tscn" id="4_eq1h6"]
+[ext_resource type="Script" uid="uid://b1uk27b80uwpr" path="res://games/races/obstacle_race/baker/bake_config.gd" id="5_h5xd5"]
+
+[resource]
+script = ExtResource("5_h5xd5")
+objects_to_bake = Array[PackedScene]([ExtResource("1_asyjn"), ExtResource("2_m05ui"), ExtResource("4_eq1h6"), ExtResource("3_asyjn")])
+object_info_folder_path = "res://Games/Races/ObstacleRace/ObjectInfoResources/"

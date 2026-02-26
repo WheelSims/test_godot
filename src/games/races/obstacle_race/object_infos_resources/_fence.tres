@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="ObjectInfo" format=3 uid="uid://coguj5pvotoev"]
+
+[ext_resource type="PackedScene" uid="uid://diyc4k3lfoq2t" path="res://objects/_race_objects/_western_theme/_walls/_fence/fence.tscn" id="1_epv1x"]
+[ext_resource type="Script" uid="uid://brpk4pab7wouw" path="res://games/races/obstacle_race/scripts/object_info.gd" id="2_kvcaq"]
+
+[resource]
+script = ExtResource("2_kvcaq")
+scene = ExtResource("1_epv1x")
+z_sizes = {
+90.0: 2.0281408
+}

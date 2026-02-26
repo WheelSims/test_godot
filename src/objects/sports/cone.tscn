@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://ebjvhufclk28"]
+
+[ext_resource type="PackedScene" uid="uid://1pdh22u1yfs4" path="res://objects/sports/fbx/cone.fbx" id="1_teobp"]
+
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_teobp"]
+height = 0.39196777
+radius = 0.20019531
+
+[node name="cone" type="Node3D" unique_id=1071012791]
+
+[node name="cone" parent="." unique_id=648960646 instance=ExtResource("1_teobp")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="cone" unique_id=726445514]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="cone/StaticBody3D" unique_id=2096314566]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2263794, 0)
+shape = SubResource("CylinderShape3D_teobp")
