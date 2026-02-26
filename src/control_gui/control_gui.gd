@@ -59,11 +59,7 @@ func _process(delta: float) -> void:
 func _get_player() -> Node:
 	var root := get_tree().get_root()
 
-	var n := root.get_node_or_null("Park/player")
-	if n and n.has_node("DBox"):
-		return n
-
-	n = root.get_node_or_null("player")
+	var n = root.get_node_or_null("player")
 	if n and n.has_node("DBox"):
 		return n
 
