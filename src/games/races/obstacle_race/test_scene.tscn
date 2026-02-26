@@ -1,0 +1,54 @@
+[gd_scene format=3 uid="uid://b2pvklx5fxccb"]
+
+[ext_resource type="Texture2D" uid="uid://csbwjfuwod7oo" path="res://terrain/park/textures/gravel.jpg" id="1_j5cfv"]
+[ext_resource type="PackedScene" uid="uid://biluq7vv8ghsm" path="res://player/player.tscn" id="2_mhd6p"]
+[ext_resource type="PackedScene" uid="uid://hnxp88a0five" path="res://games/races/obstacle_race/obstacle_race.tscn" id="3_svacw"]
+[ext_resource type="Script" uid="uid://epb7xgmjyv72" path="res://games/races/scripts/race_data.gd" id="4_ami1h"]
+[ext_resource type="PackedScene" uid="uid://jqktvq65k2vj" path="res://games/races/obstacle_race/ground.tscn" id="5_ami1h"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ami1h"]
+albedo_texture = ExtResource("1_j5cfv")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_bvkxh"]
+material = SubResource("StandardMaterial3D_ami1h")
+
+[sub_resource type="Resource" id="Resource_mrrh3"]
+script = ExtResource("4_ami1h")
+race_length = 50
+race_width = 20.0
+depth_dist_btw_challenge_range = Vector2(5, 5)
+wall_size_range = Vector2(2, 9)
+transparent_op_wall_prob = 1.0
+metadata/_custom_type_script = "uid://epb7xgmjyv72"
+
+[sub_resource type="Resource" id="Resource_ami1h"]
+script = ExtResource("4_ami1h")
+metadata/_custom_type_script = "uid://epb7xgmjyv72"
+
+[node name="Node3D" type="Node3D" unique_id=2023283073]
+
+[node name="Ground" parent="." unique_id=336683422 instance=ExtResource("5_ami1h")]
+transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, -169, 0, -4)
+visible = false
+mesh = SubResource("PlaneMesh_bvkxh")
+skeleton = NodePath("")
+
+[node name="Player" parent="." unique_id=210937793 instance=ExtResource("2_mhd6p")]
+transform = Transform3D(0.00247831, 0, -0.999997, 0, 1, 0, 0.999997, 0, 0.00247831, -71.456, 0, 0.13656)
+KB_LINEAR_SPEED = 5.0
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=773565405]
+transform = Transform3D(1, 0, 0, 0, 0.25742, 0.9663, 0, -0.9663, 0.25742, -70, 16.9321, 0)
+
+[node name="ObstacleRace" parent="." unique_id=910084682 instance=ExtResource("3_svacw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -69.9983, 1.90735e-06, -0.05933)
+end_offset_to_restart = 20.0
+race_data = Array[ExtResource("4_ami1h")]([SubResource("Resource_mrrh3"), SubResource("Resource_ami1h"), SubResource("Resource_mrrh3")])
+border_samples = Array[PackedScene]([ExtResource("6_xlm5y")])
+obstacle_infos = Array[ExtResource("7_inf7u")]([ExtResource("8_x1ela"), ExtResource("9_efk0u")])
+transparent_wall_infos = Array[ExtResource("7_inf7u")]([ExtResource("10_btxro")])
+opaque_wall_infos = Array[ExtResource("7_inf7u")]([ExtResource("11_ohltl")])
+ground_tile = ExtResource("5_ami1h")
+metadata/_edit_lock_ = true
+
+[connection signal="body_shape_entered" from="Player" to="Player/Motors" method="_on_player_on_simulator_body_shape_entered"]

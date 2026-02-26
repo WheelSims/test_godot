@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://c4o6jx57eaow0"]
 
-[ext_resource type="PackedScene" uid="uid://bfoftx7jdpdya" path="res://_environments/irglm_4th_floor.tscn" id="2_dyc0d"]
-[ext_resource type="PackedScene" uid="uid://biluq7vv8ghsm" path="res://_player/player.tscn" id="2_padg7"]
+[ext_resource type="PackedScene" uid="uid://bfoftx7jdpdya" path="res://environments/irglm_4th_floor.tscn" id="2_dyc0d"]
+[ext_resource type="PackedScene" uid="uid://biluq7vv8ghsm" path="res://player/player.tscn" id="2_padg7"]
 
 [node name="IRGLM4thFloor" type="Node3D"]
 
