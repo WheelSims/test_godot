@@ -70,6 +70,14 @@ func _ready() -> void:
 	_udp_sender.connect_to_host(udp_send_ip, udp_send_port)
 	get_tree().set_auto_accept_quit(false)  # pour pouvoir envoyer Stop
 
+	var output = []
+	var exit_code = OS.execute("tasklist.exe", [], output)
+	if "dbox_driver_app.exe" not in output:
+		print("Starting D-Box driver app")
+		# Execute non-blocking
+		OS.create_process("player/dbox_driver/dbox_driver_app.exe", [], true)
+
+
 	# DBox init
 	send_print_string("Receiving packets from Godot.\n")
 	send(1, 0, 0, 0)  # Init
