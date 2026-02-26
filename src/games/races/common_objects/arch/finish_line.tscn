@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://c4jen6mmu7mgu"]
 
-[ext_resource type="PackedScene" uid="uid://qp8vhybnks2f" path="res://games/races/arch/finish_line.glb" id="1_swjo5"]
-[ext_resource type="PackedScene" uid="uid://d4dm6lh1tu5fw" path="res://games/races/crowd/crowd.tscn" id="2_nhs2w"]
+[ext_resource type="PackedScene" uid="uid://qp8vhybnks2f" path="res://games/races/common_objects/arch/finish_line.glb" id="1_swjo5"]
+[ext_resource type="PackedScene" uid="uid://d4dm6lh1tu5fw" path="res://games/races/common_objects/crowd/crowd.tscn" id="2_nhs2w"]
 [ext_resource type="AudioStream" uid="uid://owaj5m5lpk1b" path="res://sounds/sounds/human_sounds/No_Loop_applause-cheerfully.wav" id="3_a5w7r"]
 
 

@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://d4dm6lh1tu5fw"]
 
-[ext_resource type="Script" uid="uid://cvd1sagu0gxt1" path="res://games/races/crowd/crowd.gd" id="1_vnpyj"]
+[ext_resource type="Script" uid="uid://cvd1sagu0gxt1" path="res://games/races/common_objects/crowd/crowd.gd" id="1_vnpyj"]
 [ext_resource type="AudioStream" uid="uid://s7gfl17x3yd6" path="res://sounds/sounds/human_sounds/Start_Long_CheerfullClap.wav" id="2_u0hxl"]
 [ext_resource type="AudioStream" uid="uid://bj5hb2klk7cds" path="res://sounds/sounds/human_sounds/Loop_applause-cheerfully.wav" id="3_p25mo"]
 [ext_resource type="PackedScene" uid="uid://bkjobwvhg7dc7" path="res://objects/humans/kate/Kate.glb" id="4_k5jmy"]
