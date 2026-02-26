@@ -1,0 +1,175 @@
+[gd_scene format=3 uid="uid://biluq7vv8ghsm"]
+
+[ext_resource type="Script" uid="uid://bo3s2kc1arfun" path="res://_player/player.gd" id="1_l8h54"]
+[ext_resource type="Script" uid="uid://boe632ih0j5mm" path="res://_player/motors.gd" id="2_4ntmi"]
+[ext_resource type="Script" uid="uid://da3tqctbq8isk" path="res://_player/d_box.gd" id="3_muua7"]
+[ext_resource type="Material" uid="uid://c8m804jjd75fg" path="res://_objects/_street/_materials/traffic_lights/bulb_lights/traffic_light_bulb_red.tres" id="4_gwnis"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_r3fl7"]
+radius = 0.25
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_jka67"]
+radius = 0.2
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_btcbx"]
+size = Vector3(0.459595, 0.653366, 0.35376)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_gwnis"]
+size = Vector3(0.459595, 0.657822, 0.35376)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_k53q1"]
+size = Vector3(0.459595, 0.655258, 0.35376)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_fhl08"]
+size = Vector3(0.459595, 0.678024, 0.35376)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_vtle1"]
+size = Vector3(0.459595, 0.67498, 0.35376)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_muua7"]
+size = Vector3(1, 1.00635, 1)
+
+[sub_resource type="FontFile" id="FontFile_2x147"]
+subpixel_positioning = 0
+msdf_pixel_range = 14
+msdf_size = 128
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+cache/0/50/0/ascent = 0.0
+cache/0/50/0/descent = 0.0
+cache/0/50/0/underline_position = 0.0
+cache/0/50/0/underline_thickness = 0.0
+cache/0/50/0/scale = 1.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_btcbx"]
+font = SubResource("FontFile_2x147")
+font_size = 50
+font_color = Color(0, 0, 0, 1)
+
+[node name="Player" type="RigidBody3D" groups=["Player"]]
+mass = 80.0
+contact_monitor = true
+angular_damp = 50.0
+script = ExtResource("1_l8h54")
+
+[node name="RRWheelCollider" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, 0.25, 0)
+shape = SubResource("SphereShape3D_r3fl7")
+
+[node name="LRWheelCollider" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3, 0.25, 0)
+shape = SubResource("SphereShape3D_r3fl7")
+
+[node name="LFWheelCollider" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -0.25, 0.125, -0.6)
+shape = SubResource("SphereShape3D_jka67")
+debug_color = Color(8.27849e-06, 0.774194, 0.900788, 0.42)
+
+[node name="RFWheelCollider" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.25, 0.125, -0.6)
+shape = SubResource("SphereShape3D_jka67")
+debug_color = Color(8.27849e-06, 0.774194, 0.900788, 0.42)
+
+[node name="FrontCameraPose" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.783312, -0.534015)
+
+[node name="FloorCameraPose" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 1.72265, -1.37178)
+
+[node name="Motors" type="Node3D" parent="."]
+script = ExtResource("2_4ntmi")
+
+[node name="DBox" type="Node3D" parent="."]
+script = ExtResource("3_muua7")
+
+[node name="ObstacleColliders" type="Area3D" parent="."]
+
+[node name="Front" type="CollisionShape3D" parent="ObstacleColliders"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, -0.5)
+shape = SubResource("BoxShape3D_btcbx")
+
+[node name="FrontLeft" type="CollisionShape3D" parent="ObstacleColliders"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25, 0.4, -0.45)
+shape = SubResource("BoxShape3D_gwnis")
+
+[node name="FrontRight" type="CollisionShape3D" parent="ObstacleColliders"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.4, -0.45)
+shape = SubResource("BoxShape3D_k53q1")
+
+[node name="BackLeft" type="CollisionShape3D" parent="ObstacleColliders"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25, 0.34, 0.1)
+shape = SubResource("BoxShape3D_fhl08")
+
+[node name="BackRight" type="CollisionShape3D" parent="ObstacleColliders"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.339, 0.1)
+shape = SubResource("BoxShape3D_vtle1")
+
+[node name="DetectionArea" type="Area3D" parent="." groups=["Player"]]
+editor_description = "Area3D to be detected"
+monitoring = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DetectionArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.506104, -0.278171)
+shape = SubResource("BoxShape3D_muua7")
+
+[node name="FloorProjector" type="Window" parent="."]
+auto_translate_mode = 1
+position = Vector2i(0, 36)
+size = Vector2i(1150, 615)
+
+[node name="FloorCamera" type="Camera3D" parent="FloorProjector"]
+
+[node name="Polygon2D" type="Polygon2D" parent="FloorProjector"]
+scale = Vector2(1280, 100)
+color = Color(0, 0, 0, 1)
+polygon = PackedVector2Array(0, 0, 1, 0, 1, 1, 0, 1)
+
+[node name="FrontProjector" type="Window" parent="."]
+auto_translate_mode = 1
+audio_listener_enable_2d = true
+audio_listener_enable_3d = true
+position = Vector2i(0, 36)
+size = Vector2i(1150, 615)
+
+[node name="FrontCamera" type="Camera3D" parent="FrontProjector"]
+current = true
+
+[node name="UI" type="Polygon2D" parent="FrontProjector"]
+visible = false
+position = Vector2(55, 534)
+scale = Vector2(0.61, 0.78)
+polygon = PackedVector2Array(0, 100, 0, 0, 300, 0, 300, 100)
+
+[node name="PlayerText" type="Label" parent="FrontProjector/UI"]
+offset_right = 300.0
+offset_bottom = 99.0
+text = "Test"
+label_settings = SubResource("LabelSettings_btcbx")
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="CollidersShape" type="CSGPolygon3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.0652708, 0)
+material_override = ExtResource("4_gwnis")
+transparency = 0.5
+polygon = PackedVector2Array(-0.478078, -0.630423, -0.480694, 0.219973, 0.482216, 0.227823, 0.484832, -0.625189, 0.220555, -0.677522, -0.2295, -0.674905)
+depth = 0.06
+
+[node name="WheelShapeL" type="CSGPolygon3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.321546, -0.686058, -0.56182)
+material_override = ExtResource("4_gwnis")
+depth = 0.15
+
+[node name="WheelShapeR" type="CSGPolygon3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.174924, -0.702537, -0.56182)
+material_override = ExtResource("4_gwnis")
+depth = 0.15
+
+[connection signal="body_shape_entered" from="." to="." method="_on_player_on_simulator_body_shape_entered"]
+[connection signal="tree_exiting" from="Motors" to="Motors" method="_on_tree_exiting"]
+[connection signal="body_shape_entered" from="ObstacleColliders" to="." method="_on_obstacle_colliders_body_shape_entered"]
+[connection signal="body_shape_exited" from="ObstacleColliders" to="." method="_on_obstacle_colliders_body_shape_exited"]

@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://c4jen6mmu7mgu"]
+
+[ext_resource type="PackedScene" uid="uid://qp8vhybnks2f" path="res://_games/_races/_arch/finish_line.glb" id="1_swjo5"]
+[ext_resource type="PackedScene" uid="uid://d4dm6lh1tu5fw" path="res://_games/_races/_crowd/crowd.tscn" id="2_nhs2w"]
+[ext_resource type="AudioStream" uid="uid://owaj5m5lpk1b" path="res://sounds/_sounds/Humans/No_Loop_applause-cheerfully.wav" id="3_a5w7r"]
+
+
+[node name="EndArch" instance=ExtResource("1_swjo5")]
+
+[node name="LeftCrowd" parent="." index="2" instance=ExtResource("2_nhs2w")]
+transform = Transform3D(0.298008, 0, 0.954563, 0, 1, 0, -0.954563, 0, 0.298008, -6.52749, 4.76837e-07, -2.12138)
+visible = false
+_applaud_loop = ExtResource("3_a5w7r")
+is_final_crowd_on_race = true
+
+[node name="RightCrowd" parent="." index="3" instance=ExtResource("2_nhs2w")]
+transform = Transform3D(0.414233, 0, -0.910171, 0, 1, 0, 0.910171, 0, 0.414233, 6.69357, 0, -2.93145)
+visible = false
+_applaud_loop = ExtResource("3_a5w7r")
+is_final_crowd_on_race = true

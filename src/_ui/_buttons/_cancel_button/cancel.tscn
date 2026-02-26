@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://gfjism2b5viy"]
+
+[ext_resource type="StyleBox" uid="uid://bcq10kctb2v07" path="res://_ui/_buttons/_cancel_button/cancel_button_default.tres" id="1_6fevv"]
+[ext_resource type="StyleBox" uid="uid://cijom4u7jtmkp" path="res://_ui/_buttons/_cancel_button/cancel_button_hover.tres" id="2_t5lan"]
+
+[node name="Cancel" type="Button"]
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 40
+theme_override_styles/hover_pressed = ExtResource("1_6fevv")
+theme_override_styles/hover = ExtResource("2_t5lan")
+theme_override_styles/pressed = ExtResource("1_6fevv")
+theme_override_styles/normal = ExtResource("1_6fevv")
+text = "Cancel"

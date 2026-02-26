@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://dmkrt8ku5pmty"]
+
+[ext_resource type="Script" uid="uid://d2n4wng37gs7s" path="res://sounds/audio_zone.gd" id="1_y0loq"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_u6pll"]
+size = Vector3(182.222, 8.46707, 310.265)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_18346"]
+size = Vector3(174.029, 11.4937, 389.987)
+
+[node name="AudioZone" type="Area3D"]
+monitorable = false
+script = ExtResource("1_y0loq")
+audio_mixer_bus_name = "Park"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.757519, 0, -0.652813, 0, 1, 0, 0.652813, 0, 0.757519, 2.99901, 3.62596, 18.5849)
+shape = SubResource("BoxShape3D_u6pll")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.964645, 0, -0.263553, 0, 1, 0, 0.263553, 0, 0.964645, -190.115, 5.04613, 163.452)
+shape = SubResource("BoxShape3D_18346")
+debug_color = Color(0.977164, 0.431491, 0.721783, 0.42)
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="area_exited" from="." to="." method="_on_area_exited"]

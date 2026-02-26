@@ -1,8 +1,0 @@
-[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://c5h2xgho3ndqr"]
-
-[ext_resource type="FontFile" uid="uid://d2yf0x212xaf2" path="res://UI/Font/Clear_font/ClearSans-Bold.ttf" id="1_gfsoa"]
-
-[resource]
-font = ExtResource("1_gfsoa")
-font_size = 40
-font_color = Color(0.160784, 0.160784, 0.160784, 1)
