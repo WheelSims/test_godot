@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://doiyqwf1gt0pf"
-path="res://.godot/imported/Bench_low_Bench_MetallicSmoothness.png-e7946419cad7f863b46ed0214d440f13.ctex"
+path="res://.godot/imported/Bench_low_Bench_MetallicSmoothness.png-6a828745344e1d8dfc122c51dfe0ea37.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://objects/park/benches_and_tables/bench/textures/Bench_low_Bench_MetallicSmoothness.png"
-dest_files=["res://.godot/imported/Bench_low_Bench_MetallicSmoothness.png-e7946419cad7f863b46ed0214d440f13.ctex"]
+source_file="res://Objects/park/benches_and_tables/bench/textures/Bench_low_Bench_MetallicSmoothness.png"
+dest_files=["res://.godot/imported/Bench_low_Bench_MetallicSmoothness.png-6a828745344e1d8dfc122c51dfe0ea37.ctex"]
 
 [params]
 

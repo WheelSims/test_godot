@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://dakpukhpx47rw"
-path="res://.godot/imported/picnic_table.fbx-a67eaf0bd29405f4b1f1e0b7642b192c.scn"
+path="res://.godot/imported/picnic_table.fbx-f3e003ebb864d80e7be4bf3fb53cf0da.scn"
 
 [deps]
 
-source_file="res://objects/park/benches_and_tables/picnic_table/picnic_table.fbx"
-dest_files=["res://.godot/imported/picnic_table.fbx-a67eaf0bd29405f4b1f1e0b7642b192c.scn"]
+source_file="res://Objects/park/benches_and_tables/picnic_table/picnic_table.fbx"
+dest_files=["res://.godot/imported/picnic_table.fbx-f3e003ebb864d80e7be4bf3fb53cf0da.scn"]
 
 [params]
 

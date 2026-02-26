@@ -3,8 +3,8 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dhvdqhtx31jyu"
-path.s3tc="res://.godot/imported/Kate_Ch21_1002_Diffuse.png-99a76bfb799adfb08da54a48006e3dd4.s3tc.ctex"
-path.etc2="res://.godot/imported/Kate_Ch21_1002_Diffuse.png-99a76bfb799adfb08da54a48006e3dd4.etc2.ctex"
+path.s3tc="res://.godot/imported/Kate_Ch21_1002_Diffuse.png-549510dda53b1aa73d9152289fd41b06.s3tc.ctex"
+path.etc2="res://.godot/imported/Kate_Ch21_1002_Diffuse.png-549510dda53b1aa73d9152289fd41b06.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -15,8 +15,8 @@ generator_parameters={
 
 [deps]
 
-source_file="res://objects/humans/kate/Kate_Ch21_1002_Diffuse.png"
-dest_files=["res://.godot/imported/Kate_Ch21_1002_Diffuse.png-99a76bfb799adfb08da54a48006e3dd4.s3tc.ctex", "res://.godot/imported/Kate_Ch21_1002_Diffuse.png-99a76bfb799adfb08da54a48006e3dd4.etc2.ctex"]
+source_file="res://Objects/humans/kate/Kate_Ch21_1002_Diffuse.png"
+dest_files=["res://.godot/imported/Kate_Ch21_1002_Diffuse.png-549510dda53b1aa73d9152289fd41b06.s3tc.ctex", "res://.godot/imported/Kate_Ch21_1002_Diffuse.png-549510dda53b1aa73d9152289fd41b06.etc2.ctex"]
 
 [params]
 

@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://doragxm6yqbjv"
-path="res://.godot/imported/Josh_Ch23_1001_Specular.png-7d9f04760a9219e78af94c8c0e736f8e.ctex"
+path="res://.godot/imported/Josh_Ch23_1001_Specular.png-087bd9ec8f48058802e9f2446e1c25e9.ctex"
 metadata={
 "vram_texture": false
 }
@@ -13,8 +13,8 @@ generator_parameters={
 
 [deps]
 
-source_file="res://objects/humans/josh/Josh_Ch23_1001_Specular.png"
-dest_files=["res://.godot/imported/Josh_Ch23_1001_Specular.png-7d9f04760a9219e78af94c8c0e736f8e.ctex"]
+source_file="res://Objects/humans/josh/Josh_Ch23_1001_Specular.png"
+dest_files=["res://.godot/imported/Josh_Ch23_1001_Specular.png-087bd9ec8f48058802e9f2446e1c25e9.ctex"]
 
 [params]
 

@@ -3,8 +3,8 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://q8k730wim8e0"
-path.s3tc="res://.godot/imported/arrow_texture.png-592b9d91db845994e4713c7f3ef232cc.s3tc.ctex"
-path.etc2="res://.godot/imported/arrow_texture.png-592b9d91db845994e4713c7f3ef232cc.etc2.ctex"
+path.s3tc="res://.godot/imported/arrow_texture.png-f7a1051d84f32deb30085c94056dffa7.s3tc.ctex"
+path.etc2="res://.godot/imported/arrow_texture.png-f7a1051d84f32deb30085c94056dffa7.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -12,8 +12,8 @@ metadata={
 
 [deps]
 
-source_file="res://games/races/arrow/arrow_texture.png"
-dest_files=["res://.godot/imported/arrow_texture.png-592b9d91db845994e4713c7f3ef232cc.s3tc.ctex", "res://.godot/imported/arrow_texture.png-592b9d91db845994e4713c7f3ef232cc.etc2.ctex"]
+source_file="res://Games/Races/arrow/arrow_texture.png"
+dest_files=["res://.godot/imported/arrow_texture.png-f7a1051d84f32deb30085c94056dffa7.s3tc.ctex", "res://.godot/imported/arrow_texture.png-f7a1051d84f32deb30085c94056dffa7.etc2.ctex"]
 
 [params]
 

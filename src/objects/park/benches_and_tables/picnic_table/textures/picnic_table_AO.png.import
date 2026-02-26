@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://2c1vt3l5xkqc"
-path="res://.godot/imported/picnic_table_AO.png-ea05d770e7f3770fb16b793526dcf090.ctex"
+path="res://.godot/imported/picnic_table_AO.png-1df6fb51473ddf5e7a3e466621c177e9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://objects/park/benches_and_tables/picnic_table/textures/picnic_table_AO.png"
-dest_files=["res://.godot/imported/picnic_table_AO.png-ea05d770e7f3770fb16b793526dcf090.ctex"]
+source_file="res://Objects/park/benches_and_tables/picnic_table/textures/picnic_table_AO.png"
+dest_files=["res://.godot/imported/picnic_table_AO.png-1df6fb51473ddf5e7a3e466621c177e9.ctex"]
 
 [params]
 

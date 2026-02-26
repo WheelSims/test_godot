@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://ow7b5pwan0h3"
-path="res://.godot/imported/streetLight.fbx-b06f149d7be5e6762884dbfe6ab5d931.scn"
+path="res://.godot/imported/streetLight.fbx-120e139fb183ff911c2d7640f28421eb.scn"
 
 [deps]
 
-source_file="res://objects/street/fbx/streetLight.fbx"
-dest_files=["res://.godot/imported/streetLight.fbx-b06f149d7be5e6762884dbfe6ab5d931.scn"]
+source_file="res://Objects/street/fbx/streetLight.fbx"
+dest_files=["res://.godot/imported/streetLight.fbx-120e139fb183ff911c2d7640f28421eb.scn"]
 
 [params]
 

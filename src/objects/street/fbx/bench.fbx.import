@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://m4nb3o84wisn"
-path="res://.godot/imported/bench.fbx-a15d1fd5b0dfc94f6769c3549b44f970.scn"
+path="res://.godot/imported/bench.fbx-89d089c08c508c504d6fd836b01edda1.scn"
 
 [deps]
 
-source_file="res://objects/street/fbx/bench.fbx"
-dest_files=["res://.godot/imported/bench.fbx-a15d1fd5b0dfc94f6769c3549b44f970.scn"]
+source_file="res://Objects/street/fbx/bench.fbx"
+dest_files=["res://.godot/imported/bench.fbx-89d089c08c508c504d6fd836b01edda1.scn"]
 
 [params]
 

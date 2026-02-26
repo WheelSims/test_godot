@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://cglpclsslib6r"
-path="res://.godot/imported/pedestrianPoleConnection.fbx-254045793255570bfdd5fe78d2771b29.scn"
+path="res://.godot/imported/pedestrianPoleConnection.fbx-ecee40b7c35ec2467202fe441d9356a8.scn"
 
 [deps]
 
-source_file="res://objects/street/fbx/pedestrianPoleConnection.fbx"
-dest_files=["res://.godot/imported/pedestrianPoleConnection.fbx-254045793255570bfdd5fe78d2771b29.scn"]
+source_file="res://Objects/street/fbx/pedestrianPoleConnection.fbx"
+dest_files=["res://.godot/imported/pedestrianPoleConnection.fbx-ecee40b7c35ec2467202fe441d9356a8.scn"]
 
 [params]
 

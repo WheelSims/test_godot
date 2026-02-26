@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://c4de8n0yg2b12"
-path="res://.godot/imported/pedestrianBusStop.fbx-db42524092e855e18fe0082649fb0a1e.scn"
+path="res://.godot/imported/pedestrianBusStop.fbx-70c957743a4c6878c2da486e80867467.scn"
 
 [deps]
 
-source_file="res://objects/street/fbx/pedestrianBusStop.fbx"
-dest_files=["res://.godot/imported/pedestrianBusStop.fbx-db42524092e855e18fe0082649fb0a1e.scn"]
+source_file="res://Objects/street/fbx/pedestrianBusStop.fbx"
+dest_files=["res://.godot/imported/pedestrianBusStop.fbx-70c957743a4c6878c2da486e80867467.scn"]
 
 [params]
 

@@ -3,8 +3,8 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://crfg30sllj05"
-path.s3tc="res://.godot/imported/Louise_Ch07_1001_Normal.png-b24d20edff4c02de7474f0a2ff00319c.s3tc.ctex"
-path.etc2="res://.godot/imported/Louise_Ch07_1001_Normal.png-b24d20edff4c02de7474f0a2ff00319c.etc2.ctex"
+path.s3tc="res://.godot/imported/Louise_Ch07_1001_Normal.png-6631d97aba63f6f317c7b54026c8617f.s3tc.ctex"
+path.etc2="res://.godot/imported/Louise_Ch07_1001_Normal.png-6631d97aba63f6f317c7b54026c8617f.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -15,8 +15,8 @@ generator_parameters={
 
 [deps]
 
-source_file="res://objects/humans/louise/Louise_Ch07_1001_Normal.png"
-dest_files=["res://.godot/imported/Louise_Ch07_1001_Normal.png-b24d20edff4c02de7474f0a2ff00319c.s3tc.ctex", "res://.godot/imported/Louise_Ch07_1001_Normal.png-b24d20edff4c02de7474f0a2ff00319c.etc2.ctex"]
+source_file="res://Objects/humans/louise/Louise_Ch07_1001_Normal.png"
+dest_files=["res://.godot/imported/Louise_Ch07_1001_Normal.png-6631d97aba63f6f317c7b54026c8617f.s3tc.ctex", "res://.godot/imported/Louise_Ch07_1001_Normal.png-6631d97aba63f6f317c7b54026c8617f.etc2.ctex"]
 
 [params]
 

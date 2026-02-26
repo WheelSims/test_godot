@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c18h3wxnhy230"
-path="res://.godot/imported/Trash_can_Trash_Can_Cover_BaseColor.png-68111793284343606210152987b74a27.ctex"
+path="res://.godot/imported/Trash_can_Trash_Can_Cover_BaseColor.png-f1d6a9f44bdb7364b013965e28c9cd18.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://objects/park/benches_and_tables/trash_can/textures/Trash_can_Trash_Can_Cover_BaseColor.png"
-dest_files=["res://.godot/imported/Trash_can_Trash_Can_Cover_BaseColor.png-68111793284343606210152987b74a27.ctex"]
+source_file="res://Objects/park/benches_and_tables/trash_can/textures/Trash_can_Trash_Can_Cover_BaseColor.png"
+dest_files=["res://.godot/imported/Trash_can_Trash_Can_Cover_BaseColor.png-f1d6a9f44bdb7364b013965e28c9cd18.ctex"]
 
 [params]
 

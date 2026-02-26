@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://egr4tmy552qc"
-path="res://.godot/imported/refugeIslandEnd.fbx-1cb8928d7ab2a74f6ad55e80cefa2e92.scn"
+path="res://.godot/imported/refugeIslandEnd.fbx-da46f50c47a2bc4df97a6b038df1210c.scn"
 
 [deps]
 
-source_file="res://objects/street/fbx/refugeIslandEnd.fbx"
-dest_files=["res://.godot/imported/refugeIslandEnd.fbx-1cb8928d7ab2a74f6ad55e80cefa2e92.scn"]
+source_file="res://Objects/street/fbx/refugeIslandEnd.fbx"
+dest_files=["res://.godot/imported/refugeIslandEnd.fbx-da46f50c47a2bc4df97a6b038df1210c.scn"]
 
 [params]
 

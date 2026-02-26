@@ -3,8 +3,8 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://blo1ta6fjothn"
-path.s3tc="res://.godot/imported/ClapAnimation_Ch07_1002_Diffuse.png-2f7ca6a4015f8f3c3a0bdaa7c3f61ccf.s3tc.ctex"
-path.etc2="res://.godot/imported/ClapAnimation_Ch07_1002_Diffuse.png-2f7ca6a4015f8f3c3a0bdaa7c3f61ccf.etc2.ctex"
+path.s3tc="res://.godot/imported/ClapAnimation_Ch07_1002_Diffuse.png-41bb4aacc14ae1865099b89de5ae1d74.s3tc.ctex"
+path.etc2="res://.godot/imported/ClapAnimation_Ch07_1002_Diffuse.png-41bb4aacc14ae1865099b89de5ae1d74.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -15,8 +15,8 @@ generator_parameters={
 
 [deps]
 
-source_file="res://objects/humans/louise/ClapAnimation_Ch07_1002_Diffuse.png"
-dest_files=["res://.godot/imported/ClapAnimation_Ch07_1002_Diffuse.png-2f7ca6a4015f8f3c3a0bdaa7c3f61ccf.s3tc.ctex", "res://.godot/imported/ClapAnimation_Ch07_1002_Diffuse.png-2f7ca6a4015f8f3c3a0bdaa7c3f61ccf.etc2.ctex"]
+source_file="res://Objects/humans/louise/ClapAnimation_Ch07_1002_Diffuse.png"
+dest_files=["res://.godot/imported/ClapAnimation_Ch07_1002_Diffuse.png-41bb4aacc14ae1865099b89de5ae1d74.s3tc.ctex", "res://.godot/imported/ClapAnimation_Ch07_1002_Diffuse.png-41bb4aacc14ae1865099b89de5ae1d74.etc2.ctex"]
 
 [params]
 

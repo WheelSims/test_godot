@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://cde853h5emae3"
-path="res://.godot/imported/trafficLightPoleSupport_01.fbx-77f60ae78570504026b36584636c427a.scn"
+path="res://.godot/imported/trafficLightPoleSupport_01.fbx-fd600dee3a5f928fcbf398583239a1de.scn"
 
 [deps]
 
-source_file="res://objects/street/fbx/trafficLightPoleSupport_01.fbx"
-dest_files=["res://.godot/imported/trafficLightPoleSupport_01.fbx-77f60ae78570504026b36584636c427a.scn"]
+source_file="res://Objects/street/fbx/trafficLightPoleSupport_01.fbx"
+dest_files=["res://.godot/imported/trafficLightPoleSupport_01.fbx-fd600dee3a5f928fcbf398583239a1de.scn"]
 
 [params]
 

@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://ckismwbx1qyqt"
-path="res://.godot/imported/pedestrianSideWalk_2_1_ParkingMiddle.fbx-132bafa2d3f5f5d875d2d955e05cf4f8.scn"
+path="res://.godot/imported/pedestrianSideWalk_2_1_ParkingMiddle.fbx-72d9d56e1be418a8020a9d79ee066abc.scn"
 
 [deps]
 
-source_file="res://objects/street/fbx/pedestrianSideWalk_2_1_ParkingMiddle.fbx"
-dest_files=["res://.godot/imported/pedestrianSideWalk_2_1_ParkingMiddle.fbx-132bafa2d3f5f5d875d2d955e05cf4f8.scn"]
+source_file="res://Objects/street/fbx/pedestrianSideWalk_2_1_ParkingMiddle.fbx"
+dest_files=["res://.godot/imported/pedestrianSideWalk_2_1_ParkingMiddle.fbx-72d9d56e1be418a8020a9d79ee066abc.scn"]
 
 [params]
 

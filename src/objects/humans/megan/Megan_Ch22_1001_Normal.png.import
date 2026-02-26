@@ -3,8 +3,8 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://co0yg8hhr383a"
-path.s3tc="res://.godot/imported/Megan_Ch22_1001_Normal.png-2d8628c49d9895693f9065acc8ba8787.s3tc.ctex"
-path.etc2="res://.godot/imported/Megan_Ch22_1001_Normal.png-2d8628c49d9895693f9065acc8ba8787.etc2.ctex"
+path.s3tc="res://.godot/imported/Megan_Ch22_1001_Normal.png-fbc2e848b418839d2821dd8495b87667.s3tc.ctex"
+path.etc2="res://.godot/imported/Megan_Ch22_1001_Normal.png-fbc2e848b418839d2821dd8495b87667.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -15,8 +15,8 @@ generator_parameters={
 
 [deps]
 
-source_file="res://objects/humans/megan/Megan_Ch22_1001_Normal.png"
-dest_files=["res://.godot/imported/Megan_Ch22_1001_Normal.png-2d8628c49d9895693f9065acc8ba8787.s3tc.ctex", "res://.godot/imported/Megan_Ch22_1001_Normal.png-2d8628c49d9895693f9065acc8ba8787.etc2.ctex"]
+source_file="res://Objects/humans/megan/Megan_Ch22_1001_Normal.png"
+dest_files=["res://.godot/imported/Megan_Ch22_1001_Normal.png-fbc2e848b418839d2821dd8495b87667.s3tc.ctex", "res://.godot/imported/Megan_Ch22_1001_Normal.png-fbc2e848b418839d2821dd8495b87667.etc2.ctex"]
 
 [params]
 

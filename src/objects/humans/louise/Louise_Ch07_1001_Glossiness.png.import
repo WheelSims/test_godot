@@ -3,8 +3,8 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dj1j5tay7ttbg"
-path.s3tc="res://.godot/imported/Louise_Ch07_1001_Glossiness.png-9ee39fbf6e69b84e67ec8b493b6a377c.s3tc.ctex"
-path.etc2="res://.godot/imported/Louise_Ch07_1001_Glossiness.png-9ee39fbf6e69b84e67ec8b493b6a377c.etc2.ctex"
+path.s3tc="res://.godot/imported/Louise_Ch07_1001_Glossiness.png-70006e5272491718b99a9379f7bbf290.s3tc.ctex"
+path.etc2="res://.godot/imported/Louise_Ch07_1001_Glossiness.png-70006e5272491718b99a9379f7bbf290.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -15,8 +15,8 @@ generator_parameters={
 
 [deps]
 
-source_file="res://objects/humans/louise/Louise_Ch07_1001_Glossiness.png"
-dest_files=["res://.godot/imported/Louise_Ch07_1001_Glossiness.png-9ee39fbf6e69b84e67ec8b493b6a377c.s3tc.ctex", "res://.godot/imported/Louise_Ch07_1001_Glossiness.png-9ee39fbf6e69b84e67ec8b493b6a377c.etc2.ctex"]
+source_file="res://Objects/humans/louise/Louise_Ch07_1001_Glossiness.png"
+dest_files=["res://.godot/imported/Louise_Ch07_1001_Glossiness.png-70006e5272491718b99a9379f7bbf290.s3tc.ctex", "res://.godot/imported/Louise_Ch07_1001_Glossiness.png-70006e5272491718b99a9379f7bbf290.etc2.ctex"]
 
 [params]
 

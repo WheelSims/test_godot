@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://bleywnldwanfj"
-path="res://.godot/imported/trafficLightConnection.fbx-deaefca0d94c8bd9c828081d0bf109be.scn"
+path="res://.godot/imported/trafficLightConnection.fbx-d7c34a305f148944aa85075cf0cdde91.scn"
 
 [deps]
 
-source_file="res://objects/street/fbx/trafficLightConnection.fbx"
-dest_files=["res://.godot/imported/trafficLightConnection.fbx-deaefca0d94c8bd9c828081d0bf109be.scn"]
+source_file="res://Objects/street/fbx/trafficLightConnection.fbx"
+dest_files=["res://.godot/imported/trafficLightConnection.fbx-d7c34a305f148944aa85075cf0cdde91.scn"]
 
 [params]
 

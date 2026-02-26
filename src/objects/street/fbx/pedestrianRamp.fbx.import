@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://bt2w4a23qcn74"
-path="res://.godot/imported/pedestrianRamp.fbx-748fabaa40a89fff0c39962c0d63544f.scn"
+path="res://.godot/imported/pedestrianRamp.fbx-aeeb6c718be58efa27bbe191c4b126cf.scn"
 
 [deps]
 
-source_file="res://objects/street/fbx/pedestrianRamp.fbx"
-dest_files=["res://.godot/imported/pedestrianRamp.fbx-748fabaa40a89fff0c39962c0d63544f.scn"]
+source_file="res://Objects/street/fbx/pedestrianRamp.fbx"
+dest_files=["res://.godot/imported/pedestrianRamp.fbx-aeeb6c718be58efa27bbe191c4b126cf.scn"]
 
 [params]
 

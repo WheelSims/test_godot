@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bejfsjavo3qxv"
-path="res://.godot/imported/Bench_low_Bench_AlbedoTransparency.png-3a5ce142380f419d7bf276957b1ca19b.ctex"
+path="res://.godot/imported/Bench_low_Bench_AlbedoTransparency.png-2da5715a140f6a28185efa801cd468f0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://objects/park/benches_and_tables/bench/textures/Bench_low_Bench_AlbedoTransparency.png"
-dest_files=["res://.godot/imported/Bench_low_Bench_AlbedoTransparency.png-3a5ce142380f419d7bf276957b1ca19b.ctex"]
+source_file="res://Objects/park/benches_and_tables/bench/textures/Bench_low_Bench_AlbedoTransparency.png"
+dest_files=["res://.godot/imported/Bench_low_Bench_AlbedoTransparency.png-2da5715a140f6a28185efa801cd468f0.ctex"]
 
 [params]
 

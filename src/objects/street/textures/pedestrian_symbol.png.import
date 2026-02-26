@@ -3,8 +3,8 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bxvteywhvo0kc"
-path.s3tc="res://.godot/imported/pedestrian_symbol.png-e2dc22ccaf14751aca039097cd4c3462.s3tc.ctex"
-path.etc2="res://.godot/imported/pedestrian_symbol.png-e2dc22ccaf14751aca039097cd4c3462.etc2.ctex"
+path.s3tc="res://.godot/imported/pedestrian_symbol.png-ebecb74d91bb121bf329f571690dc5b2.s3tc.ctex"
+path.etc2="res://.godot/imported/pedestrian_symbol.png-ebecb74d91bb121bf329f571690dc5b2.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -12,8 +12,8 @@ metadata={
 
 [deps]
 
-source_file="res://objects/street/textures/pedestrian_symbol.png"
-dest_files=["res://.godot/imported/pedestrian_symbol.png-e2dc22ccaf14751aca039097cd4c3462.s3tc.ctex", "res://.godot/imported/pedestrian_symbol.png-e2dc22ccaf14751aca039097cd4c3462.etc2.ctex"]
+source_file="res://Objects/street/textures/pedestrian_symbol.png"
+dest_files=["res://.godot/imported/pedestrian_symbol.png-ebecb74d91bb121bf329f571690dc5b2.s3tc.ctex", "res://.godot/imported/pedestrian_symbol.png-ebecb74d91bb121bf329f571690dc5b2.etc2.ctex"]
 
 [params]
 

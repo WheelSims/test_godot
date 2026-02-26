@@ -1,12 +1,13 @@
 [gd_scene format=3 uid="uid://hnxp88a0five"]
 
-[ext_resource type="Script" uid="uid://cn4e2xmcav5ft" path="res://games/races/obstacle_race/obstacle_race_generator.gd" id="1_rnfno"]
-[ext_resource type="Script" uid="uid://epb7xgmjyv72" path="res://games/races/scripts/race_data.gd" id="2_ogs1q"]
-[ext_resource type="PackedScene" uid="uid://36jj7pd344xn" path="res://games/races/obstacle_race/obstacle_sample.tscn" id="3_8r2kh"]
-[ext_resource type="PackedScene" uid="uid://c4jen6mmu7mgu" path="res://games/races/arch/finish_line.tscn" id="4_nl003"]
-[ext_resource type="PackedScene" uid="uid://bqcqt6d3sec64" path="res://games/races/arch/start_line.glb" id="4_ogs1q"]
-[ext_resource type="PackedScene" uid="uid://cctnfvdwdceio" path="res://games/races/arch/start_line.tscn" id="5_7pb3g"]
-[ext_resource type="PackedScene" uid="uid://d4dm6lh1tu5fw" path="res://games/races/crowd/crowd.tscn" id="5_8r2kh"]
+[ext_resource type="Script" uid="uid://cn4e2xmcav5ft" path="res://Games/Races/ObstacleRace/Scripts/obstacle_race_generator.gd" id="1_rnfno"]
+[ext_resource type="Script" uid="uid://epb7xgmjyv72" path="res://Games/Races/ObstacleRace/Scripts/race_data.gd" id="2_ogs1q"]
+[ext_resource type="PackedScene" uid="uid://36jj7pd344xn" path="res://Games/Races/ObstacleRace/obstacle_sample.tscn" id="3_8r2kh"]
+[ext_resource type="PackedScene" uid="uid://c4jen6mmu7mgu" path="res://Games/Races/arch/finish_line.tscn" id="4_nl003"]
+[ext_resource type="PackedScene" uid="uid://bqcqt6d3sec64" path="res://Games/Races/arch/start_line.glb" id="4_ogs1q"]
+[ext_resource type="PackedScene" uid="uid://cctnfvdwdceio" path="res://Games/Races/arch/start_line.tscn" id="5_7pb3g"]
+[ext_resource type="PackedScene" uid="uid://d4dm6lh1tu5fw" path="res://Games/Races/crowd/crowd.tscn" id="5_8r2kh"]
+
 
 [sub_resource type="Resource" id="Resource_bvkxh"]
 script = ExtResource("2_ogs1q")

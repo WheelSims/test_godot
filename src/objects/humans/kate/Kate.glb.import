@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://bkjobwvhg7dc7"
-path="res://.godot/imported/Kate.glb-e982216a273f4bd53bebbda9b8445f9d.scn"
+path="res://.godot/imported/Kate.glb-46487d9fd119ec6e46a20a7f57dbd4d4.scn"
 
 [deps]
 
-source_file="res://objects/humans/kate/Kate.glb"
-dest_files=["res://.godot/imported/Kate.glb-e982216a273f4bd53bebbda9b8445f9d.scn"]
+source_file="res://Objects/humans/kate/Kate.glb"
+dest_files=["res://.godot/imported/Kate.glb-46487d9fd119ec6e46a20a7f57dbd4d4.scn"]
 
 [params]
 

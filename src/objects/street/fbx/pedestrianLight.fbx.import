@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://bn5t2b22gh6vg"
-path="res://.godot/imported/pedestrianLight.fbx-b4bb9077988f9bff479cf60304b47b24.scn"
+path="res://.godot/imported/pedestrianLight.fbx-19aa700bd069d0209fe639d27372fc2e.scn"
 
 [deps]
 
-source_file="res://objects/street/fbx/pedestrianLight.fbx"
-dest_files=["res://.godot/imported/pedestrianLight.fbx-b4bb9077988f9bff479cf60304b47b24.scn"]
+source_file="res://Objects/street/fbx/pedestrianLight.fbx"
+dest_files=["res://.godot/imported/pedestrianLight.fbx-19aa700bd069d0209fe639d27372fc2e.scn"]
 
 [params]
 
@@ -41,7 +41,7 @@ _subresources={
 "materials": {
 "M_TrafficLightYellow": {
 "use_external/enabled": true,
-"use_external/fallback_path": "res://objects/street/materials/traffic_lights/traffic_light_yellow.tres",
+"use_external/fallback_path": "res://Objects/street/materials/traffic_lights/traffic_light_yellow.tres",
 "use_external/path": "uid://b3kbvsbgpteq8"
 }
 }

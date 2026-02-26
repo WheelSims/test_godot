@@ -57,10 +57,11 @@ func _ready() -> void:
 	_rng.randomize()
 	default_border_samples = border_samples
 	default_obstacle_infos = obstacle_infos
-	var ground_tile : Node3D = ground_tile.instantiate()
-	var mesh : PlaneMesh = ground_tile.mesh
-	tile_length = mesh.size.x
-	ground_tile.queue_free()
+	assert(is_instance_valid(ground_tile), "ground_tile must be assigned in the inspector.")
+	#var mesh : PlaneMesh = ground_tile.mesh
+	#tile_length = mesh.size.x
+	tile_length = 2
+	#ground_tile.queue_free()
 	if race_data.size()>0:
 		current_race_data = race_data[0]
 		_change_current_parameters()

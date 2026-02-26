@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://bu78o7feht2ow"
-path="res://.godot/imported/signStreetName.fbx-c2d3d5dba34859043f6f43069839f39f.scn"
+path="res://.godot/imported/signStreetName.fbx-7bf5317e247f9e09b227cd126a1721eb.scn"
 
 [deps]
 
-source_file="res://objects/street/fbx/signStreetName.fbx"
-dest_files=["res://.godot/imported/signStreetName.fbx-c2d3d5dba34859043f6f43069839f39f.scn"]
+source_file="res://Objects/street/fbx/signStreetName.fbx"
+dest_files=["res://.godot/imported/signStreetName.fbx-7bf5317e247f9e09b227cd126a1721eb.scn"]
 
 [params]
 
@@ -41,7 +41,7 @@ _subresources={
 "materials": {
 "M_SignStreetName": {
 "use_external/enabled": true,
-"use_external/fallback_path": "res://objects/street/materials/traffic_lights/street_name_panel/M_SignStreetName.tres",
+"use_external/fallback_path": "res://Objects/street/materials/traffic_lights/street_name_panel/M_SignStreetName.tres",
 "use_external/path": "uid://cb487vclaxp5g"
 }
 },

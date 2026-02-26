@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://cd4tgqtvjd3ex"
-path="res://.godot/imported/pedestrianPoleSupport.fbx-ee4848052aeba1f3c571522bdd3f89ff.scn"
+path="res://.godot/imported/pedestrianPoleSupport.fbx-a2f420df9a749696acf93bce7eb56b15.scn"
 
 [deps]
 
-source_file="res://objects/street/fbx/pedestrianPoleSupport.fbx"
-dest_files=["res://.godot/imported/pedestrianPoleSupport.fbx-ee4848052aeba1f3c571522bdd3f89ff.scn"]
+source_file="res://Objects/street/fbx/pedestrianPoleSupport.fbx"
+dest_files=["res://.godot/imported/pedestrianPoleSupport.fbx-a2f420df9a749696acf93bce7eb56b15.scn"]
 
 [params]
 

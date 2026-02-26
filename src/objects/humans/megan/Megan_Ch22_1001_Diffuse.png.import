@@ -3,8 +3,8 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b5bdnx7tesoej"
-path.s3tc="res://.godot/imported/Megan_Ch22_1001_Diffuse.png-0fa6018c9c7c97e180d2797364a76172.s3tc.ctex"
-path.etc2="res://.godot/imported/Megan_Ch22_1001_Diffuse.png-0fa6018c9c7c97e180d2797364a76172.etc2.ctex"
+path.s3tc="res://.godot/imported/Megan_Ch22_1001_Diffuse.png-63bfd329153777c411bb4cc2b25a4cb3.s3tc.ctex"
+path.etc2="res://.godot/imported/Megan_Ch22_1001_Diffuse.png-63bfd329153777c411bb4cc2b25a4cb3.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -15,8 +15,8 @@ generator_parameters={
 
 [deps]
 
-source_file="res://objects/humans/megan/Megan_Ch22_1001_Diffuse.png"
-dest_files=["res://.godot/imported/Megan_Ch22_1001_Diffuse.png-0fa6018c9c7c97e180d2797364a76172.s3tc.ctex", "res://.godot/imported/Megan_Ch22_1001_Diffuse.png-0fa6018c9c7c97e180d2797364a76172.etc2.ctex"]
+source_file="res://Objects/humans/megan/Megan_Ch22_1001_Diffuse.png"
+dest_files=["res://.godot/imported/Megan_Ch22_1001_Diffuse.png-63bfd329153777c411bb4cc2b25a4cb3.s3tc.ctex", "res://.godot/imported/Megan_Ch22_1001_Diffuse.png-63bfd329153777c411bb4cc2b25a4cb3.etc2.ctex"]
 
 [params]
 

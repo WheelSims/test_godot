@@ -3,8 +3,8 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dcj3fikucujat"
-path.s3tc="res://.godot/imported/Bench_low_Bench_Normal.png-b490118e684890981960b2c4c012033b.s3tc.ctex"
-path.etc2="res://.godot/imported/Bench_low_Bench_Normal.png-b490118e684890981960b2c4c012033b.etc2.ctex"
+path.s3tc="res://.godot/imported/Bench_low_Bench_Normal.png-e06670e54368191e8cc91838f307940c.s3tc.ctex"
+path.etc2="res://.godot/imported/Bench_low_Bench_Normal.png-e06670e54368191e8cc91838f307940c.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -12,8 +12,8 @@ metadata={
 
 [deps]
 
-source_file="res://objects/park/benches_and_tables/bench/textures/Bench_low_Bench_Normal.png"
-dest_files=["res://.godot/imported/Bench_low_Bench_Normal.png-b490118e684890981960b2c4c012033b.s3tc.ctex", "res://.godot/imported/Bench_low_Bench_Normal.png-b490118e684890981960b2c4c012033b.etc2.ctex"]
+source_file="res://Objects/park/benches_and_tables/bench/textures/Bench_low_Bench_Normal.png"
+dest_files=["res://.godot/imported/Bench_low_Bench_Normal.png-e06670e54368191e8cc91838f307940c.s3tc.ctex", "res://.godot/imported/Bench_low_Bench_Normal.png-e06670e54368191e8cc91838f307940c.etc2.ctex"]
 
 [params]
 

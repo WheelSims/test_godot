@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://6ifdnfmdvbsc"
-path="res://.godot/imported/Josh.glb-c545532ba73dd7f05f955adf547c2b82.scn"
+path="res://.godot/imported/Josh.glb-809f456d129ff066353b489e19f184b6.scn"
 
 [deps]
 
-source_file="res://objects/humans/josh/Josh.glb"
-dest_files=["res://.godot/imported/Josh.glb-c545532ba73dd7f05f955adf547c2b82.scn"]
+source_file="res://Objects/humans/josh/Josh.glb"
+dest_files=["res://.godot/imported/Josh.glb-809f456d129ff066353b489e19f184b6.scn"]
 
 [params]
 

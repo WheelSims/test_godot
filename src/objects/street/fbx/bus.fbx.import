@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://dedu8ysffapjc"
-path="res://.godot/imported/bus.fbx-c4b0cf473f2d8696f4c7ef98ab5d8bc7.scn"
+path="res://.godot/imported/bus.fbx-f4ad24ecc2024e93038638b7163d77d6.scn"
 
 [deps]
 
-source_file="res://objects/street/fbx/bus.fbx"
-dest_files=["res://.godot/imported/bus.fbx-c4b0cf473f2d8696f4c7ef98ab5d8bc7.scn"]
+source_file="res://Objects/street/fbx/bus.fbx"
+dest_files=["res://.godot/imported/bus.fbx-f4ad24ecc2024e93038638b7163d77d6.scn"]
 
 [params]
 

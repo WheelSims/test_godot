@@ -3,8 +3,8 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://wrk0f3ou3vxy"
-path.s3tc="res://.godot/imported/Kate_Ch21_1001_Glossiness.png-6408cf3ed00240684e9e233e7a95ef88.s3tc.ctex"
-path.etc2="res://.godot/imported/Kate_Ch21_1001_Glossiness.png-6408cf3ed00240684e9e233e7a95ef88.etc2.ctex"
+path.s3tc="res://.godot/imported/Kate_Ch21_1001_Glossiness.png-7c9c2f9ca95e3986c4cb08f5ee6b4755.s3tc.ctex"
+path.etc2="res://.godot/imported/Kate_Ch21_1001_Glossiness.png-7c9c2f9ca95e3986c4cb08f5ee6b4755.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -15,8 +15,8 @@ generator_parameters={
 
 [deps]
 
-source_file="res://objects/humans/kate/Kate_Ch21_1001_Glossiness.png"
-dest_files=["res://.godot/imported/Kate_Ch21_1001_Glossiness.png-6408cf3ed00240684e9e233e7a95ef88.s3tc.ctex", "res://.godot/imported/Kate_Ch21_1001_Glossiness.png-6408cf3ed00240684e9e233e7a95ef88.etc2.ctex"]
+source_file="res://Objects/humans/kate/Kate_Ch21_1001_Glossiness.png"
+dest_files=["res://.godot/imported/Kate_Ch21_1001_Glossiness.png-7c9c2f9ca95e3986c4cb08f5ee6b4755.s3tc.ctex", "res://.godot/imported/Kate_Ch21_1001_Glossiness.png-7c9c2f9ca95e3986c4cb08f5ee6b4755.etc2.ctex"]
 
 [params]
 

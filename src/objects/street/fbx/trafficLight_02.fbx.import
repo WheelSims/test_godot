@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://dhbw4ktjky3x0"
-path="res://.godot/imported/trafficLight_02.fbx-5ccf5ebb558d6f0a279161c487da4b7e.scn"
+path="res://.godot/imported/trafficLight_02.fbx-db224ec77977140b66f093f27a695ff4.scn"
 
 [deps]
 
-source_file="res://objects/street/fbx/trafficLight_02.fbx"
-dest_files=["res://.godot/imported/trafficLight_02.fbx-5ccf5ebb558d6f0a279161c487da4b7e.scn"]
+source_file="res://Objects/street/fbx/trafficLight_02.fbx"
+dest_files=["res://.godot/imported/trafficLight_02.fbx-db224ec77977140b66f093f27a695ff4.scn"]
 
 [params]
 
@@ -41,7 +41,7 @@ _subresources={
 "materials": {
 "M_TrafficLightYellow": {
 "use_external/enabled": true,
-"use_external/fallback_path": "res://objects/street/materials/traffic_lights/traffic_light_yellow.tres",
+"use_external/fallback_path": "res://Objects/street/materials/traffic_lights/traffic_light_yellow.tres",
 "use_external/path": "uid://b3kbvsbgpteq8"
 }
 }

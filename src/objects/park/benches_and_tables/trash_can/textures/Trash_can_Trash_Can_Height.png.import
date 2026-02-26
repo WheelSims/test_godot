@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://ccdp0vbecknyc"
-path="res://.godot/imported/Trash_can_Trash_Can_Height.png-7c3e32268a29429571e1c26d4a7d5f56.ctex"
+path="res://.godot/imported/Trash_can_Trash_Can_Height.png-1941f50f42e5c95ce63794f252ab2d0e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://objects/park/benches_and_tables/trash_can/textures/Trash_can_Trash_Can_Height.png"
-dest_files=["res://.godot/imported/Trash_can_Trash_Can_Height.png-7c3e32268a29429571e1c26d4a7d5f56.ctex"]
+source_file="res://Objects/park/benches_and_tables/trash_can/textures/Trash_can_Trash_Can_Height.png"
+dest_files=["res://.godot/imported/Trash_can_Trash_Can_Height.png-1941f50f42e5c95ce63794f252ab2d0e.ctex"]
 
 [params]
 

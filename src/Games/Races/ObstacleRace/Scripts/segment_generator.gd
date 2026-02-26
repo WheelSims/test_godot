@@ -13,7 +13,6 @@ func generate_segments(
 		rng: RandomNumberGenerator,
 		obstacle_sizes: Array[int] = []
 		) -> Array[Segment]:
-			
 	if (obstacle_sizes.size() == 0):
 		return generate_wall_segments(total_length, wall_min, wall_max, open_min, open_max, rng)
 	else:
@@ -33,7 +32,7 @@ func generate_wall_segments(
 	var current_type := Segment.SegmentType.WALL
 	if (rng.randf()>0.5):
 		current_type = Segment.SegmentType.OPENING
-
+	
 	while remaining > 0:
 		var min_len: int
 		var max_len: int
@@ -48,7 +47,7 @@ func generate_wall_segments(
 		# End case : last segment
 		if remaining <= max_len:
 			if remaining < min_len:
-				push_error("No valid segmentation possible for last segment")
+				printerr("No valid segmentation possible for last segment")
 				return []
 			segments.append(Segment.new(current_type, remaining))
 			break
@@ -68,10 +67,9 @@ func generate_wall_segments(
 				possible_lengths.append(l)
 		
 		if possible_lengths.is_empty():
-			push_error("No valid segmentation possible")
+			printerr("No valid segmentation possible")
 			return []
 		
-
 		var chosen := possible_lengths[rng.randi_range(0, possible_lengths.size() - 1)]
 		segments.append(Segment.new(current_type, chosen))
 
@@ -88,25 +86,22 @@ func _can_fill_rest(
 		open_min: int,
 		open_max: int
 	) -> bool:
-
-	# We test every possible numbers of the remaining segments
-
-	for wall_count in range(0, remaining + 1):
-		var open_count := wall_count
-
-		if start_type == Segment.SegmentType.OPENING:
-			open_count += 1
-		else:
+	var open_count : int = 0
+	var wall_count : int = 0
+	var type := start_type
+	for i in range(0, remaining + 1):
+		if type == Segment.SegmentType.WALL:
 			wall_count += 1
+		else:
+			open_count += 1
 			
-
 		var min_len := wall_count * wall_min + open_count * open_min
-
 		var max_len := wall_count * wall_max + open_count * open_max
-
+		
 		if min_len <= remaining and remaining <= max_len:
 			return true
-
+			
+		type = _next_type(type)
 	return false
 	
 func _generate_obstacle_segments(

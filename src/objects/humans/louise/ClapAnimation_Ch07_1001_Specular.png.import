@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cx5ywnkwclryy"
-path="res://.godot/imported/ClapAnimation_Ch07_1001_Specular.png-e0d22234eaba7fa7922bb89d7c967056.ctex"
+path="res://.godot/imported/ClapAnimation_Ch07_1001_Specular.png-ba29f841632b8271ed9208fc16ccb470.ctex"
 metadata={
 "vram_texture": false
 }
@@ -13,8 +13,8 @@ generator_parameters={
 
 [deps]
 
-source_file="res://objects/humans/louise/ClapAnimation_Ch07_1001_Specular.png"
-dest_files=["res://.godot/imported/ClapAnimation_Ch07_1001_Specular.png-e0d22234eaba7fa7922bb89d7c967056.ctex"]
+source_file="res://Objects/humans/louise/ClapAnimation_Ch07_1001_Specular.png"
+dest_files=["res://.godot/imported/ClapAnimation_Ch07_1001_Specular.png-ba29f841632b8271ed9208fc16ccb470.ctex"]
 
 [params]
 

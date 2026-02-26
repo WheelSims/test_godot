@@ -3,8 +3,8 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dfasgoq5uffxd"
-path.s3tc="res://.godot/imported/Kate_Ch21_1002_Normal.png-2f1932760d66d0ddc37aa7b533ae15af.s3tc.ctex"
-path.etc2="res://.godot/imported/Kate_Ch21_1002_Normal.png-2f1932760d66d0ddc37aa7b533ae15af.etc2.ctex"
+path.s3tc="res://.godot/imported/Kate_Ch21_1002_Normal.png-0714d50ff87cbe8cd22142339807276b.s3tc.ctex"
+path.etc2="res://.godot/imported/Kate_Ch21_1002_Normal.png-0714d50ff87cbe8cd22142339807276b.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -15,8 +15,8 @@ generator_parameters={
 
 [deps]
 
-source_file="res://objects/humans/kate/Kate_Ch21_1002_Normal.png"
-dest_files=["res://.godot/imported/Kate_Ch21_1002_Normal.png-2f1932760d66d0ddc37aa7b533ae15af.s3tc.ctex", "res://.godot/imported/Kate_Ch21_1002_Normal.png-2f1932760d66d0ddc37aa7b533ae15af.etc2.ctex"]
+source_file="res://Objects/humans/kate/Kate_Ch21_1002_Normal.png"
+dest_files=["res://.godot/imported/Kate_Ch21_1002_Normal.png-0714d50ff87cbe8cd22142339807276b.s3tc.ctex", "res://.godot/imported/Kate_Ch21_1002_Normal.png-0714d50ff87cbe8cd22142339807276b.etc2.ctex"]
 
 [params]
 

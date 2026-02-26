@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://c2ux8tma2drm3"
-path="res://.godot/imported/trash_can.fbx-6bc4ab293ba97cc698f1c80e1af1d07f.scn"
+path="res://.godot/imported/trash_can.fbx-ce138d750bf053afd0f79523609a0d14.scn"
 
 [deps]
 
-source_file="res://objects/park/benches_and_tables/trash_can/trash_can.fbx"
-dest_files=["res://.godot/imported/trash_can.fbx-6bc4ab293ba97cc698f1c80e1af1d07f.scn"]
+source_file="res://Objects/park/benches_and_tables/trash_can/trash_can.fbx"
+dest_files=["res://.godot/imported/trash_can.fbx-ce138d750bf053afd0f79523609a0d14.scn"]
 
 [params]
 

@@ -3,8 +3,8 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cpbeyjqmog61t"
-path.s3tc="res://.godot/imported/Josh_Ch23_1002_Diffuse.png-61ff4325980b63db93f5491dabe6955d.s3tc.ctex"
-path.etc2="res://.godot/imported/Josh_Ch23_1002_Diffuse.png-61ff4325980b63db93f5491dabe6955d.etc2.ctex"
+path.s3tc="res://.godot/imported/Josh_Ch23_1002_Diffuse.png-365188056f953cc9d799ea4e7a0d5ee6.s3tc.ctex"
+path.etc2="res://.godot/imported/Josh_Ch23_1002_Diffuse.png-365188056f953cc9d799ea4e7a0d5ee6.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -15,8 +15,8 @@ generator_parameters={
 
 [deps]
 
-source_file="res://objects/humans/josh/Josh_Ch23_1002_Diffuse.png"
-dest_files=["res://.godot/imported/Josh_Ch23_1002_Diffuse.png-61ff4325980b63db93f5491dabe6955d.s3tc.ctex", "res://.godot/imported/Josh_Ch23_1002_Diffuse.png-61ff4325980b63db93f5491dabe6955d.etc2.ctex"]
+source_file="res://Objects/humans/josh/Josh_Ch23_1002_Diffuse.png"
+dest_files=["res://.godot/imported/Josh_Ch23_1002_Diffuse.png-365188056f953cc9d799ea4e7a0d5ee6.s3tc.ctex", "res://.godot/imported/Josh_Ch23_1002_Diffuse.png-365188056f953cc9d799ea4e7a0d5ee6.etc2.ctex"]
 
 [params]
 

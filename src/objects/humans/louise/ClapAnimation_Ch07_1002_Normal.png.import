@@ -3,8 +3,8 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cdeidabk6b7hh"
-path.s3tc="res://.godot/imported/ClapAnimation_Ch07_1002_Normal.png-b90f2dda8abd1f56cc79c2ddb9a06785.s3tc.ctex"
-path.etc2="res://.godot/imported/ClapAnimation_Ch07_1002_Normal.png-b90f2dda8abd1f56cc79c2ddb9a06785.etc2.ctex"
+path.s3tc="res://.godot/imported/ClapAnimation_Ch07_1002_Normal.png-de721781421fa0afacd08eb9cba2082f.s3tc.ctex"
+path.etc2="res://.godot/imported/ClapAnimation_Ch07_1002_Normal.png-de721781421fa0afacd08eb9cba2082f.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -15,8 +15,8 @@ generator_parameters={
 
 [deps]
 
-source_file="res://objects/humans/louise/ClapAnimation_Ch07_1002_Normal.png"
-dest_files=["res://.godot/imported/ClapAnimation_Ch07_1002_Normal.png-b90f2dda8abd1f56cc79c2ddb9a06785.s3tc.ctex", "res://.godot/imported/ClapAnimation_Ch07_1002_Normal.png-b90f2dda8abd1f56cc79c2ddb9a06785.etc2.ctex"]
+source_file="res://Objects/humans/louise/ClapAnimation_Ch07_1002_Normal.png"
+dest_files=["res://.godot/imported/ClapAnimation_Ch07_1002_Normal.png-de721781421fa0afacd08eb9cba2082f.s3tc.ctex", "res://.godot/imported/ClapAnimation_Ch07_1002_Normal.png-de721781421fa0afacd08eb9cba2082f.etc2.ctex"]
 
 [params]
 

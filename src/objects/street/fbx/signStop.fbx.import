@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://ceeus10d60pf2"
-path="res://.godot/imported/signStop.fbx-80d1fb952627ab5e6378ab9bf8133895.scn"
+path="res://.godot/imported/signStop.fbx-bd72777341bed2ca9744d451ff572d84.scn"
 
 [deps]
 
-source_file="res://objects/street/fbx/signStop.fbx"
-dest_files=["res://.godot/imported/signStop.fbx-80d1fb952627ab5e6378ab9bf8133895.scn"]
+source_file="res://Objects/street/fbx/signStop.fbx"
+dest_files=["res://.godot/imported/signStop.fbx-bd72777341bed2ca9744d451ff572d84.scn"]
 
 [params]
 

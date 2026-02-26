@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://wtfxg03h3x6y"]
+
+[ext_resource type="PackedScene" uid="uid://hnxp88a0five" path="res://Games/Races/ObstacleRace/obstacle_race.tscn" id="1_dpsmk"]
+[ext_resource type="Script" uid="uid://epb7xgmjyv72" path="res://Games/Races/ObstacleRace/Scripts/race_data.gd" id="2_xf2ie"]
+[ext_resource type="PackedScene" uid="uid://jqktvq65k2vj" path="res://Games/Races/ObstacleRace/ground.tscn" id="3_dpsmk"]
+[ext_resource type="Script" uid="uid://brpk4pab7wouw" path="res://Games/Races/ObstacleRace/Scripts/object_info.gd" id="3_nohxi"]
+[ext_resource type="PackedScene" uid="uid://qr1w6nkpjqlp" path="res://Games/Races/ObstacleRace/border_sample.tscn" id="3_vlws6"]
+[ext_resource type="Resource" uid="uid://c0mrh0h01c1nk" path="res://Games/Races/ObstacleRace/ObjectInfoResources/StawBale2.tres" id="4_vlws6"]
+[ext_resource type="Resource" uid="uid://cmskrnwtoxkv6" path="res://Games/Races/ObstacleRace/ObjectInfoResources/Cactus.tres" id="5_dxsbs"]
+[ext_resource type="Resource" uid="uid://coguj5pvotoev" path="res://Games/Races/ObstacleRace/ObjectInfoResources/Fence.tres" id="7_dxsbs"]
+[ext_resource type="Resource" uid="uid://b4evu5qtyiog8" path="res://Games/Races/ObstacleRace/ObjectInfoResources/BrickWall.tres" id="8_tyiwi"]
+[ext_resource type="PackedScene" uid="uid://biluq7vv8ghsm" path="res://player/player.tscn" id="10_a1k4t"]
+
+[sub_resource type="Resource" id="Resource_a1k4t"]
+script = ExtResource("2_xf2ie")
+race_width = 20.0
+depth_dist_btw_challenge_range = Vector2(5, 5)
+wall_size_range = Vector2(3, 7)
+transparent_op_wall_prob = 1.0
+metadata/_custom_type_script = "uid://epb7xgmjyv72"
+
+[node name="ObstacleRaceScene" type="Node3D" unique_id=16703744]
+
+[node name="ObstacleRace" parent="." unique_id=1913311282 instance=ExtResource("1_dpsmk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.013)
+race_data = Array[ExtResource("2_xf2ie")]([SubResource("Resource_a1k4t")])
+border_samples = Array[PackedScene]([ExtResource("3_vlws6")])
+obstacle_infos = Array[ExtResource("3_nohxi")]([ExtResource("4_vlws6"), ExtResource("5_dxsbs")])
+transparent_wall_infos = Array[ExtResource("3_nohxi")]([ExtResource("7_dxsbs")])
+opaque_wall_infos = Array[ExtResource("3_nohxi")]([ExtResource("8_tyiwi")])
+ground_tile = ExtResource("3_dpsmk")
+
+[node name="player" parent="." unique_id=510199262 instance=ExtResource("10_a1k4t")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 2.9854455, 1, 0)
+KB_LINEAR_SPEED = 5.0
+KB_ANGULAR_SPEED = 5.0

@@ -3,8 +3,8 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dqwltqrue2hvb"
-path.s3tc="res://.godot/imported/Louise_Ch07_1002_Diffuse.png-6f8f664ac54bf02ef5af353208f6b809.s3tc.ctex"
-path.etc2="res://.godot/imported/Louise_Ch07_1002_Diffuse.png-6f8f664ac54bf02ef5af353208f6b809.etc2.ctex"
+path.s3tc="res://.godot/imported/Louise_Ch07_1002_Diffuse.png-9ce903ea9316c49ed715ff8fa4439747.s3tc.ctex"
+path.etc2="res://.godot/imported/Louise_Ch07_1002_Diffuse.png-9ce903ea9316c49ed715ff8fa4439747.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -15,8 +15,8 @@ generator_parameters={
 
 [deps]
 
-source_file="res://objects/humans/louise/Louise_Ch07_1002_Diffuse.png"
-dest_files=["res://.godot/imported/Louise_Ch07_1002_Diffuse.png-6f8f664ac54bf02ef5af353208f6b809.s3tc.ctex", "res://.godot/imported/Louise_Ch07_1002_Diffuse.png-6f8f664ac54bf02ef5af353208f6b809.etc2.ctex"]
+source_file="res://Objects/humans/louise/Louise_Ch07_1002_Diffuse.png"
+dest_files=["res://.godot/imported/Louise_Ch07_1002_Diffuse.png-9ce903ea9316c49ed715ff8fa4439747.s3tc.ctex", "res://.godot/imported/Louise_Ch07_1002_Diffuse.png-9ce903ea9316c49ed715ff8fa4439747.etc2.ctex"]
 
 [params]
 
