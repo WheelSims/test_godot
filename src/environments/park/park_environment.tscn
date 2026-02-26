@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://y2xjjvq3l33t"]
 
 [ext_resource type="Texture2D" uid="uid://wacfloxc8is" path="res://environments/hdr/daytime.hdr" id="1_l80wt"]
-[ext_resource type="PackedScene" uid="uid://b74nqh5tcg66o" path="res://_objects/park/trees/tree.tscn" id="3_u6pll"]
-[ext_resource type="PackedScene" uid="uid://gcvy038757is" path="res://_objects/humans/josh/josh.tscn" id="4_u6pll"]
+[ext_resource type="PackedScene" uid="uid://b74nqh5tcg66o" path="res://objects/park/trees/tree.tscn" id="3_u6pll"]
+[ext_resource type="PackedScene" uid="uid://gcvy038757is" path="res://objects/humans/josh/josh.tscn" id="4_u6pll"]
 [ext_resource type="PackedScene" uid="uid://dmkrt8ku5pmty" path="res://sounds/audio_zone.tscn" id="5_y04mv"]
 [ext_resource type="PackedScene" uid="uid://js24byb0fgrt" path="res://terrain/park/park_terrain.tscn" id="6_t8rdd"]
 [ext_resource type="AudioStream" uid="uid://dtypt0blh485n" path="res://sounds/sounds/ambiance_sounds/Forest-ambiance.wav" id="7_77vn5"]

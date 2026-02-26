@@ -4,10 +4,10 @@
 [ext_resource type="Script" uid="uid://epb7xgmjyv72" path="res://games/races/obstacle_race/scripts/race_data.gd" id="2_qeucu"]
 [ext_resource type="Script" uid="uid://brpk4pab7wouw" path="res://games/races/obstacle_race/scripts/object_info.gd" id="3_lecxx"]
 [ext_resource type="PackedScene" uid="uid://qr1w6nkpjqlp" path="res://games/races/obstacle_race/border_sample.tscn" id="4_uqd4d"]
-[ext_resource type="Resource" uid="uid://c0mrh0h01c1nk" path="res://games/races/obstacle_race/object_infos_resources/_straw_bale.tres" id="5_8swcp"]
-[ext_resource type="Resource" uid="uid://cmskrnwtoxkv6" path="res://games/races/obstacle_race/object_infos_resources/_cactus.tres" id="6_43lid"]
-[ext_resource type="Resource" uid="uid://coguj5pvotoev" path="res://games/races/obstacle_race/object_infos_resources/_fence.tres" id="7_d8cvf"]
-[ext_resource type="Resource" uid="uid://b4evu5qtyiog8" path="res://games/races/obstacle_race/object_infos_resources/_brick_wall.tres" id="8_n4g50"]
+[ext_resource type="Resource" uid="uid://c0mrh0h01c1nk" path="res://games/races/obstacle_race/object_infos_resources/straw_bale.tres" id="5_8swcp"]
+[ext_resource type="Resource" uid="uid://cmskrnwtoxkv6" path="res://games/races/obstacle_race/object_infos_resources/cactus.tres" id="6_43lid"]
+[ext_resource type="Resource" uid="uid://coguj5pvotoev" path="res://games/races/obstacle_race/object_infos_resources/fence.tres" id="7_d8cvf"]
+[ext_resource type="Resource" uid="uid://b4evu5qtyiog8" path="res://games/races/obstacle_race/object_infos_resources/brick_wall.tres" id="8_n4g50"]
 [ext_resource type="PackedScene" uid="uid://jqktvq65k2vj" path="res://games/races/obstacle_race/ground.tscn" id="9_d8cfs"]
 [ext_resource type="PackedScene" uid="uid://biluq7vv8ghsm" path="res://player/player.tscn" id="10_wxd7y"]
 
@@ -16,14 +16,21 @@ script = ExtResource("2_qeucu")
 race_width = 20.0
 depth_dist_btw_challenge_range = Vector2(5, 5)
 wall_size_range = Vector2(3, 7)
-transparent_op_wall_prob = 1.0
+obstacle_opening_prob = 0.565
+transparent_op_wall_prob = 0.44
+metadata/_custom_type_script = "uid://epb7xgmjyv72"
+
+[sub_resource type="Resource" id="Resource_3joe0"]
+script = ExtResource("2_qeucu")
+obstacle_opening_prob = 0.66
+transparent_op_wall_prob = 0.39
 metadata/_custom_type_script = "uid://epb7xgmjyv72"
 
 [node name="ObstacleRaceScene" type="Node3D" unique_id=16703744]
 
 [node name="ObstacleRace" parent="." unique_id=1913311282 instance=ExtResource("1_buhuv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.013)
-race_data = Array[ExtResource("2_qeucu")]([SubResource("Resource_a1k4t")])
+race_data = Array[ExtResource("2_qeucu")]([SubResource("Resource_a1k4t"), SubResource("Resource_3joe0")])
 border_samples = Array[PackedScene]([ExtResource("4_uqd4d")])
 obstacle_infos = Array[ExtResource("3_lecxx")]([ExtResource("5_8swcp"), ExtResource("6_43lid")])
 transparent_wall_infos = Array[ExtResource("3_lecxx")]([ExtResource("7_d8cvf")])
@@ -33,4 +40,4 @@ ground_tile = ExtResource("9_d8cfs")
 [node name="player" parent="." unique_id=510199262 instance=ExtResource("10_wxd7y")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 2.9854455, 1, 0)
 KB_LINEAR_SPEED = 5.0
-KB_ANGULAR_SPEED = 5.0
+KB_ANGULAR_SPEED = 2.0
