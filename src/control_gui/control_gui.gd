@@ -328,13 +328,13 @@ func _on_dbox_toggle_toggled(toggled_on: bool) -> void:
 func _on_onboard_button_pressed() -> void:
 	var player := get_player()
 	if player:
-		player.current_mode = player.CurrentMode.ONBOARD
+		player.current_mode = player.CurrentMode.ONBOARDING
 	else:
 		print("Launch a scene before clicking this button.")
 
 func _on_play_button_pressed() -> void:
 	var player := get_player()
 	if player:
-		player.current_mode = player.CurrentMode.PLAY
+		player.current_mode = player.CurrentMode.PLAYING
 	else:
 		print("Launch a scene before clicking this button.")

@@ -16,7 +16,7 @@ var height_normalization_window: float = 1.5
 ## Speed-dependent vibration level
 var vibration_level: float = 0.2
 ## Time window for switching between PLAY and other modes (s)
-var player_mode_switch_duration: float = 2
+var player_mode_switch_duration: float = 4
 
 
 # Precalculation relative to the simulator geometry
@@ -76,7 +76,7 @@ func _ready() -> void:
 	send(2, 0, 0, 0)  # Open
 	send(3, 0, 0, 0)  # ResetState
 	send(4, 0, 0, 0)  # Config
-	send(7, -1, 0, 0)  # Center
+	send(7, 0, 0, 0)  # Center
 	send(5, 0, 0, 0)  # Start
 	send_print_string("Init done, ready to move.\n")
 
@@ -118,7 +118,7 @@ func _process(delta: float) -> void:
 	old_position = global_position
 	
 	# Adjust current_pause_play_status
-	if player.current_mode == player.CurrentMode.PLAY:
+	if player.current_mode == player.CurrentMode.PLAYING:
 		if current_pause_play_status < 1.0:
 			current_pause_play_status += delta / player_mode_switch_duration
 	else:
@@ -133,6 +133,6 @@ func _process(delta: float) -> void:
 	send(
 		7,
 		new_dbox_normalized_height + (height_noise * speed) - 1.0 + current_pause_play_status,
-		(-player.rotation.x / max_pitch_angle + (pitch_noise * speed)),
-		(player.rotation.z / max_roll_angle + (roll_noise * speed))
+		(-player.rotation.x / max_pitch_angle + (pitch_noise * speed)) * current_pause_play_status,
+		(player.rotation.z / max_roll_angle + (roll_noise * speed)) * current_pause_play_status
 	)

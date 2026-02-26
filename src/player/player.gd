@@ -19,12 +19,12 @@ extends RigidBody3D
 # Current mode
 # -----------------------
 enum CurrentMode {
-	ONBOARD = 0,
-	PLAY = 1,
+	ONBOARDING = 0,
+	PLAYING = 1,
 	PAUSE = 2,
-	OFFBOARD = 3
+	OFFBOARDING = 3
 }
-@onready var current_mode = CurrentMode.ONBOARD
+@onready var current_mode = CurrentMode.PLAYING
 
 # -----------------------
 # Custom nodes
