@@ -267,6 +267,9 @@ func update_selected_patient_mass() -> void:
 			var player := get_node_or_null("player")
 			if player:
 				player.mass = (row.get_node("mass") as LineEdit).text.to_float()
+			else:
+				print("Player not found, mass not updated.")
+
 # -------------------------------------------------------------------
 # DBox : manuel + maintien
 # -------------------------------------------------------------------
@@ -314,3 +317,18 @@ func _on_floor_cam_toggle_toggled(toggled_on: bool) -> void:
 func _on_dbox_toggle_toggled(toggled_on: bool) -> void:
 	_parameters["has_dbox"] = toggled_on
 	save_preferences()
+
+
+func _on_onboard_button_pressed() -> void:
+	var player := get_node_or_null("player")
+	if player:
+		player.current_mode = player.CurrentMode.ONBOARD
+	else:
+		print("Launch a scene before clicking this button.")
+
+func _on_play_button_pressed() -> void:
+	var player := get_node_or_null("player")
+	if player:
+		player.current_mode = player.CurrentMode.PLAY
+	else:
+		print("Launch a scene before clicking this button.")

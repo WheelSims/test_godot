@@ -91,7 +91,7 @@ transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 1.7
 [node name="motors" type="Node3D" parent="." unique_id=981099318]
 script = ExtResource("2_4ntmi")
 
-[node name="dbox" type="Node3D" parent="." unique_id=1151688707]
+[node name="d_box" type="Node3D" parent="." unique_id=1151688707]
 script = ExtResource("3_muua7")
 
 [node name="obstacle_colliders" type="Area3D" parent="." unique_id=164510560]
