@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://cm8327vt0dpiu"
-path="res://.godot/imported/trafficLight_01.fbx-5d9ad5f1176b79f84599122bae831f3d.scn"
+uid="uid://cu75jpvltwdam"
+path="res://.godot/imported/irglm_lindsay_ramp_terrain.fbx-4c27f6eb7676e3066271370f46f46396.scn"
 
 [deps]
 
-source_file="res://objects/street/fbx/trafficLight_01.fbx"
-dest_files=["res://.godot/imported/trafficLight_01.fbx-5d9ad5f1176b79f84599122bae831f3d.scn"]
+source_file="res://terrain/irglm/fbx/irglm_lindsay_ramp_terrain.fbx"
+dest_files=["res://.godot/imported/irglm_lindsay_ramp_terrain.fbx-4c27f6eb7676e3066271370f46f46396.scn"]
 
 [params]
 
@@ -37,20 +37,7 @@ import_script/path=""
 materials/extract=0
 materials/extract_format=0
 materials/extract_path=""
-_subresources={
-"materials": {
-"M_TrafficLightYellow": {
-"use_external/enabled": true,
-"use_external/fallback_path": "res://objects/street/materials/traffic_lights/traffic_light_yellow.tres",
-"use_external/path": "uid://b3kbvsbgpteq8"
-}
-},
-"nodes": {
-"PATH:AnimationPlayer": {
-"import/skip_import": true
-}
-}
-}
+_subresources={}
 fbx/importer=0
 fbx/allow_geometry_helper_nodes=false
 fbx/embedded_image_handling=1

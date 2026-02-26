@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c6q1vlcyptgd"
-path="res://.godot/imported/race_in_park.png-0368e03c101b40ba872e67937849425d.ctex"
+path="res://.godot/imported/race_in_park.png-9e2fea4e105d8e93bf93b53f12b0be1f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://control_gui/thumbnails/race_in_park.png"
-dest_files=["res://.godot/imported/race_in_park.png-0368e03c101b40ba872e67937849425d.ctex"]
+source_file="res://playable_scenes/race_in_park.png"
+dest_files=["res://.godot/imported/race_in_park.png-9e2fea4e105d8e93bf93b53f12b0be1f.ctex"]
 
 [params]
 
