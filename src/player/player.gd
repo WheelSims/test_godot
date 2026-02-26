@@ -11,17 +11,17 @@ extends RigidBody3D
 # -----------------------
 # Cameras
 # -----------------------
-@onready var front_camera = get_node_or_null("FrontProjector/FrontCamera")
-@onready var floor_camera = get_node_or_null("FloorProjector/FloorCamera")
-@onready var front_camera_pose = get_node_or_null("FrontCameraPose")
-@onready var floor_camera_pose := get_node_or_null("FloorCameraPose")
+@onready var front_camera = get_node_or_null("front_projector/front_camera")
+@onready var floor_camera = get_node_or_null("floor_projector/floor_camera")
+@onready var front_camera_pose = get_node_or_null("front_camera_pose")
+@onready var floor_camera_pose := get_node_or_null("floor_camera_pose")
 
 # -----------------------
 # Custom nodes
 # -----------------------
-@onready var motors = get_node_or_null("Motors")
+@onready var motors = get_node_or_null("motors")
 @onready var player_text_node: Label = get_node_or_null(
-	"FrontProjector/UI/PlayerText"
+	"front_projector/ui/player_text"
 )
 
 # -----------------------
