@@ -1,15 +1,16 @@
 [gd_scene format=3 uid="uid://c6idgkcvhp3vc"]
 
 [ext_resource type="PackedScene" uid="uid://bj7d4aocvbm0e" path="res://terrain/street_corner/street_corner_terrain.tscn" id="1_6qklj"]
-[ext_resource type="Script" uid="uid://dnqp0o40gsf8a" path="res://objects/street/scripts/traffic_light_manager.gd" id="3_4wj2v"]
-[ext_resource type="PackedScene" uid="uid://dmltfs83e8g7f" path="res://objects/car/car.tscn" id="3_o8o6p"]
+[ext_resource type="Script" uid="uid://dnqp0o40gsf8a" path="res://_objects/street/scripts/traffic_light_manager.gd" id="3_4wj2v"]
+[ext_resource type="PackedScene" uid="uid://dmltfs83e8g7f" path="res://_objects/car/car.tscn" id="3_o8o6p"]
 [ext_resource type="Texture2D" uid="uid://wacfloxc8is" path="res://environments/hdr/daytime.hdr" id="3_ynxnr"]
-[ext_resource type="PackedScene" uid="uid://hcv53osdjj4q" path="res://objects/street/prefab_scenes/traffic_light_stuff/traffic_light.tscn" id="4_o8o6p"]
-[ext_resource type="PackedScene" uid="uid://ckf2r5kqw6h5r" path="res://objects/street/prefab_scenes/traffic_light_stuff/pedestrian_traffic_light_with_pole.tscn" id="5_iwjyl"]
-[ext_resource type="PackedScene" uid="uid://b7wmf34eitxkr" path="res://objects/street/prefab_scenes/traffic_light_stuff/pedestrian_traffic_light_without_pole.tscn" id="6_341mv"]
-[ext_resource type="PackedScene" uid="uid://b74nqh5tcg66o" path="res://objects/park/trees/tree.tscn" id="6_fcu0f"]
-[ext_resource type="PackedScene" uid="uid://dnejsadnifhhr" path="res://objects/humans/kate/kate.tscn" id="9_vyufj"]
-[ext_resource type="PackedScene" uid="uid://gcvy038757is" path="res://objects/humans/josh/josh.tscn" id="10_qknyg"]
+[ext_resource type="PackedScene" uid="uid://hcv53osdjj4q" path="res://_objects/street/prefab_scenes/traffic_light_stuff/traffic_light.tscn" id="4_o8o6p"]
+[ext_resource type="PackedScene" uid="uid://ckf2r5kqw6h5r" path="res://_objects/street/prefab_scenes/traffic_light_stuff/pedestrian_traffic_light_with_pole.tscn" id="5_iwjyl"]
+[ext_resource type="PackedScene" uid="uid://b7wmf34eitxkr" path="res://_objects/street/prefab_scenes/traffic_light_stuff/pedestrian_traffic_light_without_pole.tscn" id="6_341mv"]
+[ext_resource type="PackedScene" uid="uid://b74nqh5tcg66o" path="res://_objects/park/trees/tree.tscn" id="6_fcu0f"]
+[ext_resource type="PackedScene" uid="uid://dnejsadnifhhr" path="res://_objects/humans/kate/kate.tscn" id="9_vyufj"]
+[ext_resource type="PackedScene" uid="uid://gcvy038757is" path="res://_objects/humans/josh/josh.tscn" id="10_qknyg"]
+
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_o8o6p"]
 panorama = ExtResource("3_ynxnr")

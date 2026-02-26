@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://bo3s2kc1arfun" path="res://player/player.gd" id="1_l8h54"]
 [ext_resource type="Script" uid="uid://boe632ih0j5mm" path="res://player/motors.gd" id="2_4ntmi"]
 [ext_resource type="Script" uid="uid://da3tqctbq8isk" path="res://player/d_box.gd" id="3_muua7"]
-[ext_resource type="Material" uid="uid://c8m804jjd75fg" path="res://objects/street/materials/traffic_lights/bulb_lights/traffic_light_bulb_red.tres" id="4_gwnis"]
+[ext_resource type="Material" uid="uid://c8m804jjd75fg" path="res://_objects/street/materials/traffic_lights/bulb_lights/traffic_light_bulb_red.tres" id="4_gwnis"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_r3fl7"]
 radius = 0.25
