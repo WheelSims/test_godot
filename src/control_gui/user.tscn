@@ -1,28 +1,26 @@
-[gd_scene load_steps=16 format=3 uid="uid://cmnl58ja4y6f3"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7mj08"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bfieh"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rbsyp"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ydli1"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f2o6j"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gnwpp"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j4al0"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mg5l7"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dbqew"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7c5pk"]
+[gd_scene format=3 uid="uid://cmnl58ja4y6f3"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_67gxb"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_uvf0m"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7c5pk"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dbqew"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mg5l7"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j4al0"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gnwpp"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f2o6j"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ydli1"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rbsyp"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bfieh"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7mj08"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mqds5"]
 bg_color = Color(0.733005, 0.733005, 0.733005, 1)
@@ -31,78 +29,61 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_diijp"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_uvf0m"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jn268"]
 
-[node name="PatientRow" type="HBoxContainer"]
+[node name="user" type="HBoxContainer" unique_id=767511088]
 offset_right = 450.0
 offset_bottom = 40.0
 theme_override_constants/separation = 35
 
-[node name="CheckBox" type="CheckBox" parent="."]
+[node name="selected" type="CheckBox" parent="." unique_id=1471054622]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-theme_override_styles/focus = SubResource("StyleBoxFlat_7mj08")
-theme_override_styles/disabled_mirrored = SubResource("StyleBoxFlat_bfieh")
-theme_override_styles/disabled = SubResource("StyleBoxFlat_rbsyp")
-theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxFlat_ydli1")
-theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_f2o6j")
-theme_override_styles/hover_mirrored = SubResource("StyleBoxFlat_gnwpp")
-theme_override_styles/hover = SubResource("StyleBoxFlat_j4al0")
-theme_override_styles/pressed_mirrored = SubResource("StyleBoxFlat_mg5l7")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_dbqew")
-theme_override_styles/normal_mirrored = SubResource("StyleBoxFlat_7c5pk")
 theme_override_styles/normal = SubResource("StyleBoxFlat_67gxb")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxFlat_7c5pk")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_dbqew")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxFlat_mg5l7")
+theme_override_styles/hover = SubResource("StyleBoxFlat_j4al0")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxFlat_gnwpp")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_f2o6j")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxFlat_ydli1")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_rbsyp")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxFlat_bfieh")
+theme_override_styles/focus = SubResource("StyleBoxFlat_7mj08")
 
-[node name="Name" type="LineEdit" parent="."]
+[node name="name" type="LineEdit" parent="." unique_id=1280785254]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
-theme_override_colors/clear_button_color_pressed = Color(0, 0, 0, 1)
-theme_override_colors/clear_button_color = Color(0, 0, 0, 1)
-theme_override_colors/selection_color = Color(0, 0, 0, 1)
-theme_override_colors/caret_color = Color(0, 0, 0, 1)
-theme_override_colors/font_placeholder_color = Color(0, 0, 0, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_colors/font_selected_color = Color(1, 1, 1, 1)
-theme_override_colors/font_uneditable_color = Color(0, 0, 0, 1)
 theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_uneditable_color = Color(0, 0, 0, 1)
+theme_override_colors/font_selected_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_placeholder_color = Color(0, 0, 0, 1)
+theme_override_colors/caret_color = Color(0, 0, 0, 1)
+theme_override_colors/selection_color = Color(0, 0, 0, 1)
+theme_override_colors/clear_button_color = Color(0, 0, 0, 1)
+theme_override_colors/clear_button_color_pressed = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 18
-theme_override_styles/focus = SubResource("StyleBoxEmpty_uvf0m")
 theme_override_styles/normal = SubResource("StyleBoxFlat_mqds5")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_uvf0m")
 text = "Nom"
 
-[node name="LineWheelDist" type="LineEdit" parent="."]
+[node name="mass" type="LineEdit" parent="." unique_id=1971694913]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
-theme_override_colors/clear_button_color_pressed = Color(0, 0, 0, 1)
-theme_override_colors/clear_button_color = Color(0, 0, 0, 1)
-theme_override_colors/selection_color = Color(0, 0, 0, 1)
-theme_override_colors/caret_color = Color(0, 0, 0, 1)
-theme_override_colors/font_placeholder_color = Color(0, 0, 0, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_colors/font_selected_color = Color(1, 1, 1, 1)
-theme_override_colors/font_uneditable_color = Color(0, 0, 0, 1)
 theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_uneditable_color = Color(0, 0, 0, 1)
+theme_override_colors/font_selected_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_placeholder_color = Color(0, 0, 0, 1)
+theme_override_colors/caret_color = Color(0, 0, 0, 1)
+theme_override_colors/selection_color = Color(0, 0, 0, 1)
+theme_override_colors/clear_button_color = Color(0, 0, 0, 1)
+theme_override_colors/clear_button_color_pressed = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 18
-theme_override_styles/focus = SubResource("StyleBoxEmpty_diijp")
 theme_override_styles/normal = SubResource("StyleBoxFlat_mqds5")
-text = "WheelDis"
-
-[node name="LineMass" type="LineEdit" parent="."]
-custom_minimum_size = Vector2(100, 0)
-layout_mode = 2
-theme_override_colors/clear_button_color_pressed = Color(0, 0, 0, 1)
-theme_override_colors/clear_button_color = Color(0, 0, 0, 1)
-theme_override_colors/selection_color = Color(0, 0, 0, 1)
-theme_override_colors/caret_color = Color(0, 0, 0, 1)
-theme_override_colors/font_placeholder_color = Color(0, 0, 0, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_colors/font_selected_color = Color(1, 1, 1, 1)
-theme_override_colors/font_uneditable_color = Color(0, 0, 0, 1)
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 18
 theme_override_styles/focus = SubResource("StyleBoxEmpty_jn268")
-theme_override_styles/normal = SubResource("StyleBoxFlat_mqds5")
 text = "Mass"

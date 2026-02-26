@@ -6,7 +6,7 @@ extends Control
 var _current_scene_node: Node3D = null
 
 # --- UI users ---
-@export var patient_list: VBoxContainer
+@export var user_list: VBoxContainer
 var current_node_patient
 var user_row := preload("user.tscn")
 
@@ -58,50 +58,6 @@ func _process(delta: float) -> void:
 # -------------------------------------------------------------------
 # User management
 # -------------------------------------------------------------------
-func _on_btn_add_user_pressed() -> void:
-	var new_row := user_row.instantiate()
-
-	new_row.get_node("Name").connect("text_submitted", Callable(self, "save_users"))
-	new_row.get_node("Name").connect("focus_exited",   Callable(self, "save_users"))
-	new_row.get_node("LineWheelDist").connect("text_submitted", Callable(self, "save_users"))
-	new_row.get_node("LineWheelDist").connect("focus_exited",   Callable(self, "save_users"))
-	new_row.get_node("LineMass").connect("text_submitted", Callable(self, "update_selected_patient_mass"))
-	new_row.get_node("LineMass").connect("focus_exited",   Callable(self, "update_selected_patient_mass"))
-
-	# Sélection unique : bind de la row
-	new_row.get_node("CheckBox").connect("toggled", Callable(self, "_on_row_checkbox_toggled").bind(new_row))
-
-	patient_list.add_child(new_row)
-	save_users()
-
-func _on_btn_remove_user_pressed() -> void:
-	if patient_list.get_child_count() > 0:
-		if not current_node_patient:
-			current_node_patient = patient_list.get_child(patient_list.get_child_count() - 1)
-		patient_list.remove_child(current_node_patient)
-		current_node_patient.queue_free()
-		save_users()
-		_enforce_single_selection()
-
-func save_users(_new_text: String = "") -> void:
-	var data: Array[Dictionary] = []
-	for row in patient_list.get_children():
-		data.append({
-			"name": (row.get_node("Name") as LineEdit).text,
-			"wheel_distance": (row.get_node("LineWheelDist") as LineEdit).text.to_float(),
-			"mass": (row.get_node("LineMass") as LineEdit).text.to_float(),
-			"selected": (row.get_node("CheckBox") as CheckBox).button_pressed,
-		})
-	var file := FileAccess.open(SIMULATOR_USERS_FILENAME, FileAccess.WRITE)
-	file.store_string(JSON.stringify(data, "\t"))
-	file.close()
-	update_selected_patient_mass()
-
-func save_preferences()->void:
-	var file := FileAccess.open(PREFERENCES_FILENAME, FileAccess.WRITE)
-	file.store_string(JSON.stringify(_parameters, "\t"))
-	file.close()
-
 func load_users() -> void:
 	if not FileAccess.file_exists(SIMULATOR_USERS_FILENAME):
 		return
@@ -119,24 +75,64 @@ func load_users() -> void:
 		var patient: Dictionary = user as Dictionary
 		var new_row := user_row.instantiate()
 
-		(new_row.get_node("Name") as LineEdit).text = str(patient.get("name", ""))
-		(new_row.get_node("LineWheelDist") as LineEdit).text = str(patient.get("wheel_distance", ""))
-		(new_row.get_node("LineMass") as LineEdit).text = str(patient.get("mass", ""))
-		(new_row.get_node("CheckBox") as CheckBox).button_pressed = bool(patient.get("selected", false))
+		(new_row.get_node("selected") as CheckBox).button_pressed = bool(patient.get("selected", false))
+		(new_row.get_node("name") as LineEdit).text = str(patient.get("name", ""))
+		(new_row.get_node("mass") as LineEdit).text = str(patient.get("mass", ""))
 
-		new_row.get_node("Name").connect("text_submitted", Callable(self, "save_users"))
-		new_row.get_node("Name").connect("focus_exited",   Callable(self, "save_users"))
-		new_row.get_node("LineWheelDist").connect("text_submitted", Callable(self, "save_users"))
-		new_row.get_node("LineWheelDist").connect("focus_exited",   Callable(self, "save_users"))
-		new_row.get_node("LineMass").connect("text_submitted", Callable(self, "save_users"))
-		new_row.get_node("LineMass").connect("focus_exited",   Callable(self, "save_users"))
-		new_row.get_node("CheckBox").connect("toggled", Callable(self, "_on_row_checkbox_toggled").bind(new_row))
+		new_row.get_node("selected").connect("toggled", Callable(self, "_on_row_checkbox_toggled").bind(new_row))
+		new_row.get_node("name").connect("text_submitted", Callable(self, "save_users"))
+		new_row.get_node("name").connect("focus_exited",   Callable(self, "save_users"))
+		new_row.get_node("mass").connect("text_submitted", Callable(self, "save_users"))
+		new_row.get_node("mass").connect("focus_exited",   Callable(self, "save_users"))
 
-		patient_list.add_child(new_row)
-		if (new_row.get_node("CheckBox") as CheckBox).button_pressed:
+		user_list.add_child(new_row)
+		if (new_row.get_node("selected") as CheckBox).button_pressed:
 			current_node_patient = new_row
 
-	_enforce_single_selection()
+	#_enforce_single_selection()
+
+
+func _on_btn_add_user_pressed() -> void:
+	var new_row := user_row.instantiate()
+
+	new_row.get_node("name").connect("text_submitted", Callable(self, "save_users"))
+	new_row.get_node("name").connect("focus_exited",   Callable(self, "save_users"))
+	new_row.get_node("mass").connect("text_submitted", Callable(self, "update_selected_patient_mass"))
+	new_row.get_node("mass").connect("focus_exited",   Callable(self, "update_selected_patient_mass"))
+
+	# Sélection unique : bind de la row
+	new_row.get_node("selected").connect("toggled", Callable(self, "_on_row_checkbox_toggled").bind(new_row))
+
+	user_list.add_child(new_row)
+	save_users()
+
+func _on_btn_remove_user_pressed() -> void:
+	if user_list.get_child_count() > 0:
+		if not current_node_patient:
+			current_node_patient = user_list.get_child(user_list.get_child_count() - 1)
+		user_list.remove_child(current_node_patient)
+		current_node_patient.queue_free()
+		save_users()
+		_enforce_single_selection()
+
+func save_users(_new_text: String = "") -> void:
+	var data: Array[Dictionary] = []
+	for row in user_list.get_children():
+		data.append({
+			"name": (row.get_node("name") as LineEdit).text,
+			"mass": (row.get_node("mass") as LineEdit).text.to_float(),
+			"selected": (row.get_node("selected") as CheckBox).button_pressed,
+		})
+	var file := FileAccess.open(SIMULATOR_USERS_FILENAME, FileAccess.WRITE)
+	file.store_string(JSON.stringify(data, "\t"))
+	file.close()
+	update_selected_patient_mass()
+
+func save_preferences()->void:
+	var file := FileAccess.open(PREFERENCES_FILENAME, FileAccess.WRITE)
+	file.store_string(JSON.stringify(_parameters, "\t"))
+	file.close()
+
 
 func load_preferences()->void:
 	if not FileAccess.file_exists(PREFERENCES_FILENAME):
@@ -280,11 +276,11 @@ func _on_button_stop_pressed() -> void:
 # Masse du patient sélectionné
 # -------------------------------------------------------------------
 func update_selected_patient_mass() -> void:
-	for row in patient_list.get_children():
-		if (row.get_node("CheckBox") as CheckBox).button_pressed:
+	for row in user_list.get_children():
+		if (row.get_node("selected") as CheckBox).button_pressed:
 			var player := get_node_or_null("player")
 			if player:
-				player.mass = (row.get_node("LineMass") as LineEdit).text.to_float()
+				player.mass = (row.get_node("mass") as LineEdit).text.to_float()
 # -------------------------------------------------------------------
 # DBox : manuel + maintien
 # -------------------------------------------------------------------
@@ -330,9 +326,9 @@ func _send_heave_target() -> void:
 func _on_row_checkbox_toggled(pressed: bool, row: Node) -> void:
 	if pressed:
 		current_node_patient = row
-		for other in patient_list.get_children():
+		for other in user_list.get_children():
 			if other != row:
-				var ocb := other.get_node("CheckBox") as CheckBox
+				var ocb := other.get_node("selected") as CheckBox
 				if ocb.button_pressed:
 					ocb.button_pressed = false
 	save_users()
@@ -340,8 +336,8 @@ func _on_row_checkbox_toggled(pressed: bool, row: Node) -> void:
 
 func _enforce_single_selection(preferred_row: Node = null) -> void:
 	var found := false
-	for row in patient_list.get_children():
-		var cb := row.get_node("CheckBox") as CheckBox
+	for row in user_list.get_children():
+		var cb := row.get_node("selected") as CheckBox
 		if preferred_row and row == preferred_row:
 			if cb.button_pressed and not found:
 				found = true
