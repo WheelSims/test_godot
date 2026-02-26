@@ -76,7 +76,7 @@ func _ready() -> void:
 	send(2, 0, 0, 0)  # Open
 	send(3, 0, 0, 0)  # ResetState
 	send(4, 0, 0, 0)  # Config
-	send(7, 0, 0, 0)  # Center
+	send(7, -1, 0, 0)  # Center
 	send(5, 0, 0, 0)  # Start
 	send_print_string("Init done, ready to move.\n")
 
@@ -130,10 +130,9 @@ func _process(delta: float) -> void:
 	elif current_pause_play_status < 0.0:
 		current_pause_play_status = 0.0
 
-
 	send(
 		7,
 		new_dbox_normalized_height + (height_noise * speed) - 1.0 + current_pause_play_status,
-		(-player.rotation.x / max_pitch_angle + (pitch_noise * speed)) * current_pause_play_status,
-		(player.rotation.z / max_roll_angle + (roll_noise * speed)) * current_pause_play_status
+		(-player.rotation.x / max_pitch_angle + (pitch_noise * speed)),
+		(player.rotation.z / max_roll_angle + (roll_noise * speed))
 	)

@@ -40,7 +40,13 @@ func _ready() -> void:
 	load_preferences()
 	_create_scene_buttons()
 
-
+func get_player() -> RigidBody3D:
+	for item in get_tree().get_root().get_children():
+		var player = item.get_node_or_null("player")
+		if player:
+			return player
+	return null
+	
 # -------------------------------------------------------------------
 # User management
 # -------------------------------------------------------------------
@@ -264,7 +270,7 @@ func _on_button_stop_pressed() -> void:
 func update_selected_patient_mass() -> void:
 	for row in user_list.get_children():
 		if (row.get_node("selected") as CheckBox).button_pressed:
-			var player := get_node_or_null("player")
+			var player := get_player()
 			if player:
 				player.mass = (row.get_node("mass") as LineEdit).text.to_float()
 			else:
@@ -320,14 +326,14 @@ func _on_dbox_toggle_toggled(toggled_on: bool) -> void:
 
 
 func _on_onboard_button_pressed() -> void:
-	var player := get_node_or_null("player")
+	var player := get_player()
 	if player:
 		player.current_mode = player.CurrentMode.ONBOARD
 	else:
 		print("Launch a scene before clicking this button.")
 
 func _on_play_button_pressed() -> void:
-	var player := get_node_or_null("player")
+	var player := get_player()
 	if player:
 		player.current_mode = player.CurrentMode.PLAY
 	else:
