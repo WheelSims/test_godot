@@ -1,5 +1,6 @@
 class_name Segment
 extends RefCounted
+## A segment is an object (wall or opening) with a length.
 
 enum SegmentType { WALL, OPENING }
 

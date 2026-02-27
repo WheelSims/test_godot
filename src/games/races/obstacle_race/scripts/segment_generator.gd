@@ -1,5 +1,6 @@
 class_name SegmentGenerator
 extends RefCounted
+## SegmentGenerator is used to generate a list of segments to describe a challenge in an obstacle race.
 
 var _obstacle_sizes: Array[int]
 var _opening_range: Array[int]
@@ -151,9 +152,6 @@ func _recursive_build(remaining: int, type: Segment.SegmentType) -> Array[Segmen
 func _next_type(t: Segment.SegmentType) -> Segment.SegmentType:
 	return Segment.SegmentType.OPENING if t == Segment.SegmentType.WALL else Segment.SegmentType.WALL
 	
-static func units_to_world(units: int, quantum: float) -> float:
-	return units * quantum
-	
 func print_segments(segments: Array[Segment]) -> void:
 	var parts: Array[String] = []
 
@@ -162,10 +160,3 @@ func print_segments(segments: Array[Segment]) -> void:
 		parts.append("(%s, %d)" % [type_str, seg.length])
 
 	print("[" + ", ".join(parts) + "]")
-	
-func _intersect_lists(list_a: Array[int], list_b: Array[int]) -> Array[int]:
-	var result: Array[int] = []
-	for item in list_a:
-		if item in list_b and item not in result:
-			result.append(item)
-	return result

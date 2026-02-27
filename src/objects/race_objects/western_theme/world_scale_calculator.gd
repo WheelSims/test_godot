@@ -1,6 +1,7 @@
 @tool
 class_name WorldScaleCalculator
 extends Node3D
+## Script used to classify object in types and calculate their size in the race_width axis.
 
 enum ObjectType {UnitWall, ScalableWall, Obstacle}
 ##If a node is scaled. It must be this one

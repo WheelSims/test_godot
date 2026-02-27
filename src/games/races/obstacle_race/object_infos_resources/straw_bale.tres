@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="ObstacleInfo" format=3 uid="uid://c0mrh0h01c1nk"]
+[gd_resource type="Resource" script_class="ObjectInfo" format=3 uid="uid://c0mrh0h01c1nk"]
 
 [ext_resource type="PackedScene" uid="uid://t4035q8axi6v" path="res://objects/race_objects/western_theme/obstacles/hay_bale/scenes/hay_bale.tscn" id="1_5nush"]
 [ext_resource type="Script" uid="uid://brpk4pab7wouw" path="res://games/races/obstacle_race/scripts/object_info.gd" id="2_hxnyr"]

@@ -1,4 +1,5 @@
 class_name MathUtils
+## Contains custom math methods.
 
 ##to get n*quantum clother number from number
 ##ex: number = 1.666 => return 1.75 with quantum = 0.25
@@ -19,7 +20,8 @@ static func clother_number(list: Array, y: float)->float:
 			number = x
 	return number
 
-
+## Take a random key between the differents keys that matches with the given [param value].
+## It also works if [param dict] is a dictionary of dictionary.
 static func find_random_key(dict: Dictionary, value: Variant, rng: RandomNumberGenerator) -> Variant:
 	var matches: Array = []
 	

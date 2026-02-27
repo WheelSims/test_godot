@@ -1,48 +1,23 @@
 extends Node3D
 
 var player: Node3D
-# Storage to delete current objects if needed
-var current_race_objects: Array[Node3D] = []
 ## Distance between levels
-@export var end_offset_to_restart: float
+@export var end_offset_to_restart: float = 10
 ## List of races and their parameters
-@export var race_data: Array[RaceData]
-var current_race_data_indice := 0
-var current_race_data
-var default_border_samples: Array[PackedScene]
-var default_obstacle_infos: Array[ObjectInfo]
-@export var border_samples: Array[PackedScene]
+@export var races_data: Array[RaceData]
 @export var obstacle_infos: Array[ObjectInfo]
 @export var transparent_wall_infos: Array[ObjectInfo]
 @export var opaque_wall_infos: Array[ObjectInfo]
+@export var ground_tile_info: ObjectInfo
 @export var finish_line: PackedScene
-var finish_line_instance : Node3D
 @export var start_line: PackedScene
-var start_line_instance : Node3D
-@export var ground_tile: PackedScene
-var tile_length : float  #the tile is a square
+@export var border_samples: Array[PackedScene]
 var current_tiles: Array[Node3D] = []
 
-#Race parameters
-var race_length: int = 100
-var race_width: float = 10
-var obst_size_range: Vector2 = Vector2(0.5,3)
-var depth_dist_btw_challenge_range: Vector2 = Vector2(5,20)
-var horiz_dist_btw_obst_range: Vector2 = Vector2(3,5)
-## min and max of openings size
-var opening_size_range: Vector2 = Vector2(3,5)
-## min and max of walls size between openings
-var wall_size_range: Vector2 = Vector2(4, 7)
-## probability of having obstacles (0) or openings (1) with walls
-var obstacle_opening_prob: float
-## probability of having transparent (0) walls or not (1) (fence or brick walls)
-var transparent_op_wall_prob: float
-
 var _rng = RandomNumberGenerator.new()
+var current_race_data_indice := 0
+var current_race_data: RaceData
 var _depth_dist: float
-var _horiz_dist: float
-var _object_size: float
-var _remainder: float
 var _quanted_race_obst_sizes: Dictionary = {}
 
 # _race_start_x and _end_race_x_pos reset at every new level
@@ -54,131 +29,108 @@ var _current_x_pos : float = 0
 var _start_ground_tile_x_pos : float = 0
 
 func _ready() -> void:
+	_validate_config()
 	_rng.randomize()
-	default_border_samples = border_samples
-	default_obstacle_infos = obstacle_infos
-	assert(is_instance_valid(ground_tile), "ground_tile must be assigned in the inspector.")
-	#var mesh : PlaneMesh = ground_tile.mesh
-	#tile_length = mesh.size.x
-	tile_length = 2
-	#ground_tile.queue_free()
-	if race_data.size()>0:
-		current_race_data = race_data[0]
-		_change_current_parameters()
-	_start_ground_tile_x_pos = _current_x_pos
-	_challenge_generation()
+	for i in range(races_data.size()):
+		_level_generation()
+
+## Launch the level generation: arches, borders, ground and obstacles/walls.
+func _level_generation()->void:
+	current_race_data = races_data[current_race_data_indice]
+	_challenges_generation()
 	_arches_generation()
 	_border_generation()
 	_ground_generation()
-	
-	for i in range(race_data.size()):
-		_next_level()
-	
-func _quant_race_obst_sizes(quantum:float)->Array[int]:
-	var list: Array[int] = []
-	for obst_info in obstacle_infos:
-		var _obstacles_sizes = obst_info.z_sizes
-		var list_lengths: Array[float] = []
-		for length in _obstacles_sizes.values():
-			var n := MathUtils.clother_xquantum(quantum, length)
-			if n*quantum < obst_size_range.x or n*quantum > obst_size_range.y:
-				continue
-			list_lengths.append(n*quantum)
-			if not n in list:
-				list.append(n)
-		_quanted_race_obst_sizes[obst_info] = list_lengths
-	list.sort()
-	return list
-
-func _next_level() -> void:
 	current_race_data_indice += 1
-	if race_data.size()<=current_race_data_indice:
-		print("fin")
-		return
 	_current_x_pos += end_offset_to_restart
 	_race_start_x = _current_x_pos
-	
-	_change_current_parameters()
-	_challenge_generation()
-	_arches_generation()
-	_border_generation()
-	_ground_generation()
 
+## Generate the ground from tiles.
 func _ground_generation():
-	var x_count = ceil((race_length + end_offset_to_restart) / tile_length)
-	var z_count = ceil(race_width / tile_length) + 1
+	var tile_length: float = ground_tile_info.z_sizes.values()[0]
+	var tile_scene: PackedScene = ground_tile_info.scene
+	var x_count = ceil((current_race_data.race_length + end_offset_to_restart) / tile_length)
+	var z_count = ceil(current_race_data.race_width / tile_length) + 1
 
 	for i in range(x_count):
 		for j in range(z_count):
-			var tile: Node3D = ground_tile.instantiate()
+			var tile: Node3D = tile_scene.instantiate()
 			tile.position = Vector3(
 				_start_ground_tile_x_pos + i * tile_length + tile_length / 2.0,
 				0,
-				j * tile_length - race_width / 2
+				j * tile_length - current_race_data.race_width / 2
 			)
 			add_child(tile)
 			current_tiles.append(tile)
 	_start_ground_tile_x_pos += + x_count * tile_length
-	
+
+## Generate start and end lines with crowds.
 func _arches_generation()->void:
 	if (current_race_data_indice>0):
-		var start_line_instance : Node3D = start_line.instantiate()
-		add_child(start_line_instance)
-		start_line_instance.position.x = _race_start_x
-		start_line_instance.rotate(Vector3.UP, -PI/2)
-		var left_crowd : Crowd = start_line_instance.get_child(1)
-		var right_crowd : Crowd = start_line_instance.get_child(2)
-		left_crowd.on_race = true
-		right_crowd.on_race = true
-	finish_line_instance = finish_line.instantiate()
-	add_child(finish_line_instance)
-	finish_line_instance.position.x = _current_x_pos
-	finish_line_instance.rotate(Vector3.UP, -PI/2)
-	var left_crowd : Crowd = finish_line_instance.get_child(2)
-	var right_crowd : Crowd = finish_line_instance.get_child(3)
+		_arch_generation(start_line, true)
+	_arch_generation(finish_line, false)
+	current_race_data.race_length = _end_race_x_pos - _race_start_x
+	
+func _arch_generation(line: PackedScene, is_start_line: bool)->void:
+	var line_instance:= line.instantiate()
+	add_child(line_instance)
+	line_instance.rotate(Vector3.UP, -PI/2)
+	var left_crowd: Crowd = line_instance.get_child(0)
+	var right_crowd: Crowd = line_instance.get_child(1)
 	left_crowd.on_race = true
-	left_crowd.visible = true
 	right_crowd.on_race = true
-	right_crowd.visible = true
-	_end_race_x_pos = finish_line_instance.position.x
-	race_length = _end_race_x_pos - _race_start_x
+	if is_start_line:
+		line_instance.position.x = _race_start_x
+	else:
+		line_instance.position.x = _current_x_pos
+		_end_race_x_pos = line_instance.position.x
 
+## Generate border with border samples that must be cubes of size 1 for now.
 func _border_generation() -> void:
-	var border_sample : PackedScene = default_border_samples.pick_random()
-	for i in range(race_length):
+	var border_sample : PackedScene = border_samples.pick_random()
+	for i in range(current_race_data.race_length):
 		var x = i + _race_start_x
-		_spawn_border(x, -race_width/2 - 0.5, border_sample)  # left border
-		_spawn_border(x,  race_width/2 + 0.5, border_sample)  # right border
+		_spawn_border(x, -current_race_data.race_width/2 - 0.5, border_sample)  # left border
+		_spawn_border(x,  current_race_data.race_width/2 + 0.5, border_sample)  # right border
 
+## Spawn one border at the given position. X/Z is the position in the length/width axis.
+## border_sample must be a cube of size 1 for now.
 func _spawn_border(x_pos: float, z_pos: float, border_sample: PackedScene):
 	var border = border_sample.instantiate()
-	current_race_objects.append(border)
 	border.position.x = x_pos
 	border.position.z = z_pos
 	add_child(border)
 
-func _challenge_generation() -> void:
-	_depth_dist = _rng.randf_range(depth_dist_btw_challenge_range.x, depth_dist_btw_challenge_range.y)
+## A challenge is a line of obstacles or walls.
+## _challenges_generation decides for every challenge if it is a line of transparent walls, opaque walls, or obstacles.
+## In the same time, it executes _challenge_builder that generate one challenge.
+func _challenges_generation() -> void:
+	_depth_dist = _rng.randf_range(current_race_data.challenge_gap_range.x, current_race_data.challenge_gap_range.y)
 	_current_x_pos += _depth_dist
-	while _current_x_pos < race_length + _race_start_x:
-		if _rng.randf() < obstacle_opening_prob:
+	while _current_x_pos < current_race_data.race_length + _race_start_x:
+		if _rng.randf() < current_race_data.obstacle_opening_prob:
 			# Obstacle case
-			_object_builder(_current_x_pos, 0.25, obstacle_infos.pick_random())
+			_challenge_builder(_current_x_pos, 0.25, obstacle_infos.pick_random())
 		else:
-			if _rng.randf() < transparent_op_wall_prob: 
+			if _rng.randf() < current_race_data.transparent_op_wall_prob: 
 				# Transparant wall case
 				var object_info: ObjectInfo = transparent_wall_infos.pick_random()
-				_object_builder(_current_x_pos, object_info.z_sizes.values()[0], transparent_wall_infos.pick_random())
+				_challenge_builder(_current_x_pos, object_info.z_sizes.values()[0], transparent_wall_infos.pick_random())
 			else:
 				# Opaque wall case
-				_object_builder(_current_x_pos, 0.25,  opaque_wall_infos.pick_random())
-		#_depth_dist = _rng.randf_range(depth_dist_btw_challenge_range.x, depth_dist_btw_challenge_range.y)
+				_challenge_builder(_current_x_pos, 0.25,  opaque_wall_infos.pick_random())
+		#_depth_dist = _rng.randf_range(current_race_data.challenge_gap_range.x, current_race_data.challenge_gap_range.y)
 		_current_x_pos += _depth_dist
-		
-func _object_builder(pos_x: float, quantum: float,  object_info: ObjectInfo)->void:
-	var total_length = int(race_width / quantum)
-	var size_range: Vector2 = obst_size_range if object_info.type == WorldScaleCalculator.ObjectType.Obstacle else wall_size_range
-	var gap_range: Vector2 = horiz_dist_btw_obst_range if object_info.type == WorldScaleCalculator.ObjectType.Obstacle else opening_size_range
+
+## A challenge is a line of obstacles or walls.
+## Depending on the object_info, _challenge_builder generates a line of transparent walls, opaque walls, or obstacles.
+## The nature of the quantum depends on the object_info.type. 
+## UnitWall => quantum = object_info.z_size. 
+## ScalableWall and obstacle => the size is always a |n * quantum| number.
+func _challenge_builder(pos_x: float, quantum: float,  object_info: ObjectInfo)->void:
+	var total_length = int(current_race_data.race_width / quantum)
+	var size_range: Vector2 = current_race_data.obst_size_range if object_info.type == WorldScaleCalculator.ObjectType.Obstacle else current_race_data.wall_size_range
+	var gap_range: Vector2 = current_race_data.obst_gap_range if object_info.type == WorldScaleCalculator.ObjectType.Obstacle else current_race_data.opening_size_range
 	
 	var wall_min: int = int(size_range.x / quantum)
 	var wall_max: int = int(size_range.y / quantum)
@@ -207,16 +159,13 @@ func _object_builder(pos_x: float, quantum: float,  object_info: ObjectInfo)->vo
 		_rng,
 		length_obst_list
 	)
-	generator.print_segments(segments)
-	
+	#generator.print_segments(segments)
 	_segments_to_objects(object_info, segments, quantum, pos_x)
-		
+
+## With a list of segments, call the right spawn method depending on object_info.type
 func _segments_to_objects(object_info: ObjectInfo, segments: Array[Segment], quantum: float, pos_x: float)->void:
-	var pos_z: float
 	var scale_z: float
-	var first_pos_z: float
-	var last_pos_z: float
-	var cursor_z: float = -race_width/2
+	var cursor_z: float = -current_race_data.race_width/2
 	for i in range(segments.size()):
 		scale_z = segments[i].length * quantum
 		cursor_z += scale_z/2
@@ -225,7 +174,8 @@ func _segments_to_objects(object_info: ObjectInfo, segments: Array[Segment], qua
 			elif object_info.type == WorldScaleCalculator.ObjectType.ScalableWall: _scalable_object_spawn(pos_x, cursor_z, scale_z, object_info.scene)
 			elif object_info.type == WorldScaleCalculator.ObjectType.UnitWall: _unit_object_spawn(pos_x, cursor_z - scale_z/2, segments[i].length, object_info)
 		cursor_z += scale_z/2
-		
+
+## Obstacle_spawn doesn't need a PackedScene argument because it takes randomly in the _quanted_race_obst_sizes dictionary.
 func _obstacle_spawn(pos_x: float, pos_z: float, scale_z: float)->void:
 	var obstacle: ObjectInfo = MathUtils.find_random_key(_quanted_race_obst_sizes, scale_z, _rng)
 	if obstacle == null:
@@ -234,12 +184,11 @@ func _obstacle_spawn(pos_x: float, pos_z: float, scale_z: float)->void:
 	var instance := obstacle.scene.instantiate()
 	var list: Array = obstacle.z_sizes.values()
 	var original_scale = MathUtils.clother_number(list, scale_z)
-	var rotation = MathUtils.find_random_key(obstacle.z_sizes, original_scale, _rng)
+	var y_rotation = MathUtils.find_random_key(obstacle.z_sizes, original_scale, _rng)
 	
-	current_race_objects.append(instance)
 	instance.position.x = pos_x
-	if rotation != null:
-		instance.visual_instance.rotation_degrees.y = rotation
+	if y_rotation != null:
+		instance.visual_instance.rotation_degrees.y = y_rotation
 	instance.position.z = pos_z
 	instance.scale_from_real_size(scale_z, original_scale)
 	add_child(instance)
@@ -249,41 +198,49 @@ func _scalable_object_spawn(pos_x: float, pos_z: float, scale_z: float, obj_samp
 	if obstacle == null:
 		push_error("an obstacle didn't instantiate")
 		return
-	current_race_objects.append(obstacle)
 	obstacle.position.x = pos_x
 	obstacle.position.z = pos_z
 	obstacle.scale.z = scale_z
 	add_child(obstacle)
 	
 func _unit_object_spawn(pos_x: float, cursor_z: float, segment_length: int, object_info: ObjectInfo)->void:
-	_remainder = fmod(race_width, object_info.z_sizes.values()[0]) ## _remainder
+	var _remainder = fmod(current_race_data.race_width, object_info.z_sizes.values()[0]) ## _remainder
 	for i in range(0, segment_length):
 		var instance: Node3D = object_info.scene.instantiate()
 		instance.position.x = pos_x
-		instance.position.z = cursor_z + (i + 1/2) * object_info.z_sizes.values()[0] + _remainder
+		instance.position.z = cursor_z + (i + 0.5) * object_info.z_sizes.values()[0] + _remainder
 		add_child(instance)
+		
+func _quant_race_obst_sizes(quantum:float)->Array[int]:
+	var list: Array[int] = []
+	for obst_info in obstacle_infos:
+		var _obstacles_sizes = obst_info.z_sizes
+		var list_lengths: Array[float] = []
+		for length in _obstacles_sizes.values():
+			var n := MathUtils.clother_xquantum(quantum, length)
+			if n*quantum < current_race_data.obst_size_range.x or n*quantum > current_race_data.obst_size_range.y:
+				continue
+			list_lengths.append(n*quantum)
+			if not n in list:
+				list.append(n)
+		_quanted_race_obst_sizes[obst_info] = list_lengths
+	list.sort()
+	return list
 
-func _destroy_current_race_objects()->void:
-	for i in range(current_race_objects.size() - 1, -1, -1):
-		current_race_objects[i].queue_free()
-		current_race_objects.remove_at(i)
-
-func _change_current_parameters() -> void:
-	current_race_data = race_data[current_race_data_indice]
-	race_length = current_race_data.race_length
-	race_width = current_race_data.race_width
-	obst_size_range = current_race_data.obst_size_range
-	depth_dist_btw_challenge_range = current_race_data.depth_dist_btw_challenge_range
-	horiz_dist_btw_obst_range = current_race_data.horiz_dist_btw_obst_range
-	opening_size_range = current_race_data.opening_size_range
-	wall_size_range = current_race_data.wall_size_range
-	obstacle_opening_prob = current_race_data.obstacle_opening_prob
-	transparent_op_wall_prob = current_race_data.transparent_op_wall_prob
-	if current_race_data.border_samples == null:
-		current_race_data.border_samples = default_border_samples
-	if current_race_data.obstacle_infos == null:
-		current_race_data.obstacle_infos = default_obstacle_infos
-
-func _on_area_3d_body_entered(body: Node3D) -> void:
-	if body.is_in_group("Player"):
-		player = body
+func _validate_config() -> void:
+	assert(is_instance_valid(ground_tile_info), "ground_tile_info is null or invalid")
+	assert(is_instance_valid(finish_line), "finish_line PackedScene is null or invalid")
+	assert(is_instance_valid(start_line), "start_line PackedScene is null or invalid")
+	_validate_resource_array(races_data, "races_data")
+	_validate_resource_array(obstacle_infos, "obstacle_infos")
+	_validate_resource_array(transparent_wall_infos, "transparent_wall_infos")
+	_validate_resource_array(opaque_wall_infos, "opaque_wall_infos")
+	_validate_resource_array(border_samples, "border_samples")
+	
+func _validate_resource_array(array: Array, name: String) -> void:
+	assert(not array.is_empty(), "%s cannot be empty" % name)
+	for i in array.size():
+		if (array[i] is ObjectInfo):
+			assert(array[i].is_valid(), "%s contains invalid element at index %d" % [name, i])
+		else:
+			assert(is_instance_valid(array[i]), "%s contains invalid element at index %d" % [name, i])

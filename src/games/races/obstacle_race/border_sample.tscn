@@ -1,17 +1,17 @@
-[gd_scene load_steps=3 format=3 uid="uid://qr1w6nkpjqlp"]
+[gd_scene format=3 uid="uid://qr1w6nkpjqlp"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_u325w"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_1667k"]
 
-[node name="BorderSample" type="Node3D"]
+[node name="BorderSample" type="Node3D" unique_id=1045751461]
 
-[node name="RightBorder" type="MeshInstance3D" parent="."]
+[node name="RightBorder" type="MeshInstance3D" parent="." unique_id=1407716536]
 transform = Transform3D(1, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0.140975, 0)
 mesh = SubResource("BoxMesh_u325w")
 skeleton = NodePath("../..")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="RightBorder"]
+[node name="StaticBody3D" type="StaticBody3D" parent="RightBorder" unique_id=2046832869]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="RightBorder/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RightBorder/StaticBody3D" unique_id=1308994470]
 shape = SubResource("BoxShape3D_1667k")
