@@ -1,15 +1,15 @@
 class_name MathUtils
 ## Contains custom math methods.
 
-##to get n*quantum clother number from number
-##ex: number = 1.666 => return 1.75 with quantum = 0.25
+## To get the n of the n*quantum clother number from number
+## Ex: number = 1.666 => 7*0.25 = 1.75 => returns 7
 static func clother_xquantum(quantum: float, number_to_round: float)->int:
 	if number_to_round - int(number_to_round/quantum)*quantum < (int(number_to_round/quantum)+1)*quantum - number_to_round:
 		return int(number_to_round/quantum)
 	else:
 		return int(number_to_round/quantum)+1
 
-##to make the inverse operation. Get the clother number from the list
+##Get the clother number from a quanted list. 
 ##ex: number = 1.75 => get 1.666
 static func clother_number(list: Array, y: float)->float:
 	var min_dif := INF
@@ -21,16 +21,16 @@ static func clother_number(list: Array, y: float)->float:
 	return number
 
 ## Take a random key between the differents keys that matches with the given [param value].
-## It also works if [param dict] is a dictionary of dictionary.
-static func find_random_key(dict: Dictionary, value: Variant, rng: RandomNumberGenerator) -> Variant:
+## It also works if [param dict] have arrays as values.
+static func find_random_key(dict: Dictionary, value: float, rng: RandomNumberGenerator) -> Variant:
 	var matches: Array = []
 	
 	for k in dict:
 		if dict[k] is Array:
 			for i in dict[k]:
-				if i == value:
+				if i == value and not k in matches:
 					matches.append(k)
-		elif dict[k] == value:
+		elif is_equal_approx(dict[k], value):
 			matches.append(k)
 	
 	if matches.is_empty():

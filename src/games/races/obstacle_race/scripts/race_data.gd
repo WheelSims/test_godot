@@ -6,6 +6,8 @@ class_name RaceData
 @export var race_width: float = 10
 ## The min and max of distance between the challenges. 
 @export var challenge_gap_range: Vector2 = Vector2(5,10)
+## The value randomly choosen and that is the same on one race.
+var challenge_gap: float
 ## The min and max of obstacle sizes.
 @export var obst_size_range: Vector2 = Vector2(0.5,3)
 ## The min and max of distance between the obstacles.
@@ -17,4 +19,4 @@ class_name RaceData
 ##Probability that next challenge is an opening line or an obstacle line. 0 for opening and 1 for obstacle.
 @export var obstacle_opening_prob: float
 ##Probability that the walls of the opening line of the current challenge are transparent or not (fence or brickwall). 1 for transparency and 0 for opacity.
-@export var transparent_op_wall_prob: float	
+@export var transparent_op_wall_prob: float

@@ -17,7 +17,8 @@ var current_tiles: Array[Node3D] = []
 var _rng = RandomNumberGenerator.new()
 var current_race_data_indice := 0
 var current_race_data: RaceData
-var _depth_dist: float
+## A dictionary with object infos as key and their potential sizes as values.
+## The selected objects are the obstacles used on the current challenge generation.
 var _quanted_race_obst_sizes: Dictionary = {}
 
 # _race_start_x and _end_race_x_pos reset at every new level
@@ -105,8 +106,8 @@ func _spawn_border(x_pos: float, z_pos: float, border_sample: PackedScene):
 ## _challenges_generation decides for every challenge if it is a line of transparent walls, opaque walls, or obstacles.
 ## In the same time, it executes _challenge_builder that generate one challenge.
 func _challenges_generation() -> void:
-	_depth_dist = _rng.randf_range(current_race_data.challenge_gap_range.x, current_race_data.challenge_gap_range.y)
-	_current_x_pos += _depth_dist
+	current_race_data.challenge_gap = _rng.randf_range(current_race_data.challenge_gap_range.x, current_race_data.challenge_gap_range.y)
+	_current_x_pos += current_race_data.challenge_gap
 	while _current_x_pos < current_race_data.race_length + _race_start_x:
 		if _rng.randf() < current_race_data.obstacle_opening_prob:
 			# Obstacle case
@@ -119,8 +120,8 @@ func _challenges_generation() -> void:
 			else:
 				# Opaque wall case
 				_challenge_builder(_current_x_pos, 0.25,  opaque_wall_infos.pick_random())
-		#_depth_dist = _rng.randf_range(current_race_data.challenge_gap_range.x, current_race_data.challenge_gap_range.y)
-		_current_x_pos += _depth_dist
+		#current_race_data.challenge_gap = _rng.randf_range(current_race_data.challenge_gap_range.x, current_race_data.challenge_gap_range.y)
+		_current_x_pos += current_race_data.challenge_gap
 
 ## A challenge is a line of obstacles or walls.
 ## Depending on the object_info, _challenge_builder generates a line of transparent walls, opaque walls, or obstacles.
@@ -210,8 +211,12 @@ func _unit_object_spawn(pos_x: float, cursor_z: float, segment_length: int, obje
 		instance.position.x = pos_x
 		instance.position.z = cursor_z + (i + 0.5) * object_info.z_sizes.values()[0] + _remainder
 		add_child(instance)
-		
+
+## Select obstacles in the obstacle_size_range.
+## Make a list of their sizes quotient (1.75 with quantum = 0.25 => 7) with [method MathUtils.clother_xquantum]. Returns the list.
+## Also clear and write [member _quanted_race_obst_sizes].
 func _quant_race_obst_sizes(quantum:float)->Array[int]:
+	_quanted_race_obst_sizes.clear()
 	var list: Array[int] = []
 	for obst_info in obstacle_infos:
 		var _obstacles_sizes = obst_info.z_sizes
