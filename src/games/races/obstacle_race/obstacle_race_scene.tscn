@@ -86,4 +86,5 @@ KB_ANGULAR_SPEED = 2.0
 transform = Transform3D(146182.42, 0, 0, 0, 1, 0, 0, 0, 17.778763, 2100.749, 0, -1.0227165)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1755760915]
-transform = Transform3D(0.8143283, 0.15021977, -0.56062776, 0.5804046, -0.2107637, 0.7865807, 0, -0.9659258, -0.25881907, 0, 6.2602577, 0)
+transform = Transform3D(-0.091294825, -0.97667766, -0.19433486, 0.5804045, -0.21076362, 0.7865807, -0.80919456, -0.040982008, 0.5861096, 0, 6.2602577, 0)
+shadow_enabled = true
