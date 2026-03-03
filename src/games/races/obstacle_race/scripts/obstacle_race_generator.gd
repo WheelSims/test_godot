@@ -8,10 +8,9 @@ var player: Node3D
 @export var obstacle_infos: Array[ObjectInfo]
 @export var transparent_wall_infos: Array[ObjectInfo]
 @export var opaque_wall_infos: Array[ObjectInfo]
-@export var ground_tile_info: ObjectInfo
 @export var finish_line: PackedScene
 @export var start_line: PackedScene
-@export var border_samples: Array[PackedScene]
+@export var border_info: ObjectInfo
 var current_tiles: Array[Node3D] = []
 
 var _rng = RandomNumberGenerator.new()
@@ -21,13 +20,8 @@ var current_race_data: RaceData
 ## The selected objects are the obstacles used on the current challenge generation.
 var _quanted_race_obst_sizes: Dictionary = {}
 
-# _race_start_x and _end_race_x_pos reset at every new level
-var _race_start_x : float = 0
-var _end_race_x_pos : float = 0
-# _current_x_pos progresses as the levels build up
+## _current_x_pos progresses as the levels build up (with [method challenge_generation])
 var _current_x_pos : float = 0
-# _start_ground_tile_x_pos is the position where the ground starts to be built for every level. Not the same same than _race_start_x
-var _start_ground_tile_x_pos : float = 0
 
 func _ready() -> void:
 	_validate_config()
@@ -35,42 +29,22 @@ func _ready() -> void:
 	for i in range(races_data.size()):
 		_level_generation()
 
-## Launch the level generation: arches, borders, ground and obstacles/walls.
+## Launch the level generation: arches, borders and obstacles/walls.
 func _level_generation()->void:
 	current_race_data = races_data[current_race_data_indice]
+	current_race_data.race_start_x = _current_x_pos
 	_challenges_generation()
 	_arches_generation()
 	_border_generation()
-	_ground_generation()
 	current_race_data_indice += 1
 	_current_x_pos += end_offset_to_restart
-	_race_start_x = _current_x_pos
-
-## Generate the ground from tiles.
-func _ground_generation():
-	var tile_length: float = ground_tile_info.z_sizes.values()[0]
-	var tile_scene: PackedScene = ground_tile_info.scene
-	var x_count = ceil((current_race_data.race_length + end_offset_to_restart) / tile_length)
-	var z_count = ceil(current_race_data.race_width / tile_length) + 1
-
-	for i in range(x_count):
-		for j in range(z_count):
-			var tile: Node3D = tile_scene.instantiate()
-			tile.position = Vector3(
-				_start_ground_tile_x_pos + i * tile_length + tile_length / 2.0,
-				0,
-				j * tile_length - current_race_data.race_width / 2
-			)
-			add_child(tile)
-			current_tiles.append(tile)
-	_start_ground_tile_x_pos += + x_count * tile_length
 
 ## Generate start and end lines with crowds.
 func _arches_generation()->void:
 	if (current_race_data_indice>0):
 		_arch_generation(start_line, true)
 	_arch_generation(finish_line, false)
-	current_race_data.race_length = _end_race_x_pos - _race_start_x
+	current_race_data.race_length = current_race_data.end_race_x_pos - current_race_data.race_start_x
 	
 func _arch_generation(line: PackedScene, is_start_line: bool)->void:
 	var line_instance:= line.instantiate()
@@ -81,25 +55,54 @@ func _arch_generation(line: PackedScene, is_start_line: bool)->void:
 	left_crowd.on_race = true
 	right_crowd.on_race = true
 	if is_start_line:
-		line_instance.position.x = _race_start_x
+		line_instance.position.x = current_race_data.race_start_x
 	else:
 		line_instance.position.x = _current_x_pos
-		_end_race_x_pos = line_instance.position.x
+		current_race_data.end_race_x_pos = line_instance.position.x
 
-## Generate border with border samples that must be cubes of size 1 for now.
+## Generate border of race and the transition to the next race
 func _border_generation() -> void:
-	var border_sample : PackedScene = border_samples.pick_random()
-	for i in range(current_race_data.race_length):
-		var x = i + _race_start_x
-		_spawn_border(x, -current_race_data.race_width/2 - 0.5, border_sample)  # left border
-		_spawn_border(x,  current_race_data.race_width/2 + 0.5, border_sample)  # right border
+	var cursor_x: float = current_race_data.race_start_x
+	var border_width = border_info.local_scale.z
+	var l_first_point = Vector3( cursor_x, 0, -current_race_data.race_width/2 - border_width/2)
+	var r_first_point = Vector3( cursor_x, 0, current_race_data.race_width/2 + border_width/2)
+	var l_last_point = Vector3( cursor_x +  current_race_data.race_length, 0, -current_race_data.race_width/2 - border_width/2)
+	var r_last_point = Vector3( cursor_x +  current_race_data.race_length, 0, current_race_data.race_width/2 + border_width/2)
+	_line_border_generation(l_first_point, l_last_point)
+	cursor_x += _line_border_generation(r_first_point, r_last_point)
+	
+	#Border generation for the transition on the next race
+	if current_race_data_indice >= races_data.size() - 1:
+		return
+	l_first_point = Vector3( cursor_x, 0, -current_race_data.race_width/2 - border_width/2)
+	r_first_point = Vector3( cursor_x, 0, current_race_data.race_width/2 + border_width/2)
+	l_last_point = Vector3( cursor_x + end_offset_to_restart, 0, -races_data[current_race_data_indice+1].race_width/2 - border_width/2)
+	r_last_point = Vector3( cursor_x + end_offset_to_restart, 0, races_data[current_race_data_indice+1].race_width/2 + border_width/2)
+	_line_border_generation(l_first_point, l_last_point)
+	_line_border_generation(r_first_point, r_last_point)
 
+func _line_border_generation(first_point: Vector3, last_point: Vector3)->float:
+	var border_length = border_info.local_scale.x
+	var direction = last_point - first_point
+	var distance = direction.length()
+	var cursor = 0.0
+	var cursor_pos = first_point
+	var rotation = rad_to_deg(Vector3.RIGHT.signed_angle_to(direction, Vector3.UP))
+	while cursor < distance:
+		cursor_pos += direction.normalized() * border_length / 2
+		_spawn_border(cursor_pos.x, cursor_pos.z, border_info.scene, rotation)  # left border
+		_spawn_border(cursor_pos.x,  cursor_pos.z, border_info.scene, rotation)  # right border
+		cursor += border_length
+		cursor_pos += direction.normalized() * border_length / 2
+	return cursor
+	
 ## Spawn one border at the given position. X/Z is the position in the length/width axis.
 ## border_sample must be a cube of size 1 for now.
-func _spawn_border(x_pos: float, z_pos: float, border_sample: PackedScene):
+func _spawn_border(x_pos: float, z_pos: float, border_sample: PackedScene, y_rot: float = 0.0):
 	var border = border_sample.instantiate()
 	border.position.x = x_pos
 	border.position.z = z_pos
+	border.rotation_degrees.y += 90 + y_rot
 	add_child(border)
 
 ## A challenge is a line of obstacles or walls.
@@ -108,7 +111,7 @@ func _spawn_border(x_pos: float, z_pos: float, border_sample: PackedScene):
 func _challenges_generation() -> void:
 	current_race_data.challenge_gap = _rng.randf_range(current_race_data.challenge_gap_range.x, current_race_data.challenge_gap_range.y)
 	_current_x_pos += current_race_data.challenge_gap
-	while _current_x_pos < current_race_data.race_length + _race_start_x:
+	while _current_x_pos < current_race_data.race_length + current_race_data.race_start_x:
 		if _rng.randf() < current_race_data.obstacle_opening_prob:
 			# Obstacle case
 			_challenge_builder(_current_x_pos, 0.25, obstacle_infos.pick_random())
@@ -233,14 +236,14 @@ func _quant_race_obst_sizes(quantum:float)->Array[int]:
 	return list
 
 func _validate_config() -> void:
-	assert(is_instance_valid(ground_tile_info), "ground_tile_info is null or invalid")
 	assert(is_instance_valid(finish_line), "finish_line PackedScene is null or invalid")
 	assert(is_instance_valid(start_line), "start_line PackedScene is null or invalid")
+	assert(is_instance_valid(border_info), "border_info is null or invalid")
 	_validate_resource_array(races_data, "races_data")
 	_validate_resource_array(obstacle_infos, "obstacle_infos")
 	_validate_resource_array(transparent_wall_infos, "transparent_wall_infos")
 	_validate_resource_array(opaque_wall_infos, "opaque_wall_infos")
-	_validate_resource_array(border_samples, "border_samples")
+	
 	
 func _validate_resource_array(array: Array, name: String) -> void:
 	assert(not array.is_empty(), "%s cannot be empty" % name)

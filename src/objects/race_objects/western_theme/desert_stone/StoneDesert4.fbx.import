@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://b6c56pwbj40w4"
-path="res://.godot/imported/fence.fbx-1bdadba0adf928fdfdb99cced94f6d86.scn"
+uid="uid://c6cyax0tmr8cp"
+path="res://.godot/imported/StoneDesert4.fbx-82a5b2f1de4712fb7d912a8e8fdf136c.scn"
 
 [deps]
 
-source_file="res://objects/race_objects/western_theme/walls/fence/fence.fbx"
-dest_files=["res://.godot/imported/fence.fbx-1bdadba0adf928fdfdb99cced94f6d86.scn"]
+source_file="res://objects/race_objects/western_theme/desert_stone/StoneDesert4.fbx"
+dest_files=["res://.godot/imported/StoneDesert4.fbx-82a5b2f1de4712fb7d912a8e8fdf136c.scn"]
 
 [params]
 
@@ -39,18 +39,9 @@ materials/extract_format=0
 materials/extract_path=""
 _subresources={
 "materials": {
-"Material.006": {
+"@MATERIAL:0": {
 "use_external/enabled": true,
-"use_external/fallback_path": "res://objects/race_objects/western_theme/walls/fence/textures/fence_material.tres",
-"use_external/path": "uid://db363ysga8imt"
-}
-},
-"nodes": {
-"PATH:wire fence_001": {
-"import/skip_import": true
-},
-"PATH:wire fence_002": {
-"import/skip_import": true
+"use_external/path": "uid://c5ey31kx5xsgp"
 }
 }
 }

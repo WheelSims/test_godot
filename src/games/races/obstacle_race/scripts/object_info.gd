@@ -8,6 +8,8 @@ extends Resource
 @export var scene : PackedScene
 ## Dictionary that gives: rotation → z axis size
 @export var z_sizes : Dictionary   
+## Don't depend on the rotation. Scale on the local axis.
+@export var local_scale: Vector3
 ## type is the type of the object if it's a WorldScaleCalculator: UnitWall, ScalableWall or Obstacle
 @export var type : WorldScaleCalculator.ObjectType
 

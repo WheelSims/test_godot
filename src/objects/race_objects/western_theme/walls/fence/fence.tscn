@@ -40,7 +40,7 @@ shadow_mesh = SubResource("ArrayMesh_utrdp")
 [sub_resource type="BoxShape3D" id="BoxShape3D_y8wwd"]
 size = Vector3(4.50698, 5.0174, 0.502869)
 
-[node name="Fence" type="Node3D" unique_id=726337448 node_paths=PackedStringArray("visual_instance", "collision_shape")]
+[node name="fence" type="Node3D" unique_id=726337448 node_paths=PackedStringArray("visual_instance", "collision_shape")]
 script = ExtResource("2_joa5a")
 visual_instance = NodePath("wire fence")
 collision_shape = NodePath("wire fence/StaticBody3D/CollisionShape3D")

@@ -121,7 +121,6 @@ func _generate_obstacle_segments(
 	return _recursive_build(remaining, current_type)
 	
 func _recursive_build(remaining: int, type: Segment.SegmentType) -> Array[Segment]:
-	
 	if remaining == 0:
 		return []
 	

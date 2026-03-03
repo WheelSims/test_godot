@@ -49,17 +49,10 @@ shadow_mesh = SubResource("ArrayMesh_0hn23")
 [sub_resource type="BoxShape3D" id="BoxShape3D_ikxe4"]
 size = Vector3(0.480507, 2.07527, 0.428955)
 
-[node name="Cactus" type="Node3D" unique_id=1048503868 node_paths=PackedStringArray("visual_instance", "collision_shape")]
+[node name="cactus" type="Node3D" unique_id=1048503868 node_paths=PackedStringArray("visual_instance", "collision_shape")]
 script = ExtResource("2_6j4js")
 visual_instance = NodePath("Cactuss_02")
 collision_shape = NodePath("Cactuss_02/StaticBody3D/CollisionShape3D3")
-baked_size_z = 0.428955
-baked_sizes_dict = {
--45.0: 0.64308673,
-0.0: 0.428955,
-45.0: 0.6430867,
-90.0: 0.48050702
-}
 object_type = 2
 metadata/baked_size_z = 0.0
 

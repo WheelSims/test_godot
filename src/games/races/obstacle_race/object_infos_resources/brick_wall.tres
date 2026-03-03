@@ -1,12 +1,13 @@
-[gd_resource type="Resource" script_class="ObjectInfo" format=3 uid="uid://b4evu5qtyiog8"]
+[gd_resource type="Resource" script_class="ObjectInfo" format=3 uid="uid://tiokk1lvgoa3"]
 
-[ext_resource type="PackedScene" uid="uid://blm1wlle8dcqr" path="res://objects/race_objects/western_theme/walls/brick_wall/brick_wall.tscn" id="1_tdrmw"]
-[ext_resource type="Script" uid="uid://brpk4pab7wouw" path="res://games/races/obstacle_race/scripts/object_info.gd" id="2_a63jr"]
+[ext_resource type="PackedScene" uid="uid://blm1wlle8dcqr" path="res://objects/race_objects/western_theme/walls/brick_wall/brick_wall.tscn" id="1_qr68g"]
+[ext_resource type="Script" uid="uid://brpk4pab7wouw" path="res://games/races/obstacle_race/scripts/object_info.gd" id="2_6bjds"]
 
 [resource]
-script = ExtResource("2_a63jr")
-scene = ExtResource("1_tdrmw")
+script = ExtResource("2_6bjds")
+scene = ExtResource("1_qr68g")
 z_sizes = {
 0.0: 1.0
 }
+local_scale = Vector3(0.254495, 2.26136, 1)
 type = 1

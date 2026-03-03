@@ -53,6 +53,17 @@ func get_precise_size_z()->float:
 	var baked_size_z = max_z - min_z
 	#print(baked_size_z)
 	return baked_size_z
+	
+func get_precise_size()->Vector3:
+	var scale: Vector3 = Vector3.ZERO
+	var box_shape: BoxShape3D
+	if collision_shape.shape is BoxShape3D:
+		box_shape = collision_shape.shape
+	else:
+		push_error("CollisionShape have to be one BoxShape3D")
+		return scale
+	scale = box_shape.size * visual_instance.scale
+	return scale
 
 ## Scale the object from original_size to value. 
 func scale_from_real_size(value: float, original_size: float)->void:

@@ -20,3 +20,6 @@ var challenge_gap: float
 @export var obstacle_opening_prob: float
 ##Probability that the walls of the opening line of the current challenge are transparent or not (fence or brickwall). 1 for transparency and 0 for opacity.
 @export var transparent_op_wall_prob: float
+# _race_start_x and _end_race_x_pos reset at every new level
+var race_start_x : float = 0
+var end_race_x_pos : float = 0
