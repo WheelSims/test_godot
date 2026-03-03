@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://wtfxg03h3x6y"]
 
+[ext_resource type="Texture2D" uid="uid://bin0r5ay2ix4g" path="res://environments/hdr/desert_sunset.hdr" id="1_2q7su"]
 [ext_resource type="PackedScene" uid="uid://hnxp88a0five" path="res://games/races/obstacle_race/obstacle_race.tscn" id="1_buhuv"]
 [ext_resource type="Script" uid="uid://epb7xgmjyv72" path="res://games/races/obstacle_race/scripts/race_data.gd" id="2_qeucu"]
 [ext_resource type="Script" uid="uid://brpk4pab7wouw" path="res://games/races/obstacle_race/scripts/object_info.gd" id="3_lecxx"]
@@ -10,6 +11,20 @@
 [ext_resource type="Resource" uid="uid://b2dffsxjgctcc" path="res://games/races/obstacle_race/object_infos_resources/stone_desert.tres" id="9_3joe0"]
 [ext_resource type="PackedScene" uid="uid://biluq7vv8ghsm" path="res://player/player.tscn" id="10_wxd7y"]
 [ext_resource type="PackedScene" uid="uid://bkf5e8aqyhucy" path="res://objects/race_objects/western_theme/ground/sand_ground.tscn" id="11_2q7su"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_8psf5"]
+panorama = ExtResource("1_2q7su")
+
+[sub_resource type="Sky" id="Sky_ghu3m"]
+sky_material = SubResource("PanoramaSkyMaterial_8psf5")
+
+[sub_resource type="Environment" id="Environment_np0qt"]
+background_mode = 2
+sky = SubResource("Sky_ghu3m")
+fog_enabled = true
+fog_light_color = Color(0.73333335, 0.5882353, 0.4627451, 1)
+fog_density = 0.005
+fog_sky_affect = 0.316
 
 [sub_resource type="Resource" id="Resource_7cc65"]
 script = ExtResource("2_qeucu")
@@ -69,6 +84,9 @@ type = 1
 
 [node name="ObstacleRaceScene" type="Node3D" unique_id=16703744]
 
+[node name="WorldEnvironment2" type="WorldEnvironment" parent="." unique_id=1764370595]
+environment = SubResource("Environment_np0qt")
+
 [node name="ObstacleRace" parent="." unique_id=1913311282 instance=ExtResource("1_buhuv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.013)
 races_data = Array[ExtResource("2_qeucu")]([SubResource("Resource_7cc65"), SubResource("Resource_3joe0"), SubResource("Resource_2q7su")])
@@ -86,5 +104,7 @@ KB_ANGULAR_SPEED = 2.0
 transform = Transform3D(146182.42, 0, 0, 0, 1, 0, 0, 0, 17.778763, 2100.749, 0, -1.0227165)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1755760915]
-transform = Transform3D(-0.091294825, -0.97667766, -0.19433486, 0.5804045, -0.21076362, 0.7865807, -0.80919456, -0.040982008, 0.5861096, 0, 6.2602577, 0)
+transform = Transform3D(-0.091294825, -0.97667766, -0.19433491, 0.5804045, -0.21076354, 0.7865808, -0.80919456, -0.040982105, 0.5861097, 0, 6.2602577, 0)
+light_color = Color(0.90019286, 0.9067132, 0.8773114, 1)
+light_energy = 2.0
 shadow_enabled = true

@@ -5,17 +5,6 @@
 [ext_resource type="PackedScene" uid="uid://bqcqt6d3sec64" path="res://games/races/common_objects/arch/start_line.glb" id="4_ogs1q"]
 [ext_resource type="PackedScene" uid="uid://cctnfvdwdceio" path="res://games/races/common_objects/arch/start_line.tscn" id="5_7pb3g"]
 [ext_resource type="PackedScene" uid="uid://d4dm6lh1tu5fw" path="res://games/races/common_objects/crowd/crowd.tscn" id="5_8r2kh"]
-[ext_resource type="Texture2D" uid="uid://bin0r5ay2ix4g" path="res://environments/hdr/desert_sunset.hdr" id="6_k46tw"]
-
-[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_422ay"]
-panorama = ExtResource("6_k46tw")
-
-[sub_resource type="Sky" id="Sky_ghu3m"]
-sky_material = SubResource("PanoramaSkyMaterial_422ay")
-
-[sub_resource type="Environment" id="Environment_8rgbe"]
-background_mode = 2
-sky = SubResource("Sky_ghu3m")
 
 [node name="ObstacleRace" type="Node3D" unique_id=1913311282]
 script = ExtResource("1_rnfno")
@@ -30,6 +19,3 @@ transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -7.053
 
 [node name="Crowd2" parent="start_line" unique_id=1102909474 instance=ExtResource("5_8r2kh")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 7.94687, 0, -3.30869)
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1588013727]
-environment = SubResource("Environment_8rgbe")
