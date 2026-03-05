@@ -9,7 +9,7 @@
 radius = 0.25
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_jka67"]
-radius = 0.2
+radius = 0.1
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_btcbx"]
 size = Vector3(0.459595, 0.653366, 0.35376)
@@ -27,7 +27,7 @@ size = Vector3(0.459595, 0.678024, 0.35376)
 size = Vector3(0.459595, 0.67498, 0.35376)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_muua7"]
-size = Vector3(1, 1.00635, 1)
+size = Vector3(1, 0.954347, 1)
 
 [sub_resource type="FontFile" id="FontFile_2x147"]
 subpixel_positioning = 0
@@ -58,105 +58,103 @@ font = SubResource("FontFile_2x147")
 font_size = 50
 font_color = Color(0, 0, 0, 1)
 
-[node name="player" type="RigidBody3D" unique_id=510199262 groups=["Player"]]
+[node name="player" type="RigidBody3D" unique_id=993534235 groups=["Player"]]
 mass = 80.0
 contact_monitor = true
 angular_damp = 50.0
 script = ExtResource("1_l8h54")
 
-[node name="rear_right_wheel_collider" type="CollisionShape3D" parent="." unique_id=1948053692]
+[node name="rear_right_wheel_collider" type="CollisionShape3D" parent="." unique_id=2030604354]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, 0.25, 0)
 shape = SubResource("SphereShape3D_r3fl7")
 
-[node name="rear_left_wheel_collider" type="CollisionShape3D" parent="." unique_id=731283168]
+[node name="rear_left_wheel_collider" type="CollisionShape3D" parent="." unique_id=143991151]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3, 0.25, 0)
 shape = SubResource("SphereShape3D_r3fl7")
 
-[node name="front_left_front_wheel_collider" type="CollisionShape3D" parent="." unique_id=1437718443]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -0.25, 0.125, -0.6)
+[node name="front_left_wheel_collider" type="CollisionShape3D" parent="." unique_id=1652175328]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -0.25, 0.1, -0.6)
 shape = SubResource("SphereShape3D_jka67")
 debug_color = Color(8.27849e-06, 0.774194, 0.900788, 0.42)
 
-[node name="front_right_wheel_collider" type="CollisionShape3D" parent="." unique_id=868247554]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.25, 0.125, -0.6)
+[node name="front_right_wheel_collider" type="CollisionShape3D" parent="." unique_id=177618645]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.1, -0.6)
 shape = SubResource("SphereShape3D_jka67")
 debug_color = Color(8.27849e-06, 0.774194, 0.900788, 0.42)
 
-[node name="front_camera_pose" type="Node3D" parent="." unique_id=1322720178]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.783312, -0.534015)
+[node name="front_camera_pose" type="Node3D" parent="." unique_id=190710899]
+transform = Transform3D(1, 0, 0, 0, 0.999391, -0.0348995, 0, 0.0348995, 0.999391, 0, 0.980403, -0.5415104)
 
-[node name="floor_camera_pose" type="Node3D" parent="." unique_id=1104140364]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 1.72265, -1.37178)
+[node name="floor_camera_pose" type="Node3D" parent="." unique_id=1114413926]
+transform = Transform3D(1, 0, 0, 0, 0.481754, 0.876307, 0, -0.876307, 0.481754, 0, 1.6689, -0.520708)
 
-[node name="motors" type="Node3D" parent="." unique_id=981099318]
+[node name="motors" type="Node3D" parent="." unique_id=1232587625]
 script = ExtResource("2_4ntmi")
 
-[node name="dbox" type="Node3D" parent="." unique_id=1151688707]
+[node name="d_box" type="Node3D" parent="." unique_id=2079163710]
 script = ExtResource("3_muua7")
 
-[node name="obstacle_colliders" type="Area3D" parent="." unique_id=164510560]
+[node name="obstacle_colliders" type="Area3D" parent="." unique_id=1483317311]
 
-[node name="front" type="CollisionShape3D" parent="obstacle_colliders" unique_id=835557671]
+[node name="front" type="CollisionShape3D" parent="obstacle_colliders" unique_id=884966256]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, -0.5)
 shape = SubResource("BoxShape3D_btcbx")
 
-[node name="front_left" type="CollisionShape3D" parent="obstacle_colliders" unique_id=267047789]
+[node name="front_left" type="CollisionShape3D" parent="obstacle_colliders" unique_id=1881606400]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25, 0.4, -0.45)
 shape = SubResource("BoxShape3D_gwnis")
 
-[node name="front_right" type="CollisionShape3D" parent="obstacle_colliders" unique_id=247275491]
+[node name="front_right" type="CollisionShape3D" parent="obstacle_colliders" unique_id=1792648497]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.4, -0.45)
 shape = SubResource("BoxShape3D_k53q1")
 
-[node name="back_left" type="CollisionShape3D" parent="obstacle_colliders" unique_id=291521846]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25, 0.34, 0.1)
+[node name="back_left" type="CollisionShape3D" parent="obstacle_colliders" unique_id=1214845614]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25, 0.4, 0.1)
 shape = SubResource("BoxShape3D_fhl08")
 
-[node name="back_right" type="CollisionShape3D" parent="obstacle_colliders" unique_id=639135036]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.339, 0.1)
+[node name="back_right" type="CollisionShape3D" parent="obstacle_colliders" unique_id=1739269176]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.4, 0.1)
 shape = SubResource("BoxShape3D_vtle1")
 
-[node name="detection_area" type="Area3D" parent="." unique_id=1367449744 groups=["Player"]]
+[node name="detection_area" type="Area3D" parent="." unique_id=1114802297 groups=["Player"]]
 editor_description = "Area3D to be detected"
 monitoring = false
 
-[node name="collision_shape_3d" type="CollisionShape3D" parent="detection_area" unique_id=1242098713]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.506104, -0.278171)
+[node name="collision_shape_3d" type="CollisionShape3D" parent="detection_area" unique_id=553309722]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.620304, -0.278171)
 shape = SubResource("BoxShape3D_muua7")
 
-[node name="floor_projector" type="Window" parent="." unique_id=1775090399]
+[node name="floor_projector" type="Window" parent="." unique_id=995024943]
 auto_translate_mode = 1
 oversampling_override = 1.0
-title = "Floor Projection"
 position = Vector2i(0, 36)
 size = Vector2i(1150, 615)
 
-[node name="floor_camera" type="Camera3D" parent="floor_projector" unique_id=109314304]
+[node name="floor_camera" type="Camera3D" parent="floor_projector" unique_id=143251932]
 
-[node name="mask" type="Polygon2D" parent="floor_projector" unique_id=734151657]
+[node name="mask" type="Polygon2D" parent="floor_projector" unique_id=194359503]
 scale = Vector2(1280, 100)
 color = Color(0, 0, 0, 1)
 polygon = PackedVector2Array(0, 0, 1, 0, 1, 1, 0, 1)
 
-[node name="front_projector" type="Window" parent="." unique_id=141505929]
+[node name="front_projector" type="Window" parent="." unique_id=400472417]
 auto_translate_mode = 1
 audio_listener_enable_2d = true
 audio_listener_enable_3d = true
 oversampling_override = 1.0
-title = "Front Projection"
 position = Vector2i(0, 36)
 size = Vector2i(1150, 615)
 
-[node name="front_camera" type="Camera3D" parent="front_projector" unique_id=1690901049]
+[node name="front_camera" type="Camera3D" parent="front_projector" unique_id=2117479106]
 current = true
 
-[node name="ui" type="Polygon2D" parent="front_projector" unique_id=65490372]
+[node name="ui" type="Polygon2D" parent="front_projector" unique_id=279358975]
 visible = false
 position = Vector2(55, 534)
 scale = Vector2(0.61, 0.78)
 polygon = PackedVector2Array(0, 100, 0, 0, 300, 0, 300, 100)
 
-[node name="player_text" type="Label" parent="front_projector/ui" unique_id=2141966543]
+[node name="player_text" type="Label" parent="front_projector/ui" unique_id=2090264022]
 offset_right = 300.0
 offset_bottom = 99.0
 text = "Test"
@@ -165,19 +163,19 @@ horizontal_alignment = 1
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="colliders_shape" type="CSGPolygon3D" parent="." unique_id=2102641908]
+[node name="colliders_shape" type="CSGPolygon3D" parent="." unique_id=1827332428]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.0652708, 0)
 material_override = ExtResource("4_gwnis")
 transparency = 0.5
 polygon = PackedVector2Array(-0.478078, -0.630423, -0.480694, 0.219973, 0.482216, 0.227823, 0.484832, -0.625189, 0.220555, -0.677522, -0.2295, -0.674905)
 depth = 0.06
 
-[node name="wheel_shape_left" type="CSGPolygon3D" parent="." unique_id=1243824018]
+[node name="left_wheel_shape" type="CSGPolygon3D" parent="." unique_id=224665073]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.321546, -0.686058, -0.56182)
 material_override = ExtResource("4_gwnis")
 depth = 0.15
 
-[node name="wheel_shape_right" type="CSGPolygon3D" parent="." unique_id=1168413414]
+[node name="right_wheel_shape" type="CSGPolygon3D" parent="." unique_id=1562216442]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.174924, -0.702537, -0.56182)
 material_override = ExtResource("4_gwnis")
 depth = 0.15

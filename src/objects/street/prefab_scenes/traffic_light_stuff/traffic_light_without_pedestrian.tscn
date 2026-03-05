@@ -15,6 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://cd4tgqtvjd3ex" path="res://objects/street/fbx/pedestrianPoleSupport.fbx" id="13_m6wng"]
 [ext_resource type="PackedScene" uid="uid://cglpclsslib6r" path="res://objects/street/fbx/pedestrianPoleConnection.fbx" id="14_2igld"]
 
+
 [node name="TrafficLight" type="Node3D" node_paths=PackedStringArray("red_light_bulbs", "green_light_bulbs", "yellow_light_bulbs")]
 script = ExtResource("1_klo28")
 red_light_bulbs = [NodePath("TrafficLight_WithSupport/TrafficLight/trafficLightBulbRed/trafficLightBulb_geo/trafficLightBulb_LOD_2"), NodePath("TrafficLight_WithSupport2/TrafficLight/trafficLightBulbRed/trafficLightBulb_geo/trafficLightBulb_LOD_2"), NodePath("TrafficLight_WithSupport3/TrafficLight/trafficLightBulbRed/trafficLightBulb_geo/trafficLightBulb_LOD_2")]

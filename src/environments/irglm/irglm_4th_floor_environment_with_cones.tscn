@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://q451gi0ckest" path="res://environments/irglm/irglm_4th_floor_environment.tscn" id="1_2wiut"]
 [ext_resource type="PackedScene" uid="uid://ebjvhufclk28" path="res://objects/sports/cone.tscn" id="2_nmjrd"]
 
+
 [node name="irglm_4th_floor_environment_with_cones" type="Node3D" unique_id=1065729280]
 
 [node name="irglm_4th_floor_environment" parent="." unique_id=2134659720 instance=ExtResource("1_2wiut")]

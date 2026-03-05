@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://dnejsadnifhhr" path="res://objects/humans/kate/kate.tscn" id="9_vyufj"]
 [ext_resource type="PackedScene" uid="uid://gcvy038757is" path="res://objects/humans/josh/josh.tscn" id="10_qknyg"]
 
+
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_o8o6p"]
 panorama = ExtResource("3_ynxnr")
 

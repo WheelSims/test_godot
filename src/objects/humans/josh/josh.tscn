@@ -7,6 +7,7 @@
 [ext_resource type="AnimationLibrary" uid="uid://i4ky1kqpry7b" path="res://objects/humans/walk_and_idle.res" id="5_p5vi7"]
 [ext_resource type="PackedScene" uid="uid://iro5eqatb6du" path="res://objects/humans/walking_human.tscn" id="6_njqqy"]
 
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7twsn"]
 resource_name = "Ch23_body"
 cull_mode = 2

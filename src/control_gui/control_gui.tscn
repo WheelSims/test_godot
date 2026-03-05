@@ -206,6 +206,23 @@ columns = 2
 [node name="settings_panel" type="VBoxContainer" parent="main_panel/margin_container/main_vbox_container/panels" unique_id=1194337723]
 layout_mode = 2
 
+[node name="mode_title" type="Label" parent="main_panel/margin_container/main_vbox_container/panels/settings_panel" unique_id=1045950442]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_21f17")
+text = "Mode"
+horizontal_alignment = 1
+
+[node name="onboard_button" type="Button" parent="main_panel/margin_container/main_vbox_container/panels/settings_panel" unique_id=1185141915]
+layout_mode = 2
+text = "Onboard"
+
+[node name="play_button" type="Button" parent="main_panel/margin_container/main_vbox_container/panels/settings_panel" unique_id=960937181]
+layout_mode = 2
+text = "Play"
+
+[node name="spacer" type="Label" parent="main_panel/margin_container/main_vbox_container/panels/settings_panel" unique_id=1900096063]
+layout_mode = 2
+
 [node name="settings_title" type="Label" parent="main_panel/margin_container/main_vbox_container/panels/settings_panel" unique_id=536903272]
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_21f17")
@@ -277,6 +294,8 @@ text = "Stop"
 [connection signal="tree_exiting" from="." to="." method="_on_tree_exiting"]
 [connection signal="pressed" from="main_panel/margin_container/main_vbox_container/panels/users_panel/user_add_remove_container/add_user_button" to="." method="_on_btn_add_user_pressed"]
 [connection signal="pressed" from="main_panel/margin_container/main_vbox_container/panels/users_panel/user_add_remove_container/remove_user_button" to="." method="_on_btn_remove_user_pressed"]
+[connection signal="pressed" from="main_panel/margin_container/main_vbox_container/panels/settings_panel/onboard_button" to="." method="_on_onboard_button_pressed"]
+[connection signal="pressed" from="main_panel/margin_container/main_vbox_container/panels/settings_panel/play_button" to="." method="_on_play_button_pressed"]
 [connection signal="toggled" from="main_panel/margin_container/main_vbox_container/panels/settings_panel/settings_list/dbox/dbox_toggle" to="." method="_on_dbox_toggle_toggled"]
 [connection signal="toggled" from="main_panel/margin_container/main_vbox_container/panels/settings_panel/settings_list/floor_projector/floor_projector_toggle" to="." method="_on_floor_cam_toggle_toggled"]
 [connection signal="toggled" from="main_panel/margin_container/main_vbox_container/panels/settings_panel/settings_list/motors/motors_toggle" to="." method="_on_motors_toggle_toggled"]

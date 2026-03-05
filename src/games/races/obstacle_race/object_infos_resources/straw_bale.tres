@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="ObjectInfo" format=3 uid="uid://b68yonl8ngd4q"]
+
+[ext_resource type="PackedScene" uid="uid://t4035q8axi6v" path="res://objects/race_objects/western_theme/obstacles/hay_bale/scenes/hay_bale.tscn" id="1_8kivv"]
+[ext_resource type="Script" uid="uid://brpk4pab7wouw" path="res://games/races/obstacle_race/scripts/object_info.gd" id="2_bx0ri"]
+
+[resource]
+script = ExtResource("2_bx0ri")
+scene = ExtResource("1_8kivv")
+z_sizes = {
+-45.0: 2.3754756,
+0.0: 1.69348,
+45.0: 2.375476,
+90.0: 1.6659501
+}
+local_scale = Vector3(1.66595, 1.71033, 1.69348)
+type = 2

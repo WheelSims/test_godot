@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://js24byb0fgrt" path="res://terrain/park/park_terrain.tscn" id="6_t8rdd"]
 [ext_resource type="AudioStream" uid="uid://dtypt0blh485n" path="res://sounds/sounds/ambiance_sounds/Forest-ambiance.wav" id="7_77vn5"]
 
+
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_u6pll"]
 panorama = ExtResource("1_l80wt")
 
