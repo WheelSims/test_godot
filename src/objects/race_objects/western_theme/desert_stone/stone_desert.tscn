@@ -5,20 +5,20 @@
 [ext_resource type="Script" uid="uid://comdhddtuflvn" path="res://objects/race_objects/western_theme/world_scale_calculator.gd" id="2_m27ek"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_aduxo"]
-size = Vector3(0.07492676, 0.06821289, 0.05342407)
+size = Vector3(0.07492676, 0.06352539, 0.05342407)
 
 [node name="stone_desert" unique_id=804213735 node_paths=PackedStringArray("visual_instance", "collision_shape") instance=ExtResource("1_aduxo")]
 script = ExtResource("2_m27ek")
 visual_instance = NodePath("DesertStoneLow")
 collision_shape = NodePath("DesertStoneLow/StaticBody3D/CollisionShape3D")
 
-[node name="DesertStoneLow" parent="." index="0" unique_id=1188279226]
-transform = Transform3D(-4.371139e-06, -100, -4.371139e-06, 0, -4.371139e-06, 100, -100, 4.371139e-06, 1.9106854e-13, 0, -0.39072084, 0)
+[node name="DesertStoneLow" parent="." index="0" unique_id=401836275]
+transform = Transform3D(-1.3113416e-06, -30, -1.3113416e-06, 0, -1.3113416e-06, 30, -30, 1.3113416e-06, 5.732056e-14, 0, -0.39072084, 0)
 surface_material_override/0 = ExtResource("2_igqy6")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="DesertStoneLow" index="0" unique_id=62356875]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="DesertStoneLow/StaticBody3D" index="0" unique_id=539007631]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00013427444, 0.034594722, 0.0017730675)
+transform = Transform3D(0.99999857, 0, 2.842171e-14, 0, 0.99999857, 0, -2.842171e-14, 0, 0.99999857, -0.0001342744, 0.032250974, 0.0017730673)
 shape = SubResource("BoxShape3D_aduxo")

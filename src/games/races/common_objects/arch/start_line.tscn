@@ -7,7 +7,7 @@
 [node name="StartArch" type="Node3D" unique_id=536656800]
 
 [node name="LeftCrowd" parent="." unique_id=1575322916 instance=ExtResource("2_qcewo")]
-transform = Transform3D(0.298008, 0, 0.954563, 0, 1, 0, -0.954563, 0, 0.298008, -6.52749, 4.76837e-07, -2.12138)
+transform = Transform3D(0.298008, 0, 0.954563, 0, 1, 0, -0.954563, 0, 0.298008, -6.52749, 0, -2.12138)
 _applaud_loop = ExtResource("3_t3adg")
 is_final_crowd_on_race = true
 

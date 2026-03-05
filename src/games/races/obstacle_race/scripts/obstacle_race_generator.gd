@@ -244,7 +244,6 @@ func _validate_config() -> void:
 	_validate_resource_array(transparent_wall_infos, "transparent_wall_infos")
 	_validate_resource_array(opaque_wall_infos, "opaque_wall_infos")
 	
-	
 func _validate_resource_array(array: Array, name: String) -> void:
 	assert(not array.is_empty(), "%s cannot be empty" % name)
 	for i in array.size():

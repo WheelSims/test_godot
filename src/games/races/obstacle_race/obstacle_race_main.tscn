@@ -15,7 +15,7 @@ start_line = ExtResource("5_7pb3g")
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
 
 [node name="Crowd" parent="start_line" unique_id=1097236757 instance=ExtResource("5_8r2kh")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -7.05313, 0, -3.30869)
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -7.053, 0, -3.309)
 
 [node name="Crowd2" parent="start_line" unique_id=1102909474 instance=ExtResource("5_8r2kh")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 7.94687, 0, -3.30869)
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 7.947, 0, -3.309)

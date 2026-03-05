@@ -7,6 +7,6 @@
 script = ExtResource("2_5v1tx")
 scene = ExtResource("1_2qqdp")
 z_sizes = {
-90.0: 7.492676
+90.0: 2.2478027
 }
-local_scale = Vector3(7.492676, 6.821289, 5.342407)
+local_scale = Vector3(2.2478027, 2.0463867, 1.6027222)
