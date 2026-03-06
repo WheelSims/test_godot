@@ -5,7 +5,7 @@
 [ext_resource type="AudioStream" uid="uid://bj5hb2klk7cds" path="res://sounds/sounds/human_sounds/Loop_applause-cheerfully.wav" id="3_p25mo"]
 [ext_resource type="PackedScene" uid="uid://bkjobwvhg7dc7" path="res://objects/humans/kate/Kate.glb" id="4_k5jmy"]
 [ext_resource type="AnimationLibrary" uid="uid://bts1ll33xtosf" path="res://objects/humans/clap_animation.res" id="5_4rk5d"]
-[ext_resource type="Script" uid="uid://dfyjjqr1v7goo" path="res://games/races/obstacle_race/scripts/ground_aligned.gd" id="5_h0dsn"]
+[ext_resource type="Script" uid="uid://dfyjjqr1v7goo" path="res://games/races/obstacle_race/generator/scripts/ground_aligned.gd" id="5_h0dsn"]
 [ext_resource type="AnimationLibrary" uid="uid://i4ky1kqpry7b" path="res://objects/humans/walk_and_idle.res" id="6_37i5y"]
 [ext_resource type="PackedScene" uid="uid://cclt12mtoo2ln" path="res://objects/humans/megan/Megan.glb" id="7_3qijt"]
 [ext_resource type="PackedScene" uid="uid://6ifdnfmdvbsc" path="res://objects/humans/josh/Josh.glb" id="8_i1d6g"]

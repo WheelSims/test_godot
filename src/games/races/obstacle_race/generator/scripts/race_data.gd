@@ -23,3 +23,5 @@ var challenge_gap: float
 # _race_start_x and _end_race_x_pos reset at every new level
 var race_start_x : float = 0
 var end_race_x_pos : float = 0
+# the player score for the race
+var score: int = 0

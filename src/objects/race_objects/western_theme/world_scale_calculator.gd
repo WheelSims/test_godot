@@ -10,6 +10,7 @@ enum ObjectType {UnitWall, ScalableWall, Obstacle}
 @export var collision_shape: CollisionShape3D
 
 @export var object_type: ObjectType
+@export var area3D: Area3D
 
 func _ready() -> void:
 	if not visual_instance.is_node_ready():

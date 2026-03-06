@@ -2,13 +2,13 @@
 
 [ext_resource type="Texture2D" uid="uid://bin0r5ay2ix4g" path="res://environments/hdr/desert_sunset.hdr" id="1_ci2c1"]
 [ext_resource type="PackedScene" uid="uid://hnxp88a0five" path="res://games/races/obstacle_race/obstacle_race_main.tscn" id="2_labfn"]
-[ext_resource type="Script" uid="uid://epb7xgmjyv72" path="res://games/races/obstacle_race/scripts/race_data.gd" id="3_fm0hh"]
-[ext_resource type="Script" uid="uid://brpk4pab7wouw" path="res://games/races/obstacle_race/scripts/object_info.gd" id="4_ri6c8"]
+[ext_resource type="Script" uid="uid://epb7xgmjyv72" path="res://games/races/obstacle_race/generator/scripts/race_data.gd" id="3_fm0hh"]
+[ext_resource type="Script" uid="uid://brpk4pab7wouw" path="res://games/races/obstacle_race/generator/scripts/object_info.gd" id="4_ri6c8"]
 [ext_resource type="PackedScene" uid="uid://t4035q8axi6v" path="res://objects/race_objects/western_theme/obstacles/hay_bale/scenes/hay_bale.tscn" id="5_eqbci"]
 [ext_resource type="PackedScene" uid="uid://cuk0l0062jdte" path="res://objects/race_objects/western_theme/obstacles/cactus.tscn" id="6_3vxp2"]
 [ext_resource type="PackedScene" uid="uid://diyc4k3lfoq2t" path="res://objects/race_objects/western_theme/walls/fence/fence.tscn" id="7_21j88"]
 [ext_resource type="PackedScene" uid="uid://blm1wlle8dcqr" path="res://objects/race_objects/western_theme/walls/brick_wall/brick_wall.tscn" id="8_5fffo"]
-[ext_resource type="Resource" uid="uid://b2dffsxjgctcc" path="res://games/races/obstacle_race/object_infos_resources/stone_desert.tres" id="9_s7gpt"]
+[ext_resource type="Resource" uid="uid://b2dffsxjgctcc" path="res://games/races/obstacle_race/generator/object_infos_resources/stone_desert.tres" id="9_s7gpt"]
 [ext_resource type="PackedScene" uid="uid://biluq7vv8ghsm" path="res://player/player.tscn" id="10_l3ugr"]
 [ext_resource type="PackedScene" uid="uid://bkf5e8aqyhucy" path="res://objects/race_objects/western_theme/ground/sand_ground.tscn" id="11_nttjj"]
 
@@ -99,6 +99,7 @@ border_info = ExtResource("9_s7gpt")
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0.33310866, -0.011235118, 0)
 KB_LINEAR_SPEED = 5.0
 KB_ANGULAR_SPEED = 2.0
+metadata/_edit_lock_ = true
 
 [node name="sand_ground" parent="." unique_id=907107042 instance=ExtResource("11_nttjj")]
 transform = Transform3D(146182.42, 0, 0, 0, 1, 0, 0, 0, 17.778763, 2100.749, 0, -1.0227165)

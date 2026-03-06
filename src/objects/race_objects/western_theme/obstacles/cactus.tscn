@@ -49,11 +49,12 @@ shadow_mesh = SubResource("ArrayMesh_0hn23")
 [sub_resource type="BoxShape3D" id="BoxShape3D_ikxe4"]
 size = Vector3(0.480507, 2.07527, 0.428955)
 
-[node name="cactus" type="Node3D" unique_id=1048503868 node_paths=PackedStringArray("visual_instance", "collision_shape")]
+[node name="cactus" type="Node3D" unique_id=1048503868 node_paths=PackedStringArray("visual_instance", "collision_shape", "area3D")]
 script = ExtResource("2_6j4js")
 visual_instance = NodePath("Cactuss_02")
 collision_shape = NodePath("Cactuss_02/StaticBody3D/CollisionShape3D3")
 object_type = 2
+area3D = NodePath("Cactuss_02/StaticBody3D/Area3D")
 metadata/baked_size_z = 0.0
 
 [node name="Cactuss_02" type="MeshInstance3D" parent="." unique_id=788888584]
@@ -63,5 +64,11 @@ skeleton = NodePath("")
 [node name="StaticBody3D" type="StaticBody3D" parent="Cactuss_02" unique_id=1812655368]
 
 [node name="CollisionShape3D3" type="CollisionShape3D" parent="Cactuss_02/StaticBody3D" unique_id=620800162]
+transform = Transform3D(0.999519, -0.0310095, 0, 0.0310095, 0.999519, 0, 0, 0, 1, -0.0427482, 1.05896, 0.00402832)
+shape = SubResource("BoxShape3D_ikxe4")
+
+[node name="Area3D" type="Area3D" parent="Cactuss_02/StaticBody3D" unique_id=215613864]
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="Cactuss_02/StaticBody3D/Area3D" unique_id=194924683]
 transform = Transform3D(0.999519, -0.0310095, 0, 0.0310095, 0.999519, 0, 0, 0, 1, -0.0427482, 1.05896, 0.00402832)
 shape = SubResource("BoxShape3D_ikxe4")

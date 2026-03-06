@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://cr3xh7scx7rpn"]
+
+[ext_resource type="Script" uid="uid://b7ky3pxedhqmw" path="res://games/races/obstacle_race/game/scripts/obstacle_race_game.gd" id="1_qg3sg"]
+
+[node name="game" type="Node3D" unique_id=450303502]
+script = ExtResource("1_qg3sg")
+metadata/_custom_type_script = "uid://b7ky3pxedhqmw"

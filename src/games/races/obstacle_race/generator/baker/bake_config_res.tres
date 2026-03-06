@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://diyc4k3lfoq2t" path="res://objects/race_objects/western_theme/walls/fence/fence.tscn" id="3_asyjn"]
 [ext_resource type="PackedScene" uid="uid://cnkavq43degkn" path="res://objects/race_objects/western_theme/desert_stone/stone_desert.tscn" id="4_04asy"]
 [ext_resource type="PackedScene" uid="uid://blm1wlle8dcqr" path="res://objects/race_objects/western_theme/walls/brick_wall/brick_wall.tscn" id="4_eq1h6"]
-[ext_resource type="Script" uid="uid://b1uk27b80uwpr" path="res://games/races/obstacle_race/baker/bake_config.gd" id="5_h5xd5"]
+[ext_resource type="Script" uid="uid://b1uk27b80uwpr" path="res://games/races/obstacle_race/generator/baker/bake_config.gd" id="5_h5xd5"]
 
 [resource]
 script = ExtResource("5_h5xd5")
