@@ -5,6 +5,7 @@ class_name ObstacleRaceGame
 @export var on_challenge: bool = false
 @export var success_point_val = 10.0
 @export var fail_point_val = 5.0
+@export var score_popup_scene: PackedScene
 var races_data: Array[RaceData]
 var current_race_data: RaceData
 var current_race_data_i : int = 0
@@ -22,6 +23,12 @@ func assign_races_datas(_races_data: Array[RaceData])->void:
 	races_data = _races_data
 	current_race_data = races_data[0]
 
+func add_score():
+	var popup: Control = score_popup_scene.instantiate()
+	popup.global_position = Vector2.ZERO
+	get_tree().current_scene.add_child(popup)
+	popup.show_score(10)
+	
 func on_obstacle_collision(body: Node3D)->void:
 	if on_challenge and body is Player:
 		current_race_data.score -= fail_point_val
@@ -41,6 +48,7 @@ func on_challenge_body_exited(body: Node3D, area3D_emitter: Area3D)->void:
 		print(current_race_data.score)
 	obstacle_collision = false
 	area3D_emitter.set_deferred("monitoring", false)
+	add_score()
 	
 func on_race_entered(body: Node3D)->void:
 	if body is not Player:

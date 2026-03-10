@@ -1,0 +1,37 @@
+[gd_scene format=3 uid="uid://wyeq87xnl78d"]
+
+[ext_resource type="Script" uid="uid://dvvd24n3iiwrf" path="res://games/races/obstacle_race/game/scripts/score_popup.gd" id="1_u5mmu"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_qg3sg"]
+font_size = 40
+font_color = Color(1.9492954e-06, 0.558773, 0.23708549, 1)
+outline_size = 5
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 0
+shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(-3, 3)
+
+[node name="ScorePopup" type="Control" unique_id=1271273501]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_u5mmu")
+
+[node name="Label" type="Label" parent="." unique_id=1793073226]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 505.0
+offset_top = 301.0
+offset_right = -486.0
+offset_bottom = -384.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "+10"
+label_settings = SubResource("LabelSettings_qg3sg")
+horizontal_alignment = 1
+vertical_alignment = 1
