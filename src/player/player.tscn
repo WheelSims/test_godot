@@ -29,35 +29,6 @@ size = Vector3(0.459595, 0.67498, 0.35376)
 [sub_resource type="BoxShape3D" id="BoxShape3D_muua7"]
 size = Vector3(1, 0.954347, 1)
 
-[sub_resource type="FontFile" id="FontFile_2x147"]
-subpixel_positioning = 0
-msdf_pixel_range = 14
-msdf_size = 128
-cache/0/variation_coordinates = {}
-cache/0/face_index = 0
-cache/0/embolden = 0.0
-cache/0/transform = Transform2D(1, 0, 0, 1, 0, 0)
-cache/0/spacing_top = 0
-cache/0/spacing_bottom = 0
-cache/0/spacing_space = 0
-cache/0/spacing_glyph = 0
-cache/0/baseline_offset = 0.0
-cache/0/16/0/ascent = 0.0
-cache/0/16/0/descent = 0.0
-cache/0/16/0/underline_position = 0.0
-cache/0/16/0/underline_thickness = 0.0
-cache/0/16/0/scale = 1.0
-cache/0/50/0/ascent = 0.0
-cache/0/50/0/descent = 0.0
-cache/0/50/0/underline_position = 0.0
-cache/0/50/0/underline_thickness = 0.0
-cache/0/50/0/scale = 1.0
-
-[sub_resource type="LabelSettings" id="LabelSettings_btcbx"]
-font = SubResource("FontFile_2x147")
-font_size = 50
-font_color = Color(0, 0, 0, 1)
-
 [node name="player" type="RigidBody3D" unique_id=993534235 groups=["Player"]]
 mass = 80.0
 contact_monitor = true
@@ -121,20 +92,6 @@ shape = SubResource("BoxShape3D_muua7")
 [node name="camera" type="Camera3D" parent="." unique_id=2117479106]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.98221004, -0.54131794)
 current = true
-
-[node name="ui" type="Polygon2D" parent="." unique_id=279358975]
-position = Vector2(55, 534)
-scale = Vector2(0.61, 0.78)
-polygon = PackedVector2Array(0, 100, 0, 0, 300, 0, 300, 100)
-
-[node name="player_text" type="Label" parent="ui" unique_id=2090264022]
-offset_right = 300.0
-offset_bottom = 99.0
-text = "Test"
-label_settings = SubResource("LabelSettings_btcbx")
-horizontal_alignment = 1
-vertical_alignment = 1
-metadata/_edit_use_anchors_ = true
 
 [node name="colliders_shape" type="CSGPolygon3D" parent="." unique_id=1827332428]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.0652708, 0)

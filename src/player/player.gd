@@ -28,6 +28,12 @@ enum CurrentMode {
 )
 
 # -----------------------
+# Access to current velocity, use get method
+# -----------------------
+var _linear_velocity: float = 0.0
+var _angular_velocity: float = 0.0
+
+# -----------------------
 # Dynamics/collisions
 # -----------------------
 var is_front_collision: bool = false
@@ -42,6 +48,16 @@ var _n_foot_obstacle = 0
 
 #Access to race_manager
 var race_manager: RaceManager = null
+
+
+# -----------------------
+# Public functions
+# -----------------------
+func get_linear_speed():
+	return _linear_velocity
+
+func get_angular_speed():
+	return _angular_velocity
 
 # -----------------------
 # Godot lifecycle
@@ -75,18 +91,14 @@ func _physics_process(delta: float) -> void:
 	):
 		translate(Vector3(0, 0, -1) * desired_linear_velocity * delta)
 	rotate(Vector3.UP, desired_angular_velocity * delta)
+	
+	# For external access using getters
+	_linear_velocity = desired_linear_velocity
+	_angular_velocity = desired_angular_velocity
 
-	# Affichage vitesse
-	if motors and player_text_node:
-		var text: String
-		if motors.stopped:
-			text = "\nMotors OFF"
-		else:
-			text = str(abs(desired_linear_velocity)).pad_decimals(1) + " m/s"
-		set_player_text(text)
 
 # -----------------------
-# Fonctions auxiliaires
+# Other functions
 # -----------------------
 func get_keyboard_velocities() -> Array[float]:
 	var linear := 0.0
@@ -106,11 +118,6 @@ func get_keyboard_velocities() -> Array[float]:
 func inputs()->void:
 	if Input.is_action_just_pressed("ui_cancel") and race_manager:
 		race_manager.pause_command()
-
-func set_player_text(text: String):
-	if player_text_node:
-		player_text_node.text = text
-		
 
 func _on_obstacle_colliders_body_shape_entered(body_rid: RID, body: Node3D, body_shape_index: int, local_shape_index: int) -> void:
 	if body.get_groups().is_empty() and  body is not Surface:

@@ -18,12 +18,14 @@ var _CONFIG_FILENAME = "user://config.json"
 var _defaults: Dictionary[String, Dictionary] = {
 	"player": {"order": 0, "label": "SIMULATED PARAMETERS", "unit": "", "default": null},
 	"player.mass": {"order": 1, "label": "User+wheelchair mass", "unit": "kg", "default": 70.0},
-	"devices": {"order": 2, "label": "DEVICE SETTINGS", "unit": "", "default": null},
-	"devices.screens": {"order": 3, "label": "Screens", "unit": "", "default": null},
-	"devices.screens.floor.enabled": {"order": 4, "label": "Floor projection", "unit": "", "default": false},
-	"devices.others": {"order": 5, "label": "Other devices", "unit": "", "default": null},
-	"devices.d_box.enabled": {"order": 6, "label": "D-Box", "unit": "", "default": false},
-	"devices.motors.enabled": {"order": 7, "label": "Motors", "unit": "", "default": false},
+	"overlays": {"order": 2, "label": "OVERLAYS", "unit": "", "default": null},
+	"overlays.speed_indicator.enabled": {"order": 3, "label": "Speed indicator", "unit": "", "default": true},
+	"devices": {"order": 4, "label": "DEVICE SETTINGS", "unit": "", "default": null},
+	"devices.screens": {"order": 5, "label": "Screens", "unit": "", "default": null},
+	"devices.screens.floor.enabled": {"order": 6, "label": "Floor projection", "unit": "", "default": false},
+	"devices.others": {"order": 7, "label": "Other devices", "unit": "", "default": null},
+	"devices.d_box.enabled": {"order": 8, "label": "D-Box", "unit": "", "default": false},
+	"devices.motors.enabled": {"order": 9, "label": "Motors", "unit": "", "default": false},
 }
 
 ## Overrides
