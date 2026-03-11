@@ -4,59 +4,63 @@ extends Node
 # References
 # -------------------------------------------------------------------
 
-@onready var _scene_viewport: SubViewport = get_node("scene_viewport")
+## The viewport the 3D scene is rendered in.
+@onready var scene_viewport: SubViewport = get_node("scene_viewport")
+
+## The simulator configuration.
 @onready var config: Node = get_node("config")
+
+## The player.
 var player: Node3D = null
 
-## Store the current scene.
+## (private) Store the current scene.
 var _current_scene_node: Node3D = null
 
-## Store the current screen configuration.
-var _current_screens_node: Node2D = null
-
 
 # -------------------------------------------------------------------
-# Standard functions
+# Ready
 # -------------------------------------------------------------------
+
 func _ready():
 	config.load_config()
-	config._save_config()
+	config._save_config()  # In case there was no config originally
+	# Apply config
+	for key in config.get_keys():
+		config_value_changed(key)
 
 # -------------------------------------------------------------------
-# Scene management
+# Scene loading/unloading
 # -------------------------------------------------------------------
 
 ## Load scene.
 func load_scene(path: String):
+	# Unload current scene first (to be sure)
+	unload_scene()
+	
 	# Load the scene
 	_current_scene_node = load(path).instantiate()
-	_scene_viewport.add_child(_current_scene_node)
+	scene_viewport.add_child(_current_scene_node)
 	
 	# Update the player reference and mass
 	player = _current_scene_node.get_node("player")
 	player.mass = config.get_value("player.mass")
-	
-	# Load the window(s)
-	# TODO Dual-window and config
-	_current_screens_node = load("res://devices/screens/single_screen.tscn").instantiate()
-	add_child(_current_screens_node)
-	
-	# Assign the game viewport to this/these window(s)
-	_current_screens_node.get_node("front_window/texture_rect").texture = _scene_viewport.get_texture()
 
 ## Unload scene.
 func unload_scene():
 	if _current_scene_node:
 		_current_scene_node.queue_free()
-	if _current_screens_node:
-		_current_screens_node.queue_free()
 	player = null
 
 # -------------------------------------------------------------------
 # Updated config value
 # -------------------------------------------------------------------
-## Called by config when a config value has been changed
+
+## Propagate config value changes to their corresponding modules
 func config_value_changed(key):
-	if key == "player.mass":
-		if player:
-			player.mass = config.get_value(player.mass)
+	match(key):
+		"player.mass":
+			if player:
+				player.mass = config.get_value(player.mass)
+		"devices.screens.floor.enabled":
+			$screens.unload_windows()
+			$screens.load_windows()
