@@ -1,4 +1,4 @@
-extends Node3D
+extends Node
 
 # -------------------------------------------------------------------
 # References
@@ -23,11 +23,6 @@ func load_scene(path: String):
 	add_child(_current_screens_node)
 	
 	# Assign the game viewport to this/these window(s)
-
-	# Clear the viewport.
-	#_scene_viewport.render_target_clear_mode = SubViewport.CLEAR_MODE_ONCE
-
-	# Retrieve the texture and set it to the front window texture_rect.
 	_current_screens_node.get_node("front_window/texture_rect").texture = _scene_viewport.get_texture()
 
 

@@ -82,12 +82,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.1, -0.6)
 shape = SubResource("SphereShape3D_jka67")
 debug_color = Color(8.27849e-06, 0.774194, 0.900788, 0.42)
 
-[node name="front_camera_pose" type="Node3D" parent="." unique_id=190710899]
-transform = Transform3D(1, 0, 0, 0, 0.999391, -0.0348995, 0, 0.0348995, 0.999391, 0, 0.980403, -0.5415104)
-
-[node name="floor_camera_pose" type="Node3D" parent="." unique_id=1114413926]
-transform = Transform3D(1, 0, 0, 0, 0.481754, 0.876307, 0, -0.876307, 0.481754, 0, 1.6689, -0.520708)
-
 [node name="motors" type="Node3D" parent="." unique_id=1232587625]
 script = ExtResource("2_4ntmi")
 
@@ -124,7 +118,8 @@ monitoring = false
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.620304, -0.278171)
 shape = SubResource("BoxShape3D_muua7")
 
-[node name="front_camera" type="Camera3D" parent="." unique_id=2117479106]
+[node name="camera" type="Camera3D" parent="." unique_id=2117479106]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.98221004, -0.54131794)
 current = true
 
 [node name="ui" type="Polygon2D" parent="." unique_id=279358975]

@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://cnjpl135ppqka" path="res://main.gd" id="1_0xm2m"]
 [ext_resource type="PackedScene" uid="uid://dq2eiii6jcj6u" path="res://control_gui/control_gui.tscn" id="1_ig7tw"]
 
-[node name="main" type="Node3D" unique_id=416916038]
+[node name="main" type="Node" unique_id=184152060]
 script = ExtResource("1_0xm2m")
 
 [node name="control_gui" parent="." unique_id=728106337 instance=ExtResource("1_ig7tw")]

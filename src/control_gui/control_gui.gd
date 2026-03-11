@@ -9,7 +9,7 @@ var PLAYABLE_SCENES_FOLDER_PATH = "res://playable_scenes"
 # -------------------------------------------------------------------
 # References
 # -------------------------------------------------------------------
-@onready var main: Node3D = get_tree().get_root().get_node("main")
+@onready var main: Node = get_tree().get_root().get_node("main")
 
 
 # --- UI users ---
