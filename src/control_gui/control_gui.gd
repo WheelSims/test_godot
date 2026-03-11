@@ -10,22 +10,14 @@ var PLAYABLE_SCENES_FOLDER_PATH = "res://playable_scenes"
 # References
 # -------------------------------------------------------------------
 @onready var main: Node = get_tree().get_root().get_node("main")
+@onready var config: Node = main.get_node("config")
 
-
-# --- UI users ---
-
-## Select user_list node in the arborescence
-@export var user_list: VBoxContainer
-
-var selected_user
-var user_row := preload("user.tscn")
 
 # --- Scene Buttons ---
 var scene_button := preload("scene_button.tscn")
 @export var scene_container: GridContainer
 
 # --- Settings ---
-@export var PREFERENCES_FILENAME = "user://preferences.json"
 @export var _dbox_toggle: CheckButton
 @export var _floor_cam_toggle: CheckButton
 @export var _motors_toggle: CheckButton
@@ -36,10 +28,7 @@ var _parameters := {
 }
 
 
-func _ready() -> void:
-
-	load_users()
-	load_preferences()
+func _ready() -> void:	
 	_create_scene_buttons()
 
 func get_player() -> RigidBody3D:
@@ -49,104 +38,8 @@ func get_player() -> RigidBody3D:
 			return player
 	return null
 	
-# -------------------------------------------------------------------
-# User management
-# -------------------------------------------------------------------
-func load_users() -> void:
-	if not FileAccess.file_exists(SIMULATOR_USERS_FILENAME):
-		return
-
-	var file := FileAccess.open(SIMULATOR_USERS_FILENAME, FileAccess.READ)
-	var parsed_v: Variant = JSON.parse_string(file.get_as_text())
-	file.close()
-
-	if typeof(parsed_v) != TYPE_ARRAY:
-		printerr("User file " + SIMULATOR_USERS_FILENAME + " seems corrupted.")
-		return
-	var result: Array = parsed_v
-
-	for user in result:
-		var patient: Dictionary = user as Dictionary
-		var new_row := user_row.instantiate()
-
-		(new_row.get_node("selected") as CheckBox).button_pressed = bool(patient.get("selected", false))
-		(new_row.get_node("name") as LineEdit).text = str(patient.get("name", ""))
-		(new_row.get_node("mass") as LineEdit).text = str(patient.get("mass", ""))
-
-		new_row.get_node("selected").connect("toggled", Callable(self, "_on_row_checkbox_toggled").bind(new_row))
-		new_row.get_node("name").connect("text_submitted", Callable(self, "save_users"))
-		new_row.get_node("name").connect("focus_exited",   Callable(self, "save_users"))
-		new_row.get_node("mass").connect("text_submitted", Callable(self, "save_users"))
-		new_row.get_node("mass").connect("focus_exited",   Callable(self, "save_users"))
-
-		user_list.add_child(new_row)
-		if (new_row.get_node("selected") as CheckBox).button_pressed:
-			selected_user = new_row
-
-	#_enforce_single_selection()
 
 
-func _on_btn_add_user_pressed() -> void:
-	var new_row := user_row.instantiate()
-
-	new_row.get_node("name").connect("text_submitted", Callable(self, "save_users"))
-	new_row.get_node("name").connect("focus_exited",   Callable(self, "save_users"))
-	new_row.get_node("mass").connect("text_submitted", Callable(self, "update_selected_patient_mass"))
-	new_row.get_node("mass").connect("focus_exited",   Callable(self, "update_selected_patient_mass"))
-
-	# Sélection unique : bind de la row
-	new_row.get_node("selected").connect("toggled", Callable(self, "_on_row_checkbox_toggled").bind(new_row))
-
-	user_list.add_child(new_row)
-	save_users()
-
-func _on_btn_remove_user_pressed() -> void:
-	if user_list.get_child_count() > 0:
-		if not selected_user:
-			selected_user = user_list.get_child(user_list.get_child_count() - 1)
-		user_list.remove_child(selected_user)
-		selected_user.queue_free()
-		save_users()
-		_enforce_single_selection()
-
-func save_users(_new_text: String = "") -> void:
-	var data: Array[Dictionary] = []
-	for row in user_list.get_children():
-		data.append({
-			"name": (row.get_node("name") as LineEdit).text,
-			"mass": (row.get_node("mass") as LineEdit).text.to_float(),
-			"selected": (row.get_node("selected") as CheckBox).button_pressed,
-		})
-	var file := FileAccess.open(SIMULATOR_USERS_FILENAME, FileAccess.WRITE)
-	file.store_string(JSON.stringify(data, "\t"))
-	file.close()
-	update_selected_patient_mass()
-
-func save_preferences()->void:
-	var file := FileAccess.open(PREFERENCES_FILENAME, FileAccess.WRITE)
-	file.store_string(JSON.stringify(_parameters, "\t"))
-	file.close()
-
-
-func load_preferences()->void:
-	if not FileAccess.file_exists(PREFERENCES_FILENAME):
-		return
-	
-	var file := FileAccess.open(PREFERENCES_FILENAME, FileAccess.READ)
-	var parsed_v: Variant = JSON.parse_string(file.get_as_text())
-	file.close()
-	if typeof(parsed_v) != TYPE_DICTIONARY:
-		printerr("User file " + SIMULATOR_USERS_FILENAME + " seems corrupted.")
-		return
-	var result: Dictionary = parsed_v
-	
-	_parameters["has_dbox"] = bool(result.get("has_dbox", false))
-	_parameters["has_floor_cam"] = bool(result.get("has_floor_cam", false))
-	_parameters["has_motors"] = bool(result.get("has_motors", false))
-
-	_dbox_toggle.set_pressed_no_signal(_parameters["has_dbox"])
-	_floor_cam_toggle.set_pressed_no_signal(_parameters["has_floor_cam"])
-	_motors_toggle.set_pressed_no_signal(_parameters["has_motors"])
 
 # -------------------------------------------------------------------
 # Load scenes
@@ -266,65 +159,18 @@ func _on_button_stop_pressed() -> void:
 	else:
 		get_tree().quit()
 
-# -------------------------------------------------------------------
-# Masse du patient sélectionné
-# -------------------------------------------------------------------
-func update_selected_patient_mass() -> void:
-	for row in user_list.get_children():
-		if (row.get_node("selected") as CheckBox).button_pressed:
-			var player := get_player()
-			if player:
-				player.mass = (row.get_node("mass") as LineEdit).text.to_float()
-			else:
-				print("Player not found, mass not updated.")
 
 # -------------------------------------------------------------------
 # DBox : manuel + maintien
 # -------------------------------------------------------------------
 
-# =========================
-# Sélection unique patients
-# =========================
-func _on_row_checkbox_toggled(pressed: bool, row: Node) -> void:
-	if pressed:
-		selected_user = row
-		for other in user_list.get_children():
-			if other != row:
-				var ocb := other.get_node("selected") as CheckBox
-				if ocb.button_pressed:
-					ocb.button_pressed = false
-	save_users()
-	update_selected_patient_mass()
-
-func _enforce_single_selection(preferred_row: Node = null) -> void:
-	var found := false
-	for row in user_list.get_children():
-		var cb := row.get_node("selected") as CheckBox
-		if preferred_row and row == preferred_row:
-			if cb.button_pressed and not found:
-				found = true
-			elif cb.button_pressed and found:
-				cb.button_pressed = false
-			continue
-		if cb.button_pressed:
-			if found:
-				cb.button_pressed = false
-			else:
-				found = true
-
 
 func _on_motors_toggle_toggled(toggled_on: bool) -> void:
-	_parameters["has_motors"] = toggled_on
-	save_preferences()
+	config.set_value("motors.enabled", toggled_on)
 
-
-func _on_floor_cam_toggle_toggled(toggled_on: bool) -> void:
-	_parameters["has_floor_cam"] = toggled_on
-	save_preferences()
 	
 func _on_dbox_toggle_toggled(toggled_on: bool) -> void:
-	_parameters["has_dbox"] = toggled_on
-	save_preferences()
+	config.set_value("d_box.enabled", toggled_on)
 
 
 func _on_onboard_button_pressed() -> void:

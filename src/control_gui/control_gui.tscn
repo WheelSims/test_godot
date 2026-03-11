@@ -1,18 +1,7 @@
 [gd_scene format=3 uid="uid://dq2eiii6jcj6u"]
 
 [ext_resource type="Script" uid="uid://djgralvk1dv5a" path="res://control_gui/control_gui.gd" id="1_21f17"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_21f17"]
-bg_color = Color(0, 0, 0, 1)
-
-[sub_resource type="LabelSettings" id="LabelSettings_fevny"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y75hh"]
-bg_color = Color(0.327078, 0.386669, 0.653433, 1)
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
+[ext_resource type="Script" uid="uid://cdqr6hqsdd1hx" path="res://control_gui/settings_list.gd" id="2_h5sux"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eyqqv"]
 bg_color = Color(0, 0, 0, 1)
@@ -24,17 +13,8 @@ corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fo410"]
-
-[sub_resource type="LabelSettings" id="LabelSettings_h5sux"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_y75hh"]
-
-[sub_resource type="LabelSettings" id="LabelSettings_v6try"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6olqd"]
-
-[sub_resource type="LabelSettings" id="LabelSettings_spoes"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_21f17"]
+bg_color = Color(0, 0, 0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gi8mn"]
 bg_color = Color(0.57254905, 0.015686275, 0, 1)
@@ -59,7 +39,7 @@ corner_radius_bottom_left = 10
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_d7bjb"]
 
-[node name="control_gui" type="Control" unique_id=728106337 node_paths=PackedStringArray("user_list", "scene_container", "_dbox_toggle", "_floor_cam_toggle", "_motors_toggle")]
+[node name="control_gui" type="Control" unique_id=728106337 node_paths=PackedStringArray("scene_container", "_dbox_toggle", "_floor_cam_toggle", "_motors_toggle")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -67,11 +47,10 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_21f17")
-user_list = NodePath("main_panel/margin_container/main_vbox_container/panels/users_panel/user_list_container/user_list_margins/user_list")
 scene_container = NodePath("main_panel/margin_container/main_vbox_container/panels/scenes_panel/scene_list_container/scenes_list_margins/scene_list")
-_dbox_toggle = NodePath("main_panel/margin_container/main_vbox_container/panels/settings_panel/settings_list/dbox/dbox_toggle")
-_floor_cam_toggle = NodePath("main_panel/margin_container/main_vbox_container/panels/settings_panel/settings_list/floor_projector/floor_projector_toggle")
-_motors_toggle = NodePath("main_panel/margin_container/main_vbox_container/panels/settings_panel/settings_list/motors/motors_toggle")
+_dbox_toggle = NodePath("")
+_floor_cam_toggle = NodePath("")
+_motors_toggle = NodePath("")
 
 [node name="main_panel" type="ColorRect" parent="." unique_id=1323407284]
 layout_mode = 1
@@ -108,72 +87,6 @@ layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 20
 
-[node name="users_panel" type="VBoxContainer" parent="main_panel/margin_container/main_vbox_container/panels" unique_id=1358926682]
-custom_minimum_size = Vector2(300, 0)
-layout_mode = 2
-
-[node name="users_label" type="Label" parent="main_panel/margin_container/main_vbox_container/panels/users_panel" unique_id=1282611956]
-layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxFlat_21f17")
-text = "Users"
-label_settings = SubResource("LabelSettings_fevny")
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="users_fields" type="HBoxContainer" parent="main_panel/margin_container/main_vbox_container/panels/users_panel" unique_id=744990507]
-layout_mode = 2
-alignment = 1
-
-[node name="user_selected_label" type="MarginContainer" parent="main_panel/margin_container/main_vbox_container/panels/users_panel/users_fields" unique_id=954630300]
-layout_mode = 2
-theme_override_constants/margin_right = 40
-
-[node name="user_name_label" type="Label" parent="main_panel/margin_container/main_vbox_container/panels/users_panel/users_fields" unique_id=1747051802]
-custom_minimum_size = Vector2(80, 40)
-layout_mode = 2
-size_flags_horizontal = 2
-text = "    Name"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="user_mass_label" type="Label" parent="main_panel/margin_container/main_vbox_container/panels/users_panel/users_fields" unique_id=797289002]
-custom_minimum_size = Vector2(80, 40)
-layout_mode = 2
-size_flags_horizontal = 2
-text = "Mass     "
-vertical_alignment = 1
-
-[node name="user_list_container" type="ScrollContainer" parent="main_panel/margin_container/main_vbox_container/panels/users_panel" unique_id=1040315823]
-custom_minimum_size = Vector2(0, 200)
-layout_mode = 2
-size_flags_vertical = 3
-theme_override_styles/panel = SubResource("StyleBoxFlat_y75hh")
-
-[node name="user_list_margins" type="MarginContainer" parent="main_panel/margin_container/main_vbox_container/panels/users_panel/user_list_container" unique_id=745434591]
-layout_mode = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
-
-[node name="user_list" type="VBoxContainer" parent="main_panel/margin_container/main_vbox_container/panels/users_panel/user_list_container/user_list_margins" unique_id=1304748827]
-layout_mode = 2
-
-[node name="user_add_remove_container" type="HBoxContainer" parent="main_panel/margin_container/main_vbox_container/panels/users_panel" unique_id=940077687]
-layout_mode = 2
-
-[node name="add_user_button" type="Button" parent="main_panel/margin_container/main_vbox_container/panels/users_panel/user_add_remove_container" unique_id=24156758]
-custom_minimum_size = Vector2(40, 40)
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 10
-text = "+"
-
-[node name="remove_user_button" type="Button" parent="main_panel/margin_container/main_vbox_container/panels/users_panel/user_add_remove_container" unique_id=1656908706]
-custom_minimum_size = Vector2(40, 40)
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 8
-text = "-"
-
 [node name="scenes_panel" type="VBoxContainer" parent="main_panel/margin_container/main_vbox_container/panels" unique_id=684349781]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -203,83 +116,36 @@ theme_override_constants/h_separation = 50
 theme_override_constants/v_separation = 20
 columns = 2
 
-[node name="settings_panel" type="VBoxContainer" parent="main_panel/margin_container/main_vbox_container/panels" unique_id=1194337723]
+[node name="mode_and_settings_panel" type="VBoxContainer" parent="main_panel/margin_container/main_vbox_container/panels" unique_id=1194337723]
 layout_mode = 2
 
-[node name="mode_title" type="Label" parent="main_panel/margin_container/main_vbox_container/panels/settings_panel" unique_id=1045950442]
+[node name="mode_title" type="Label" parent="main_panel/margin_container/main_vbox_container/panels/mode_and_settings_panel" unique_id=1045950442]
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_21f17")
 text = "Mode"
 horizontal_alignment = 1
 
-[node name="onboard_button" type="Button" parent="main_panel/margin_container/main_vbox_container/panels/settings_panel" unique_id=1185141915]
+[node name="onboard_button" type="Button" parent="main_panel/margin_container/main_vbox_container/panels/mode_and_settings_panel" unique_id=1185141915]
 layout_mode = 2
 text = "Onboard"
 
-[node name="play_button" type="Button" parent="main_panel/margin_container/main_vbox_container/panels/settings_panel" unique_id=960937181]
+[node name="play_button" type="Button" parent="main_panel/margin_container/main_vbox_container/panels/mode_and_settings_panel" unique_id=960937181]
 layout_mode = 2
 text = "Play"
 
-[node name="spacer" type="Label" parent="main_panel/margin_container/main_vbox_container/panels/settings_panel" unique_id=1900096063]
+[node name="spacer" type="Label" parent="main_panel/margin_container/main_vbox_container/panels/mode_and_settings_panel" unique_id=1900096063]
 layout_mode = 2
 
-[node name="settings_title" type="Label" parent="main_panel/margin_container/main_vbox_container/panels/settings_panel" unique_id=536903272]
+[node name="settings_title" type="Label" parent="main_panel/margin_container/main_vbox_container/panels/mode_and_settings_panel" unique_id=536903272]
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_21f17")
 text = "Settings"
 horizontal_alignment = 1
 
-[node name="settings_list" type="VBoxContainer" parent="main_panel/margin_container/main_vbox_container/panels/settings_panel" unique_id=1228794127]
+[node name="settings_list" type="VBoxContainer" parent="main_panel/margin_container/main_vbox_container/panels/mode_and_settings_panel" unique_id=1228794127]
 layout_mode = 2
 size_flags_vertical = 3
-
-[node name="dbox" type="HBoxContainer" parent="main_panel/margin_container/main_vbox_container/panels/settings_panel/settings_list" unique_id=453474051]
-layout_mode = 2
-
-[node name="dbox_toggle" type="CheckButton" parent="main_panel/margin_container/main_vbox_container/panels/settings_panel/settings_list/dbox" unique_id=1238463856]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-theme_override_styles/focus = SubResource("StyleBoxEmpty_fo410")
-button_pressed = true
-
-[node name="dbox_label" type="Label" parent="main_panel/margin_container/main_vbox_container/panels/settings_panel/settings_list/dbox" unique_id=2011177916]
-layout_mode = 2
-theme_override_font_sizes/font_size = 20
-text = "Dbox"
-label_settings = SubResource("LabelSettings_h5sux")
-
-[node name="floor_projector" type="HBoxContainer" parent="main_panel/margin_container/main_vbox_container/panels/settings_panel/settings_list" unique_id=2059983752]
-layout_mode = 2
-
-[node name="floor_projector_toggle" type="CheckButton" parent="main_panel/margin_container/main_vbox_container/panels/settings_panel/settings_list/floor_projector" unique_id=1827550526]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-theme_override_styles/focus = SubResource("StyleBoxEmpty_y75hh")
-button_pressed = true
-
-[node name="floor_projector_label" type="Label" parent="main_panel/margin_container/main_vbox_container/panels/settings_panel/settings_list/floor_projector" unique_id=2048331584]
-layout_mode = 2
-theme_override_font_sizes/font_size = 20
-text = "Floor Projector"
-label_settings = SubResource("LabelSettings_v6try")
-
-[node name="motors" type="HBoxContainer" parent="main_panel/margin_container/main_vbox_container/panels/settings_panel/settings_list" unique_id=63747274]
-layout_mode = 2
-
-[node name="motors_toggle" type="CheckButton" parent="main_panel/margin_container/main_vbox_container/panels/settings_panel/settings_list/motors" unique_id=1340828194]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-theme_override_styles/focus = SubResource("StyleBoxEmpty_6olqd")
-button_pressed = true
-
-[node name="motors_label" type="Label" parent="main_panel/margin_container/main_vbox_container/panels/settings_panel/settings_list/motors" unique_id=564694440]
-layout_mode = 2
-theme_override_font_sizes/font_size = 20
-text = "Motors"
-label_settings = SubResource("LabelSettings_spoes")
+script = ExtResource("2_h5sux")
 
 [node name="stop_button" type="Button" parent="main_panel/margin_container/main_vbox_container" unique_id=87039680]
 layout_mode = 2
@@ -292,11 +158,6 @@ text = "Stop"
 
 [connection signal="tree_exited" from="." to="." method="_on_tree_exited"]
 [connection signal="tree_exiting" from="." to="." method="_on_tree_exiting"]
-[connection signal="pressed" from="main_panel/margin_container/main_vbox_container/panels/users_panel/user_add_remove_container/add_user_button" to="." method="_on_btn_add_user_pressed"]
-[connection signal="pressed" from="main_panel/margin_container/main_vbox_container/panels/users_panel/user_add_remove_container/remove_user_button" to="." method="_on_btn_remove_user_pressed"]
-[connection signal="pressed" from="main_panel/margin_container/main_vbox_container/panels/settings_panel/onboard_button" to="." method="_on_onboard_button_pressed"]
-[connection signal="pressed" from="main_panel/margin_container/main_vbox_container/panels/settings_panel/play_button" to="." method="_on_play_button_pressed"]
-[connection signal="toggled" from="main_panel/margin_container/main_vbox_container/panels/settings_panel/settings_list/dbox/dbox_toggle" to="." method="_on_dbox_toggle_toggled"]
-[connection signal="toggled" from="main_panel/margin_container/main_vbox_container/panels/settings_panel/settings_list/floor_projector/floor_projector_toggle" to="." method="_on_floor_cam_toggle_toggled"]
-[connection signal="toggled" from="main_panel/margin_container/main_vbox_container/panels/settings_panel/settings_list/motors/motors_toggle" to="." method="_on_motors_toggle_toggled"]
+[connection signal="pressed" from="main_panel/margin_container/main_vbox_container/panels/mode_and_settings_panel/onboard_button" to="." method="_on_onboard_button_pressed"]
+[connection signal="pressed" from="main_panel/margin_container/main_vbox_container/panels/mode_and_settings_panel/play_button" to="." method="_on_play_button_pressed"]
 [connection signal="pressed" from="main_panel/margin_container/main_vbox_container/stop_button" to="." method="_on_button_stop_pressed"]

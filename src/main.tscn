@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cnjpl135ppqka" path="res://main.gd" id="1_0xm2m"]
 [ext_resource type="PackedScene" uid="uid://dq2eiii6jcj6u" path="res://control_gui/control_gui.tscn" id="1_ig7tw"]
+[ext_resource type="Script" uid="uid://db602oks11677" path="res://config.gd" id="3_h2yge"]
 
 [node name="main" type="Node" unique_id=184152060]
 script = ExtResource("1_0xm2m")
@@ -10,3 +11,6 @@ script = ExtResource("1_0xm2m")
 
 [node name="scene_viewport" type="SubViewport" parent="." unique_id=334528829]
 size = Vector2i(1280, 720)
+
+[node name="config" type="Node" parent="." unique_id=2101992792]
+script = ExtResource("3_h2yge")
