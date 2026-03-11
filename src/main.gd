@@ -32,8 +32,9 @@ func load_scene(path: String):
 	_current_scene_node = load(path).instantiate()
 	_scene_viewport.add_child(_current_scene_node)
 	
-	# Update the player reference
+	# Update the player reference and mass
 	player = _current_scene_node.get_node("player")
+	player.mass = config.get_value("player.mass")
 	
 	# Load the window(s)
 	# TODO Dual-window and config
@@ -49,12 +50,13 @@ func unload_scene():
 		_current_scene_node.queue_free()
 	if _current_screens_node:
 		_current_screens_node.queue_free()
+	player = null
 
 # -------------------------------------------------------------------
 # Updated config value
 # -------------------------------------------------------------------
 ## Called by config when a config value has been changed
 func config_value_changed(key):
-	# TODO
-	print("TODO react to change in ", key)
-	pass
+	if key == "player.mass":
+		if player:
+			player.mass = config.get_value(player.mass)

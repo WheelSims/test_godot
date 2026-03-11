@@ -17,29 +17,9 @@ var PLAYABLE_SCENES_FOLDER_PATH = "res://playable_scenes"
 var scene_button := preload("scene_button.tscn")
 @export var scene_container: GridContainer
 
-# --- Settings ---
-@export var _dbox_toggle: CheckButton
-@export var _floor_cam_toggle: CheckButton
-@export var _motors_toggle: CheckButton
-var _parameters := {
-	"has_dbox": true,
-	"has_floor_cam": true,
-	"has_motors": true,
-}
-
 
 func _ready() -> void:	
 	_create_scene_buttons()
-
-func get_player() -> RigidBody3D:
-	for item in get_tree().get_root().get_children():
-		var player = item.get_node_or_null("player")
-		if player:
-			return player
-	return null
-	
-
-
 
 # -------------------------------------------------------------------
 # Load scenes
@@ -84,42 +64,7 @@ func _create_scene_buttons()->void:
 	else:
 		push_error("Error while opening PlayableScenes folder")
 
-## TODO Being replaced by main/load_scene. Enter the selected scene
-func _enter_scene(scene_instance: Node3D)->void:
-	pass
-#
-	## Quit the current scene if there is one loaded
-	#if _current_scene_node:
-		#_current_scene_node.queue_free()
-#
-	#_current_scene_node = scene_instance
-#
-	#await get_tree().process_frame
-	#await get_tree().process_frame
-	#
-	#get_tree().get_root().add_child(scene_instance)
-	#var floor_window := scene_instance.get_node_or_null("player/floor_projector") as Window
-	#var motors := scene_instance.get_node_or_null("player/motors")
-	#var dbox := scene_instance.get_node_or_null("player/dbox")
-#
-	#var screen_count: int = DisplayServer.get_screen_count()
-	#
-	#if _parameters["has_floor_cam"]:
-		#if floor_window and screen_count > 1:
-			#_set_window_full_screen(floor_window, 1)
-	#else:
-		#if floor_window:
-			#floor_window.queue_free()
-	#if (not _parameters["has_dbox"]) and (dbox != null):
-		#dbox.queue_free()
-	#if (not _parameters["has_motors"]) and (motors != null):
-		#motors.queue_free()
-#
-	#var front_window := scene_instance.get_node_or_null("player/front_projector") as Window
-	#if front_window and screen_count > 2:
-		#_set_window_full_screen(front_window, 2)
-		#
-	#update_selected_patient_mass()
+
 
 ## Set a window full screen on the selected screen.
 func _set_window_full_screen(win: Window, screen_index: int) -> void:
@@ -160,29 +105,14 @@ func _on_button_stop_pressed() -> void:
 		get_tree().quit()
 
 
-# -------------------------------------------------------------------
-# DBox : manuel + maintien
-# -------------------------------------------------------------------
-
-
-func _on_motors_toggle_toggled(toggled_on: bool) -> void:
-	config.set_value("motors.enabled", toggled_on)
-
-	
-func _on_dbox_toggle_toggled(toggled_on: bool) -> void:
-	config.set_value("d_box.enabled", toggled_on)
-
-
 func _on_onboard_button_pressed() -> void:
-	var player := get_player()
-	if player:
-		player.current_mode = player.CurrentMode.ONBOARDING
+	if main.player:
+		main.player.current_mode = main.player.CurrentMode.ONBOARDING
 	else:
 		print("Launch a scene before clicking this button.")
 
 func _on_play_button_pressed() -> void:
-	var player := get_player()
-	if player:
-		player.current_mode = player.CurrentMode.PLAYING
+	if main.player:
+		main.player.current_mode = main.player.CurrentMode.PLAYING
 	else:
 		print("Launch a scene before clicking this button.")

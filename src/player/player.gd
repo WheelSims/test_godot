@@ -24,7 +24,7 @@ enum CurrentMode {
 # -----------------------
 @onready var motors = get_node_or_null("motors")
 @onready var player_text_node: Label = get_node_or_null(
-	"front_projector/ui/player_text"
+	"ui/player_text"
 )
 
 # -----------------------

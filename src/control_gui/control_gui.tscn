@@ -39,7 +39,7 @@ corner_radius_bottom_left = 10
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_d7bjb"]
 
-[node name="control_gui" type="Control" unique_id=728106337 node_paths=PackedStringArray("scene_container", "_dbox_toggle", "_floor_cam_toggle", "_motors_toggle")]
+[node name="control_gui" type="Control" unique_id=728106337 node_paths=PackedStringArray("scene_container")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -48,9 +48,6 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_21f17")
 scene_container = NodePath("main_panel/margin_container/main_vbox_container/panels/scenes_panel/scene_list_container/scenes_list_margins/scene_list")
-_dbox_toggle = NodePath("")
-_floor_cam_toggle = NodePath("")
-_motors_toggle = NodePath("")
 
 [node name="main_panel" type="ColorRect" parent="." unique_id=1323407284]
 layout_mode = 1
