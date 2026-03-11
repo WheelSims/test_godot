@@ -10,57 +10,49 @@ var races_data: Array[RaceData]
 var current_race_data: RaceData
 var current_race_data_i : int = 0
 var total_score = 0
-
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
 	
+func _ready()->void:
+	randomize()
 func assign_races_datas(_races_data: Array[RaceData])->void:
 	races_data = _races_data
 	current_race_data = races_data[0]
 
-func add_score():
-	var popup: Control = score_popup_scene.instantiate()
-	popup.global_position = Vector2.ZERO
-	get_tree().current_scene.add_child(popup)
-	popup.show_score(10)
+func add_score(score: int = 0):
+	var popup: ScorePopup = score_popup_scene.instantiate()
+	popup.global_position = Vector2(randf_range(-100, 100),randf_range(-100, 100))
+	add_child(popup)
+	popup.show_score(score)
 	
-func on_obstacle_collision(body: Node3D)->void:
-	if on_challenge and body is Player:
+func on_obstacle_collision(body: Area3D, area3D_emitter: Area3D)->void:
+	if body.is_in_group("Player"):
 		current_race_data.score -= fail_point_val
-		print(current_race_data.score)
+		add_score(-5)
 		obstacle_collision = true
+		area3D_emitter.set_deferred("monitoring", false)
 	
-func on_challenge_body_entered(body: Node3D)->void:
-	if body is Player:
+func on_challenge_area_entered(body: Area3D)->void:
+	if body.is_in_group("Player"):
 		on_challenge = true
+		obstacle_collision = false
 
-func on_challenge_body_exited(body: Node3D, area3D_emitter: Area3D)->void:
-	if body is not Player:
+func on_challenge_area_exited(body: Area3D, area3D_emitter: Area3D)->void:
+	if not body.is_in_group("Player"):
 		return
 	on_challenge = false
 	if not obstacle_collision:
 		current_race_data.score += success_point_val
-		print(current_race_data.score)
-	obstacle_collision = false
+		add_score(10)
 	area3D_emitter.set_deferred("monitoring", false)
-	add_score()
 	
-func on_race_entered(body: Node3D)->void:
-	if body is not Player:
+func on_race_entered(body: Area3D)->void:
+	if not body.is_in_group("Player"):
 		return
-	print("ya")
 	if current_race_data_i < races_data.size()-1:
 		current_race_data_i += 1
 		current_race_data = races_data[current_race_data_i]
 		
-func on_race_exited(body: Node3D, area3D_emitter: Area3D)->void:
-	if body is not Player:
+func on_race_exited(body: Area3D, area3D_emitter: Area3D)->void:
+	if not body.get_parent().is_in_group("Player"):
 		return
 	total_score += current_race_data.score
-	print(total_score)
 	area3D_emitter.set_deferred("monitoring", false)

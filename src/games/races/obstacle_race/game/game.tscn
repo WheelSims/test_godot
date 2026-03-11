@@ -7,9 +7,3 @@
 script = ExtResource("1_qg3sg")
 score_popup_scene = ExtResource("2_vm7ci")
 metadata/_custom_type_script = "uid://b7ky3pxedhqmw"
-
-[node name="ScorePopup" parent="." unique_id=1271273501 instance=ExtResource("2_vm7ci")]
-offset_left = 3.0
-offset_top = 4.0
-offset_right = 3.0
-offset_bottom = 4.000061

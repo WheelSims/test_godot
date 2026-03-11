@@ -1,10 +1,17 @@
 extends Control
-
+class_name ScorePopup
 @onready var label: Label = $Label
+@export var win_color: Color
+@export var lose_color: Color
 
 func show_score(value: int):
-
-	label.text = "+" + str(value)
+	if value < 0:
+		label.label_settings.font_color = lose_color
+		label.text = ""
+	else:
+		label.label_settings.font_color = win_color
+		label.text = "+"
+	label.text += str(value)
 
 	var tween = create_tween()
 

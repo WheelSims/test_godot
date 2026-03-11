@@ -124,37 +124,16 @@ monitoring = false
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.620304, -0.278171)
 shape = SubResource("BoxShape3D_muua7")
 
-[node name="floor_projector" type="Window" parent="." unique_id=995024943]
-auto_translate_mode = 1
-oversampling_override = 1.0
-position = Vector2i(0, 36)
-size = Vector2i(1150, 615)
-
-[node name="floor_camera" type="Camera3D" parent="floor_projector" unique_id=143251932]
-
-[node name="mask" type="Polygon2D" parent="floor_projector" unique_id=194359503]
-scale = Vector2(1280, 100)
-color = Color(0, 0, 0, 1)
-polygon = PackedVector2Array(0, 0, 1, 0, 1, 1, 0, 1)
-
-[node name="front_projector" type="Window" parent="." unique_id=400472417]
-auto_translate_mode = 1
-audio_listener_enable_2d = true
-audio_listener_enable_3d = true
-oversampling_override = 1.0
-position = Vector2i(0, 36)
-size = Vector2i(1150, 615)
-
-[node name="front_camera" type="Camera3D" parent="front_projector" unique_id=2117479106]
+[node name="front_camera" type="Camera3D" parent="." unique_id=2117479106]
 current = true
 
-[node name="ui" type="Polygon2D" parent="front_projector" unique_id=279358975]
+[node name="ui" type="Polygon2D" parent="." unique_id=279358975]
 visible = false
 position = Vector2(55, 534)
 scale = Vector2(0.61, 0.78)
 polygon = PackedVector2Array(0, 100, 0, 0, 300, 0, 300, 100)
 
-[node name="player_text" type="Label" parent="front_projector/ui" unique_id=2090264022]
+[node name="player_text" type="Label" parent="ui" unique_id=2090264022]
 offset_right = 300.0
 offset_bottom = 99.0
 text = "Test"

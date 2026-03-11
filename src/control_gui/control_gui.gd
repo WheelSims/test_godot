@@ -204,18 +204,18 @@ func _enter_scene(scene_instance: Node3D)->void:
 	await get_tree().process_frame
 	
 	get_tree().get_root().add_child(scene_instance)
-	var floor_window := scene_instance.get_node_or_null("player/floor_projector")
+	var floor_window := scene_instance.get_node_or_null("player/floor_projector") as Window
 	var motors := scene_instance.get_node_or_null("player/motors")
 	var dbox := scene_instance.get_node_or_null("player/dbox")
 
 	var screen_count: int = DisplayServer.get_screen_count()
 	
 	if _parameters["has_floor_cam"]:
-		floor_window = scene_instance.get_node_or_null("player/floor_projector") as Window
 		if floor_window and screen_count > 1:
 			_set_window_full_screen(floor_window, 1)
 	else:
-		floor_window.queue_free()
+		if floor_window:
+			floor_window.queue_free()
 	if (not _parameters["has_dbox"]) and (dbox != null):
 		dbox.queue_free()
 	if (not _parameters["has_motors"]) and (motors != null):

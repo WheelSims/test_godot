@@ -1,5 +1,4 @@
 extends Node3D
-
 class_name Crowd
 
 @export var race_manager : RaceManager
