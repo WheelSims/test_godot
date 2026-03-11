@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://k18bpclv0qnw"]
+
+[node name="front_window" type="Window" unique_id=760552984]
+oversampling_override = 1.0
+position = Vector2i(0, 36)
+size = Vector2i(1150, 615)
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=487430512]
+offset_right = 40.0
+offset_bottom = 40.0
+stretch_mode = 6

@@ -10,10 +10,9 @@ extends RigidBody3D
 # -----------------------
 # Cameras
 # -----------------------
-@onready var front_camera = get_node_or_null("front_projector/front_camera")
+@onready var front_camera = get_node_or_null("front_camera")
 @onready var floor_camera = get_node_or_null("floor_projector/floor_camera")
 @onready var front_camera_pose = get_node_or_null("front_camera_pose")
-@onready var floor_camera_pose := get_node_or_null("floor_camera_pose")
 
 # -----------------------
 # Current mode
@@ -59,8 +58,6 @@ func _ready():
 func _process(_delta):
 	if front_camera_pose:
 		front_camera.global_transform = front_camera_pose.global_transform
-	if floor_camera_pose and floor_camera:
-		floor_camera.global_transform = floor_camera_pose.global_transform
 
 func _physics_process(delta: float) -> void:
 	var desired_linear_velocity := 0.0
