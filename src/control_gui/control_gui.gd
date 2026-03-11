@@ -6,10 +6,11 @@ extends Control
 var SIMULATOR_USERS_FILENAME = "user://simulator_users.json"
 var PLAYABLE_SCENES_FOLDER_PATH = "res://playable_scenes"
 
+# -------------------------------------------------------------------
+# References
+# -------------------------------------------------------------------
+@onready var main: Node3D = get_tree().get_root().get_node("main")
 
-
-
-var _current_scene_node: Node3D = null
 
 # --- UI users ---
 
@@ -36,6 +37,7 @@ var _parameters := {
 
 
 func _ready() -> void:
+
 	load_users()
 	load_preferences()
 	_create_scene_buttons()
@@ -180,9 +182,7 @@ func _create_scene_buttons()->void:
 				_scene_button_instance.pressed.connect(
 					func():
 						var path = _scene_button_instance.get_meta("scene_path")
-						var scene_instance = load(path).instantiate()
-						get_tree().get_root().add_child(scene_instance)
-						_enter_scene(scene_instance)
+						main.load_scene(path)
 				)
 				scene_container.add_child(_scene_button_instance)
 				
@@ -191,41 +191,42 @@ func _create_scene_buttons()->void:
 	else:
 		push_error("Error while opening PlayableScenes folder")
 
-## Enter the selected scene
+## TODO Being replaced by main/load_scene. Enter the selected scene
 func _enter_scene(scene_instance: Node3D)->void:
-
-	# Quit the current scene if there is one loaded
-	if _current_scene_node:
-		_current_scene_node.queue_free()
-
-	_current_scene_node = scene_instance
-
-	await get_tree().process_frame
-	await get_tree().process_frame
-	
-	get_tree().get_root().add_child(scene_instance)
-	var floor_window := scene_instance.get_node_or_null("player/floor_projector") as Window
-	var motors := scene_instance.get_node_or_null("player/motors")
-	var dbox := scene_instance.get_node_or_null("player/dbox")
-
-	var screen_count: int = DisplayServer.get_screen_count()
-	
-	if _parameters["has_floor_cam"]:
-		if floor_window and screen_count > 1:
-			_set_window_full_screen(floor_window, 1)
-	else:
-		if floor_window:
-			floor_window.queue_free()
-	if (not _parameters["has_dbox"]) and (dbox != null):
-		dbox.queue_free()
-	if (not _parameters["has_motors"]) and (motors != null):
-		motors.queue_free()
-
-	var front_window := scene_instance.get_node_or_null("player/front_projector") as Window
-	if front_window and screen_count > 2:
-		_set_window_full_screen(front_window, 2)
-		
-	update_selected_patient_mass()
+	pass
+#
+	## Quit the current scene if there is one loaded
+	#if _current_scene_node:
+		#_current_scene_node.queue_free()
+#
+	#_current_scene_node = scene_instance
+#
+	#await get_tree().process_frame
+	#await get_tree().process_frame
+	#
+	#get_tree().get_root().add_child(scene_instance)
+	#var floor_window := scene_instance.get_node_or_null("player/floor_projector") as Window
+	#var motors := scene_instance.get_node_or_null("player/motors")
+	#var dbox := scene_instance.get_node_or_null("player/dbox")
+#
+	#var screen_count: int = DisplayServer.get_screen_count()
+	#
+	#if _parameters["has_floor_cam"]:
+		#if floor_window and screen_count > 1:
+			#_set_window_full_screen(floor_window, 1)
+	#else:
+		#if floor_window:
+			#floor_window.queue_free()
+	#if (not _parameters["has_dbox"]) and (dbox != null):
+		#dbox.queue_free()
+	#if (not _parameters["has_motors"]) and (motors != null):
+		#motors.queue_free()
+#
+	#var front_window := scene_instance.get_node_or_null("player/front_projector") as Window
+	#if front_window and screen_count > 2:
+		#_set_window_full_screen(front_window, 2)
+		#
+	#update_selected_patient_mass()
 
 ## Set a window full screen on the selected screen.
 func _set_window_full_screen(win: Window, screen_index: int) -> void:
@@ -259,8 +260,9 @@ func _on_display_window_resized(win: Window) -> void:
 
 
 func _on_button_stop_pressed() -> void:
-	if _current_scene_node:
-		_current_scene_node.queue_free()
+	# TODO remove call to private variable
+	if main._current_scene_node:
+		main.unload_scene()
 	else:
 		get_tree().quit()
 

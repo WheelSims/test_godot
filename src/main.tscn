@@ -1,7 +1,12 @@
 [gd_scene format=3 uid="uid://c5y4tat5hrad0"]
 
+[ext_resource type="Script" uid="uid://cnjpl135ppqka" path="res://main.gd" id="1_0xm2m"]
 [ext_resource type="PackedScene" uid="uid://dq2eiii6jcj6u" path="res://control_gui/control_gui.tscn" id="1_ig7tw"]
 
 [node name="main" type="Node3D" unique_id=416916038]
+script = ExtResource("1_0xm2m")
 
 [node name="control_gui" parent="." unique_id=728106337 instance=ExtResource("1_ig7tw")]
+
+[node name="scene_viewport" type="SubViewport" parent="." unique_id=334528829]
+size = Vector2i(1280, 720)
