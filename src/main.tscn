@@ -11,6 +11,7 @@ script = ExtResource("1_0xm2m")
 [node name="control_gui" parent="." unique_id=728106337 instance=ExtResource("1_ig7tw")]
 
 [node name="scene_viewport" type="SubViewport" parent="." unique_id=334528829]
+audio_listener_enable_3d = true
 size = Vector2i(1280, 720)
 
 [node name="config" type="Node" parent="." unique_id=2101992792]
