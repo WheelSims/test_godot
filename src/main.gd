@@ -80,11 +80,9 @@ func unload_overlays():
 # -------------------------------------------------------------------
 
 ## Propagate config value changes to their corresponding modules
+# TODO Still not modular enough. Each module should check for changes in config and act accordingly.
 func config_value_changed(key):
 	match(key):
-		"player.mass":
-			if player:
-				player.mass = config.get_value(player.mass)
 		"overlays.speed_indicator.enabled":
 			unload_overlays()
 			load_overlays()

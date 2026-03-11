@@ -1,4 +1,5 @@
 extends RigidBody3D
+@onready var main: Node = get_tree().get_root().get_node("main")
 
 # ------------------
 # Editable constants
@@ -34,6 +35,11 @@ var _linear_velocity: float = 0.0
 var _angular_velocity: float = 0.0
 
 # -----------------------
+# Check for value updates
+# -----------------------
+@onready var _old_mass: float = mass
+
+# -----------------------
 # Dynamics/collisions
 # -----------------------
 var is_front_collision: bool = false
@@ -64,6 +70,13 @@ func get_angular_speed():
 # -----------------------
 func _ready():
 	pass
+
+func _process(delta):
+	if main:
+		if main.config.get_value("player.mass") != _old_mass:
+			mass = main.config.get_value("player.mass")
+			_old_mass = mass
+			print(mass)
 
 func _physics_process(delta: float) -> void:
 	var desired_linear_velocity := 0.0
