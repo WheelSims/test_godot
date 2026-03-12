@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="ObjectInfo" format=3 uid="uid://b68yonl8ngd4q"]
 
 [ext_resource type="PackedScene" uid="uid://t4035q8axi6v" path="res://objects/race_objects/western_theme/obstacles/hay_bale/scenes/hay_bale.tscn" id="1_8kivv"]
-[ext_resource type="Script" uid="uid://brpk4pab7wouw" path="res://games/races/obstacle_race/scripts/object_info.gd" id="2_bx0ri"]
+[ext_resource type="Script" uid="uid://brpk4pab7wouw" path="res://games/races/obstacle_race/generator/scripts/object_info.gd" id="2_bx0ri"]
 
 [resource]
 script = ExtResource("2_bx0ri")

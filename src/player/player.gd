@@ -1,4 +1,6 @@
 extends RigidBody3D
+class_name Player
+
 @onready var main: Node = get_tree().get_root().get_node("main")
 
 # ------------------

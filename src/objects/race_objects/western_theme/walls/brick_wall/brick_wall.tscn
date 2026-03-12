@@ -7,11 +7,12 @@
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_c8tb6"]
 
-[node name="brick_wall" type="Node3D" unique_id=740200867 node_paths=PackedStringArray("visual_instance", "collision_shape")]
+[node name="brick_wall" type="Node3D" unique_id=740200867 node_paths=PackedStringArray("visual_instance", "collision_shape", "area3D")]
 script = ExtResource("1_qew7g")
 visual_instance = NodePath("MeshInstance")
 collision_shape = NodePath("MeshInstance/StaticBody3D/CollisionShape3D")
 object_type = 1
+area3D = NodePath("MeshInstance/StaticBody3D/Area3D")
 
 [node name="MeshInstance" type="MeshInstance3D" parent="." unique_id=1905855510]
 transform = Transform3D(0.254495, 0, 0, 0, 2.26136, 0, 0, 0, 1, 0, 1.12603, 0)
@@ -22,4 +23,9 @@ surface_material_override/0 = ExtResource("1_2xc2m")
 [node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance" unique_id=1877731184]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance/StaticBody3D" unique_id=874125591]
+shape = SubResource("BoxShape3D_c8tb6")
+
+[node name="Area3D" type="Area3D" parent="MeshInstance/StaticBody3D" unique_id=1432678529]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance/StaticBody3D/Area3D" unique_id=928547393]
 shape = SubResource("BoxShape3D_c8tb6")

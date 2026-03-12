@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://b3t5cq2ktupth"
-path="res://.godot/imported/HighBip.wav-c3da3375ef78c61194329215e9990c56.sample"
+path="res://.godot/imported/HighBip.wav-15fb874210a3f22d77cbae603ebd9a0a.sample"
 
 [deps]
 
-source_file="res://sounds/sounds/fx_sonds/Bips/HighBip.wav"
-dest_files=["res://.godot/imported/HighBip.wav-c3da3375ef78c61194329215e9990c56.sample"]
+source_file="res://sounds/sounds/sound_effects/Bips/HighBip.wav"
+dest_files=["res://.godot/imported/HighBip.wav-15fb874210a3f22d77cbae603ebd9a0a.sample"]
 
 [params]
 
