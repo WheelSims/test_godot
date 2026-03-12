@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://biluq7vv8ghsm"]
 
 [ext_resource type="Script" uid="uid://bo3s2kc1arfun" path="res://player/player.gd" id="1_l8h54"]
-[ext_resource type="Script" uid="uid://boe632ih0j5mm" path="res://player/motors.gd" id="2_4ntmi"]
 [ext_resource type="Script" uid="uid://da3tqctbq8isk" path="res://player/d_box.gd" id="3_muua7"]
 [ext_resource type="Material" uid="uid://c8m804jjd75fg" path="res://objects/street/materials/traffic_lights/bulb_lights/traffic_light_bulb_red.tres" id="4_gwnis"]
 
@@ -52,9 +51,6 @@ debug_color = Color(8.27849e-06, 0.774194, 0.900788, 0.42)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.1, -0.6)
 shape = SubResource("SphereShape3D_jka67")
 debug_color = Color(8.27849e-06, 0.774194, 0.900788, 0.42)
-
-[node name="motors" type="Node3D" parent="." unique_id=1232587625]
-script = ExtResource("2_4ntmi")
 
 [node name="d_box" type="Node3D" parent="." unique_id=2079163710]
 script = ExtResource("3_muua7")
@@ -111,6 +107,5 @@ material_override = ExtResource("4_gwnis")
 depth = 0.15
 
 [connection signal="body_shape_entered" from="." to="." method="_on_player_on_simulator_body_shape_entered"]
-[connection signal="tree_exiting" from="motors" to="motors" method="_on_tree_exiting"]
 [connection signal="body_shape_entered" from="obstacle_colliders" to="." method="_on_obstacle_colliders_body_shape_entered"]
 [connection signal="body_shape_exited" from="obstacle_colliders" to="." method="_on_obstacle_colliders_body_shape_exited"]

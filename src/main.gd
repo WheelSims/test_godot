@@ -13,6 +13,12 @@ extends Node
 ## The player, automatically updated on scene change.
 var player: Node3D = null
 
+## The different overlays that can be loaded dynamically based on configuration options
+@export var available_overlays: Dictionary[String, PackedScene]
+
+## The different devices that can be loaded dynamically based on configuration options
+@export var available_devices: Dictionary[String, PackedScene]
+
 
 ## (private) Store the current scene.
 var _current_scene_node: Node3D = null
@@ -54,27 +60,14 @@ func unload_scene():
 	player = null
 
 # -------------------------------------------------------------------
-# Overlay loading/unloading
-# -------------------------------------------------------------------
-
-## Load overlay
-func load_overlay(overlay_name: String):
-	var node = load("res://overlays/" + overlay_name + ".tscn").instantiate()
-	$scene_viewport.add_child(node)
-
-# -------------------------------------------------------------------
 # Updated config value
 # -------------------------------------------------------------------
 
 ## Called by config when modified, mainly to instanciate new modules.
 func config_value_changed(key):
-	match(key):
-		"overlays.speed_indicator.enabled":
-			if config.get_value("overlays.speed_indicator.enabled"):
-				load_overlay("speed_indicator")
-		"overlays.debug.enabled":
-			if config.get_value("overlays.debug.enabled"):
-				load_overlay("debug")
-		"devices.screens.floor.enabled":
-			$screens.unload_windows()
-			$screens.load_windows()
+	if key in available_overlays:
+		if config.get_value(key):
+			$scene_viewport.add_child(available_overlays[key].instantiate())
+	if key in available_devices:
+		if config.get_value(key):
+			add_child(available_devices[key].instantiate())

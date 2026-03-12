@@ -26,7 +26,7 @@ var _defaults: Dictionary[String, Dictionary] = {
 	"devices.screens.floor.enabled": {"order": 7, "label": "Floor projection", "unit": "", "default": false},
 	"devices.others": {"order": 8, "label": "Other devices", "unit": "", "default": null},
 	"devices.d_box.enabled": {"order": 9, "label": "D-Box", "unit": "", "default": false},
-	"devices.motors.enabled": {"order": 10, "label": "Motors", "unit": "", "default": false},
+	"devices.motorized_rollers.enabled": {"order": 10, "label": "Motorized rollers", "unit": "", "default": false},
 }
 
 ## Overrides

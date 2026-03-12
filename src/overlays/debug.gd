@@ -19,6 +19,13 @@ func _process(delta):
 	_fps = 0.99 * _fps + 0.01 * 1/delta  # Rolling average on 100 samples
 	text += "Current FPS: %0.0f FPS\n" % _fps
 	
+	# Check if any device has something to tell
+	for node in main.get_children():
+		text += "Node %s: " % node.name
+		if "get_debug_text" in node:
+			text += node.get_debug_text()
+		text += "\n"
+	
 	label.text = text
 	
 	

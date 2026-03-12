@@ -1,5 +1,5 @@
 extends Node3D
-
+@onready var main: Node = get_tree().get_root().get_node("main")
 
 @export var UDP_SEND_IP: String = "192.168.0.200"
 @export var UDP_SEND_PORT: int = 25000
@@ -13,13 +13,10 @@ var stopped: bool = false
 
 # Public variables (sent)
 var hardware_enabled: float = 1
-var collision_detected: bool = false
-var friction: float = 0.03
 var wheel_distance: float = 0.6
 var force_reset: bool = true
 
 # Private variables
-var _player  # The player instance, to access its parameters
 var _udp_receiver = PacketPeerUDP.new()
 var _udp_receiver_connected = false
 var _udp_sender = PacketPeerUDP.new()
@@ -34,42 +31,50 @@ var _old_is_rear_collision: bool = false
 
 # Functions
 func _ready() -> void:
-	_player = get_parent()
 	_udp_receiver.bind(UDP_RECEIVE_PORT)
 	_udp_sender.connect_to_host(UDP_SEND_IP, UDP_SEND_PORT)
 	get_tree().set_auto_accept_quit(false)  # to send hw_enable false on quit
-	send()
-	force_reset = false
-	send()
 
 func _process(delta: float) -> void:
-	if _player.mass != _old_mass:
-		send_data(1, hardware_enabled, _player.mass, 0)
-		_old_mass = _player.mass
-	if _player.rolling_resistance_coefficient != _old_rolling_resistance_coefficient:
-		_update_friction()
-		_old_rolling_resistance_coefficient = _player.rolling_resistance_coefficient
-	if _player.is_front_collision != _old_is_front_collision:
-		_update_friction()
-		_old_is_front_collision = _player.is_front_collision
-	if _player.is_rear_collision != _old_is_rear_collision:
-		_update_friction()
-		_old_is_rear_collision = _player.is_rear_collision
-		
-		
+	if main.player:
+		if main.player.mass != _old_mass:
+			send_data(1, hardware_enabled, main.player.mass, 0)
+			_old_mass = main.player.mass
+		if main.player.rolling_resistance_coefficient != _old_rolling_resistance_coefficient:
+			_update_friction()
+			_old_rolling_resistance_coefficient = main.player.rolling_resistance_coefficient
+		if main.player.is_front_collision != _old_is_front_collision:
+			_update_friction()
+			_old_is_front_collision = main.player.is_front_collision
+		if main.player.is_rear_collision != _old_is_rear_collision:
+			_update_friction()
+			_old_is_rear_collision = main.player.is_rear_collision
+	
+	if not main.config.get_value("devices.motorized_rollers.enabled"):
+		queue_free()
+
+
+func get_debug_text() -> String:
+	var text = ""
+	text += "Motors "
+	if not _udp_receiver_connected:
+		text += "not "
+	text += "connected.\n"
+	return text
+
 func _update_friction():
 	var front_friction_coefficient: float
 	var rear_friction_coefficient: float
 	
-	if _player.is_front_collision:
+	if main.player.is_front_collision:
 		front_friction_coefficient = _obstacle_friction_coefficient
 	else:
-		front_friction_coefficient = _player.rolling_resistance_coefficient
+		front_friction_coefficient = main.player.rolling_resistance_coefficient
 		
-	if _player.is_rear_collision:
+	if main.player.is_rear_collision:
 		rear_friction_coefficient = _obstacle_friction_coefficient
 	else:
-		rear_friction_coefficient = _player.rolling_resistance_coefficient
+		rear_friction_coefficient = main.player.rolling_resistance_coefficient
 		
 	print(
 		"Rollers: Front friction update: Front = ",
@@ -78,13 +83,6 @@ func _update_friction():
 		rear_friction_coefficient,
 	)
 	send_data(2, hardware_enabled, front_friction_coefficient, rear_friction_coefficient)
-
-
-func _notification(what):
-	if what == NOTIFICATION_WM_CLOSE_REQUEST:
-		hardware_enabled = false
-		send()
-		get_tree().quit()
 
 func receive() -> void:
 	if _udp_receiver.get_available_packet_count() > 0:  # We received something
@@ -105,10 +103,6 @@ func receive() -> void:
 		linear_velocity = float(array_bytes.decode_double(4))
 		angular_velocity = float(array_bytes.decode_double(12))
 
-func send() -> void:
-	send_data(2, hardware_enabled, friction, friction)
-
-
 func send_data(cmd, enable, arg1, arg2) -> void:
 	var bytes = PackedByteArray()
 	bytes.resize(20)
@@ -120,5 +114,4 @@ func send_data(cmd, enable, arg1, arg2) -> void:
 
 func _on_tree_exiting() -> void:
 	hardware_enabled = 0
-	friction = 1
-	send()
+	send_data(1, hardware_enabled, 70, 0)
