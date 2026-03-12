@@ -100,7 +100,6 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("ViewportTexture_labfn")
 expand_mode = 1
-stretch_mode = 6
 
 [node name="SubViewport" type="SubViewport" parent="." unique_id=962094443]
 size = Vector2i(1920, 1080)

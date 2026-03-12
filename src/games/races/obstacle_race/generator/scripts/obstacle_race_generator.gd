@@ -28,7 +28,7 @@ var _current_x_pos : float = 0
 func _ready() -> void:
 	_validate_config()
 	_rng.randomize()
-	game_script.assign_races_datas(races_data)
+	game_script.init(races_data)
 	for i in range(races_data.size()):
 		_level_generation()
 
