@@ -102,6 +102,7 @@ texture = SubResource("ViewportTexture_labfn")
 expand_mode = 1
 
 [node name="SubViewport" type="SubViewport" parent="." unique_id=962094443]
+audio_listener_enable_3d = true
 size = Vector2i(1920, 1080)
 render_target_update_mode = 4
 

@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://dmuslq3rcqylh"
-path="res://.godot/imported/VictorySound.wav-c835ef11043fd06d023cbd1f1b25e263.sample"
+path="res://.godot/imported/VictorySound.wav-b201ae4cde256ca607e5baec9acf272e.sample"
 
 [deps]
 
-source_file="res://sounds/sounds/fx_sonds/VictorySound.wav"
-dest_files=["res://.godot/imported/VictorySound.wav-c835ef11043fd06d023cbd1f1b25e263.sample"]
+source_file="res://sounds/sounds/sound_effects/success_victory/VictorySound.wav"
+dest_files=["res://.godot/imported/VictorySound.wav-b201ae4cde256ca607e5baec9acf272e.sample"]
 
 [params]
 

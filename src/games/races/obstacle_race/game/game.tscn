@@ -3,12 +3,18 @@
 [ext_resource type="Script" uid="uid://b7ky3pxedhqmw" path="res://games/races/obstacle_race/game/scripts/obstacle_race_game.gd" id="1_qg3sg"]
 [ext_resource type="PackedScene" uid="uid://wyeq87xnl78d" path="res://games/races/obstacle_race/game/score_popup.tscn" id="2_vm7ci"]
 [ext_resource type="StyleBox" uid="uid://bge2kgncvebc" path="res://ui/ui_race_panel.tres" id="3_nltd1"]
+[ext_resource type="AudioStream" uid="uid://cqtws6pdp4hq4" path="res://sounds/sounds/sound_effects/success_victory/powerupsuccess.wav" id="3_xkfxd"]
 [ext_resource type="FontFile" uid="uid://d2yf0x212xaf2" path="res://ui/fonts/clear_font/ClearSans-Bold.ttf" id="4_b55ht"]
+[ext_resource type="AudioStream" uid="uid://0nlt1wf7012b" path="res://sounds/sounds/sound_effects/fail/pistol_sound_effect.wav" id="4_xkfxd"]
+[ext_resource type="AudioStream" uid="uid://d4fb2ie8ao0kl" path="res://sounds/sounds/sound_effects/success_victory/yeehaw_sound_effect.wav" id="5_i4c31"]
 
 [node name="game" type="Node3D" unique_id=450303502 node_paths=PackedStringArray("score_label")]
 script = ExtResource("1_qg3sg")
 score_popup_scene = ExtResource("2_vm7ci")
 score_label = NodePath("score_margin_container/panel/score_label")
+challenge_success_sound = ExtResource("3_xkfxd")
+challenge_fail_sound = ExtResource("4_xkfxd")
+race_success_sound = ExtResource("5_i4c31")
 metadata/_custom_type_script = "uid://b7ky3pxedhqmw"
 
 [node name="score_margin_container" type="MarginContainer" parent="." unique_id=808862730]
@@ -51,3 +57,5 @@ theme_override_font_sizes/font_size = 60
 text = "1000"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="sfx_player" type="AudioStreamPlayer" parent="." unique_id=1979759649]

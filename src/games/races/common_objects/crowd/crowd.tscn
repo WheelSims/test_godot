@@ -322,7 +322,10 @@ target_position = Vector3(0, -10, 0)
 hit_back_faces = false
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="." unique_id=1638612047]
+stream = ExtResource("2_u0hxl")
 volume_db = -3.0
+unit_size = 59.14
+autoplay = true
 
 [connection signal="area_entered" from="Trigger" to="." method="_on_trigger_area_entered"]
 [connection signal="area_exited" from="Trigger" to="." method="_on_trigger_area_exited"]
