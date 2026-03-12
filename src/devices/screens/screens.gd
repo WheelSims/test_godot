@@ -18,10 +18,7 @@ func load_windows():
 	add_child(_current_screens_node)
 	
 	# Assign the game viewport to this/these window(s)
-	main.main_window = _current_screens_node.get_node("main_window")
 	_current_screens_node.get_node("main_window/texture_rect").texture = main.scene_viewport.get_texture()
-	
-	main.load_overlays()
 	
 func unload_windows():
 	if _current_screens_node:

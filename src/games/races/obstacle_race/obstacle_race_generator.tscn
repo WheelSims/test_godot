@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://d4dm6lh1tu5fw" path="res://games/races/common_objects/crowd/crowd.tscn" id="5_8r2kh"]
 [ext_resource type="PackedScene" uid="uid://cr3xh7scx7rpn" path="res://games/races/obstacle_race/game/game.tscn" id="6_bugko"]
 
-[node name="obstacle_race_main" type="Node3D" unique_id=1913311282]
+[node name="obstacle_race_generator" type="Node3D" unique_id=1913311282]
 script = ExtResource("1_rnfno")
 finish_line = ExtResource("4_nl003")
 start_line = ExtResource("5_7pb3g")

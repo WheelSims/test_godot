@@ -13,8 +13,6 @@ extends Node
 ## The player, automatically updated on scene change.
 var player: Node3D = null
 
-## The main window, automatically updated by devices/screens on window configuration change.
-var main_window: Window = null
 
 ## (private) Store the current scene.
 var _current_scene_node: Node3D = null
@@ -39,20 +37,17 @@ func _ready():
 # Scene loading/unloading
 # -------------------------------------------------------------------
 
-## Load scene.
+## Load scene and update player reference.
 func load_scene(path: String):
 	# Unload current scene first (to be sure)
 	unload_scene()
-	
 	# Load the scene
 	_current_scene_node = load(path).instantiate()
-	scene_viewport.add_child(_current_scene_node)
-	
-	# Update the player reference and mass
+	scene_viewport.add_child(_current_scene_node)	
+	# Update the player reference
 	player = _current_scene_node.get_node("player")
-	player.mass = config.get_value("player.mass")
 
-## Unload scene.
+## Unload scene and update player reference.
 func unload_scene():
 	if _current_scene_node:
 		_current_scene_node.queue_free()
@@ -62,30 +57,24 @@ func unload_scene():
 # Overlay loading/unloading
 # -------------------------------------------------------------------
 
-## Load overlays
-func load_overlays():
-	if config.get_value("overlays.speed_indicator.enabled"):
-		main_window.get_node("overlays").add_child(load("res://overlays/speed_indicator.tscn").instantiate())
-	
-## Unload overlays
-func unload_overlays():
-	if main_window:
-		for node in main_window.get_node("overlays").get_children():
-			node.queue_free()
-
-
+## Load overlay
+func load_overlay(overlay_name: String):
+	var node = load("res://overlays/" + overlay_name + ".tscn").instantiate()
+	$scene_viewport.add_child(node)
 
 # -------------------------------------------------------------------
 # Updated config value
 # -------------------------------------------------------------------
 
-## Propagate config value changes to their corresponding modules
-# TODO Still not modular enough. Each module should check for changes in config and act accordingly.
+## Called by config when modified, mainly to instanciate new modules.
 func config_value_changed(key):
 	match(key):
 		"overlays.speed_indicator.enabled":
-			unload_overlays()
-			load_overlays()
+			if config.get_value("overlays.speed_indicator.enabled"):
+				load_overlay("speed_indicator")
+		"overlays.debug.enabled":
+			if config.get_value("overlays.debug.enabled"):
+				load_overlay("debug")
 		"devices.screens.floor.enabled":
 			$screens.unload_windows()
 			$screens.load_windows()

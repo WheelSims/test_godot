@@ -20,12 +20,13 @@ var _defaults: Dictionary[String, Dictionary] = {
 	"player.mass": {"order": 1, "label": "User+wheelchair mass", "unit": "kg", "default": 70.0},
 	"overlays": {"order": 2, "label": "OVERLAYS", "unit": "", "default": null},
 	"overlays.speed_indicator.enabled": {"order": 3, "label": "Speed indicator", "unit": "", "default": true},
-	"devices": {"order": 4, "label": "DEVICE SETTINGS", "unit": "", "default": null},
-	"devices.screens": {"order": 5, "label": "Screens", "unit": "", "default": null},
-	"devices.screens.floor.enabled": {"order": 6, "label": "Floor projection", "unit": "", "default": false},
-	"devices.others": {"order": 7, "label": "Other devices", "unit": "", "default": null},
-	"devices.d_box.enabled": {"order": 8, "label": "D-Box", "unit": "", "default": false},
-	"devices.motors.enabled": {"order": 9, "label": "Motors", "unit": "", "default": false},
+	"overlays.debug.enabled": {"order": 4, "label": "Debug", "unit": "", "default": false},
+	"devices": {"order": 5, "label": "DEVICE SETTINGS", "unit": "", "default": null},
+	"devices.screens": {"order": 6, "label": "Screens", "unit": "", "default": null},
+	"devices.screens.floor.enabled": {"order": 7, "label": "Floor projection", "unit": "", "default": false},
+	"devices.others": {"order": 8, "label": "Other devices", "unit": "", "default": null},
+	"devices.d_box.enabled": {"order": 9, "label": "D-Box", "unit": "", "default": false},
+	"devices.motors.enabled": {"order": 10, "label": "Motors", "unit": "", "default": false},
 }
 
 ## Overrides
