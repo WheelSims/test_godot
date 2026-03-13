@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://cctnfvdwdceio" path="res://games/races/common_objects/arch/start_line.tscn" id="5_7pb3g"]
 [ext_resource type="PackedScene" uid="uid://d4dm6lh1tu5fw" path="res://games/races/common_objects/crowd/crowd.tscn" id="5_8r2kh"]
 [ext_resource type="PackedScene" uid="uid://cr3xh7scx7rpn" path="res://games/races/obstacle_race/game/game.tscn" id="6_bugko"]
+[ext_resource type="AudioStream" uid="uid://cu8nnids6jdsc" path="res://sounds/sounds/sound_effects/success_victory/coin-grab-sound-effect.wav" id="6_dex0t"]
 
 [node name="obstacle_race_main" type="Node3D" unique_id=1913311282]
 script = ExtResource("1_rnfno")
@@ -15,6 +16,7 @@ start_line = ExtResource("5_7pb3g")
 challenge_area = ExtResource("4_5bi0x")
 
 [node name="game" parent="." unique_id=450303502 instance=ExtResource("6_bugko")]
+challenge_success_sound = ExtResource("6_dex0t")
 
 [node name="start_line" parent="." unique_id=1576993862 instance=ExtResource("4_ogs1q")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
