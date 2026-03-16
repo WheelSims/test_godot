@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://dfasgoq5uffxd" path="res://objects/humans/kate/Kate_Ch21_1002_Normal.png" id="6_dlro4"]
 [ext_resource type="PackedScene" uid="uid://iro5eqatb6du" path="res://objects/humans/walking_human.tscn" id="7_7d4f3"]
 
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_m38us"]
 resource_name = "Ch21_body"
 cull_mode = 2

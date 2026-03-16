@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://bg2a6m8054t5p" path="res://objects/humans/walking_human.gd" id="1_qp07t"]
 [ext_resource type="AudioStream" uid="uid://dlnvr8lliaygl" path="res://sounds/sounds/human_sounds/StepWalk-01.wav" id="2_gxmet"]
 
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_f65ib"]
 size = Vector3(0.536499, 1, 0.695557)
 

@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://dp7bs28bhonax" path="res://objects/street/textures/hand_symbol.png" id="4_rbcks"]
 [ext_resource type="PackedScene" uid="uid://dn2luepc0xc6f" path="res://objects/street/fbx/trafficLightMainPoleSmall.fbx" id="5_rbcks"]
 
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_p5r03"]
 render_priority = 0
 shader = ExtResource("3_rbcks")

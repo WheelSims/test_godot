@@ -2,6 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://c7ps3obr5fcpy" path="res://objects/park/trees/textures/leafs.png" id="1_8j855"]
 
+
 [resource]
 resource_name = "leafs"
 transparency = 4

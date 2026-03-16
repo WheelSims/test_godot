@@ -3,6 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://bu5gtcnck6v1m" path="res://objects/park/trees/textures/bark001-color.jpg" id="1_jh4hp"]
 [ext_resource type="Texture2D" uid="uid://k4nvqgwyfmou" path="res://objects/park/trees/textures/bark001-normal.jpg" id="2_jdgfc"]
 
+
 [resource]
 resource_name = "trunk"
 vertex_color_use_as_albedo = true

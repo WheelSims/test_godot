@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://781t7s1fvhnt" path="res://objects/park/trees/fbx/tree.fbx" id="1_6ndoc"]
 
+
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_6ndoc"]
 radius = 1.82018
 height = 6.28184

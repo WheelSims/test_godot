@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://1pdh22u1yfs4" path="res://objects/sports/fbx/cone.fbx" id="1_teobp"]
 
+
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_teobp"]
 height = 0.39196777
 radius = 0.20019531

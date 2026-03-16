@@ -8,6 +8,7 @@
 [ext_resource type="Shader" uid="uid://b3qxxd21tkpnf" path="res://objects/street/materials/traffic_lights/emission_shader.tres" id="6_djgff"]
 [ext_resource type="PackedScene" uid="uid://cd4tgqtvjd3ex" path="res://objects/street/fbx/pedestrianPoleSupport.fbx" id="6_jg8u2"]
 
+
 [sub_resource type="VisualShaderNodeColorParameter" id="VisualShaderNodeColorParameter_djgff"]
 parameter_name = "MainColor"
 

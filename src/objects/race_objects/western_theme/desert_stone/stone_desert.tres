@@ -1,0 +1,12 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://c5ey31kx5xsgp"]
+
+[ext_resource type="Texture2D" uid="uid://fqmhe0s362r1" path="res://objects/race_objects/western_theme/desert_stone/texture/StoneDesert4_DefaultMaterial_BaseColor.png" id="1_b8lsb"]
+[ext_resource type="Texture2D" uid="uid://c8kfi026lbl7r" path="res://objects/race_objects/western_theme/desert_stone/texture/StoneDesert4_DefaultMaterial_OcclusionRoughnessMetallic.png" id="2_638u6"]
+[ext_resource type="Texture2D" uid="uid://bxpiin2hg763j" path="res://objects/race_objects/western_theme/desert_stone/texture/StoneDesert4_DefaultMaterial_Normal.png" id="3_uhos6"]
+
+[resource]
+albedo_texture = ExtResource("1_b8lsb")
+normal_enabled = true
+normal_texture = ExtResource("3_uhos6")
+ao_enabled = true
+ao_texture = ExtResource("2_638u6")

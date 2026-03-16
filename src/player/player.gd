@@ -3,7 +3,6 @@ extends RigidBody3D
 # ------------------
 # Editable constants
 # ------------------
-
 @export_group("Keyboard Control")
 @export var KB_LINEAR_SPEED: float = 2  # m/s
 @export var KB_ANGULAR_SPEED: float = 1  # rad/s
@@ -15,6 +14,17 @@ extends RigidBody3D
 @onready var floor_camera = get_node_or_null("floor_projector/floor_camera")
 @onready var front_camera_pose = get_node_or_null("front_camera_pose")
 @onready var floor_camera_pose := get_node_or_null("floor_camera_pose")
+
+# -----------------------
+# Current mode
+# -----------------------
+enum CurrentMode {
+	ONBOARDING = 0,
+	PLAYING = 1,
+	PAUSE = 2,
+	OFFBOARDING = 3
+}
+@onready var current_mode = CurrentMode.PLAYING
 
 # -----------------------
 # Custom nodes

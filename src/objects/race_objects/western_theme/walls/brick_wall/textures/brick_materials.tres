@@ -1,0 +1,23 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://0ppdfu4l5b5a"]
+
+[ext_resource type="Texture2D" uid="uid://lpxv7j0r3fv0" path="res://objects/race_objects/western_theme/walls/brick_wall/textures/bricks_old_smooth_mixed_base_color_with_ao.png" id="1_e6ulv"]
+[ext_resource type="Texture2D" uid="uid://losa4pk8tybw" path="res://objects/race_objects/western_theme/walls/brick_wall/textures/bricks_old_smooth_mixed_metallic.png" id="2_2nc3a"]
+[ext_resource type="Texture2D" uid="uid://vbfmdsejfjcy" path="res://objects/race_objects/western_theme/walls/brick_wall/textures/bricks_old_smooth_mixed_normal.png" id="3_d3vdk"]
+[ext_resource type="Texture2D" uid="uid://bx3kuyonlx51g" path="res://objects/race_objects/western_theme/walls/fence/textures/fence_default_material_roughness.png" id="4_o0y71"]
+
+
+[resource]
+albedo_texture = ExtResource("1_e6ulv")
+metallic = 1.0
+metallic_texture = ExtResource("2_2nc3a")
+roughness_texture = ExtResource("4_o0y71")
+roughness_texture_channel = 4
+normal_enabled = true
+normal_texture = ExtResource("3_d3vdk")
+ao_enabled = true
+ao_light_affect = 1.0
+ao_texture = ExtResource("1_e6ulv")
+uv1_scale = Vector3(0.5, 0.5, 0.5)
+uv1_triplanar = true
+uv1_world_triplanar = true
+point_size = 93.5

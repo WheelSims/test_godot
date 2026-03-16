@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://dhwgeneu81wwp" path="res://objects/street/fbx/trafficLightBulb.fbx" id="1_nuar2"]
 [ext_resource type="Material" uid="uid://d0uu7y1fh3lwk" path="res://objects/street/materials/traffic_lights/bulb_lights/traffic_light_bulb_green.tres" id="2_tfk3r"]
 
+
 [sub_resource type="ArrayMesh" id="ArrayMesh_f3suo"]
 _surfaces = [{
 "aabb": AABB(-0.108108, -0.108108, -3.8147e-07, 0.216217, 0.216217, 0.0460355),
