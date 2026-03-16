@@ -18,6 +18,7 @@ func _ready():
 
 func _process(_delta):
 
+	#print(_udp_receiver.get_available_packet_count())
 	if _udp_receiver.get_available_packet_count() > 0:  # We received something
 		if not _udp_receiver_connected:
 			_udp_receiver_connected = true
@@ -152,12 +153,12 @@ func unpack_rigid_body(_data, n_rigidbody):
 
 	var _current_frame = get_current_frame(data)
 	
-	#if _current_frame % 500 == 0:
-		#print("\n \n\nFRAME : ", _current_frame)
-		#print("id_num     : ", _id_num)
-		#print("pos        : ", _pos)
-		#print("rot        : ", _rot)
-		#print("error      : ", _error)
-		#print("tracked    : ", _tracked)
+	if _current_frame % 10 == 0:
+		print("\n \n\nFRAME : ", _current_frame)
+		print("id_num     : ", _id_num)
+		print("pos        : ", _pos)
+		print("rot        : ", _rot)
+		print("error      : ", _error)
+		print("tracked    : ", _tracked)
 	
 	return [_id_num, _pos, _rot, _error, _tracked]
