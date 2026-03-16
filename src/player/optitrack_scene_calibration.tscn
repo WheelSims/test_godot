@@ -1,0 +1,465 @@
+[gd_scene load_steps=20 format=3 uid="uid://bm1b5ewq26kcl"]
+
+[ext_resource type="Script" uid="uid://dp5igd388f83o" path="res://player/optitrack.gd" id="1_6k3nw"]
+[ext_resource type="PackedScene" uid="uid://d1h6dmenb6ogv" path="res://objects/wheelchair/rear_wheel_left.tscn" id="2_lw5vx"]
+[ext_resource type="PackedScene" uid="uid://dcbevbvmugl3f" path="res://objects/wheelchair/rear_wheel_right.tscn" id="2_x1op5"]
+[ext_resource type="PackedScene" uid="uid://bcfu5sx4m6hm3" path="res://objects/wheelchair/angle_contact.tscn" id="3_x1op5"]
+[ext_resource type="PackedScene" uid="uid://ds06t01fw7lcb" path="res://objects/wheelchair/handrim.tscn" id="4_khvi7"]
+
+[sub_resource type="GDScript" id="GDScript_m28wg"]
+script/source = "extends Node3D
+
+
+# Wheelchair variables
+@export_group(\"Wheels\")
+
+@export_subgroup(\"Wheel Left\")
+@export var position_wheel_l = Vector3(-0.3, 0, 0)
+@export var orientation_wheel_l = Quaternion(0, 0, 0, 1)
+@export var radius_wheel_l = 0.61
+@export var visibled_wheel_l = true
+@export var visibled_handrim_l = false
+@export var visibled_angle_contact_l = true
+
+@export_subgroup(\"Wheel Right\")
+@export var position_wheel_r = Vector3(0.3, 0, 0)
+@export var orientation_wheel_r = Quaternion(0, 0, 0, 1)
+@export var radius_wheel_r = 0.61
+@export var visibled_wheel_r = true
+@export var visibled_handrim_r = false
+@export var visibled_angle_contact_r = true
+
+# Bridge Godot to Python variables
+var PYTHON_IP = \"127.0.0.1\"
+var PYTHON_PORT = 4243
+var UDP_RECEIVE_PORT: int = 4242
+var _udp_receiver = PacketPeerUDP.new()
+var _udp_receiver_connected = false
+var data
+
+
+func _ready() -> void:
+	
+	_udp_receiver.bind(UDP_RECEIVE_PORT)
+
+
+func _process(_delta):
+	
+	update_wheelchair()
+	_receive_data()
+	pass
+
+
+func update_wheelchair():
+	
+	$wheel_left.scale = Vector3(-1/radius_wheel_l*0.2+1, radius_wheel_l, radius_wheel_l)
+	$wheel_left.position = position_wheel_l
+	$wheel_left.quaternion = orientation_wheel_l
+	$wheel_left.visible = visibled_wheel_l
+	
+	$wheel_left/angle_contact_left.visible = visibled_angle_contact_l
+	$wheel_left/handrim_left.visible = visibled_handrim_l
+	
+
+	$wheel_right.scale = Vector3(-1/radius_wheel_r*0.2+1, radius_wheel_r, radius_wheel_r)
+	$wheel_right.position = position_wheel_r
+	$wheel_right.quaternion = orientation_wheel_r
+	$wheel_right.visible = visibled_wheel_r
+	
+	$wheel_right/angle_contact_right.visible = visibled_angle_contact_r
+	$wheel_right/handrim_right.visible = visibled_handrim_r		
+
+
+# Listening Python response
+func _receive_data():
+	
+	if _udp_receiver.get_available_packet_count() > 0:  # We received something
+		if not _udp_receiver_connected:
+			_udp_receiver_connected = true	
+			print(\"System Optitrack connected.\")
+				
+		data = _udp_receiver.get_packet()
+		# Discard everything until the very last packet we received
+		while _udp_receiver.get_available_packet_count() > 0:
+			data = _udp_receiver.get_packet()
+		
+		var json_string = data.get_string_from_utf8()
+		var json = JSON.new()  
+		json.parse(json_string)
+		
+		data = json.get_data()
+		print(\"response received : \", data)
+
+# Bridge functions UDP : Godot to Python
+func _send_request(_request):
+
+	var message_utf8 = _request.to_utf8_buffer()
+	
+	_udp_receiver.set_dest_address(PYTHON_IP, PYTHON_PORT)
+	
+	var err = _udp_receiver.put_packet(message_utf8)
+	if err == OK:
+		print(\"\\nrequest sent to python : \", _request)
+	else:
+		print(\"Erreur d'envoi\")
+
+# Test function to send request to Python
+func _input(event):
+	if event.is_action_pressed(\"ui_accept\"):
+		var request = '{\"command\": \"fonction_2\"}'
+		_send_request(request)
+"
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_2eqg6"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_t5akv"]
+sky_material = SubResource("ProceduralSkyMaterial_2eqg6")
+
+[sub_resource type="Environment" id="Environment_v8td8"]
+background_mode = 2
+sky = SubResource("Sky_t5akv")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_2eqg6"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_v8td8"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_s5aml"]
+
+[sub_resource type="GDScript" id="GDScript_6k3nw"]
+script/source = "extends Node3D
+
+
+func _ready() -> void:
+	pass
+
+
+func _process(_delta):
+	
+	var pos_hand_tracked = $\"../optitrack/rigid_body_0\".position
+	var pos_wheel_center = $\"../optitrack/rigid_body_3\".position
+	
+	var pos_hand = pos_hand_tracked - pos_wheel_center
+	
+	var pos_wheel_right = $\"../wheel_right\".position
+	self.position = Vector3(pos_hand[2]+pos_wheel_right[0]-0.1, pos_hand[1], -pos_hand[0])
+	
+	pass
+"
+
+[sub_resource type="GDScript" id="GDScript_kwtud"]
+script/source = "extends Node3D
+
+
+func _ready() -> void:
+	pass
+
+
+func _process(_delta):
+	
+	var pos_hand_tracked = $\"../optitrack/rigid_body_1\".position
+	var pos_wheel_center = $\"../optitrack/rigid_body_3\".position
+	
+	var pos_hand = pos_hand_tracked - pos_wheel_center
+	
+	var pos_wheel_right = $\"../wheel_left\".position
+	self.position = Vector3(pos_hand[2]+pos_wheel_right[0], pos_hand[1], -pos_hand[0])
+	
+	pass
+"
+
+[sub_resource type="GDScript" id="GDScript_mr3hu"]
+script/source = "extends Node3D
+
+
+
+func _ready() -> void:
+	pass 
+
+
+
+func _process(_delta):
+	
+	var wheel_velocity = $\"../../optitrack/rigid_body_3\".rotation[2]
+	
+	self.rotation = Vector3(wheel_velocity, 0, 0)
+	pass
+"
+
+[sub_resource type="GDScript" id="GDScript_6lo62"]
+script/source = "extends Node3D
+
+
+
+func _ready() -> void:
+	pass
+
+
+
+func _process(_delta):
+	#self.position = $\"../optitrack/rigid_body_3\".position
+	
+	#var rot_1 = $\"../optitrack/rigid_body_3\".rotation[0]
+	#var rot_2 = $\"../optitrack/rigid_body_3\".rotation[1]
+	#var rot_3 = $\"../optitrack/rigid_body_3\".rotation[2]
+	#
+	#self.rotation = Vector3(rot_3, 0, 0)
+	pass
+"
+
+[sub_resource type="Gradient" id="Gradient_6k3nw"]
+colors = PackedColorArray(1, 0, 0, 0, 1, 0, 0, 1)
+
+[sub_resource type="GDScript" id="GDScript_x1op5"]
+script/source = "extends Line2D
+
+var _points = PackedVector2Array([Vector2(12, 34), Vector2(56, 78)])
+var i = 0
+var frame_limit = 100
+
+
+func _ready() -> void:
+	pass
+
+
+
+func _process(_delta):
+	
+	var pos_hand = $\"../hand_right\".position
+	var factor = 200
+	
+	if i > frame_limit:
+
+		_points.remove_at(0)
+		_points.append(Vector2(-pos_hand[2]*factor, -pos_hand[1]*factor))
+		pass
+	else:
+		_points.append(Vector2(-pos_hand[2]*factor, -pos_hand[1]*factor))
+	points = _points
+	i += 1
+	
+	pass
+"
+
+[sub_resource type="GDScript" id="GDScript_khvi7"]
+script/source = "extends Line2D
+
+var _points = PackedVector2Array([Vector2(12, 34), Vector2(56, 78)])
+var i = 0
+var frame_limit = 400
+
+
+func _ready() -> void:
+	pass
+
+
+
+func _process(_delta):
+	
+	var pos_hand = $\"../hand_left\".position
+	var factor = 200
+	
+	if i > frame_limit:
+
+		_points.remove_at(0)
+		_points.append(Vector2(-pos_hand[2]*factor, -pos_hand[1]*factor))
+		pass
+	else:
+		_points.append(Vector2(-pos_hand[2]*factor, -pos_hand[1]*factor))
+	points = _points
+	i += 1
+	
+	pass
+"
+
+[node name="StreamingOptitrack" type="Node3D"]
+script = SubResource("GDScript_m28wg")
+orientation_wheel_l = Quaternion(0, -0.15, -0.2, 1)
+orientation_wheel_r = Quaternion(0, 0.085, 0.155, 1)
+
+[node name="Camera_Iso" type="Camera3D" parent="."]
+transform = Transform3D(0.90107703, -0.14832014, 0.40750626, 0, 0.9396926, 0.34202012, -0.4336591, -0.30818647, 0.8467354, 0.723, 0.68, 1.458)
+fov = 45.0
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_v8td8")
+
+[node name="optitrack" type="Node3D" parent="."]
+script = ExtResource("1_6k3nw")
+
+[node name="rigid_body_0" type="Node3D" parent="optitrack"]
+visible = false
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="optitrack/rigid_body_0"]
+transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0, 0)
+mesh = SubResource("BoxMesh_2eqg6")
+skeleton = NodePath("../..")
+
+[node name="rigid_body_1" type="Node3D" parent="optitrack"]
+visible = false
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="optitrack/rigid_body_1"]
+transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0, 0)
+mesh = SubResource("BoxMesh_v8td8")
+skeleton = NodePath("../..")
+
+[node name="rigid_body_2" type="Node3D" parent="optitrack"]
+visible = false
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="optitrack/rigid_body_2"]
+transform = Transform3D(0.4, 0, 0, 0, 0.5, 0, 0, 0, 0.3, 0, 0, 0)
+mesh = SubResource("BoxMesh_2eqg6")
+skeleton = NodePath("../..")
+
+[node name="rigid_body_3" type="Node3D" parent="optitrack"]
+visible = false
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="optitrack/rigid_body_3"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+mesh = SubResource("CylinderMesh_s5aml")
+skeleton = NodePath("../..")
+
+[node name="hand_right" type="Node3D" parent="."]
+visible = false
+script = SubResource("GDScript_6k3nw")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="hand_right"]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+layers = 4
+mesh = SubResource("BoxMesh_2eqg6")
+skeleton = NodePath("../../optitrack")
+
+[node name="hand_left" type="Node3D" parent="."]
+visible = false
+script = SubResource("GDScript_kwtud")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="hand_left"]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+layers = 2
+mesh = SubResource("BoxMesh_2eqg6")
+skeleton = NodePath("../../optitrack")
+
+[node name="wheel_right" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, 0, 0)
+
+[node name="rear_wheel_right" parent="wheel_right" instance=ExtResource("2_x1op5")]
+script = SubResource("GDScript_mr3hu")
+
+[node name="angle_contact_right" parent="wheel_right" instance=ExtResource("3_x1op5")]
+
+[node name="Circle" parent="wheel_right/angle_contact_right/angle_contact" index="0"]
+layers = 4
+
+[node name="handrim_right" parent="wheel_right" instance=ExtResource("4_khvi7")]
+
+[node name="BézierCircle_003" parent="wheel_right/handrim_right/handrim" index="0"]
+layers = 5
+
+[node name="camera_offset_right" type="Node3D" parent="wheel_right"]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 1, 0, 0)
+
+[node name="RemoteTransform3D" type="RemoteTransform3D" parent="wheel_right/camera_offset_right"]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0, 0)
+remote_path = NodePath("../../../view_wheel_right/SubViewport/Camera_Right")
+
+[node name="wheel_left" type="Node3D" parent="."]
+visible = false
+
+[node name="rear_wheel_left" parent="wheel_left" instance=ExtResource("2_lw5vx")]
+script = SubResource("GDScript_6lo62")
+
+[node name="angle_contact_left" parent="wheel_left" instance=ExtResource("3_x1op5")]
+
+[node name="Circle" parent="wheel_left/angle_contact_left/angle_contact" index="0"]
+layers = 2
+
+[node name="handrim_left" parent="wheel_left" instance=ExtResource("4_khvi7")]
+
+[node name="BézierCircle_003" parent="wheel_left/handrim_left/handrim" index="0"]
+layers = 2
+
+[node name="camera_offset_left" type="Node3D" parent="wheel_left"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0)
+
+[node name="RemoteTransform3D" type="RemoteTransform3D" parent="wheel_left/camera_offset_left"]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0, 0)
+remote_path = NodePath("../../../view_wheel_left/SubViewport/Camera_Left")
+
+[node name="view_wheel_right" type="SubViewportContainer" parent="."]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -260.0
+offset_top = 50.0
+offset_right = 252.0
+offset_bottom = 562.0
+grow_horizontal = 0
+scale = Vector2(0.5, 0.5)
+
+[node name="SubViewport" type="SubViewport" parent="view_wheel_right"]
+transparent_bg = true
+handle_input_locally = false
+render_target_update_mode = 4
+
+[node name="Camera_Right" type="Camera3D" parent="view_wheel_right/SubViewport"]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 1.3, 0, 0)
+cull_mask = 1047556
+projection = 1
+fov = 45.0
+
+[node name="view_wheel_left" type="SubViewportContainer" parent="."]
+offset_top = 50.0
+offset_right = 512.0
+offset_bottom = 562.0
+scale = Vector2(0.5, 0.5)
+
+[node name="SubViewport" type="SubViewport" parent="view_wheel_left"]
+transparent_bg = true
+handle_input_locally = false
+render_target_update_mode = 4
+
+[node name="Camera_Left" type="Camera3D" parent="view_wheel_left/SubViewport"]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -1, 0, 0)
+cull_mask = 1047554
+projection = 1
+fov = 45.0
+
+[node name="trail_hand_right" type="Line2D" parent="."]
+position = Vector2(950, 155)
+points = PackedVector2Array(0, 0, 50, 0)
+width = 5.0
+default_color = Color(1, 0, 0, 1)
+gradient = SubResource("Gradient_6k3nw")
+joint_mode = 1
+begin_cap_mode = 2
+end_cap_mode = 2
+sharp_limit = 200.0
+script = SubResource("GDScript_x1op5")
+
+[node name="trail_hand_left" type="Line2D" parent="."]
+position = Vector2(130, 155)
+points = PackedVector2Array(0, 0, 50, 0)
+width = 5.0
+default_color = Color(1, 0, 0, 1)
+gradient = SubResource("Gradient_6k3nw")
+joint_mode = 1
+begin_cap_mode = 2
+end_cap_mode = 2
+sharp_limit = 200.0
+script = SubResource("GDScript_khvi7")
+
+[editable path="wheel_right/angle_contact_right"]
+[editable path="wheel_right/angle_contact_right/angle_contact"]
+[editable path="wheel_right/handrim_right"]
+[editable path="wheel_right/handrim_right/handrim"]
+[editable path="wheel_left/angle_contact_left"]
+[editable path="wheel_left/angle_contact_left/angle_contact"]
+[editable path="wheel_left/handrim_left"]
+[editable path="wheel_left/handrim_left/handrim"]

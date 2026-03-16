@@ -17,7 +17,7 @@ func _ready():
 	_udp_receiver.bind(UDP_RECEIVE_PORT)
 
 func _process(_delta):
-	
+
 	if _udp_receiver.get_available_packet_count() > 0:  # We received something
 		if not _udp_receiver_connected:
 			_udp_receiver_connected = true
@@ -37,7 +37,6 @@ func _process(_delta):
 		unlabeled_markers_count = get_unlabeled_markers_count(data)
 		rigid_body_count = get_rigid_body_count(data)
 
-
 		# Transmission des positions et orientations à chaque rigibody
 		for i in range(4): ## nombre de rigidbody enfants écrit en clair pour l'instant
 			if i+1 > rigid_body_count: # s'il y a trop de nodes 3D que de rigibodies détectés
@@ -54,7 +53,7 @@ func _process(_delta):
 				self.get_node("rigid_body_" + str(i)).quaternion = rot
 
 				# Erreur moyenne de la position
-				var _mean_error = result[3] 
+				var _mean_error = result[3]
 
 				# Couleur rouge si le rigidbody n'est plus détecté
 				var tracked = result[4]
@@ -147,17 +146,18 @@ func unpack_rigid_body(_data, n_rigidbody):
 	offset += 4
 	
 	
-	# Etat booléen si le marqueur est visible par les caméras
+	# Etat booléen : 1 si le marqueur est visible par les caméras
 	var _tracked = PackedByteArray(_data.slice(offset , offset+2)).decode_s16(0)
 	offset += 2
 
 	var _current_frame = get_current_frame(data)
-	if current_frame % 25 == 0:
-		print("\n \n\nFRAME : ", current_frame)
-		print("id_num     : ", _id_num)
-		print("pos        : ", _pos)
-		print("rot        : ", _rot)
-		print("error      : ", _error)
-		print("tracked    : ", _tracked)
+	
+	#if _current_frame % 500 == 0:
+		#print("\n \n\nFRAME : ", _current_frame)
+		#print("id_num     : ", _id_num)
+		#print("pos        : ", _pos)
+		#print("rot        : ", _rot)
+		#print("error      : ", _error)
+		#print("tracked    : ", _tracked)
 	
 	return [_id_num, _pos, _rot, _error, _tracked]

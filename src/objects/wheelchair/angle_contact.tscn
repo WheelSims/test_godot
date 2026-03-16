@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://bcfu5sx4m6hm3"]
+
+[ext_resource type="PackedScene" uid="uid://df3dlxmqbldsl" path="res://objects/wheelchair/fbx/angle_contact.fbx" id="1_gdqko"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="angle_contact" parent="." instance=ExtResource("1_gdqko")]
