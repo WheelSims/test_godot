@@ -33,10 +33,12 @@ var _old_is_rear_collision: bool = false
 func _ready() -> void:
 	_udp_receiver.bind(UDP_RECEIVE_PORT)
 	_udp_sender.connect_to_host(UDP_SEND_IP, UDP_SEND_PORT)
+	send_data(0, hardware_enabled, 0.0, 0.0)
 	get_tree().set_auto_accept_quit(false)  # to send hw_enable false on quit
 
 func _process(delta: float) -> void:
 	if main.player:
+		hardware_enabled = true
 		if main.player.mass != _old_mass:
 			send_data(1, hardware_enabled, main.player.mass, 0)
 			_old_mass = main.player.mass
@@ -49,6 +51,13 @@ func _process(delta: float) -> void:
 		if main.player.is_rear_collision != _old_is_rear_collision:
 			_update_friction()
 			_old_is_rear_collision = main.player.is_rear_collision
+		receive()
+
+	else:
+		hardware_enabled = false
+
+	# Just send the hardware enable continuously
+	send_data(0, hardware_enabled, 0, 0)
 	
 	if not main.config.get_value("devices.motorized_rollers.enabled"):
 		queue_free()
@@ -86,9 +95,7 @@ func _update_friction():
 
 func receive() -> void:
 	if _udp_receiver.get_available_packet_count() > 0:  # We received something
-		if not _udp_receiver_connected:
-			_udp_receiver_connected = true
-			print("Motors connected.")
+		_udp_receiver_connected = true
 		var array_bytes = _udp_receiver.get_packet()
 		
 		# Discard everything until the very last packet we received
@@ -100,8 +107,9 @@ func receive() -> void:
 		var cmd = (header / 2**16) % 2**12
 		stopped = header % 2**1
 
-		linear_velocity = float(array_bytes.decode_double(4))
-		angular_velocity = float(array_bytes.decode_double(12))
+		if main.player:
+			main.player.set_linear_speed(float(array_bytes.decode_double(4)))
+			main.player.set_angular_speed(float(array_bytes.decode_double(12)))
 
 func send_data(cmd, enable, arg1, arg2) -> void:
 	var bytes = PackedByteArray()
@@ -115,3 +123,6 @@ func send_data(cmd, enable, arg1, arg2) -> void:
 func _on_tree_exiting() -> void:
 	hardware_enabled = 0
 	send_data(1, hardware_enabled, 70, 0)
+	if main.player:
+		main.player.set_linear_speed(0.0)
+		main.player.set_angular_speed(0.0)

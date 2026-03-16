@@ -10,7 +10,7 @@ func _process(delta):
 	
 	# Player information
 	if main.player:
-		text += str(main.player.get_linear_speed()) + " m/s\n"
+		text += "%0.2f m/s\n" % main.player.get_linear_speed()
 	else:
 		text += "No player loaded.\n"
 	

@@ -188,4 +188,6 @@ func _process(delta: float) -> void:
 	old_position = player_position
 	old_rotation = player_rotation
 	
+	if not main.config.get_value("devices.d_box.enabled"):
+		queue_free()
 	
