@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://f24s3bar65fp"]
+
+[ext_resource type="Script" uid="uid://do2xtwpvsgva5" path="res://overlays/debug.gd" id="1_fgs0b"]
+
+[node name="debug" type="Control" unique_id=745834829 node_paths=PackedStringArray("label")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_fgs0b")
+label = NodePath("label")
+
+[node name="label" type="Label" parent="." unique_id=2068289882]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 8.0
+offset_right = 5.0
+offset_bottom = 31.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5

@@ -1,4 +1,7 @@
 extends RigidBody3D
+class_name Player
+
+@onready var main: Node = get_tree().get_root().get_node("main")
 
 # ------------------
 # Editable constants
@@ -8,31 +11,25 @@ extends RigidBody3D
 @export var KB_ANGULAR_SPEED: float = 1  # rad/s
 
 # -----------------------
-# Cameras
-# -----------------------
-@onready var front_camera = get_node_or_null("front_projector/front_camera")
-@onready var floor_camera = get_node_or_null("floor_projector/floor_camera")
-@onready var front_camera_pose = get_node_or_null("front_camera_pose")
-@onready var floor_camera_pose := get_node_or_null("floor_camera_pose")
-
-# -----------------------
-# Current mode
-# -----------------------
-enum CurrentMode {
-	ONBOARDING = 0,
-	PLAYING = 1,
-	PAUSE = 2,
-	OFFBOARDING = 3
-}
-@onready var current_mode = CurrentMode.PLAYING
-
-# -----------------------
 # Custom nodes
 # -----------------------
 @onready var motors = get_node_or_null("motors")
 @onready var player_text_node: Label = get_node_or_null(
-	"front_projector/ui/player_text"
+	"ui/player_text"
 )
+
+# -----------------------
+# Current velocity
+# -----------------------
+var _device_linear_velocity: float = 0.0
+var _device_angular_velocity: float = 0.0
+var _keyboard_linear_velocity: float = 0.0
+var _keyboard_angular_velocity: float = 0.0
+
+# -----------------------
+# Check for value updates
+# -----------------------
+@onready var _old_mass: float = mass
 
 # -----------------------
 # Dynamics/collisions
@@ -50,38 +47,52 @@ var _n_foot_obstacle = 0
 #Access to race_manager
 var race_manager: RaceManager = null
 
+
+# -----------------------
+# Public functions
+# -----------------------
+## Return linear speed set by device + keyboard
+func get_linear_speed():
+	return _device_linear_velocity + _keyboard_linear_velocity
+
+## Return linear speed set by device + keyboard
+func get_angular_speed():
+	return _device_angular_velocity + _keyboard_linear_velocity
+
+## Set linear speed from device
+func set_linear_speed(value: float):
+	_device_linear_velocity = value
+	
+## Set angular speed from device
+func set_angular_speed(value: float):
+	_device_angular_velocity = value
+
+
 # -----------------------
 # Godot lifecycle
 # -----------------------
 func _ready():
 	pass
 
-func _process(_delta):
-	if front_camera_pose:
-		front_camera.global_transform = front_camera_pose.global_transform
-	if floor_camera_pose and floor_camera:
-		floor_camera.global_transform = floor_camera_pose.global_transform
+func _process(delta):
+	if main:
+		if main.config.get_value("player.mass") != _old_mass:
+			mass = main.config.get_value("player.mass")
+			_old_mass = mass
+			print(mass)
 
 func _physics_process(delta: float) -> void:
-	var desired_linear_velocity := 0.0
-	var desired_angular_velocity := 0.0
+	var desired_linear_velocity := _device_linear_velocity
+	var desired_angular_velocity := _device_angular_velocity
 	
 	# Keyboard navigation
-	var keyboard_desired_velocities = get_keyboard_velocities()
-	desired_linear_velocity += keyboard_desired_velocities[0]
-	desired_angular_velocity += keyboard_desired_velocities[1]
+	read_keyboard_velocities()
+	desired_linear_velocity += _keyboard_linear_velocity
+	desired_angular_velocity += _keyboard_angular_velocity
 	
 	#Other inputs (esc)
 	inputs()
 	
-	# Rollers navigation
-	if motors != null:
-		motors.receive()
-		
-		desired_linear_velocity += motors.linear_velocity
-		desired_angular_velocity += motors.angular_velocity
-
-	# Appliquer les mouvements
 	if (
 		(desired_linear_velocity >= 0 and not is_front_collision)
 		or (desired_linear_velocity <= 0 and not is_rear_collision)
@@ -89,19 +100,11 @@ func _physics_process(delta: float) -> void:
 		translate(Vector3(0, 0, -1) * desired_linear_velocity * delta)
 	rotate(Vector3.UP, desired_angular_velocity * delta)
 
-	# Affichage vitesse
-	if motors and player_text_node:
-		var text: String
-		if motors.stopped:
-			text = "\nMotors OFF"
-		else:
-			text = str(abs(desired_linear_velocity)).pad_decimals(1) + " m/s"
-		set_player_text(text)
 
 # -----------------------
-# Fonctions auxiliaires
+# Other functions
 # -----------------------
-func get_keyboard_velocities() -> Array[float]:
+func read_keyboard_velocities():
 	var linear := 0.0
 	var angular := 0.0
 
@@ -113,17 +116,14 @@ func get_keyboard_velocities() -> Array[float]:
 		angular += KB_ANGULAR_SPEED
 	if Input.is_action_pressed("ui_right"):
 		angular -= KB_ANGULAR_SPEED
-		
-	return [linear, angular]
+
+	_keyboard_linear_velocity = linear
+	_keyboard_angular_velocity = angular
+	
 	
 func inputs()->void:
 	if Input.is_action_just_pressed("ui_cancel") and race_manager:
 		race_manager.pause_command()
-
-func set_player_text(text: String):
-	if player_text_node:
-		player_text_node.text = text
-		
 
 func _on_obstacle_colliders_body_shape_entered(body_rid: RID, body: Node3D, body_shape_index: int, local_shape_index: int) -> void:
 	if body.get_groups().is_empty() and  body is not Surface:

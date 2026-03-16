@@ -40,10 +40,11 @@ shadow_mesh = SubResource("ArrayMesh_utrdp")
 [sub_resource type="BoxShape3D" id="BoxShape3D_y8wwd"]
 size = Vector3(4.50698, 5.0174, 0.502869)
 
-[node name="fence" type="Node3D" unique_id=726337448 node_paths=PackedStringArray("visual_instance", "collision_shape")]
+[node name="fence" type="Node3D" unique_id=726337448 node_paths=PackedStringArray("visual_instance", "collision_shape", "area3D")]
 script = ExtResource("2_joa5a")
 visual_instance = NodePath("wire fence")
 collision_shape = NodePath("wire fence/StaticBody3D/CollisionShape3D")
+area3D = NodePath("wire fence/StaticBody3D/Area3D")
 
 [node name="wire fence" type="MeshInstance3D" parent="." unique_id=1528583590]
 transform = Transform3D(-1.96701e-08, 0, 0.45, 0, 0.45, 0, -0.45, 0, -1.96701e-08, 0, 1.693, 0)
@@ -53,5 +54,11 @@ skeleton = NodePath("")
 [node name="StaticBody3D" type="StaticBody3D" parent="wire fence" unique_id=203588673]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="wire fence/StaticBody3D" unique_id=725878407]
+transform = Transform3D(1, 0, -1.77636e-14, 0, 1, 0, 1.77636e-14, 0, 1, -0.00799966, -1.24002, 0.0290833)
+shape = SubResource("BoxShape3D_y8wwd")
+
+[node name="Area3D" type="Area3D" parent="wire fence/StaticBody3D" unique_id=240601331]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="wire fence/StaticBody3D/Area3D" unique_id=1601203465]
 transform = Transform3D(1, 0, -1.77636e-14, 0, 1, 0, 1.77636e-14, 0, 1, -0.00799966, -1.24002, 0.0290833)
 shape = SubResource("BoxShape3D_y8wwd")

@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://hnxp88a0five"]
+
+[ext_resource type="Script" uid="uid://cn4e2xmcav5ft" path="res://games/races/obstacle_race/generator/scripts/obstacle_race_generator.gd" id="1_rnfno"]
+[ext_resource type="PackedScene" uid="uid://chmobfkl5px2n" path="res://games/races/obstacle_race/game/challenge_area.tscn" id="4_5bi0x"]
+[ext_resource type="PackedScene" uid="uid://c4jen6mmu7mgu" path="res://games/races/common_objects/arch/finish_line.tscn" id="4_nl003"]
+[ext_resource type="PackedScene" uid="uid://bqcqt6d3sec64" path="res://games/races/common_objects/arch/start_line.glb" id="4_ogs1q"]
+[ext_resource type="PackedScene" uid="uid://cctnfvdwdceio" path="res://games/races/common_objects/arch/start_line.tscn" id="5_7pb3g"]
+[ext_resource type="PackedScene" uid="uid://d4dm6lh1tu5fw" path="res://games/races/common_objects/crowd/crowd.tscn" id="5_8r2kh"]
+[ext_resource type="PackedScene" uid="uid://cr3xh7scx7rpn" path="res://games/races/obstacle_race/game/game.tscn" id="6_bugko"]
+[ext_resource type="AudioStream" uid="uid://cu8nnids6jdsc" path="res://sounds/sounds/sound_effects/success_victory/coin-grab-sound-effect.wav" id="6_dex0t"]
+
+[node name="obstacle_race_generator" type="Node3D" unique_id=1913311282]
+script = ExtResource("1_rnfno")
+finish_line = ExtResource("4_nl003")
+start_line = ExtResource("5_7pb3g")
+challenge_area = ExtResource("4_5bi0x")
+
+[node name="game" parent="." unique_id=450303502 instance=ExtResource("6_bugko")]
+challenge_success_sound = ExtResource("6_dex0t")
+
+[node name="start_line" parent="." unique_id=1576993862 instance=ExtResource("4_ogs1q")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
+
+[node name="Crowd" parent="start_line" unique_id=1097236757 instance=ExtResource("5_8r2kh")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -7.053, 0, -3.309)
+
+[node name="Crowd2" parent="start_line" unique_id=1102909474 instance=ExtResource("5_8r2kh")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 7.947, 0, -3.309)
