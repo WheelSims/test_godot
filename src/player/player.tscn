@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://biluq7vv8ghsm"]
 
 [ext_resource type="Script" uid="uid://bo3s2kc1arfun" path="res://player/player.gd" id="1_l8h54"]
-[ext_resource type="Script" uid="uid://da3tqctbq8isk" path="res://player/d_box.gd" id="3_muua7"]
 [ext_resource type="Material" uid="uid://c8m804jjd75fg" path="res://objects/street/materials/traffic_lights/bulb_lights/traffic_light_bulb_red.tres" id="4_gwnis"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_r3fl7"]
@@ -51,9 +50,6 @@ debug_color = Color(8.27849e-06, 0.774194, 0.900788, 0.42)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.1, -0.6)
 shape = SubResource("SphereShape3D_jka67")
 debug_color = Color(8.27849e-06, 0.774194, 0.900788, 0.42)
-
-[node name="d_box" type="Node3D" parent="." unique_id=2079163710]
-script = ExtResource("3_muua7")
 
 [node name="obstacle_colliders" type="Area3D" parent="." unique_id=1483317311]
 

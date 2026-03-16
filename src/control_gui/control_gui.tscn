@@ -113,33 +113,16 @@ theme_override_constants/h_separation = 50
 theme_override_constants/v_separation = 20
 columns = 2
 
-[node name="mode_and_settings_panel" type="VBoxContainer" parent="main_panel/margin_container/main_vbox_container/panels" unique_id=1194337723]
+[node name="settings_panel" type="VBoxContainer" parent="main_panel/margin_container/main_vbox_container/panels" unique_id=1194337723]
 layout_mode = 2
 
-[node name="mode_title" type="Label" parent="main_panel/margin_container/main_vbox_container/panels/mode_and_settings_panel" unique_id=1045950442]
-layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxFlat_21f17")
-text = "Mode"
-horizontal_alignment = 1
-
-[node name="onboard_button" type="Button" parent="main_panel/margin_container/main_vbox_container/panels/mode_and_settings_panel" unique_id=1185141915]
-layout_mode = 2
-text = "Onboard"
-
-[node name="play_button" type="Button" parent="main_panel/margin_container/main_vbox_container/panels/mode_and_settings_panel" unique_id=960937181]
-layout_mode = 2
-text = "Play"
-
-[node name="spacer" type="Label" parent="main_panel/margin_container/main_vbox_container/panels/mode_and_settings_panel" unique_id=1900096063]
-layout_mode = 2
-
-[node name="settings_title" type="Label" parent="main_panel/margin_container/main_vbox_container/panels/mode_and_settings_panel" unique_id=536903272]
+[node name="settings_title" type="Label" parent="main_panel/margin_container/main_vbox_container/panels/settings_panel" unique_id=536903272]
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_21f17")
 text = "Settings"
 horizontal_alignment = 1
 
-[node name="settings_list" type="VBoxContainer" parent="main_panel/margin_container/main_vbox_container/panels/mode_and_settings_panel" unique_id=1228794127]
+[node name="settings_list" type="VBoxContainer" parent="main_panel/margin_container/main_vbox_container/panels/settings_panel" unique_id=1228794127]
 layout_mode = 2
 size_flags_vertical = 3
 script = ExtResource("2_h5sux")
@@ -155,6 +138,4 @@ text = "Stop"
 
 [connection signal="tree_exited" from="." to="." method="_on_tree_exited"]
 [connection signal="tree_exiting" from="." to="." method="_on_tree_exiting"]
-[connection signal="pressed" from="main_panel/margin_container/main_vbox_container/panels/mode_and_settings_panel/onboard_button" to="." method="_on_onboard_button_pressed"]
-[connection signal="pressed" from="main_panel/margin_container/main_vbox_container/panels/mode_and_settings_panel/play_button" to="." method="_on_play_button_pressed"]
 [connection signal="pressed" from="main_panel/margin_container/main_vbox_container/stop_button" to="." method="_on_button_stop_pressed"]

@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://eg8crkfvfumy" path="res://devices/screens/screens.gd" id="4_1bvp3"]
 [ext_resource type="PackedScene" uid="uid://xwtfx6p27vlm" path="res://devices/motorized_rollers/motorized_rollers.tscn" id="4_5vw27"]
 [ext_resource type="PackedScene" uid="uid://f24s3bar65fp" path="res://overlays/debug.tscn" id="4_272bh"]
+[ext_resource type="PackedScene" uid="uid://ck2thoxwmsujy" path="res://devices/d_box/d_box.tscn" id="5_5vw27"]
 
 [sub_resource type="FontFile" id="FontFile_2x147"]
 subpixel_positioning = 0
@@ -59,6 +60,7 @@ available_overlays = Dictionary[String, PackedScene]({
 "overlays.speed_indicator.enabled": SubResource("PackedScene_7mycd")
 })
 available_devices = Dictionary[String, PackedScene]({
+"devices.d_box.enabled": ExtResource("5_5vw27"),
 "devices.motorized_rollers.enabled": ExtResource("4_5vw27")
 })
 

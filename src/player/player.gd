@@ -10,18 +10,6 @@ class_name Player
 @export var KB_LINEAR_SPEED: float = 2  # m/s
 @export var KB_ANGULAR_SPEED: float = 1  # rad/s
 
-
-# -----------------------
-# Current mode
-# -----------------------
-enum CurrentMode {
-	ONBOARDING = 0,
-	PLAYING = 1,
-	PAUSE = 2,
-	OFFBOARDING = 3
-}
-@onready var current_mode = CurrentMode.PLAYING
-
 # -----------------------
 # Custom nodes
 # -----------------------
