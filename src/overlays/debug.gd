@@ -21,10 +21,10 @@ func _process(delta):
 	
 	# Check if any device has something to tell
 	for node in main.get_children():
-		text += "Node %s: " % node.name
 		if "get_debug_text" in node:
+			text += "Node %s: " % node.name		
 			text += node.get_debug_text()
-		text += "\n"
+			text += "\n"
 	
 	label.text = text
 	
