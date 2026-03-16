@@ -182,7 +182,7 @@ func _process(delta: float) -> void:
 		7,
 		new_dbox_normalized_height + (height_noise * speed) - 1.0 + current_pause_play_status,
 		(-player_rotation.x / max_pitch_angle + (pitch_noise * speed)) * current_pause_play_status,
-		(-player_rotation.z / max_roll_angle + (roll_noise * speed)) * current_pause_play_status
+		(player_rotation.z / max_roll_angle + (roll_noise * speed)) * current_pause_play_status
 	)
 	
 	old_position = player_position
