@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://chmobfkl5px2n"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_5sq0i"]
+size = Vector3(0.5, 1, 1)
 
 [node name="ChallengeArea" type="Area3D" unique_id=1734212055]
 

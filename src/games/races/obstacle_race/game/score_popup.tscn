@@ -1,10 +1,12 @@
 [gd_scene format=3 uid="uid://wyeq87xnl78d"]
 
 [ext_resource type="Script" uid="uid://dvvd24n3iiwrf" path="res://games/races/obstacle_race/game/scripts/score_popup.gd" id="1_u5mmu"]
+[ext_resource type="FontFile" uid="uid://6gvtuocvhosd" path="res://ui/fonts/western_font/WEST____.ttf" id="2_eng7e"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_qg3sg"]
-font_size = 40
-font_color = Color(1.9492954e-06, 0.558773, 0.23708549, 1)
+font = ExtResource("2_eng7e")
+font_size = 80
+font_color = Color(0, 1, 0.23529412, 1)
 outline_size = 5
 outline_color = Color(0, 0, 0, 1)
 shadow_size = 0
@@ -19,8 +21,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_u5mmu")
-win_color = Color(0, 0.42524981, 0.0503449, 1)
-lose_color = Color(0.7686718, 0, 0.13367617, 1)
+win_color = Color(0, 1, 0.23529412, 1)
+lose_color = Color(1, 0, 0.13333334, 1)
 
 [node name="Label" type="Label" parent="." unique_id=1793073226]
 layout_mode = 1
