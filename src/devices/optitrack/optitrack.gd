@@ -13,10 +13,15 @@ var marker_set_count
 var unlabeled_markers_count
 var rigid_body_count
 
+var id_rigidbodies = {}
+var n_id = 0
+
 func _ready():
 	_udp_receiver.bind(UDP_RECEIVE_PORT)
 
 func _process(_delta):
+
+	
 
 	#print(_udp_receiver.get_available_packet_count())
 	if _udp_receiver.get_available_packet_count() > 0:  # We received something
@@ -38,6 +43,12 @@ func _process(_delta):
 		unlabeled_markers_count = get_unlabeled_markers_count(data)
 		rigid_body_count = get_rigid_body_count(data)
 
+		
+		# WIP
+		# recuperation de la position du centre de la roue dans le repere global a automatiser
+		var pos_center_wheel_right = Vector3(-0.602935, 0.39298, 0.039214)
+
+			
 		# Transmission des positions et orientations à chaque rigibody
 		for i in range(5): ## nombre de rigidbody enfants écrit en clair pour l'instant
 			if i+1 > rigid_body_count: # s'il y a trop de nodes 3D que de rigibodies détectés
@@ -52,6 +63,22 @@ func _process(_delta):
 				var rot = result[2] # Quaternion (x,y,z,w)
 				self.get_node("rigid_body_" + str(i)).position = pos
 				self.get_node("rigid_body_" + str(i)).quaternion = rot
+				
+				# WIP
+				var TS0 = get_transform_matrix_by_id(102)
+				if TS0 != null: 
+					var T0S = TS0.affine_inverse()
+					
+					var _pos_center_wheel_right = T0S.origin + T0S.basis * pos_center_wheel_right
+					
+					if id_rigidbodies[102] != "rigid_body_" + str(i):
+						# Objet_global → Objet_dans_repere_local
+						get_node("rigid_body_" + str(i)).global_transform =  T0S * get_node("rigid_body_" + str(i)).global_transform
+						
+						#get_node("rigid_body_" + str(i)).position -= _pos_center_wheel_right
+						if id_rigidbodies[102] != "rigid_body_" + str(i) and id_rigidbodies[302] != "rigid_body_" + str(i):
+							get_node("rigid_body_" + str(i)).position -= _pos_center_wheel_right 
+							get_node("rigid_body_" + str(i)).position += Vector3(0, 0, 0.3)
 
 				# Erreur moyenne de la position
 				var _mean_error = result[3]
@@ -150,9 +177,16 @@ func unpack_rigid_body(_data, n_rigidbody):
 	# Etat booléen : 1 si le marqueur est visible par les caméras
 	var _tracked = PackedByteArray(_data.slice(offset , offset+2)).decode_s16(0)
 	offset += 2
-
-	var _current_frame = get_current_frame(data)
 	
+	
+	# Ajouter les id dans un dictionnaire pour les faire correspondre aux rigidbodies
+	if _id_num not in id_rigidbodies:
+		id_rigidbodies[_id_num] = "rigid_body_" + str(n_id)
+		n_id += 1
+	
+	
+	# Afficher les informations dans la console
+	#var _current_frame = get_current_frame(data)
 	#if _current_frame % 10 == 0:
 		#print("\n \n\nFRAME : ", _current_frame)
 		#print("id_num     : ", _id_num)
@@ -162,3 +196,12 @@ func unpack_rigid_body(_data, n_rigidbody):
 		#print("tracked    : ", _tracked)
 	
 	return [_id_num, _pos, _rot, _error, _tracked]
+
+
+func get_position_by_id(id):
+	if id in id_rigidbodies:
+		return get_node(id_rigidbodies[id]).position
+
+func get_transform_matrix_by_id(id):
+	if id in id_rigidbodies:
+		return get_node(id_rigidbodies[id]).global_transform
