@@ -80,6 +80,8 @@ func _process(delta):
 			mass = main.config.get_value("player.mass")
 			_old_mass = mass
 			print(mass)
+		$camera.fov = main.config.get_value("player.camera.fov")
+		$camera.rotation.x = main.config.get_value("player.camera.angle") / 180 * PI
 
 func _physics_process(delta: float) -> void:
 	var desired_linear_velocity := _device_linear_velocity

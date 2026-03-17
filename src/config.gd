@@ -18,15 +18,18 @@ var _CONFIG_FILENAME = "user://config.json"
 var _defaults: Dictionary[String, Dictionary] = {
 	"player": {"order": 0, "label": "SIMULATED PARAMETERS", "unit": "", "default": null},
 	"player.mass": {"order": 1, "label": "User+wheelchair mass", "unit": "kg", "default": 70.0},
-	"overlays": {"order": 2, "label": "OVERLAYS", "unit": "", "default": null},
-	"overlays.speed_indicator.enabled": {"order": 3, "label": "Speed indicator", "unit": "", "default": true},
-	"overlays.debug.enabled": {"order": 4, "label": "Debug", "unit": "", "default": false},
-	"devices": {"order": 5, "label": "DEVICE SETTINGS", "unit": "", "default": null},
-	"devices.screens": {"order": 6, "label": "Screens", "unit": "", "default": null},
-	"devices.screens.single_screen.enabled": {"order": 7, "label": "Single screen", "unit": "", "default": true},
-	"devices.others": {"order": 8, "label": "Other devices", "unit": "", "default": null},
-	"devices.d_box.enabled": {"order": 9, "label": "D-Box", "unit": "", "default": false},
-	"devices.motorized_rollers.enabled": {"order": 10, "label": "Motorized rollers", "unit": "", "default": false},
+	"player.camera.fov": {"order": 2, "label": "Field of view", "unit": "deg", "default": 75.0},
+	"player.camera.angle": {"order": 3, "label": "Camera angle", "unit": "deg", "default": 0},
+	"overlays": {"order": 4, "label": "OVERLAYS", "unit": "", "default": null},
+	"overlays.speed_indicator.enabled": {"order": 5, "label": "Speed indicator", "unit": "", "default": true},
+	"overlays.debug.enabled": {"order": 6, "label": "Debug", "unit": "", "default": false},
+	"devices": {"order": 7, "label": "DEVICE SETTINGS", "unit": "", "default": null},
+	"devices.screens": {"order": 8, "label": "Screens", "unit": "", "default": null},
+	"devices.screens.single_screen.enabled": {"order": 9, "label": "Single screen", "unit": "", "default": true},
+	"devices.screens.front_floor_screens.enabled": {"order": 10, "label": "Front and floor screen", "unit": "", "default": false},
+	"devices.others": {"order": 11, "label": "Other devices", "unit": "", "default": null},
+	"devices.d_box.enabled": {"order": 12, "label": "D-Box", "unit": "", "default": false},
+	"devices.motorized_rollers.enabled": {"order": 13, "label": "Motorized rollers", "unit": "", "default": false},
 }
 
 ## Overrides
