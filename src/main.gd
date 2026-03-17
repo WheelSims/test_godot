@@ -32,9 +32,6 @@ func _ready():
 	config.load_config()
 	config._save_config()  # In case there was no config originally
 	
-	# Load at least the main window
-	$screens.load_windows()
-	
 	# Apply config
 	for key in config.get_keys():
 		config_value_changed(key)

@@ -23,7 +23,7 @@ var _defaults: Dictionary[String, Dictionary] = {
 	"overlays.debug.enabled": {"order": 4, "label": "Debug", "unit": "", "default": false},
 	"devices": {"order": 5, "label": "DEVICE SETTINGS", "unit": "", "default": null},
 	"devices.screens": {"order": 6, "label": "Screens", "unit": "", "default": null},
-	"devices.screens.floor.enabled": {"order": 7, "label": "Floor projection", "unit": "", "default": false},
+	"devices.screens.single_screen.enabled": {"order": 7, "label": "Single screen", "unit": "", "default": true},
 	"devices.others": {"order": 8, "label": "Other devices", "unit": "", "default": null},
 	"devices.d_box.enabled": {"order": 9, "label": "D-Box", "unit": "", "default": false},
 	"devices.motorized_rollers.enabled": {"order": 10, "label": "Motorized rollers", "unit": "", "default": false},
