@@ -1,0 +1,47 @@
+[gd_scene load_steps=4 format=3 uid="uid://dig62a0utxhft"]
+
+[ext_resource type="Script" uid="uid://bcwkevpt7iwo1" path="res://overlays/speed_indicator.gd" id="1_rd0dk"]
+
+[sub_resource type="FontFile" id="FontFile_2x147"]
+subpixel_positioning = 0
+msdf_pixel_range = 14
+msdf_size = 128
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+cache/0/50/0/ascent = 0.0
+cache/0/50/0/descent = 0.0
+cache/0/50/0/underline_position = 0.0
+cache/0/50/0/underline_thickness = 0.0
+cache/0/50/0/scale = 1.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_tb8oj"]
+font = SubResource("FontFile_2x147")
+font_size = 50
+font_color = Color(0, 0, 0, 1)
+
+[node name="speed_indicator" type="Control" node_paths=PackedStringArray("numerical_display_label")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_rd0dk")
+numerical_display_label = NodePath("numerical_display/text")
+
+[node name="numerical_display" type="Polygon2D" parent="."]
+position = Vector2(55, 400)
+scale = Vector2(0.61, 0.78)
+polygon = PackedVector2Array(0, 100, 0, 0, 300, 0, 300, 100)
+
+[node name="text" type="Label" parent="numerical_display"]
+offset_right = 300.0
+offset_bottom = 99.0
+text = "0 m/s"
+label_settings = SubResource("LabelSettings_tb8oj")
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true

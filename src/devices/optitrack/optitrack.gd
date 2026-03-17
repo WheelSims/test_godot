@@ -39,7 +39,7 @@ func _process(_delta):
 		rigid_body_count = get_rigid_body_count(data)
 
 		# Transmission des positions et orientations à chaque rigibody
-		for i in range(4): ## nombre de rigidbody enfants écrit en clair pour l'instant
+		for i in range(5): ## nombre de rigidbody enfants écrit en clair pour l'instant
 			if i+1 > rigid_body_count: # s'il y a trop de nodes 3D que de rigibodies détectés
 				self.get_node("rigid_body_" + str(i)).scale = Vector3(0, 0, 0)
 				
@@ -153,12 +153,12 @@ func unpack_rigid_body(_data, n_rigidbody):
 
 	var _current_frame = get_current_frame(data)
 	
-	if _current_frame % 10 == 0:
-		print("\n \n\nFRAME : ", _current_frame)
-		print("id_num     : ", _id_num)
-		print("pos        : ", _pos)
-		print("rot        : ", _rot)
-		print("error      : ", _error)
-		print("tracked    : ", _tracked)
+	#if _current_frame % 10 == 0:
+		#print("\n \n\nFRAME : ", _current_frame)
+		#print("id_num     : ", _id_num)
+		#print("pos        : ", _pos)
+		#print("rot        : ", _rot)
+		#print("error      : ", _error)
+		#print("tracked    : ", _tracked)
 	
 	return [_id_num, _pos, _rot, _error, _tracked]

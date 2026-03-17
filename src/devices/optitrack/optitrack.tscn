@@ -1,46 +1,65 @@
-[gd_scene format=3 uid="uid://utxy2vmv4wo7"]
+[gd_scene load_steps=9 format=3 uid="uid://utxy2vmv4wo7"]
 
 [ext_resource type="Script" uid="uid://dp5igd388f83o" path="res://devices/optitrack/optitrack.gd" id="1_rm6v3"]
 
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_6au66"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_psmog"]
+sky_material = SubResource("ProceduralSkyMaterial_6au66")
+
+[sub_resource type="Environment" id="Environment_6mmfb"]
+background_mode = 2
+sky = SubResource("Sky_psmog")
+tonemap_mode = 2
+glow_enabled = true
+
 [sub_resource type="BoxMesh" id="BoxMesh_2eqg6"]
+size = Vector3(0.25, 0.25, 0.25)
 
 [sub_resource type="BoxMesh" id="BoxMesh_v8td8"]
+size = Vector3(0.25, 0.25, 0.25)
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_s5aml"]
+[sub_resource type="BoxMesh" id="BoxMesh_6au66"]
+size = Vector3(0.25, 0.25, 0.25)
 
-[node name="StreamingOptitrack" type="Node3D" unique_id=1429209899]
+[sub_resource type="BoxMesh" id="BoxMesh_psmog"]
+size = Vector3(0.25, 0.25, 0.25)
 
-[node name="optitrack" type="Node3D" parent="." unique_id=1514252542]
+[node name="optitrack" type="Node3D"]
 script = ExtResource("1_rm6v3")
 
-[node name="rigid_body_0" type="Node3D" parent="optitrack" unique_id=647643106]
-visible = false
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.9659259, -0.066987306, 0.25000003, 0, 0.9659259, 0.25881907, -0.25881907, -0.25000003, 0.9330127, 0.859233, 0.8523152, 2.61181)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="optitrack/rigid_body_0" unique_id=1718494276]
-transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0, 0)
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_6mmfb")
+
+[node name="rigid_body_0" type="Node3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="rigid_body_0"]
 mesh = SubResource("BoxMesh_2eqg6")
-skeleton = NodePath("../..")
+skeleton = NodePath("")
 
-[node name="rigid_body_1" type="Node3D" parent="optitrack" unique_id=1803311679]
-visible = false
+[node name="rigid_body_1" type="Node3D" parent="."]
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="optitrack/rigid_body_1" unique_id=1976465222]
-transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0, 0)
+[node name="MeshInstance3D" type="MeshInstance3D" parent="rigid_body_1"]
 mesh = SubResource("BoxMesh_v8td8")
-skeleton = NodePath("../..")
+skeleton = NodePath("")
 
-[node name="rigid_body_2" type="Node3D" parent="optitrack" unique_id=777959096]
-visible = false
+[node name="rigid_body_2" type="Node3D" parent="."]
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="optitrack/rigid_body_2" unique_id=2055048086]
-transform = Transform3D(0.4, 0, 0, 0, 0.5, 0, 0, 0, 0.3, 0, 0, 0)
+[node name="MeshInstance3D" type="MeshInstance3D" parent="rigid_body_2"]
 mesh = SubResource("BoxMesh_2eqg6")
-skeleton = NodePath("../..")
+skeleton = NodePath("")
 
-[node name="rigid_body_3" type="Node3D" parent="optitrack" unique_id=1000920860]
-visible = false
+[node name="rigid_body_3" type="Node3D" parent="."]
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="optitrack/rigid_body_3" unique_id=1430733259]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
-mesh = SubResource("CylinderMesh_s5aml")
-skeleton = NodePath("../..")
+[node name="MeshInstance3D" type="MeshInstance3D" parent="rigid_body_3"]
+mesh = SubResource("BoxMesh_6au66")
+
+[node name="rigid_body_4" type="Node3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="rigid_body_4"]
+mesh = SubResource("BoxMesh_psmog")
