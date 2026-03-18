@@ -17,19 +17,19 @@ var _CONFIG_FILENAME = "user://config.json"
 ## Defaults (use default=null for headers)
 var _defaults: Dictionary[String, Dictionary] = {
 	"player": {"order": 0, "label": "SIMULATED PARAMETERS", "unit": "", "default": null},
-	"player.mass": {"order": 1, "label": "User+wheelchair mass", "unit": "kg", "default": 70.0},
-	"player.camera.fov": {"order": 2, "label": "Field of view", "unit": "deg", "default": 75.0},
-	"player.camera.angle": {"order": 3, "label": "Camera angle", "unit": "deg", "default": 0},
-	"overlays": {"order": 4, "label": "OVERLAYS", "unit": "", "default": null},
-	"overlays.speed_indicator.enabled": {"order": 5, "label": "Speed indicator", "unit": "", "default": true},
-	"overlays.debug.enabled": {"order": 6, "label": "Debug", "unit": "", "default": false},
-	"devices": {"order": 7, "label": "DEVICE SETTINGS", "unit": "", "default": null},
-	"devices.screens": {"order": 8, "label": "Screens", "unit": "", "default": null},
-	"devices.screens.single_screen.enabled": {"order": 9, "label": "Single screen", "unit": "", "default": true},
-	"devices.screens.front_floor_screens.enabled": {"order": 10, "label": "Front and floor screen", "unit": "", "default": false},
-	"devices.others": {"order": 11, "label": "Other devices", "unit": "", "default": null},
-	"devices.d_box.enabled": {"order": 12, "label": "D-Box", "unit": "", "default": false},
-	"devices.motorized_rollers.enabled": {"order": 13, "label": "Motorized rollers", "unit": "", "default": false},
+	"player.mass": {"order": 1, "label": "User+wheelchair mass", "unit": "kg", "default": 70.0, "min": 10.0, "max": 300.0},
+	"player.camera.fov": {"order": 2, "label": "Field of view", "unit": "deg", "default": 75.0, "min": 40.0, "max": 150.0},
+	"player.camera.angle": {"order": 3, "label": "Camera angle", "unit": "deg", "default": 0.0, "min": -45.0, "max": 45.0},
+	"overlays": {"order": 10, "label": "OVERLAYS", "unit": "", "default": null},
+	"overlays.speed_indicator.enabled": {"order": 11, "label": "Speed indicator", "unit": "", "default": true},
+	"overlays.debug.enabled": {"order": 12, "label": "Debug", "unit": "", "default": false},
+	"devices": {"order": 20, "label": "DEVICE SETTINGS", "unit": "", "default": null},
+	"devices.screens": {"order": 30, "label": "Screens", "unit": "", "default": null},
+	"devices.screens.single_screen.enabled": {"order": 31, "label": "Single screen", "unit": "", "default": true},
+	"devices.screens.front_floor_screens.enabled": {"order": 32, "label": "Front and floor screen", "unit": "", "default": false},
+	"devices.others": {"order": 40, "label": "Other devices", "unit": "", "default": null},
+	"devices.d_box.enabled": {"order": 41, "label": "D-Box", "unit": "", "default": false},
+	"devices.motorized_rollers.enabled": {"order": 42, "label": "Motorized rollers", "unit": "", "default": false},
 }
 
 ## Overrides
@@ -58,13 +58,14 @@ func load_config():
 		_contents[item] = parsed_v[item]
 
 ## Get ordered keys
+
+func custom_compare(key1, key2):
+	return _defaults[key1].order < _defaults[key2].order
+
 func get_keys():
-	var output = []
-	for key in _defaults:  # prealloc
-		output.append("")
-	for key in _defaults:  # order
-		output[_defaults[key]["order"]] = key
-	return output
+	var keys = _defaults.keys()
+	keys.sort_custom(custom_compare)
+	return keys
 
 ## Get config label
 func get_label(key: String):
@@ -80,6 +81,20 @@ func get_value(key: String):
 		return _contents[key]
 	elif key in _defaults:
 		return _defaults[key]["default"]
+	else:
+		return null
+
+## Get config min value or null if not existing
+func get_min_value(key: String):
+	if key in _defaults and "min" in _defaults[key]:
+		return _defaults[key]["min"]
+	else:
+		return null
+
+## Get config min value or null if not existing
+func get_max_value(key: String):
+	if key in _defaults and "max" in _defaults[key]:
+		return _defaults[key]["max"]
 	else:
 		return null
 
