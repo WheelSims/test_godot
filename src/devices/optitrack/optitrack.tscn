@@ -30,10 +30,10 @@ size = Vector3(0.25, 0.25, 0.25)
 [node name="optitrack" type="Node3D" unique_id=915745645]
 script = ExtResource("1_rm6v3")
 
-[node name="Camera3D" type="Camera3D" parent="." unique_id=1788198802]
+[node name="camera3d" type="Camera3D" parent="." unique_id=1788198802]
 transform = Transform3D(0.9659259, -0.066987306, 0.25000003, 0, 0.9659259, 0.25881907, -0.25881907, -0.25000003, 0.9330127, 0.859233, 0.8523152, 2.61181)
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=562735216]
+[node name="world_environment" type="WorldEnvironment" parent="." unique_id=562735216]
 environment = SubResource("Environment_6mmfb")
 
 [node name="rigid_body_0" type="Node3D" parent="." unique_id=538483058]

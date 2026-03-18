@@ -15,7 +15,7 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 [application]
 
 config/name="WheelSims"
-run/main_scene="uid://bm1b5ewq26kcl"
+run/main_scene="uid://cfmmtcpgllxbt"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 

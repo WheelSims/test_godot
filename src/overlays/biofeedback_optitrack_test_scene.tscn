@@ -1,17 +1,15 @@
-[gd_scene format=3 uid="uid://bm1b5ewq26kcl"]
+[gd_scene format=3 uid="uid://cfmmtcpgllxbt"]
 
-[ext_resource type="PackedScene" uid="uid://utxy2vmv4wo7" path="res://devices/optitrack/optitrack.tscn" id="1_ymvtp"]
-[ext_resource type="PackedScene" uid="uid://dcbevbvmugl3f" path="res://objects/wheelchair/rear_wheel_right.tscn" id="2_8qiiv"]
-[ext_resource type="PackedScene" uid="uid://bcfu5sx4m6hm3" path="res://objects/wheelchair/angle_contact.tscn" id="3_ss2qs"]
-[ext_resource type="PackedScene" uid="uid://ds06t01fw7lcb" path="res://objects/wheelchair/handrim.tscn" id="4_8bgme"]
-[ext_resource type="PackedScene" uid="uid://d1h6dmenb6ogv" path="res://objects/wheelchair/rear_wheel_left.tscn" id="5_l4fdx"]
-[ext_resource type="PackedScene" uid="uid://biluq7vv8ghsm" path="res://player/player.tscn" id="6_22y88"]
-[ext_resource type="PackedScene" uid="uid://y2xjjvq3l33t" path="res://environments/park/park_environment.tscn" id="7_2cpfo"]
+[ext_resource type="PackedScene" uid="uid://dcbevbvmugl3f" path="res://objects/wheelchair/rear_wheel_right.tscn" id="1_086ox"]
+[ext_resource type="PackedScene" uid="uid://bcfu5sx4m6hm3" path="res://objects/wheelchair/angle_contact.tscn" id="2_wdam1"]
+[ext_resource type="PackedScene" uid="uid://ds06t01fw7lcb" path="res://objects/wheelchair/handrim.tscn" id="3_h0iuc"]
+[ext_resource type="PackedScene" uid="uid://d1h6dmenb6ogv" path="res://objects/wheelchair/rear_wheel_left.tscn" id="4_qqd2f"]
+[ext_resource type="PackedScene" uid="uid://utxy2vmv4wo7" path="res://devices/optitrack/optitrack.tscn" id="5_ohprv"]
 
-[sub_resource type="GDScript" id="GDScript_m28wg"]
+[sub_resource type="GDScript" id="GDScript_086ox"]
 script/source = "extends Node3D
 
-
+#@onready var main: Node = get_tree().get_root().get_node(\"main\")
 
 # Wheelchair variables
 @export_group(\"Wheels\")
@@ -50,6 +48,7 @@ func _process(_delta):
 	
 	update_wheelchair()
 	#_receive_data()
+		
 	pass
 
 
@@ -92,6 +91,9 @@ func _receive_data():
 		
 		data = json.get_data()
 		print(\"response received : \", data)
+	
+
+
 
 # Bridge functions UDP : Godot to Python
 func _send_request(_request):
@@ -216,8 +218,6 @@ func _process(_delta):
 	pass
 "
 
-[sub_resource type="TorusMesh" id="TorusMesh_ymvtp"]
-
 [sub_resource type="GDScript" id="GDScript_ymvtp"]
 script/source = "extends Node3D
 
@@ -323,8 +323,7 @@ func create_trail(pos: Vector3, alpha: float) -> MeshInstance3D:
 "
 
 [node name="StreamingOptitrack" type="Node3D" unique_id=1372750009]
-script = SubResource("GDScript_m28wg")
-orientation_wheel_r = Vector3(0, 4.686, 0)
+script = SubResource("GDScript_086ox")
 
 [node name="Camera_Iso" type="Camera3D" parent="." unique_id=738619512]
 transform = Transform3D(0.5949489, 0.27490336, -0.7552907, -1.3594585e-08, 0.9396927, 0.34202015, 0.8037635, -0.20348452, 0.5590691, -1.9506109, 0.915015, 1.3918793)
@@ -359,15 +358,15 @@ skeleton = NodePath("")
 [node name="wheel_right" type="Node3D" parent="." unique_id=1798953585]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0, 0.3)
 
-[node name="rear_wheel_right" parent="wheel_right" unique_id=1013786258 instance=ExtResource("2_8qiiv")]
+[node name="rear_wheel_right" parent="wheel_right" unique_id=1013786258 instance=ExtResource("1_086ox")]
 script = SubResource("GDScript_mr3hu")
 
-[node name="angle_contact_right" parent="wheel_right" unique_id=1792593856 instance=ExtResource("3_ss2qs")]
+[node name="angle_contact_right" parent="wheel_right" unique_id=1792593856 instance=ExtResource("2_wdam1")]
 
 [node name="Circle" parent="wheel_right/angle_contact_right/angle_contact" index="0" unique_id=469612020]
 layers = 4
 
-[node name="handrim_right" parent="wheel_right" unique_id=1662188052 instance=ExtResource("4_8bgme")]
+[node name="handrim_right" parent="wheel_right" unique_id=1662188052 instance=ExtResource("3_h0iuc")]
 
 [node name="BézierCircle_003" parent="wheel_right/handrim_right/handrim" index="0" unique_id=1931052494]
 layers = 5
@@ -382,15 +381,15 @@ remote_path = NodePath("../../../view_wheel_right/SubViewport/Camera_Right")
 [node name="wheel_left" type="Node3D" parent="." unique_id=2008861505]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0, -0.3)
 
-[node name="rear_wheel_left" parent="wheel_left" unique_id=1980969343 instance=ExtResource("5_l4fdx")]
+[node name="rear_wheel_left" parent="wheel_left" unique_id=1980969343 instance=ExtResource("4_qqd2f")]
 script = SubResource("GDScript_6lo62")
 
-[node name="angle_contact_left" parent="wheel_left" unique_id=337968216 instance=ExtResource("3_ss2qs")]
+[node name="angle_contact_left" parent="wheel_left" unique_id=337968216 instance=ExtResource("2_wdam1")]
 
 [node name="Circle" parent="wheel_left/angle_contact_left/angle_contact" index="0" unique_id=469612020]
 layers = 2
 
-[node name="handrim_left" parent="wheel_left" unique_id=590420796 instance=ExtResource("4_8bgme")]
+[node name="handrim_left" parent="wheel_left" unique_id=590420796 instance=ExtResource("3_h0iuc")]
 
 [node name="BézierCircle_003" parent="wheel_left/handrim_left/handrim" index="0" unique_id=1931052494]
 layers = 2
@@ -401,28 +400,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0)
 [node name="RemoteTransform3D" type="RemoteTransform3D" parent="wheel_left/camera_offset_left" unique_id=2091368885]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0, 0)
 remote_path = NodePath("../../../view_wheel_left/SubViewport/Camera_Left")
-
-[node name="view_wheel_right" type="SubViewportContainer" parent="." unique_id=294002499]
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -260.0
-offset_top = 30.0
-offset_right = 252.0
-offset_bottom = 542.0
-grow_horizontal = 0
-scale = Vector2(0.5, 0.5)
-
-[node name="SubViewport" type="SubViewport" parent="view_wheel_right" unique_id=1310946796]
-transparent_bg = true
-handle_input_locally = false
-render_target_update_mode = 4
-
-[node name="Camera_Right" type="Camera3D" parent="view_wheel_right/SubViewport" unique_id=1650403890]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.371139e-08, 0, 1.3)
-cull_mask = 1047620
-projection = 1
-fov = 45.0
 
 [node name="view_wheel_left" type="SubViewportContainer" parent="." unique_id=460742081]
 offset_top = 30.0
@@ -441,7 +418,30 @@ cull_mask = 1047586
 projection = 1
 fov = 45.0
 
+[node name="view_wheel_right" type="SubViewportContainer" parent="." unique_id=2133956201]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -260.0
+offset_top = 30.0
+offset_right = 252.0
+offset_bottom = 542.0
+grow_horizontal = 0
+scale = Vector2(0.5, 0.5)
+
+[node name="SubViewport" type="SubViewport" parent="view_wheel_right" unique_id=2002115450]
+transparent_bg = true
+handle_input_locally = false
+render_target_update_mode = 4
+
+[node name="Camera_Right" type="Camera3D" parent="view_wheel_right/SubViewport" unique_id=1612728968]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.371139e-08, 0, 1.3)
+cull_mask = 1047620
+projection = 1
+fov = 45.0
+
 [node name="view_wheel_left2" type="SubViewportContainer" parent="." unique_id=221580117]
+visible = false
 offset_left = 420.0
 offset_top = 30.0
 offset_right = 932.0
@@ -451,7 +451,7 @@ scale = Vector2(0.5, 0.5)
 [node name="SubViewport" type="SubViewport" parent="view_wheel_left2" unique_id=1906106772]
 transparent_bg = true
 handle_input_locally = false
-render_target_update_mode = 4
+render_target_update_mode = 0
 
 [node name="Camera_Left" type="Camera3D" parent="view_wheel_left2/SubViewport" unique_id=1558525906]
 transform = Transform3D(-4.371139e-08, 1, 4.371139e-08, 0, -4.371139e-08, 1, 1, 4.371139e-08, 1.9106855e-15, 0, 2, 0)
@@ -459,22 +459,14 @@ cull_mask = 1047558
 projection = 1
 fov = 45.0
 
-[node name="optitrack" parent="." unique_id=915745645 instance=ExtResource("1_ymvtp")]
+[node name="optitrack" parent="." unique_id=915745645 instance=ExtResource("5_ohprv")]
 visible = false
-
-[node name="Origine" type="MeshInstance3D" parent="." unique_id=2000028790]
-transform = Transform3D(0.08, 0, 0, 0, 0.08, 0, 0, 0, 0.08, 0, 0, 0)
-mesh = SubResource("TorusMesh_ymvtp")
 
 [node name="trail_hand_right" type="Node3D" parent="." unique_id=308166930]
 script = SubResource("GDScript_ymvtp")
 
 [node name="trail_hand_left2" type="Node3D" parent="." unique_id=1750984441]
 script = SubResource("GDScript_2cpfo")
-
-[node name="player" parent="." unique_id=993534235 instance=ExtResource("6_22y88")]
-
-[node name="park_environment" parent="." unique_id=1293663137 instance=ExtResource("7_2cpfo")]
 
 [editable path="wheel_right/angle_contact_right"]
 [editable path="wheel_right/angle_contact_right/angle_contact"]

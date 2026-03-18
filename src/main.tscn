@@ -7,7 +7,9 @@
 [ext_resource type="Script" uid="uid://eg8crkfvfumy" path="res://devices/screens/screens.gd" id="4_1bvp3"]
 [ext_resource type="PackedScene" uid="uid://xwtfx6p27vlm" path="res://devices/motorized_rollers/motorized_rollers.tscn" id="4_5vw27"]
 [ext_resource type="PackedScene" uid="uid://f24s3bar65fp" path="res://overlays/debug.tscn" id="4_272bh"]
+[ext_resource type="PackedScene" uid="uid://bm1b5ewq26kcl" path="res://overlays/biofeedback_optitrack.tscn" id="4_kek77"]
 [ext_resource type="PackedScene" uid="uid://ck2thoxwmsujy" path="res://devices/d_box/d_box.tscn" id="5_5vw27"]
+[ext_resource type="PackedScene" uid="uid://utxy2vmv4wo7" path="res://devices/optitrack/optitrack.tscn" id="6_kek77"]
 
 [sub_resource type="FontFile" id="FontFile_2x147"]
 subpixel_positioning = 0
@@ -56,12 +58,15 @@ _bundled = {
 [node name="main" type="Node" unique_id=184152060]
 script = ExtResource("1_0xm2m")
 available_overlays = Dictionary[String, PackedScene]({
+"": null,
+"overlays.biofeedback_optitrack.enabled": ExtResource("4_kek77"),
 "overlays.debug.enabled": ExtResource("4_272bh"),
 "overlays.speed_indicator.enabled": SubResource("PackedScene_7mycd")
 })
 available_devices = Dictionary[String, PackedScene]({
 "devices.d_box.enabled": ExtResource("5_5vw27"),
-"devices.motorized_rollers.enabled": ExtResource("4_5vw27")
+"devices.motorized_rollers.enabled": ExtResource("4_5vw27"),
+"devices.optitrack.enabled": ExtResource("6_kek77")
 })
 
 [node name="control_gui" parent="." unique_id=728106337 instance=ExtResource("1_ig7tw")]

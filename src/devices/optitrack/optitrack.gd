@@ -1,6 +1,8 @@
 extends Node
+@onready var main: Node = get_tree().get_root().get_node("main")
 
 @export var UDP_RECEIVE_PORT: int = 1511
+
 var _udp_receiver = PacketPeerUDP.new()
 var _udp_receiver_connected = false
 var data # Contenu du paquet UDP
@@ -16,18 +18,16 @@ var rigid_body_count
 var id_rigidbodies = {}
 var n_id = 0
 
+
 func _ready():
 	_udp_receiver.bind(UDP_RECEIVE_PORT)
 
 func _process(_delta):
 
-	
-
-	#print(_udp_receiver.get_available_packet_count())
 	if _udp_receiver.get_available_packet_count() > 0:  # We received something
 		if not _udp_receiver_connected:
 			_udp_receiver_connected = true
-			print("System Optitrack connected.")
+			#print("System Optitrack connected.")
 		data = _udp_receiver.get_packet()
 
 		# Discard everything until the very last packet we received
@@ -91,6 +91,10 @@ func _process(_delta):
 				else:
 					mat.albedo_color = Color(1, 1, 1)
 				self.get_node("rigid_body_" + str(i)).get_node("MeshInstance3D").material_override = mat
+	
+	if main:
+		if not main.config.get_value("devices.optitrack.enabled"):
+			queue_free()
 
 func get_message_id(_data):
 	message_id = PackedByteArray(_data.slice(0, 2)).decode_s16(0)
@@ -205,3 +209,11 @@ func get_position_by_id(id):
 func get_transform_matrix_by_id(id):
 	if id in id_rigidbodies:
 		return get_node(id_rigidbodies[id]).global_transform
+
+func get_debug_text() -> String:
+	var text = ""
+	text += "Cameras "
+	if not _udp_receiver_connected:
+		text += "not "
+	text += "connected.\n"
+	return text
