@@ -63,3 +63,13 @@ mesh = SubResource("BoxMesh_6au66")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="rigid_body_4" unique_id=1946456589]
 mesh = SubResource("BoxMesh_psmog")
+
+[node name="rigid_body_5" type="Node3D" parent="." unique_id=2070219513]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="rigid_body_5" unique_id=824048429]
+mesh = SubResource("BoxMesh_psmog")
+
+[node name="rigid_body_6" type="Node3D" parent="." unique_id=1173987793]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="rigid_body_6" unique_id=1491931299]
+mesh = SubResource("BoxMesh_psmog")

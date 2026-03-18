@@ -46,11 +46,12 @@ func _process(_delta):
 		
 		# WIP
 		# recuperation de la position du centre de la roue dans le repere global a automatiser
-		var pos_center_wheel_right = Vector3(-0.602935, 0.39298, 0.039214)
+		#var pos_center_wheel_right = Vector3(-0.602935, 0.39298, 0.039214)
+		var pos_center_wheel_right = Vector3(-0.683713, 0.393852, 0.341443)
 
 			
 		# Transmission des positions et orientations à chaque rigibody
-		for i in range(5): ## nombre de rigidbody enfants écrit en clair pour l'instant
+		for i in range(7): ## nombre de rigidbody enfants écrit en clair pour l'instant
 			if i+1 > rigid_body_count: # s'il y a trop de nodes 3D que de rigibodies détectés
 				self.get_node("rigid_body_" + str(i)).scale = Vector3(0, 0, 0)
 				
@@ -64,6 +65,8 @@ func _process(_delta):
 				self.get_node("rigid_body_" + str(i)).position = pos
 				self.get_node("rigid_body_" + str(i)).quaternion = rot
 				
+				#print(id_rigidbodies)
+				
 				# WIP
 				var TS0 = get_transform_matrix_by_id(102)
 				if TS0 != null: 
@@ -72,14 +75,13 @@ func _process(_delta):
 					var _pos_center_wheel_right = T0S.origin + T0S.basis * pos_center_wheel_right
 					
 					if id_rigidbodies[102] != "rigid_body_" + str(i):
-						# Objet_global → Objet_dans_repere_local
+						## Objet_global → Objet_dans_repere_local
 						get_node("rigid_body_" + str(i)).global_transform =  T0S * get_node("rigid_body_" + str(i)).global_transform
-						
-						#get_node("rigid_body_" + str(i)).position -= _pos_center_wheel_right
-						if id_rigidbodies[102] != "rigid_body_" + str(i) and id_rigidbodies[302] != "rigid_body_" + str(i):
-							get_node("rigid_body_" + str(i)).position -= _pos_center_wheel_right 
-							get_node("rigid_body_" + str(i)).position += Vector3(0, 0, 0.3)
 
+						# Set origin in wheel right center
+						get_node("rigid_body_" + str(i)).position -= _pos_center_wheel_right 
+						get_node("rigid_body_" + str(i)).position += Vector3(0, 0, 0.3)
+				
 				# Erreur moyenne de la position
 				var _mean_error = result[3]
 
@@ -91,6 +93,12 @@ func _process(_delta):
 				else:
 					mat.albedo_color = Color(1, 1, 1)
 				self.get_node("rigid_body_" + str(i)).get_node("MeshInstance3D").material_override = mat
+
+
+
+
+
+	
 	
 	if main:
 		if not main.config.get_value("devices.optitrack.enabled"):
@@ -191,7 +199,7 @@ func unpack_rigid_body(_data, n_rigidbody):
 	
 	# Afficher les informations dans la console
 	#var _current_frame = get_current_frame(data)
-	#if _current_frame % 10 == 0:
+	#if _current_frame % 100 == 0:
 		#print("\n \n\nFRAME : ", _current_frame)
 		#print("id_num     : ", _id_num)
 		#print("pos        : ", _pos)

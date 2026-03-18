@@ -177,7 +177,7 @@ func _process(_delta):
 [sub_resource type="GDScript" id="GDScript_mr3hu"]
 script/source = "extends Node3D
 
-var player = 0
+#var player = 0
 var linear_speed = 0
 
 func _ready() -> void:
@@ -186,13 +186,13 @@ func _ready() -> void:
 
 
 func _process(_delta):
-	
-	if $\"../../player\" != null:
-		linear_speed += $\"../../player\".get_angular_speed()
+
+	#if $\"../../player\" != null:
+		#linear_speed += $\"../../player\".get_angular_speed()
 	
 	#var wheel_velocity = $\"../../optitrack/rigid_body_2\".rotation[2]
 	
-	self.rotation = Vector3(linear_speed, 0, 0)
+	#self.rotation = Vector3(linear_speed, 0, 0)
 	pass
 "
 
@@ -208,12 +208,12 @@ func _ready() -> void:
 
 func _process(_delta):
 	
-	if $\"../../player\" != null:
-		linear_speed += $\"../../player\".get_angular_speed()
+	#if $\"../../player\" != null:
+		#linear_speed += $\"../../player\".get_angular_speed()
 	
 	#var wheel_velocity = $\"../../optitrack/rigid_body_2\".rotation[2]
 	
-	self.rotation = Vector3(linear_speed, 0, 0)
+	#self.rotation = Vector3(linear_speed, 0, 0)
 
 	pass
 "
@@ -441,7 +441,6 @@ projection = 1
 fov = 45.0
 
 [node name="view_wheel_left2" type="SubViewportContainer" parent="." unique_id=221580117]
-visible = false
 offset_left = 420.0
 offset_top = 30.0
 offset_right = 932.0
@@ -451,7 +450,7 @@ scale = Vector2(0.5, 0.5)
 [node name="SubViewport" type="SubViewport" parent="view_wheel_left2" unique_id=1906106772]
 transparent_bg = true
 handle_input_locally = false
-render_target_update_mode = 0
+render_target_update_mode = 4
 
 [node name="Camera_Left" type="Camera3D" parent="view_wheel_left2/SubViewport" unique_id=1558525906]
 transform = Transform3D(-4.371139e-08, 1, 4.371139e-08, 0, -4.371139e-08, 1, 1, 4.371139e-08, 1.9106855e-15, 0, 2, 0)
