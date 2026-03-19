@@ -26,10 +26,6 @@ var _device_angular_velocity: float = 0.0
 var _keyboard_linear_velocity: float = 0.0
 var _keyboard_angular_velocity: float = 0.0
 
-# -----------------------
-# Check for value updates
-# -----------------------
-@onready var _old_mass: float = mass
 
 # -----------------------
 # Dynamics/collisions
@@ -74,14 +70,14 @@ func set_angular_speed(value: float):
 func _ready():
 	pass
 
-func _process(delta):
+func _process(_delta):
 	if main:
-		if main.config.get_value("player.mass") != _old_mass:
+		if main.config.value_changed("player", "player.mass"):
 			mass = main.config.get_value("player.mass")
-			_old_mass = mass
-			print(mass)
-		$camera.fov = main.config.get_value("player.camera.fov")
-		$camera.rotation.x = main.config.get_value("player.camera.angle") / 180 * PI
+		if main.config.value_changed("player", "player.camera.fov"):
+			$camera.fov = main.config.get_value("player.camera.fov")
+		if main.config.value_changed("player", "player.camera.angle"):
+			$camera.rotation.x = main.config.get_value("player.camera.angle") / 180 * PI
 
 func _physics_process(delta: float) -> void:
 	var desired_linear_velocity := _device_linear_velocity

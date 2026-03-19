@@ -131,7 +131,7 @@ text = "Settings"
 horizontal_alignment = 1
 
 [node name="ScrollContainer" type="ScrollContainer" parent="main_panel/margin_container/main_vbox_container/panels/settings_panel" unique_id=1323418675]
-custom_minimum_size = Vector2(300, 0)
+custom_minimum_size = Vector2(320, 0)
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_h5sux")

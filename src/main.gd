@@ -31,10 +31,6 @@ var _current_scene_node: Node3D = null
 func _ready():
 	config.load_config()
 	config._save_config()  # In case there was no config originally
-	
-	# Apply config
-	for key in config.get_keys():
-		config_value_changed(key)
 
 # -------------------------------------------------------------------
 # Scene loading/unloading
@@ -61,10 +57,10 @@ func unload_scene():
 # -------------------------------------------------------------------
 
 ## Called by config when modified, mainly to instanciate new modules.
-func config_value_changed(key):
-	if key in available_overlays:
-		if config.get_value(key):
+func _process(_delta):
+	for key in available_overlays:
+		if config.value_changed("main", key) and config.get_value(key):
 			$scene_viewport.add_child(available_overlays[key].instantiate())
-	if key in available_devices:
-		if config.get_value(key):
+	for key in available_devices:
+		if config.value_changed("main", key) and config.get_value(key):
 			add_child(available_devices[key].instantiate())
