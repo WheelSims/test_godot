@@ -29,7 +29,6 @@ sky_material = SubResource("PanoramaSkyMaterial_8psf5")
 [sub_resource type="Environment" id="Environment_np0qt"]
 background_mode = 2
 sky = SubResource("Sky_ghu3m")
-fog_enabled = true
 fog_light_color = Color(0.73333335, 0.5882353, 0.4627451, 1)
 fog_density = 0.005
 fog_sky_affect = 0.316

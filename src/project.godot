@@ -31,6 +31,7 @@ window/size/resizable=false
 window/size/always_on_top=true
 window/subwindows/embed_subwindows=false
 window/stretch/mode="viewport"
+window/dpi/allow_hidpi=false
 
 [global_group]
 
