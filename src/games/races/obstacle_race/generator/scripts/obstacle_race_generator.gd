@@ -9,6 +9,7 @@ class_name ObstacleRaceGenerator
 @export var obstacle_infos: Array[ObjectInfo]
 @export var transparent_wall_infos: Array[ObjectInfo]
 @export var opaque_wall_infos: Array[ObjectInfo]
+@export var finish_line_with_decor: PackedScene
 @export var finish_line: PackedScene
 @export var start_line: PackedScene
 @export var border_info: ObjectInfo
@@ -46,7 +47,10 @@ func _level_generation()->void:
 func _arches_generation()->void:
 	if (current_race_data_indice>0):
 		_arch_generation(start_line, true)
-	_arch_generation(finish_line, false)
+	if (current_race_data_indice == races_data.size()-1):
+		_arch_generation(finish_line_with_decor, false)
+	else:
+		_arch_generation(finish_line, false)
 	current_race_data.race_length = current_race_data.end_race_x_pos - current_race_data.race_start_x
 	
 func _arch_generation(line: PackedScene, is_start_line: bool)->void:

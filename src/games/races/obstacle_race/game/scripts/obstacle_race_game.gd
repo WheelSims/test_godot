@@ -21,7 +21,7 @@ func init(_races_data: Array[RaceData])->void:
 	randomize()
 	races_data = _races_data
 	current_race_data = races_data[0]
-	add_score(0)
+	score_label.text = str(0)
 	if is_instance_valid(music_player) and is_instance_valid(music_player.stream) :
 		music_player.play()
 

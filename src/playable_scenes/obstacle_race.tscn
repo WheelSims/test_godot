@@ -4,13 +4,21 @@
 [ext_resource type="PackedScene" uid="uid://hnxp88a0five" path="res://games/races/obstacle_race/obstacle_race_generator.tscn" id="2_labfn"]
 [ext_resource type="Script" uid="uid://epb7xgmjyv72" path="res://games/races/obstacle_race/generator/scripts/race_data.gd" id="3_fm0hh"]
 [ext_resource type="Script" uid="uid://brpk4pab7wouw" path="res://games/races/obstacle_race/generator/scripts/object_info.gd" id="4_ri6c8"]
-[ext_resource type="PackedScene" uid="uid://t4035q8axi6v" path="res://objects/race_objects/western_theme/obstacles/hay_bale/scenes/hay_bale.tscn" id="5_eqbci"]
-[ext_resource type="PackedScene" uid="uid://cuk0l0062jdte" path="res://objects/race_objects/western_theme/obstacles/cactus.tscn" id="6_3vxp2"]
-[ext_resource type="PackedScene" uid="uid://diyc4k3lfoq2t" path="res://objects/race_objects/western_theme/walls/fence/fence.tscn" id="7_21j88"]
-[ext_resource type="PackedScene" uid="uid://blm1wlle8dcqr" path="res://objects/race_objects/western_theme/walls/brick_wall/brick_wall.tscn" id="8_5fffo"]
-[ext_resource type="Resource" uid="uid://b2dffsxjgctcc" path="res://games/races/obstacle_race/generator/object_infos_resources/stone_desert.tres" id="9_s7gpt"]
+[ext_resource type="PackedScene" uid="uid://t4035q8axi6v" path="res://objects/race_objects/western_theme/scenes/hay_bale.tscn" id="5_eqbci"]
+[ext_resource type="PackedScene" uid="uid://cuk0l0062jdte" path="res://objects/race_objects/western_theme/scenes/cactus.tscn" id="6_3vxp2"]
+[ext_resource type="PackedScene" uid="uid://diyc4k3lfoq2t" path="res://objects/race_objects/western_theme/scenes/fence.tscn" id="7_21j88"]
+[ext_resource type="PackedScene" uid="uid://c6wypqkubhmq" path="res://objects/race_objects/western_theme/scenes/chariot.tscn" id="7_ri6c8"]
+[ext_resource type="PackedScene" uid="uid://blm1wlle8dcqr" path="res://objects/race_objects/western_theme/models_textures/brick_wall/brick_wall.tscn" id="8_5fffo"]
+[ext_resource type="PackedScene" uid="uid://dvg5fhruf6tvk" path="res://objects/race_objects/western_theme/scenes/wind_turbine.tscn" id="8_ri6c8"]
+[ext_resource type="PackedScene" uid="uid://coruo7vfgu041" path="res://objects/race_objects/western_theme/scenes/saloon.tscn" id="9_eqbci"]
+[ext_resource type="Resource" uid="uid://bfq86aqnpo780" path="res://games/races/obstacle_race/generator/object_infos_resources/cactus1.tres" id="10_3vxp2"]
+[ext_resource type="Resource" uid="uid://lpx10hp8r5uh" path="res://games/races/obstacle_race/generator/object_infos_resources/cactus2.tres" id="11_21j88"]
 [ext_resource type="PackedScene" uid="uid://biluq7vv8ghsm" path="res://player/player.tscn" id="11_ci2c1"]
-[ext_resource type="PackedScene" uid="uid://bkf5e8aqyhucy" path="res://objects/race_objects/western_theme/ground/sand_ground.tscn" id="11_nttjj"]
+[ext_resource type="PackedScene" uid="uid://bkf5e8aqyhucy" path="res://objects/race_objects/western_theme/scenes/sand_ground.tscn" id="11_nttjj"]
+[ext_resource type="PackedScene" uid="uid://cnkavq43degkn" path="res://objects/race_objects/western_theme/scenes/stone_desert.tscn" id="12_21j88"]
+[ext_resource type="PackedScene" uid="uid://b4m6qj4cek20f" path="res://games/races/obstacle_race/game/finish_line_with_decor.tscn" id="14_s7gpt"]
+[ext_resource type="PackedScene" uid="uid://j1nf1nl4vpek" path="res://objects/race_objects/western_theme/scenes/cactus_1.tscn" id="17_5fffo"]
+[ext_resource type="PackedScene" uid="uid://cempjsi3nr5ir" path="res://objects/race_objects/western_theme/scenes/cactus_2.tscn" id="18_s7gpt"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_8psf5"]
 panorama = ExtResource("1_ci2c1")
@@ -30,14 +38,9 @@ fog_sky_affect = 0.316
 script = ExtResource("3_fm0hh")
 race_length = 50
 race_width = 20.0
-obstacle_opening_prob = 0.25
+obst_size_range = Vector2(0.5, 6)
+obstacle_opening_prob = 1.0
 transparent_op_wall_prob = 0.535
-metadata/_custom_type_script = "uid://epb7xgmjyv72"
-
-[sub_resource type="Resource" id="Resource_3joe0"]
-script = ExtResource("3_fm0hh")
-race_length = 20
-transparent_op_wall_prob = 0.935
 metadata/_custom_type_script = "uid://epb7xgmjyv72"
 
 [sub_resource type="Resource" id="Resource_2q7su"]
@@ -67,6 +70,42 @@ z_sizes = {
 }
 type = 2
 
+[sub_resource type="Resource" id="Resource_eqbci"]
+script = ExtResource("4_ri6c8")
+scene = ExtResource("7_ri6c8")
+z_sizes = {
+-45.0: 5.045861,
+0.0: 1.7050172,
+45.0: 5.0458603,
+90.0: 5.430908
+}
+local_scale = Vector3(5.4309077, 1.7050171, 1.4941406)
+type = 2
+
+[sub_resource type="Resource" id="Resource_3vxp2"]
+script = ExtResource("4_ri6c8")
+scene = ExtResource("8_ri6c8")
+z_sizes = {
+-45.0: 1.603092,
+0.0: 1.2130373,
+45.0: 1.603092,
+90.0: 1.0540771
+}
+local_scale = Vector3(1.0540771, 1.2130371, 4.7796316)
+type = 2
+
+[sub_resource type="Resource" id="Resource_21j88"]
+script = ExtResource("4_ri6c8")
+scene = ExtResource("9_eqbci")
+z_sizes = {
+-45.0: 7.5820284,
+0.0: 6.535596,
+45.0: 7.582029,
+90.0: 4.187012
+}
+local_scale = Vector3(4.1870117, 6.5355964, 3.1105263)
+type = 2
+
 [sub_resource type="Resource" id="Resource_np0qt"]
 script = ExtResource("4_ri6c8")
 scene = ExtResource("7_21j88")
@@ -82,6 +121,14 @@ z_sizes = {
 }
 type = 1
 
+[sub_resource type="Resource" id="Resource_5fffo"]
+script = ExtResource("4_ri6c8")
+scene = ExtResource("12_21j88")
+z_sizes = {
+90.0: 2.2478027
+}
+local_scale = Vector3(2.2478027, 2.0463867, 1.6027222)
+
 [node name="obstacle_race" type="Node3D" unique_id=16703744]
 
 [node name="world_environment" type="WorldEnvironment" parent="." unique_id=1764370595]
@@ -95,17 +142,140 @@ shadow_enabled = true
 
 [node name="obstacle_race_main" parent="." unique_id=1913311282 instance=ExtResource("2_labfn")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.013)
-races_data = Array[ExtResource("3_fm0hh")]([SubResource("Resource_7cc65"), SubResource("Resource_3joe0"), SubResource("Resource_2q7su")])
-obstacle_infos = Array[ExtResource("4_ri6c8")]([SubResource("Resource_tuuum"), SubResource("Resource_8psf5")])
+races_data = Array[ExtResource("3_fm0hh")]([SubResource("Resource_7cc65"), SubResource("Resource_7cc65"), SubResource("Resource_2q7su")])
+obstacle_infos = Array[ExtResource("4_ri6c8")]([SubResource("Resource_tuuum"), SubResource("Resource_8psf5"), SubResource("Resource_eqbci"), SubResource("Resource_3vxp2"), SubResource("Resource_21j88"), ExtResource("10_3vxp2"), ExtResource("11_21j88")])
 transparent_wall_infos = Array[ExtResource("4_ri6c8")]([SubResource("Resource_np0qt")])
 opaque_wall_infos = Array[ExtResource("4_ri6c8")]([SubResource("Resource_1hpmn")])
-border_info = ExtResource("9_s7gpt")
+finish_line_with_decor = ExtResource("14_s7gpt")
+border_info = SubResource("Resource_5fffo")
+
+[node name="Megan" parent="obstacle_race_main/start_line/Crowd/Humans" parent_id_path=PackedInt32Array(1913311282, 1097236757, 1915998250) index="1" unique_id=1492166063]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.591337, 0.16054285, -0.50005436)
+script = null
+
+[node name="Kate2" parent="obstacle_race_main/start_line/Crowd/Humans" parent_id_path=PackedInt32Array(1913311282, 1097236757, 1915998250) index="4" unique_id=1587270893]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.2047224, 2.7821755, 0.45868635)
+script = null
+
+[node name="Josh2" parent="obstacle_race_main/start_line/Crowd/Humans" parent_id_path=PackedInt32Array(1913311282, 1097236757, 1915998250) index="6" unique_id=347045131]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.103997, 2.796243, -1.5586424)
+script = null
+
+[node name="Louise4" parent="obstacle_race_main/start_line/Crowd/Humans" parent_id_path=PackedInt32Array(1913311282, 1097236757, 1915998250) index="15" unique_id=1653795088]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.618804, 0.18527353, 0.6156359)
+script = null
 
 [node name="sand_ground" parent="." unique_id=907107042 instance=ExtResource("11_nttjj")]
-transform = Transform3D(146182.42, 0, 0, 0, 1, 0, 0, 0, 17.778763, 2100.749, 0, -1.0227165)
+transform = Transform3D(146182.42, 0, 0, 0, 1, 0, 0, 0, 609.57465, 2101.4253, -3.0517578e-05, -0.68558884)
 
 [node name="player" parent="." unique_id=993534235 instance=ExtResource("11_ci2c1")]
-transform = Transform3D(-0.04959936, 0, -0.9987692, 0, 1, 0, 0.9987692, 0, -0.04959936, 0, 0, 0)
+transform = Transform3D(-0.04959936, 0, -0.9987692, 0, 1, 0, 0.9987692, 0, -0.04959936, -16.438675, 0, 0)
 KB_LINEAR_SPEED = 5.0
 KB_ANGULAR_SPEED = 2.0
-metadata/_edit_lock_ = true
+
+[node name="start_decor" type="Node3D" parent="." unique_id=950905358]
+
+[node name="saloon" parent="start_decor" unique_id=118379082 instance=ExtResource("9_eqbci")]
+transform = Transform3D(-0.9546543, 0, -0.8676031, 0, 1.29, 0, 0.8676031, 0, -0.9546543, -4.858858, 0.14688854, -10.255694)
+
+[node name="straw_bale" parent="start_decor" unique_id=900396534 instance=ExtResource("5_eqbci")]
+transform = Transform3D(0.6600935, 0, 0.7511835, 0, 1, 0, -0.7511835, 0, 0.6600935, -17.43714, 0.015874863, -11.021088)
+
+[node name="straw_bale2" parent="start_decor" unique_id=1845602816 instance=ExtResource("5_eqbci")]
+transform = Transform3D(0.59176, 0, 0.80611426, 0, 1, 0, -0.80611426, 0, 0.59176, -13.932201, 0.015874863, 7.5340633)
+
+[node name="straw_bale3" parent="start_decor" unique_id=533989837 instance=ExtResource("5_eqbci")]
+transform = Transform3D(0.4301172, 0, 0.9027731, 0, 1, 0, -0.9027731, 0, 0.4301172, -25.21753, 0.015872955, -4.736492)
+
+[node name="straw_bale4" parent="start_decor" unique_id=1218309919 instance=ExtResource("5_eqbci")]
+transform = Transform3D(0.4301172, 0, 0.9027731, 0, 1, 0, -0.9027731, 0, 0.4301172, -27.91475, 0.015872955, -20.606615)
+
+[node name="straw_bale5" parent="start_decor" unique_id=562611551 instance=ExtResource("5_eqbci")]
+transform = Transform3D(0.4301172, 0, 0.9027731, 0, 1, 0, -0.9027731, 0, 0.4301172, -43.4308, 0.015872955, -13.5309925)
+
+[node name="straw_bale6" parent="start_decor" unique_id=512681035 instance=ExtResource("5_eqbci")]
+transform = Transform3D(0.4301172, 0, 0.9027731, 0, 1, 0, -0.9027731, 0, 0.4301172, -40.85179, 0.01586914, -44.075638)
+
+[node name="straw_bale7" parent="start_decor" unique_id=1662397938 instance=ExtResource("5_eqbci")]
+transform = Transform3D(0.4301172, 0, 0.9027731, 0, 1, 0, -0.9027731, 0, 0.4301172, -11.162785, 0.015871048, 26.21318)
+
+[node name="straw_bale8" parent="start_decor" unique_id=205744104 instance=ExtResource("5_eqbci")]
+transform = Transform3D(0.4301172, 0, 0.9027731, 0, 1, 0, -0.9027731, 0, 0.4301172, -41.507767, 0.015871048, 13.467316)
+
+[node name="straw_bale9" parent="start_decor" unique_id=29119752 instance=ExtResource("5_eqbci")]
+transform = Transform3D(0.4301172, 0, 0.9027731, 0, 1, 0, -0.9027731, 0, 0.4301172, -33.544453, 0.015871048, 35.802166)
+
+[node name="straw_bale10" parent="start_decor" unique_id=1486265488 instance=ExtResource("5_eqbci")]
+transform = Transform3D(0.4301172, 0, 0.9027731, 0, 1, 0, -0.9027731, 0, 0.4301172, -57.557785, 0.015871048, 25.638836)
+
+[node name="straw_bale11" parent="start_decor" unique_id=2011565186 instance=ExtResource("5_eqbci")]
+transform = Transform3D(0.4301172, 0, 0.9027731, 0, 1, 0, -0.9027731, 0, 0.4301172, -57.557785, -10.477337, -14.787708)
+
+[node name="wind_turbine" parent="start_decor" unique_id=578740055 instance=ExtResource("8_ri6c8")]
+transform = Transform3D(-0.9927553, 0, -0.12015411, 0, 1, 0, 0.12015411, 0, -0.9927553, -4.2098856, 0.015877724, 7.0279384)
+
+[node name="wind_turbine2" parent="start_decor" unique_id=713872631 instance=ExtResource("8_ri6c8")]
+transform = Transform3D(-0.9927553, 0, -0.12015411, 0, 1, 0, 0.12015411, 0, -0.9927553, -35.369328, 0.015877724, -23.120085)
+
+[node name="wind_turbine3" parent="start_decor" unique_id=934568058 instance=ExtResource("8_ri6c8")]
+transform = Transform3D(-0.9927553, 0, -0.12015411, 0, 1, 0, 0.12015411, 0, -0.9927553, -46.78483, 0.015877724, 1.9591045)
+
+[node name="wind_turbine4" parent="start_decor" unique_id=826106184 instance=ExtResource("8_ri6c8")]
+transform = Transform3D(-0.9927553, 0, -0.12015411, 0, 1, 0, 0.12015411, 0, -0.9927553, -50.38543, 0.015879631, 38.691803)
+
+[node name="wind_turbine5" parent="start_decor" unique_id=109105522 instance=ExtResource("8_ri6c8")]
+transform = Transform3D(-0.9927553, 0, -0.12015411, 0, 1, 0, 0.12015411, 0, -0.9927553, -78.675446, 0.015877724, -27.801476)
+
+[node name="cactus1" parent="start_decor" unique_id=917346 instance=ExtResource("17_5fffo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.369629, 0.016178455, -6.6997056)
+
+[node name="cactus10" parent="start_decor" unique_id=1445569724 instance=ExtResource("17_5fffo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.556683, 0.016178455, -27.864288)
+
+[node name="cactus11" parent="start_decor" unique_id=559481496 instance=ExtResource("17_5fffo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22.233091, 0.016178455, -20.829674)
+
+[node name="cactus12" parent="start_decor" unique_id=1962059466 instance=ExtResource("17_5fffo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.325523, 0.016178455, -39.565857)
+
+[node name="cactus13" parent="start_decor" unique_id=1855371588 instance=ExtResource("17_5fffo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -48.899387, 0.016178455, -15.8052635)
+
+[node name="cactus14" parent="start_decor" unique_id=1804308106 instance=ExtResource("17_5fffo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -57.862404, 0.016180363, 11.159477)
+
+[node name="cactus15" parent="start_decor" unique_id=862054176 instance=ExtResource("17_5fffo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31.76162, 0.016180363, 28.279694)
+
+[node name="cactus16" parent="start_decor" unique_id=1198445926 instance=ExtResource("17_5fffo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31.76162, 0.016180363, 28.279694)
+
+[node name="cactus2" parent="start_decor" unique_id=1135662658 instance=ExtResource("18_s7gpt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22.865479, 0.017884541, 5.118391)
+
+[node name="cactus4" parent="start_decor" unique_id=690523799 instance=ExtResource("18_s7gpt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28.662394, 0.017884541, -37.714638)
+
+[node name="cactus5" parent="start_decor" unique_id=2101056653 instance=ExtResource("18_s7gpt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -59.121227, 0.017884541, -29.112873)
+
+[node name="cactus6" parent="start_decor" unique_id=1853550768 instance=ExtResource("18_s7gpt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -80.57033, 0.017884541, 5.3930473)
+
+[node name="cactus7" parent="start_decor" unique_id=1948823738 instance=ExtResource("18_s7gpt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -65.42341, 0.017884541, 10.129211)
+
+[node name="cactus8" parent="start_decor" unique_id=110694234 instance=ExtResource("18_s7gpt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -72.91307, 0.017884541, 32.026176)
+
+[node name="cactus9" parent="start_decor" unique_id=1388957040 instance=ExtResource("18_s7gpt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -72.91307, 0.017884541, 32.026176)
+
+[node name="cactus3" parent="start_decor" unique_id=1345116747 instance=ExtResource("17_5fffo")]
+transform = Transform3D(0.16938387, 0, -0.98555017, 0, 1, 0, 0.98555017, 0, 0.16938387, -3.7438965, 0.016178455, -5.165595)
+
+[node name="chariot" parent="start_decor" unique_id=1503995864 instance=ExtResource("7_ri6c8")]
+transform = Transform3D(0.60985476, 0, 0.7925132, 0, 1, 0, -0.7925132, 0, 0.60985476, -20.597168, 0.018707335, 9.691775)
+
+[editable path="obstacle_race_main"]
+[editable path="obstacle_race_main/start_line/Crowd"]

@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="ObjectInfo" format=3 uid="uid://b2dffsxjgctcc"]
 
-[ext_resource type="PackedScene" uid="uid://cnkavq43degkn" path="res://objects/race_objects/western_theme/desert_stone/stone_desert.tscn" id="1_2qqdp"]
+[ext_resource type="PackedScene" uid="uid://cnkavq43degkn" path="res://objects/race_objects/western_theme/scenes/stone_desert.tscn" id="1_2qqdp"]
 [ext_resource type="Script" uid="uid://brpk4pab7wouw" path="res://games/races/obstacle_race/generator/scripts/object_info.gd" id="2_5v1tx"]
 
 [resource]
@@ -9,4 +9,4 @@ scene = ExtResource("1_2qqdp")
 z_sizes = {
 90.0: 2.2478027
 }
-local_scale = Vector3(2.2478027, 2.0463867, 1.6027222)
+local_scale = Vector3(2.2478027, 1.9057618, 1.6027222)

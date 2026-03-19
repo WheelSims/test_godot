@@ -1,0 +1,9 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://cqibbyrr4rb15"]
+
+[ext_resource type="Texture2D" uid="uid://bu68ndnsca0ds" path="res://objects/race_objects/western_theme/models_textures/cactus/Texture/Cactus2/T_Cactus_2_BaseMap.png" id="1_x74ql"]
+[ext_resource type="Texture2D" uid="uid://d8p1lrjvpo7e" path="res://objects/race_objects/western_theme/models_textures/cactus/Texture/Cactus2/T_Cactus_2_Normal.png" id="2_bv14q"]
+
+[resource]
+albedo_texture = ExtResource("1_x74ql")
+normal_enabled = true
+normal_texture = ExtResource("2_bv14q")
