@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://c1c5a3x5hbepx"
+path="res://.godot/imported/RoccoW - Countryside Explosions.mp3-a77a2de622d19e4ee1184a88f74b17d7.mp3str"
+
+[deps]
+
+source_file="res://sounds/music/western_game/RoccoW - Countryside Explosions.mp3"
+dest_files=["res://.godot/imported/RoccoW - Countryside Explosions.mp3-a77a2de622d19e4ee1184a88f74b17d7.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

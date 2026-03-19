@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="ObjectInfo" format=3 uid="uid://bd7erlbsrgi23"]
+
+[ext_resource type="PackedScene" uid="uid://dvg5fhruf6tvk" path="res://objects/race_objects/western_theme/scenes/wind_turbine.tscn" id="1_lxebd"]
+[ext_resource type="Script" uid="uid://brpk4pab7wouw" path="res://games/races/obstacle_race/generator/scripts/object_info.gd" id="2_2s70f"]
+
+[resource]
+script = ExtResource("2_2s70f")
+scene = ExtResource("1_lxebd")
+z_sizes = {
+-45.0: 1.603092,
+0.0: 1.2130373,
+45.0: 1.603092,
+90.0: 1.0540771
+}
+local_scale = Vector3(1.0540771, 1.2130371, 4.7796316)
+type = 2

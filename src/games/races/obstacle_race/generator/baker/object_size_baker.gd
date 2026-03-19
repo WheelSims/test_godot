@@ -3,7 +3,7 @@ extends EditorScript
 ## object_size_baker convert the scenes passed in the bake_config inspector to [ObjectInfo] objects.
 ## to use it: right click on the script -> Execute or Ctrl+Shift+X
 
-var config: BakeConfig = load("res://games/races/obstacle_race/baker/bake_config_res.tres")
+var config: BakeConfig = load("res://games/races/obstacle_race/generator/baker/bake_config_res.tres")
 
 func _run():
 	var objects_to_bake: Array[PackedScene] = config.objects_to_bake

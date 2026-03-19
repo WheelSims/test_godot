@@ -4,4 +4,4 @@ extends Resource
 
 @export var objects_to_bake: Array[PackedScene]
 ## The destination folder of the futur object infos.
-@export var object_info_folder_path = ""
+@export var object_info_folder_path = "res://games/races/obstacle_race/generator/object_infos_resources/"

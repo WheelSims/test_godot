@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="ObjectInfo" format=3 uid="uid://d0sbid8xpu1q8"]
+
+[ext_resource type="PackedScene" uid="uid://coruo7vfgu041" path="res://objects/race_objects/western_theme/scenes/saloon.tscn" id="1_dhwpp"]
+[ext_resource type="Script" uid="uid://brpk4pab7wouw" path="res://games/races/obstacle_race/generator/scripts/object_info.gd" id="2_keudb"]
+
+[resource]
+script = ExtResource("2_keudb")
+scene = ExtResource("1_dhwpp")
+z_sizes = {
+-45.0: 7.582029,
+0.0: 6.5355964,
+45.0: 7.582029,
+90.0: 4.1870127
+}
+local_scale = Vector3(4.1870117, 6.5355964, 3.1105263)
+type = 2
