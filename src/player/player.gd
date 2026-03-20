@@ -9,6 +9,9 @@ class_name Player
 @export_group("Keyboard Control")
 @export var KB_LINEAR_SPEED: float = 2  # m/s
 @export var KB_ANGULAR_SPEED: float = 1  # rad/s
+@export var LINEAR_SPEED_DEADZONE: float = 0.04  # m/s
+@export var ANGULAR_SPEED_DEADZONE: float = 0.04  # rad/s
+
 
 # -----------------------
 # Custom nodes
@@ -39,6 +42,12 @@ var _n_lr_obstacle = 0
 var _n_rf_obstacle = 0
 var _n_lf_obstacle = 0
 var _n_foot_obstacle = 0
+
+# -----------------------
+# Config related
+# -----------------------
+var _config_update_required: bool = true  # Update to match config
+var _camera_rotation_x_offset: float = 0.0
 
 #Access to race_manager
 var race_manager: RaceManager = null
@@ -72,12 +81,17 @@ func _ready():
 
 func _process(_delta):
 	if main:
-		if main.config.value_changed("player", "player.mass"):
+		if main.config.value_changed("player", "player.mass") or _config_update_required:
 			mass = main.config.get_value("player.mass")
-		if main.config.value_changed("player", "player.camera.fov"):
+		if main.config.value_changed("player", "player.camera.fov") or _config_update_required:
 			$camera.fov = main.config.get_value("player.camera.fov")
-		if main.config.value_changed("player", "player.camera.angle"):
-			$camera.rotation.x = main.config.get_value("player.camera.angle") / 180 * PI
+		if main.config.value_changed("player", "player.camera.angle") or _config_update_required:
+			_camera_rotation_x_offset = main.config.get_value("player.camera.angle") / 180 * PI
+		_config_update_required = false
+	
+	# Only keep camera rotation around y (keep level)
+	$camera.rotation.x = _camera_rotation_x_offset - rotation.x
+	$camera.rotation.z = - rotation.z
 
 func _physics_process(delta: float) -> void:
 	var desired_linear_velocity := _device_linear_velocity
@@ -87,6 +101,11 @@ func _physics_process(delta: float) -> void:
 	read_keyboard_velocities()
 	desired_linear_velocity += _keyboard_linear_velocity
 	desired_angular_velocity += _keyboard_angular_velocity
+	
+	if abs(desired_linear_velocity) < LINEAR_SPEED_DEADZONE:
+		desired_linear_velocity = 0
+	if abs(desired_angular_velocity) < ANGULAR_SPEED_DEADZONE:
+		desired_angular_velocity = 0
 	
 	#Other inputs (esc)
 	inputs()
