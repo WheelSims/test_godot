@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://cbgre2g0x3ble"]
+
+[ext_resource type="PackedScene" uid="uid://bhew5h01biu8m" path="res://objects/optitrack/estrade/fbx/estrade.fbx" id="1_wqcs0"]
+
+[node name="Estrade" type="Node3D" unique_id=339659775]
+
+[node name="estrade" parent="." unique_id=1109361941 instance=ExtResource("1_wqcs0")]

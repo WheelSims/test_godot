@@ -1,7 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://ds06t01fw7lcb"]
+[gd_scene format=3 uid="uid://ds06t01fw7lcb"]
 
-[ext_resource type="PackedScene" uid="uid://c6vsvuq50jnk" path="res://objects/wheelchair/fbx/handrim.fbx" id="1_dk2h2"]
+[ext_resource type="PackedScene" uid="uid://cx1qgt5hhthch" path="res://objects/wheelchair/fbx/handrim.fbx" id="1_dk2h2"]
 
-[node name="Node3D" type="Node3D"]
+[node name="Node3D" type="Node3D" unique_id=2012155687]
 
-[node name="handrim" parent="." instance=ExtResource("1_dk2h2")]
+[node name="handrim" parent="." unique_id=196758062 instance=ExtResource("1_dk2h2")]

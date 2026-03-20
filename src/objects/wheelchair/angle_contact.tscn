@@ -1,7 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://bcfu5sx4m6hm3"]
+[gd_scene format=3 uid="uid://bcfu5sx4m6hm3"]
 
-[ext_resource type="PackedScene" uid="uid://df3dlxmqbldsl" path="res://objects/wheelchair/fbx/angle_contact.fbx" id="1_gdqko"]
+[ext_resource type="PackedScene" uid="uid://ex4mulh3lixi" path="res://objects/wheelchair/fbx/angle_contact.fbx" id="1_gdqko"]
 
-[node name="Node3D" type="Node3D"]
+[node name="Node3D" type="Node3D" unique_id=597101792]
 
-[node name="angle_contact" parent="." instance=ExtResource("1_gdqko")]
+[node name="angle_contact" parent="." unique_id=1772018118 instance=ExtResource("1_gdqko")]

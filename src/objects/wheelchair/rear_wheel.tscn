@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://dwlinbk7uaug"]
+
+[ext_resource type="PackedScene" uid="uid://6pbig6u1nqvr" path="res://objects/wheelchair/fbx/rear_wheel.fbx" id="1_2movc"]
+
+[node name="Node3D" type="Node3D" unique_id=821090249]
+
+[node name="rear_wheel" parent="." unique_id=1416927850 instance=ExtResource("1_2movc")]

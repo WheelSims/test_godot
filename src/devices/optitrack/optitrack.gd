@@ -3,6 +3,10 @@ extends Node
 
 @export var UDP_RECEIVE_PORT: int = 1511
 
+var scene_simulateur = preload("res://objects/optitrack/simulateur/simulateur.tscn")
+var scene_estrade = preload("res://objects/optitrack/estrade/estrade.tscn")
+
+
 var _udp_receiver = PacketPeerUDP.new()
 var _udp_receiver_connected = false
 var data # Contenu du paquet UDP
@@ -21,9 +25,12 @@ var n_id = 0
 
 func _ready():
 	_udp_receiver.bind(UDP_RECEIVE_PORT)
+	#$rigid_body_2.add_child(scene_simulateur.instantiate())
 
 func _process(_delta):
 
+	
+	
 	if _udp_receiver.get_available_packet_count() > 0:  # We received something
 		if not _udp_receiver_connected:
 			_udp_receiver_connected = true
@@ -34,6 +41,7 @@ func _process(_delta):
 		while _udp_receiver.get_available_packet_count() > 0:
 			data = _udp_receiver.get_packet()
 
+		#print(id_rigidbodies)
 
 		# Informations générales du paquet UDP
 		message_id = get_message_id(data)
@@ -43,45 +51,32 @@ func _process(_delta):
 		unlabeled_markers_count = get_unlabeled_markers_count(data)
 		rigid_body_count = get_rigid_body_count(data)
 
-		
-		# WIP
-		# recuperation de la position du centre de la roue dans le repere global a automatiser
-		#var pos_center_wheel_right = Vector3(-0.602935, 0.39298, 0.039214)
-		var pos_center_wheel_right = Vector3(-0.683713, 0.393852, 0.341443)
 
-			
 		# Transmission des positions et orientations à chaque rigibody
 		for i in range(7): ## nombre de rigidbody enfants écrit en clair pour l'instant
 			if i+1 > rigid_body_count: # s'il y a trop de nodes 3D que de rigibodies détectés
+			#if i+1 > len(id_rigidbodies): # s'il y a trop de nodes 3D que de rigibodies détectés
+			
 				self.get_node("rigid_body_" + str(i)).scale = Vector3(0, 0, 0)
 				
 			else: # afficher les rigidbodies et appliquer leurs translations et rotations
-				self.get_node("rigid_body_" + str(i)).scale = Vector3(1, 1, 1)
-
+				
 				# Positions et rotations
 				var result = unpack_rigid_body(data, i)
+				var id_num = result[0]
 				var pos = result[1] # Vector3 positions (x,y,z) du centroïde
 				var rot = result[2] # Quaternion (x,y,z,w)
+				
+				#var node = id_rigidbodies[id_num]
+				
+				self.get_node("rigid_body_" + str(i)).scale = Vector3(1, 1, 1)
 				self.get_node("rigid_body_" + str(i)).position = pos
 				self.get_node("rigid_body_" + str(i)).quaternion = rot
-				
-				#print(id_rigidbodies)
-				
-				# WIP
-				var TS0 = get_transform_matrix_by_id(102)
-				if TS0 != null: 
-					var T0S = TS0.affine_inverse()
-					
-					var _pos_center_wheel_right = T0S.origin + T0S.basis * pos_center_wheel_right
-					
-					if id_rigidbodies[102] != "rigid_body_" + str(i):
-						## Objet_global → Objet_dans_repere_local
-						get_node("rigid_body_" + str(i)).global_transform =  T0S * get_node("rigid_body_" + str(i)).global_transform
 
-						# Set origin in wheel right center
-						get_node("rigid_body_" + str(i)).position -= _pos_center_wheel_right 
-						get_node("rigid_body_" + str(i)).position += Vector3(0, 0, 0.3)
-				
+				#self.get_node(node).scale = Vector3(1, 1, 1)
+				#self.get_node(node).position = pos
+				#self.get_node(node).quaternion = rot
+
 				# Erreur moyenne de la position
 				var _mean_error = result[3]
 
@@ -93,13 +88,7 @@ func _process(_delta):
 				else:
 					mat.albedo_color = Color(1, 1, 1)
 				self.get_node("rigid_body_" + str(i)).get_node("MeshInstance3D").material_override = mat
-
-
-
-
-
-	
-	
+				
 	if main:
 		if not main.config.get_value("devices.optitrack.enabled"):
 			queue_free()
@@ -107,53 +96,42 @@ func _process(_delta):
 func get_message_id(_data):
 	message_id = PackedByteArray(_data.slice(0, 2)).decode_s16(0)
 	return message_id
-
 func get_packet_size(_data):
-	
 	packet_size = 0
 	var offset = 2
 	
 	packet_size = PackedByteArray(_data.slice(offset , offset+2)).decode_s16(0)
 	return packet_size
-
 func get_current_frame(_data):
-	
 	current_frame = 0
 	var offset = 4
 	
 	current_frame = PackedByteArray(_data.slice(offset , offset+4)).decode_s32(0)
 	
 	return current_frame
-
 func get_marker_set_count(_data):
-	
 	marker_set_count = 0
 	var offset = 8
 	
 	marker_set_count = PackedByteArray(_data.slice(offset , offset+4)).decode_s32(0)
 	return marker_set_count
-
 func get_unlabeled_markers_count(_data):
-	
 	unlabeled_markers_count = 0
 	var offset = 12
 	
 	unlabeled_markers_count = PackedByteArray(_data.slice(offset , offset+4)).decode_s32(0)
 	return unlabeled_markers_count
-
 func get_rigid_body_count(_data):
-	
 	rigid_body_count = 0
 	var offset = 16
 	
 	rigid_body_count = PackedByteArray(_data.slice(offset , offset+4)).decode_s32(0)
 	return rigid_body_count
 
-
 func unpack_rigid_body(_data, n_rigidbody):
 	
-	var offset = n_rigidbody*38 + 20 # 20 -> car 
-	# les informations concernant les rigibodies commencent après le header
+	var offset = n_rigidbody*38 + 20 
+	# 20  car les informations concernant les rigibodies commencent après le header
 	
 	# Numéro Streaming ID
 	var _id_num = PackedByteArray(_data.slice(offset , offset+4)).decode_s32(0)
@@ -168,7 +146,6 @@ func unpack_rigid_body(_data, n_rigidbody):
 	offset += 4
 	var _pos = Vector3(pos_x, pos_y, pos_z)
 	
-	
 	# Orientations
 	var rot_x = PackedByteArray(_data.slice(offset , offset+4)).decode_float(0)
 	offset += 4
@@ -179,12 +156,10 @@ func unpack_rigid_body(_data, n_rigidbody):
 	var rot_w = PackedByteArray(_data.slice(offset , offset+4)).decode_float(0)
 	offset += 4
 	var _rot = Quaternion(rot_x, rot_y, rot_z, rot_w).normalized()
-	
 
 	# Erreur moyenne
 	var _error = PackedByteArray(_data.slice(offset , offset+4)).decode_float(0)
 	offset += 4
-	
 	
 	# Etat booléen : 1 si le marqueur est visible par les caméras
 	var _tracked = PackedByteArray(_data.slice(offset , offset+2)).decode_s16(0)
@@ -195,7 +170,24 @@ func unpack_rigid_body(_data, n_rigidbody):
 	if _id_num not in id_rigidbodies:
 		id_rigidbodies[_id_num] = "rigid_body_" + str(n_id)
 		n_id += 1
+
+	#var _node = id_rigidbodies[_id_num]
+
 	
+	#if _id_num == 101 and get_node(_node).get_child_count() == 1:
+		#get_node(_node).add_child(scene_estrade.instantiate())
+		#get_node(_node).get_node("MeshInstance3D").scale = Vector3(0, 0, 0)
+	#if _id_num == 102 and get_node(_node).get_child_count() == 1:
+		#get_node(_node).add_child(scene_simulateur.instantiate())
+		#get_node(_node).get_node("MeshInstance3D").scale = Vector3(0, 0, 0)
+	
+	
+	if _id_num == 101 and get_node("rigid_body_" + str(n_rigidbody)).get_child_count() == 1:
+		get_node("rigid_body_" + str(n_rigidbody)).add_child(scene_estrade.instantiate())
+		get_node("rigid_body_" + str(n_rigidbody)).get_node("MeshInstance3D").scale = Vector3(0, 0, 0)
+	if _id_num == 102 and get_node("rigid_body_" + str(n_rigidbody)).get_child_count() == 1:
+		get_node("rigid_body_" + str(n_rigidbody)).add_child(scene_simulateur.instantiate())
+		get_node("rigid_body_" + str(n_rigidbody)).get_node("MeshInstance3D").scale = Vector3(0, 0, 0)
 	
 	# Afficher les informations dans la console
 	#var _current_frame = get_current_frame(data)
@@ -210,13 +202,9 @@ func unpack_rigid_body(_data, n_rigidbody):
 	return [_id_num, _pos, _rot, _error, _tracked]
 
 
-func get_position_by_id(id):
+func get_node_by_id(id):
 	if id in id_rigidbodies:
-		return get_node(id_rigidbodies[id]).position
-
-func get_transform_matrix_by_id(id):
-	if id in id_rigidbodies:
-		return get_node(id_rigidbodies[id]).global_transform
+		return get_node(id_rigidbodies[id])
 
 func get_debug_text() -> String:
 	var text = ""
@@ -225,3 +213,10 @@ func get_debug_text() -> String:
 		text += "not "
 	text += "connected.\n"
 	return text
+
+func get_free_rigidbody_node():
+	for i in range(7):
+		var name = "rigid_body_" + str(i)
+		if name not in id_rigidbodies.values():
+			return name
+	return null

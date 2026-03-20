@@ -1,7 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://dcbevbvmugl3f"]
-
-[ext_resource type="PackedScene" uid="uid://bwm8eca8ocfhj" path="res://objects/wheelchair/fbx/wheel_right.fbx" id="1_khrrn"]
-
-[node name="Node3D" type="Node3D"]
-
-[node name="wheel_right" parent="." instance=ExtResource("1_khrrn")]

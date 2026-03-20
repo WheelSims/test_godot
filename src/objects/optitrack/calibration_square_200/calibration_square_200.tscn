@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://c6pgld2dtp3ln"]
+
+[ext_resource type="PackedScene" uid="uid://w3paxkpvkn80" path="res://objects/optitrack/calibration_square_200/fbx/calibration_square_200.fbx" id="1_wr680"]
+
+[node name="CalibrationSquare200" type="Node3D" unique_id=561551479]
+
+[node name="calibration_square_200" parent="." unique_id=756594597 instance=ExtResource("1_wr680")]

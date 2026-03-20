@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://cx1qgt5hhthch"
-path="res://.godot/imported/handrim.fbx-f3190b669d1e77f33d2321a70d4dc446.scn"
+uid="uid://bhew5h01biu8m"
+path="res://.godot/imported/estrade.fbx-d2760af929881d69247c6a27f0880987.scn"
 
 [deps]
 
-source_file="res://objects/wheelchair/fbx/handrim.fbx"
-dest_files=["res://.godot/imported/handrim.fbx-f3190b669d1e77f33d2321a70d4dc446.scn"]
+source_file="res://objects/optitrack/estrade/fbx/estrade.fbx"
+dest_files=["res://.godot/imported/estrade.fbx-d2760af929881d69247c6a27f0880987.scn"]
 
 [params]
 

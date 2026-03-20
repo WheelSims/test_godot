@@ -1,9 +1,8 @@
 [gd_scene format=3 uid="uid://cfmmtcpgllxbt"]
 
-[ext_resource type="PackedScene" uid="uid://dcbevbvmugl3f" path="res://objects/wheelchair/rear_wheel_right.tscn" id="1_086ox"]
 [ext_resource type="PackedScene" uid="uid://bcfu5sx4m6hm3" path="res://objects/wheelchair/angle_contact.tscn" id="2_wdam1"]
 [ext_resource type="PackedScene" uid="uid://ds06t01fw7lcb" path="res://objects/wheelchair/handrim.tscn" id="3_h0iuc"]
-[ext_resource type="PackedScene" uid="uid://d1h6dmenb6ogv" path="res://objects/wheelchair/rear_wheel_left.tscn" id="4_qqd2f"]
+[ext_resource type="PackedScene" uid="uid://dwlinbk7uaug" path="res://objects/wheelchair/rear_wheel.tscn" id="4_086ox"]
 [ext_resource type="PackedScene" uid="uid://utxy2vmv4wo7" path="res://devices/optitrack/optitrack.tscn" id="5_ohprv"]
 
 [sub_resource type="GDScript" id="GDScript_086ox"]
@@ -115,39 +114,33 @@ func _input(event):
 		_send_request(request)
 "
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_2eqg6"]
-sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
-ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
-
-[sub_resource type="Sky" id="Sky_t5akv"]
-sky_material = SubResource("ProceduralSkyMaterial_2eqg6")
-
-[sub_resource type="Environment" id="Environment_v8td8"]
-background_mode = 2
-sky = SubResource("Sky_t5akv")
-tonemap_mode = 2
-glow_enabled = true
-
 [sub_resource type="GDScript" id="GDScript_6k3nw"]
 script/source = "extends Node3D
 
 @export var id_hand_tracked = 202
-var pos_hand_tracked = Vector3(0, 0, 0)
-var _id_rigidbodies
+@export var id_repere_simulateur = 102
 
+# WIP
+## recuperation de la position du centre de la roue dans le repere global a automatiser
+var pos_center_wheel_right = Vector3(-0.605314, 0.295554, 0.333269)
 
 func _ready() -> void:
-	
 	pass
-
 
 func _process(_delta):
-
-	pos_hand_tracked = $\"../optitrack\".get_position_by_id(id_hand_tracked)
-	if pos_hand_tracked != null:
-		self.position = pos_hand_tracked
 	
-	pass
+	var node_hand_tracked = $\"../optitrack\".get_node_by_id(id_hand_tracked)
+	var node_repere_simulateur = $\"../optitrack\".get_node_by_id(id_repere_simulateur)
+	
+	if node_hand_tracked and node_repere_simulateur:
+		
+		var T0S = node_repere_simulateur.global_transform.affine_inverse()
+		var _pos_center_wheel_right = T0S.origin + T0S.basis * pos_center_wheel_right
+		
+		self.global_transform = T0S * node_hand_tracked.global_transform
+		
+		self.position -= _pos_center_wheel_right 
+		self.position += $\"..\".position_wheel_r
 "
 
 [sub_resource type="BoxMesh" id="BoxMesh_2eqg6"]
@@ -156,66 +149,29 @@ func _process(_delta):
 script/source = "extends Node3D
 
 @export var id_hand_tracked = 201
-var pos_hand_tracked = Vector3(0, 0, 0)
-var _id_rigidbodies
+@export var id_repere_simulateur = 102
 
-
-func _ready() -> void:
-	
-	pass
-
-
-func _process(_delta):
-
-	pos_hand_tracked = $\"../optitrack\".get_position_by_id(id_hand_tracked)
-	if pos_hand_tracked != null:
-		self.position = pos_hand_tracked
-	
-	pass
-"
-
-[sub_resource type="GDScript" id="GDScript_mr3hu"]
-script/source = "extends Node3D
-
-#var player = 0
-var linear_speed = 0
-
-func _ready() -> void:
-	 
-	pass
-
-
-func _process(_delta):
-
-	#if $\"../../player\" != null:
-		#linear_speed += $\"../../player\".get_angular_speed()
-	
-	#var wheel_velocity = $\"../../optitrack/rigid_body_2\".rotation[2]
-	
-	#self.rotation = Vector3(linear_speed, 0, 0)
-	pass
-"
-
-[sub_resource type="GDScript" id="GDScript_6lo62"]
-script/source = "extends Node3D
-
-var linear_speed = 0
+# WIP
+## recuperation de la position du centre de la roue dans le repere global a automatiser
+var pos_center_wheel_left = Vector3(-0.608433, 0.286506, -0.298351)
 
 func _ready() -> void:
 	pass
 
-
-
 func _process(_delta):
-	
-	#if $\"../../player\" != null:
-		#linear_speed += $\"../../player\".get_angular_speed()
-	
-	#var wheel_velocity = $\"../../optitrack/rigid_body_2\".rotation[2]
-	
-	#self.rotation = Vector3(linear_speed, 0, 0)
 
-	pass
+	var node_hand_tracked = $\"../optitrack\".get_node_by_id(id_hand_tracked)
+	var node_repere_simulateur = $\"../optitrack\".get_node_by_id(id_repere_simulateur)
+	
+	if node_hand_tracked and node_repere_simulateur:
+		
+		var T0S = node_repere_simulateur.global_transform.affine_inverse()
+		var _pos_center_wheel_left = T0S.origin + T0S.basis * pos_center_wheel_left
+		
+		self.global_transform = T0S * node_hand_tracked.global_transform
+		
+		self.position -= _pos_center_wheel_left 
+		self.position += $\"..\".position_wheel_l
 "
 
 [sub_resource type="GDScript" id="GDScript_ymvtp"]
@@ -330,13 +286,6 @@ transform = Transform3D(0.5949489, 0.27490336, -0.7552907, -1.3594585e-08, 0.939
 cull_mask = 1048479
 fov = 45.0
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1402236583]
-transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
-shadow_enabled = true
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1863406392]
-environment = SubResource("Environment_v8td8")
-
 [node name="hand_right" type="Node3D" parent="." unique_id=1972789446]
 script = SubResource("GDScript_6k3nw")
 
@@ -358,17 +307,65 @@ skeleton = NodePath("")
 [node name="wheel_right" type="Node3D" parent="." unique_id=1798953585]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0, 0.3)
 
-[node name="rear_wheel_right" parent="wheel_right" unique_id=1013786258 instance=ExtResource("1_086ox")]
-script = SubResource("GDScript_mr3hu")
+[node name="rear_wheel_right" parent="wheel_right" unique_id=821090249 instance=ExtResource("4_086ox")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
 
-[node name="angle_contact_right" parent="wheel_right" unique_id=1792593856 instance=ExtResource("2_wdam1")]
-
-[node name="Circle" parent="wheel_right/angle_contact_right/angle_contact" index="0" unique_id=469612020]
+[node name="BézierCircle_004" parent="wheel_right/rear_wheel_right/rear_wheel" parent_id_path=PackedInt32Array(821090249, 1416927850) index="0" unique_id=2000540256]
 layers = 4
 
-[node name="handrim_right" parent="wheel_right" unique_id=1662188052 instance=ExtResource("3_h0iuc")]
+[node name="BézierCircle_005" parent="wheel_right/rear_wheel_right/rear_wheel" parent_id_path=PackedInt32Array(821090249, 1416927850) index="1" unique_id=1666782846]
+layers = 4
 
-[node name="BézierCircle_003" parent="wheel_right/handrim_right/handrim" index="0" unique_id=1931052494]
+[node name="BézierCircle_006" parent="wheel_right/rear_wheel_right/rear_wheel" parent_id_path=PackedInt32Array(821090249, 1416927850) index="2" unique_id=598642149]
+layers = 4
+
+[node name="Cylinder_013" parent="wheel_right/rear_wheel_right/rear_wheel" parent_id_path=PackedInt32Array(821090249, 1416927850) index="3" unique_id=1585116572]
+layers = 4
+
+[node name="Cylinder_014" parent="wheel_right/rear_wheel_right/rear_wheel" parent_id_path=PackedInt32Array(821090249, 1416927850) index="4" unique_id=1933588465]
+layers = 4
+
+[node name="Cylinder_015" parent="wheel_right/rear_wheel_right/rear_wheel" parent_id_path=PackedInt32Array(821090249, 1416927850) index="5" unique_id=531833053]
+layers = 4
+
+[node name="Cylinder_016" parent="wheel_right/rear_wheel_right/rear_wheel" parent_id_path=PackedInt32Array(821090249, 1416927850) index="6" unique_id=808111673]
+layers = 4
+
+[node name="Cylinder_017" parent="wheel_right/rear_wheel_right/rear_wheel" parent_id_path=PackedInt32Array(821090249, 1416927850) index="7" unique_id=1678391125]
+layers = 4
+
+[node name="Cylinder_018" parent="wheel_right/rear_wheel_right/rear_wheel" parent_id_path=PackedInt32Array(821090249, 1416927850) index="8" unique_id=833422011]
+layers = 4
+
+[node name="Cylinder_019" parent="wheel_right/rear_wheel_right/rear_wheel" parent_id_path=PackedInt32Array(821090249, 1416927850) index="9" unique_id=450149053]
+layers = 4
+
+[node name="Cylinder_020" parent="wheel_right/rear_wheel_right/rear_wheel" parent_id_path=PackedInt32Array(821090249, 1416927850) index="10" unique_id=1500352944]
+layers = 4
+
+[node name="Cylinder_021" parent="wheel_right/rear_wheel_right/rear_wheel" parent_id_path=PackedInt32Array(821090249, 1416927850) index="11" unique_id=593493418]
+layers = 4
+
+[node name="Cylinder_022" parent="wheel_right/rear_wheel_right/rear_wheel" parent_id_path=PackedInt32Array(821090249, 1416927850) index="12" unique_id=1820500564]
+layers = 4
+
+[node name="Cylinder_023" parent="wheel_right/rear_wheel_right/rear_wheel" parent_id_path=PackedInt32Array(821090249, 1416927850) index="13" unique_id=411050152]
+layers = 4
+
+[node name="Cylinder_024" parent="wheel_right/rear_wheel_right/rear_wheel" parent_id_path=PackedInt32Array(821090249, 1416927850) index="14" unique_id=1001901401]
+layers = 4
+
+[node name="Cylinder_025" parent="wheel_right/rear_wheel_right/rear_wheel" parent_id_path=PackedInt32Array(821090249, 1416927850) index="15" unique_id=496448505]
+layers = 4
+
+[node name="angle_contact_right" parent="wheel_right" unique_id=1483047403 instance=ExtResource("2_wdam1")]
+
+[node name="Circle" parent="wheel_right/angle_contact_right/angle_contact" parent_id_path=PackedInt32Array(1483047403, 1772018118) index="0" unique_id=1045782093]
+layers = 4
+
+[node name="handrim_right" parent="wheel_right" unique_id=1261809836 instance=ExtResource("3_h0iuc")]
+
+[node name="BézierCircle_003" parent="wheel_right/handrim_right/handrim" parent_id_path=PackedInt32Array(1261809836, 196758062) index="0" unique_id=1225760875]
 layers = 5
 
 [node name="camera_offset_right" type="Node3D" parent="wheel_right" unique_id=1179133510]
@@ -381,17 +378,64 @@ remote_path = NodePath("../../../view_wheel_right/SubViewport/Camera_Right")
 [node name="wheel_left" type="Node3D" parent="." unique_id=2008861505]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0, -0.3)
 
-[node name="rear_wheel_left" parent="wheel_left" unique_id=1980969343 instance=ExtResource("4_qqd2f")]
-script = SubResource("GDScript_6lo62")
+[node name="rear_wheel_left" parent="wheel_left" unique_id=149440537 instance=ExtResource("4_086ox")]
 
-[node name="angle_contact_left" parent="wheel_left" unique_id=337968216 instance=ExtResource("2_wdam1")]
-
-[node name="Circle" parent="wheel_left/angle_contact_left/angle_contact" index="0" unique_id=469612020]
+[node name="BézierCircle_004" parent="wheel_left/rear_wheel_left/rear_wheel" parent_id_path=PackedInt32Array(149440537, 1416927850) index="0" unique_id=2000540256]
 layers = 2
 
-[node name="handrim_left" parent="wheel_left" unique_id=590420796 instance=ExtResource("3_h0iuc")]
+[node name="BézierCircle_005" parent="wheel_left/rear_wheel_left/rear_wheel" parent_id_path=PackedInt32Array(149440537, 1416927850) index="1" unique_id=1666782846]
+layers = 2
 
-[node name="BézierCircle_003" parent="wheel_left/handrim_left/handrim" index="0" unique_id=1931052494]
+[node name="BézierCircle_006" parent="wheel_left/rear_wheel_left/rear_wheel" parent_id_path=PackedInt32Array(149440537, 1416927850) index="2" unique_id=598642149]
+layers = 2
+
+[node name="Cylinder_013" parent="wheel_left/rear_wheel_left/rear_wheel" parent_id_path=PackedInt32Array(149440537, 1416927850) index="3" unique_id=1585116572]
+layers = 2
+
+[node name="Cylinder_014" parent="wheel_left/rear_wheel_left/rear_wheel" parent_id_path=PackedInt32Array(149440537, 1416927850) index="4" unique_id=1933588465]
+layers = 2
+
+[node name="Cylinder_015" parent="wheel_left/rear_wheel_left/rear_wheel" parent_id_path=PackedInt32Array(149440537, 1416927850) index="5" unique_id=531833053]
+layers = 2
+
+[node name="Cylinder_016" parent="wheel_left/rear_wheel_left/rear_wheel" parent_id_path=PackedInt32Array(149440537, 1416927850) index="6" unique_id=808111673]
+layers = 2
+
+[node name="Cylinder_017" parent="wheel_left/rear_wheel_left/rear_wheel" parent_id_path=PackedInt32Array(149440537, 1416927850) index="7" unique_id=1678391125]
+layers = 2
+
+[node name="Cylinder_018" parent="wheel_left/rear_wheel_left/rear_wheel" parent_id_path=PackedInt32Array(149440537, 1416927850) index="8" unique_id=833422011]
+layers = 2
+
+[node name="Cylinder_019" parent="wheel_left/rear_wheel_left/rear_wheel" parent_id_path=PackedInt32Array(149440537, 1416927850) index="9" unique_id=450149053]
+layers = 2
+
+[node name="Cylinder_020" parent="wheel_left/rear_wheel_left/rear_wheel" parent_id_path=PackedInt32Array(149440537, 1416927850) index="10" unique_id=1500352944]
+layers = 2
+
+[node name="Cylinder_021" parent="wheel_left/rear_wheel_left/rear_wheel" parent_id_path=PackedInt32Array(149440537, 1416927850) index="11" unique_id=593493418]
+layers = 2
+
+[node name="Cylinder_022" parent="wheel_left/rear_wheel_left/rear_wheel" parent_id_path=PackedInt32Array(149440537, 1416927850) index="12" unique_id=1820500564]
+layers = 2
+
+[node name="Cylinder_023" parent="wheel_left/rear_wheel_left/rear_wheel" parent_id_path=PackedInt32Array(149440537, 1416927850) index="13" unique_id=411050152]
+layers = 2
+
+[node name="Cylinder_024" parent="wheel_left/rear_wheel_left/rear_wheel" parent_id_path=PackedInt32Array(149440537, 1416927850) index="14" unique_id=1001901401]
+layers = 2
+
+[node name="Cylinder_025" parent="wheel_left/rear_wheel_left/rear_wheel" parent_id_path=PackedInt32Array(149440537, 1416927850) index="15" unique_id=496448505]
+layers = 2
+
+[node name="angle_contact_left" parent="wheel_left" unique_id=1816208007 instance=ExtResource("2_wdam1")]
+
+[node name="Circle" parent="wheel_left/angle_contact_left/angle_contact" parent_id_path=PackedInt32Array(1816208007, 1772018118) index="0" unique_id=1045782093]
+layers = 2
+
+[node name="handrim_left" parent="wheel_left" unique_id=1273185063 instance=ExtResource("3_h0iuc")]
+
+[node name="BézierCircle_003" parent="wheel_left/handrim_left/handrim" parent_id_path=PackedInt32Array(1273185063, 196758062) index="0" unique_id=1225760875]
 layers = 2
 
 [node name="camera_offset_left" type="Node3D" parent="wheel_left" unique_id=1469255201]
@@ -467,10 +511,14 @@ script = SubResource("GDScript_ymvtp")
 [node name="trail_hand_left2" type="Node3D" parent="." unique_id=1750984441]
 script = SubResource("GDScript_2cpfo")
 
+[editable path="wheel_right/rear_wheel_right"]
+[editable path="wheel_right/rear_wheel_right/rear_wheel"]
 [editable path="wheel_right/angle_contact_right"]
 [editable path="wheel_right/angle_contact_right/angle_contact"]
 [editable path="wheel_right/handrim_right"]
 [editable path="wheel_right/handrim_right/handrim"]
+[editable path="wheel_left/rear_wheel_left"]
+[editable path="wheel_left/rear_wheel_left/rear_wheel"]
 [editable path="wheel_left/angle_contact_left"]
 [editable path="wheel_left/angle_contact_left/angle_contact"]
 [editable path="wheel_left/handrim_left"]
