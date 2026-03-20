@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://cnkavq43degkn"]
+
+[ext_resource type="PackedScene" uid="uid://c6cyax0tmr8cp" path="res://objects/race_objects/western_theme/models_textures/desert_stone/StoneDesert4.fbx" id="1_aduxo"]
+[ext_resource type="Material" uid="uid://c5ey31kx5xsgp" path="res://objects/race_objects/western_theme/models_textures/desert_stone/stone_desert.tres" id="2_igqy6"]
+[ext_resource type="Script" uid="uid://comdhddtuflvn" path="res://games/races/obstacle_race/generator/scripts/world_scale_calculator.gd" id="2_m27ek"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_aduxo"]
+size = Vector3(0.07492676, 0.06352539, 0.05342407)
+
+[node name="stone_desert" unique_id=804213735 node_paths=PackedStringArray("visual_instance", "collision_shape", "area3D") instance=ExtResource("1_aduxo")]
+script = ExtResource("2_m27ek")
+visual_instance = NodePath("DesertStoneLow")
+collision_shape = NodePath("DesertStoneLow/StaticBody3D/CollisionShape3D")
+area3D = NodePath("DesertStoneLow/Area3D")
+
+[node name="DesertStoneLow" parent="." index="0" unique_id=401836275]
+transform = Transform3D(-1.3113416e-06, -30, -1.3113416e-06, 0, -1.3113416e-06, 30, -30, 1.3113416e-06, 5.732056e-14, 0, -0.39072084, 0)
+surface_material_override/0 = ExtResource("2_igqy6")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="DesertStoneLow" index="0" unique_id=62356875]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DesertStoneLow/StaticBody3D" index="0" unique_id=539007631]
+transform = Transform3D(0.99999857, 0, 2.842171e-14, 0, 0.99999857, 0, -2.842171e-14, 0, 0.99999857, -0.0001342744, 0.032250974, 0.0017730673)
+shape = SubResource("BoxShape3D_aduxo")
+
+[node name="Area3D" type="Area3D" parent="DesertStoneLow" index="1" unique_id=1269883225]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DesertStoneLow/Area3D" index="0" unique_id=1683602033]
+transform = Transform3D(0.99999857, 0, 2.842171e-14, 0, 0.99999857, 0, -2.842171e-14, 0, 0.99999857, -0.0001342744, 0.032250974, 0.0017730673)
+shape = SubResource("BoxShape3D_aduxo")

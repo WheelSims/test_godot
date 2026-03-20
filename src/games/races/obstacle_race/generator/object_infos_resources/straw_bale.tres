@@ -1,11 +1,11 @@
 [gd_resource type="Resource" script_class="ObjectInfo" format=3 uid="uid://b68yonl8ngd4q"]
 
-[ext_resource type="PackedScene" uid="uid://t4035q8axi6v" path="res://objects/race_objects/western_theme/obstacles/hay_bale/scenes/hay_bale.tscn" id="1_8kivv"]
-[ext_resource type="Script" uid="uid://brpk4pab7wouw" path="res://games/races/obstacle_race/generator/scripts/object_info.gd" id="2_bx0ri"]
+[ext_resource type="PackedScene" uid="uid://t4035q8axi6v" path="res://objects/race_objects/western_theme/scenes/hay_bale.tscn" id="1_oulgy"]
+[ext_resource type="Script" uid="uid://brpk4pab7wouw" path="res://games/races/obstacle_race/generator/scripts/object_info.gd" id="2_0fhxw"]
 
 [resource]
-script = ExtResource("2_bx0ri")
-scene = ExtResource("1_8kivv")
+script = ExtResource("2_0fhxw")
+scene = ExtResource("1_oulgy")
 z_sizes = {
 -45.0: 2.3754756,
 0.0: 1.69348,

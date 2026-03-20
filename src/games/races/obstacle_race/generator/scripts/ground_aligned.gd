@@ -13,6 +13,7 @@ func transform_correction() -> float:
 		return 0		
 	return (global_position - collision_point).y
 
-func _process(delta: float) -> void:
+func _ready() -> void:
+	await get_tree().process_frame
 	var y_offset = transform_correction()
 	position -= y_offset * Vector3.UP

@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="ObjectInfo" format=3 uid="uid://bfq86aqnpo780"]
+
+[ext_resource type="PackedScene" uid="uid://j1nf1nl4vpek" path="res://objects/race_objects/western_theme/scenes/cactus_1.tscn" id="1_hajv7"]
+[ext_resource type="Script" uid="uid://brpk4pab7wouw" path="res://games/races/obstacle_race/generator/scripts/object_info.gd" id="2_iqe27"]
+
+[resource]
+script = ExtResource("2_iqe27")
+scene = ExtResource("1_hajv7")
+z_sizes = {
+-45.0: 1.3406717,
+0.0: 1.0,
+45.0: 1.3406717,
+90.0: 0.89599615
+}
+local_scale = Vector3(0.8959961, 2.300293, 1)
+type = 2

@@ -1,11 +1,11 @@
 [gd_resource type="Resource" script_class="ObjectInfo" format=3 uid="uid://cmbce73vvg1mr"]
 
-[ext_resource type="PackedScene" uid="uid://diyc4k3lfoq2t" path="res://objects/race_objects/western_theme/walls/fence/fence.tscn" id="1_cpksn"]
-[ext_resource type="Script" uid="uid://brpk4pab7wouw" path="res://games/races/obstacle_race/generator/scripts/object_info.gd" id="2_6xf8r"]
+[ext_resource type="PackedScene" uid="uid://diyc4k3lfoq2t" path="res://objects/race_objects/western_theme/scenes/fence.tscn" id="1_w8dnd"]
+[ext_resource type="Script" uid="uid://brpk4pab7wouw" path="res://games/races/obstacle_race/generator/scripts/object_info.gd" id="2_3xcqs"]
 
 [resource]
-script = ExtResource("2_6xf8r")
-scene = ExtResource("1_cpksn")
+script = ExtResource("2_3xcqs")
+scene = ExtResource("1_w8dnd")
 z_sizes = {
 90.0: 2.0281408
 }

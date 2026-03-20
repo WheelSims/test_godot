@@ -1,6 +1,9 @@
 [gd_scene format=3 uid="uid://k18bpclv0qnw"]
 
-[node name="screens" type="Node2D" unique_id=1912241462]
+[ext_resource type="Script" uid="uid://eg8crkfvfumy" path="res://devices/screens/single_screen.gd" id="1_mwtn7"]
+
+[node name="single_screen" type="Node2D" unique_id=1912241462]
+script = ExtResource("1_mwtn7")
 
 [node name="main_window" type="Window" parent="." unique_id=512478051]
 oversampling_override = 1.0

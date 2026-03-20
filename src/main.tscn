@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://dq2eiii6jcj6u" path="res://control_gui/control_gui.tscn" id="1_ig7tw"]
 [ext_resource type="Script" uid="uid://bcwkevpt7iwo1" path="res://overlays/speed_indicator.gd" id="2_lquwl"]
 [ext_resource type="Script" uid="uid://db602oks11677" path="res://config.gd" id="3_h2yge"]
-[ext_resource type="Script" uid="uid://eg8crkfvfumy" path="res://devices/screens/screens.gd" id="4_1bvp3"]
+[ext_resource type="Script" uid="uid://eg8crkfvfumy" path="res://devices/screens/single_screen.gd" id="4_1bvp3"]
 [ext_resource type="PackedScene" uid="uid://xwtfx6p27vlm" path="res://devices/motorized_rollers/motorized_rollers.tscn" id="4_5vw27"]
 [ext_resource type="PackedScene" uid="uid://f24s3bar65fp" path="res://overlays/debug.tscn" id="4_272bh"]
 [ext_resource type="PackedScene" uid="uid://bm1b5ewq26kcl" path="res://overlays/biofeedback_optitrack.tscn" id="4_kek77"]

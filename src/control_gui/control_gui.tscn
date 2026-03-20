@@ -7,7 +7,7 @@
 bg_color = Color(0, 0, 0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fo410"]
-bg_color = Color(0.626862, 0.403022, 0.230489, 1)
+bg_color = Color(0.479555, 0.479555, 0.479555, 1)
 corner_radius_top_left = 10
 corner_radius_top_right = 10
 corner_radius_bottom_right = 10
@@ -15,6 +15,13 @@ corner_radius_bottom_left = 10
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_21f17"]
 bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h5sux"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0.1466411, 0.1466411, 0.14664105, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gi8mn"]
 bg_color = Color(0.57254905, 0.015686275, 0, 1)
@@ -60,6 +67,7 @@ offset_right = -28.0
 offset_bottom = -21.0
 grow_horizontal = 2
 grow_vertical = 2
+focus_behavior_recursive = 1
 color = Color(0.592157, 0.592157, 0.592157, 1)
 
 [node name="margin_container" type="MarginContainer" parent="main_panel" unique_id=742625312]
@@ -122,7 +130,13 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_21f17")
 text = "Settings"
 horizontal_alignment = 1
 
-[node name="settings_list" type="VBoxContainer" parent="main_panel/margin_container/main_vbox_container/panels/settings_panel" unique_id=1228794127]
+[node name="ScrollContainer" type="ScrollContainer" parent="main_panel/margin_container/main_vbox_container/panels/settings_panel" unique_id=1323418675]
+custom_minimum_size = Vector2(320, 0)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_h5sux")
+
+[node name="settings_list" type="VBoxContainer" parent="main_panel/margin_container/main_vbox_container/panels/settings_panel/ScrollContainer" unique_id=1228794127]
 layout_mode = 2
 size_flags_vertical = 3
 script = ExtResource("2_h5sux")

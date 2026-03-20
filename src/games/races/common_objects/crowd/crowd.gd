@@ -13,6 +13,7 @@ var _trans_anim: float = 0
 var on_race: bool = true
 var _player_area: Area3D
 @export var max_applaud_distance : float
+@export var sound_applaud_on: bool = true
 
 func _ready() -> void:		
 	audio_stream.stream = _start_applaud
@@ -45,6 +46,8 @@ func _process(delta: float) -> void:
 			human.look_at(_player_area.global_position, Vector3.UP, true)
 
 func _play_sound() -> void:
+	if not sound_applaud_on:
+		audio_stream.volume_db = - INF
 	audio_stream.play()
 	
 	await audio_stream.finished
