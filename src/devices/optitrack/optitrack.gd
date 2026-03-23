@@ -3,10 +3,6 @@ extends Node
 
 @export var UDP_RECEIVE_PORT: int = 1511
 
-var scene_simulateur = preload("res://objects/optitrack/simulateur/simulateur.tscn")
-var scene_estrade = preload("res://objects/optitrack/estrade/estrade.tscn")
-
-
 var _udp_receiver = PacketPeerUDP.new()
 var _udp_receiver_connected = false
 var data # Contenu du paquet UDP
@@ -19,29 +15,22 @@ var marker_set_count
 var unlabeled_markers_count
 var rigid_body_count
 
-var id_rigidbodies = {}
-var n_id = 0
+var id_rigidbodies = []
 
 
 func _ready():
 	_udp_receiver.bind(UDP_RECEIVE_PORT)
-	#$rigid_body_2.add_child(scene_simulateur.instantiate())
 
 func _process(_delta):
 
-	
-	
 	if _udp_receiver.get_available_packet_count() > 0:  # We received something
 		if not _udp_receiver_connected:
 			_udp_receiver_connected = true
-			#print("System Optitrack connected.")
 		data = _udp_receiver.get_packet()
 
 		# Discard everything until the very last packet we received
 		while _udp_receiver.get_available_packet_count() > 0:
 			data = _udp_receiver.get_packet()
-
-		#print(id_rigidbodies)
 
 		# Informations générales du paquet UDP
 		message_id = get_message_id(data)
@@ -51,44 +40,36 @@ func _process(_delta):
 		unlabeled_markers_count = get_unlabeled_markers_count(data)
 		rigid_body_count = get_rigid_body_count(data)
 
-
 		# Transmission des positions et orientations à chaque rigibody
-		for i in range(7): ## nombre de rigidbody enfants écrit en clair pour l'instant
-			if i+1 > rigid_body_count: # s'il y a trop de nodes 3D que de rigibodies détectés
-			#if i+1 > len(id_rigidbodies): # s'il y a trop de nodes 3D que de rigibodies détectés
+		for i in range(rigid_body_count):
 			
-				self.get_node("rigid_body_" + str(i)).scale = Vector3(0, 0, 0)
-				
-			else: # afficher les rigidbodies et appliquer leurs translations et rotations
-				
-				# Positions et rotations
-				var result = unpack_rigid_body(data, i)
-				var id_num = result[0]
-				var pos = result[1] # Vector3 positions (x,y,z) du centroïde
-				var rot = result[2] # Quaternion (x,y,z,w)
-				
-				#var node = id_rigidbodies[id_num]
-				
-				self.get_node("rigid_body_" + str(i)).scale = Vector3(1, 1, 1)
-				self.get_node("rigid_body_" + str(i)).position = pos
-				self.get_node("rigid_body_" + str(i)).quaternion = rot
+			var result = unpack_rigid_body(data, i)
+			
+			## Positions et rotations
+			var id_num = result[0]
+			var pos = result[1] # Vector3 positions (x,y,z) du centroïde
+			var rot = result[2] # Quaternion (x,y,z,w)
 
-				#self.get_node(node).scale = Vector3(1, 1, 1)
-				#self.get_node(node).position = pos
-				#self.get_node(node).quaternion = rot
+			# Erreur moyenne de la position
+			var _mean_error = result[3]
+			
+			# Booleen si le corps rigidbody est capturé par les caméras
+			var _tracked = result[4]
 
-				# Erreur moyenne de la position
-				var _mean_error = result[3]
+			if not has_node(str(id_num)):
+				var node = Node3D.new()
+				node.name = str(id_num)
+				add_child(node)
+			
+			self.get_node(str(id_num)).position = pos
+			self.get_node(str(id_num)).quaternion = rot
+		
+		for child in get_children():
+			if child.name not in id_rigidbodies:
+				child.queue_free()
+		
+		id_rigidbodies.clear()
 
-				# Couleur rouge si le rigidbody n'est plus détecté
-				var tracked = result[4]
-				var mat = StandardMaterial3D.new()
-				if tracked == 0:
-					mat.albedo_color = Color(1, 0, 0)
-				else:
-					mat.albedo_color = Color(1, 1, 1)
-				self.get_node("rigid_body_" + str(i)).get_node("MeshInstance3D").material_override = mat
-				
 	if main:
 		if not main.config.get_value("devices.optitrack.enabled"):
 			queue_free()
@@ -168,26 +149,8 @@ func unpack_rigid_body(_data, n_rigidbody):
 	
 	# Ajouter les id dans un dictionnaire pour les faire correspondre aux rigidbodies
 	if _id_num not in id_rigidbodies:
-		id_rigidbodies[_id_num] = "rigid_body_" + str(n_id)
-		n_id += 1
+		id_rigidbodies.append(str(_id_num))
 
-	#var _node = id_rigidbodies[_id_num]
-
-	
-	#if _id_num == 101 and get_node(_node).get_child_count() == 1:
-		#get_node(_node).add_child(scene_estrade.instantiate())
-		#get_node(_node).get_node("MeshInstance3D").scale = Vector3(0, 0, 0)
-	#if _id_num == 102 and get_node(_node).get_child_count() == 1:
-		#get_node(_node).add_child(scene_simulateur.instantiate())
-		#get_node(_node).get_node("MeshInstance3D").scale = Vector3(0, 0, 0)
-	
-	
-	if _id_num == 101 and get_node("rigid_body_" + str(n_rigidbody)).get_child_count() == 1:
-		get_node("rigid_body_" + str(n_rigidbody)).add_child(scene_estrade.instantiate())
-		get_node("rigid_body_" + str(n_rigidbody)).get_node("MeshInstance3D").scale = Vector3(0, 0, 0)
-	if _id_num == 102 and get_node("rigid_body_" + str(n_rigidbody)).get_child_count() == 1:
-		get_node("rigid_body_" + str(n_rigidbody)).add_child(scene_simulateur.instantiate())
-		get_node("rigid_body_" + str(n_rigidbody)).get_node("MeshInstance3D").scale = Vector3(0, 0, 0)
 	
 	# Afficher les informations dans la console
 	#var _current_frame = get_current_frame(data)
@@ -203,8 +166,8 @@ func unpack_rigid_body(_data, n_rigidbody):
 
 
 func get_node_by_id(id):
-	if id in id_rigidbodies:
-		return get_node(id_rigidbodies[id])
+	if has_node(str(id)):
+		return get_node(str(id))
 
 func get_debug_text() -> String:
 	var text = ""
@@ -213,10 +176,3 @@ func get_debug_text() -> String:
 		text += "not "
 	text += "connected.\n"
 	return text
-
-func get_free_rigidbody_node():
-	for i in range(7):
-		var name = "rigid_body_" + str(i)
-		if name not in id_rigidbodies.values():
-			return name
-	return null
