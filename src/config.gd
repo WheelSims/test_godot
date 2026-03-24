@@ -17,28 +17,34 @@ var _defaults: Dictionary[String, Dictionary] = {
 	"player.camera.fov": {"order": 1.02, "label": "Field of view", "unit": "deg", "type": "float", "default": 75.0, "min": 40.0, "max": 150.0},
 	"player.camera.angle": {"order": 1.03, "label": "Camera angle", "unit": "deg", "type": "float", "default": 0.0, "min": -45.0, "max": 45.0},
 
-	"overlays": {"order": 2, "label": "OVERLAYS"},
-	"overlays.speed_indicator.enabled": {"order": 2.01, "label": "Speed indicator", "type": "bool", "default": true},
-	"overlays.debug.enabled": {"order": 2.02, "label": "Debug", "type": "bool", "default": false},
+	"game": {"order": 2, "label": "GAME PARAMETERS"},
+	
+	"game.racing.type": {"order": 2.1, "label": "Type of challenge", "type": "options", "items": ["Fastest time in a given distance", "Longest distance in a given time"], "default": 0},
+	"game.racing.distance": {"order": 2.2, "label": "Distance (for fastest time)", "unit": "m", "type": "int", "default": 100, "min": 20, "max": 1000},
+	"game.racing.time": {"order": 2.3, "label": "Time (for longest distance)", "unit": "s", "type": "int", "default": 60, "min": 10, "max": 360},
 
-	"devices": {"order": 3, "label": "DEVICE SETTINGS"},
+	"overlays": {"order": 3, "label": "OVERLAYS"},
+	"overlays.speed_indicator.enabled": {"order": 3.01, "label": "Speed indicator", "type": "bool", "default": true},
+	"overlays.debug.enabled": {"order": 3.02, "label": "Debug", "type": "bool", "default": false},
 
-	"devices.screens": {"order": 3.1, "label": "Screens"},
+	"devices": {"order": 4, "label": "DEVICE SETTINGS"},
 
-	"devices.screens.single_screen": {"order": 3.2, "label": "Single screen"},
-	"devices.screens.single_screen.enabled": {"order": 3.21, "label": "Enabled", "type": "bool", "default": true},
-	"devices.screens.single_screen.full_screen.enabled": {"order": 3.22, "label": "Full screen", "type": "bool", "default": true},
-	"devices.screens.single_screen.full_screen.screen_index": {"order": 3.23, "label": "Front screen number", "type": "int", "default": 1, "min": 1, "max": 5},
+	"devices.screens": {"order": 4.1, "label": "Screens"},
 
-	"devices.screens.front_floor_screens": {"order": 3.3, "label": "Front+floor screens"},
-	"devices.screens.front_floor_screens.enabled": {"order": 3.31, "label": "Enabled", "type": "bool","default": false},
-	"devices.screens.front_floor_screens.full_screen.enabled": {"order": 3.32, "label": "Full screen", "type": "bool", "default": true},
-	"devices.screens.front_floor_screens.full_screen.front_screen_index": {"order": 3.33, "label": "Front screen number", "type": "int", "default": 2, "min": 1, "max": 5},
-	"devices.screens.front_floor_screens.full_screen.floor_screen_index": {"order": 3.34, "label": "Floor screen number", "type": "int", "default": 3, "min": 1, "max": 5},
+	"devices.screens.single_screen": {"order": 4.2, "label": "Single screen"},
+	"devices.screens.single_screen.enabled": {"order": 4.21, "label": "Enabled", "type": "bool", "default": true},
+	"devices.screens.single_screen.full_screen.enabled": {"order": 4.22, "label": "Full screen", "type": "bool", "default": true},
+	"devices.screens.single_screen.full_screen.screen_index": {"order": 4.23, "label": "Front screen number", "type": "int", "default": 1, "min": 1, "max": 5},
 
-	"devices.others": {"order": 3.4, "label": "Other devices"},
-	"devices.d_box.enabled": {"order": 3.5, "label": "D-Box", "type": "bool", "default": false},
-	"devices.motorized_rollers.enabled": {"order": 3.6, "label": "Motorized rollers", "type": "bool", "default": false},
+	"devices.screens.front_floor_screens": {"order": 4.3, "label": "Front+floor screens"},
+	"devices.screens.front_floor_screens.enabled": {"order": 4.31, "label": "Enabled", "type": "bool","default": false},
+	"devices.screens.front_floor_screens.full_screen.enabled": {"order": 4.32, "label": "Full screen", "type": "bool", "default": true},
+	"devices.screens.front_floor_screens.full_screen.front_screen_index": {"order": 4.33, "label": "Front screen number", "type": "int", "default": 2, "min": 1, "max": 5},
+	"devices.screens.front_floor_screens.full_screen.floor_screen_index": {"order": 4.34, "label": "Floor screen number", "type": "int", "default": 3, "min": 1, "max": 5},
+
+	"devices.others": {"order": 4.4, "label": "Other devices"},
+	"devices.d_box.enabled": {"order": 4.5, "label": "D-Box", "type": "bool", "default": false},
+	"devices.motorized_rollers.enabled": {"order": 4.6, "label": "Motorized rollers", "type": "bool", "default": false},
 }
 
 ## Overrides
@@ -119,6 +125,14 @@ func get_max_value(key: String):
 		return _defaults[key]["max"]
 	else:
 		return null
+
+## Get items or null if not existing
+func get_items(key: String):
+	if key in _defaults and "items" in _defaults[key]:
+		return _defaults[key]["items"]
+	else:
+		return null
+
 
 ## Set config value
 func set_value(key: String, value):

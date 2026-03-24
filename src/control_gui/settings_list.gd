@@ -96,7 +96,7 @@ func _ready():
 
 			continue
 
-		if (typeof(config.get_value(key)) == TYPE_BOOL):
+		if config.get_type(key) == "bool":
 			var container = HBoxContainer.new()
 			# Switch
 			var control = CheckButton.new()
@@ -114,3 +114,16 @@ func _ready():
 			container.add_child(label)
 			add_child(container)
 			continue
+			
+		if config.get_type(key) == "options":
+			# Label on its own line
+			var label = Label.new()
+			label.text = config.get_label(key)
+			add_child(label)
+			
+			# Control
+			var option_button = OptionButton.new()
+			for item in config.get_items(key):
+				option_button.add_item(item)
+			option_button.select(config.get_value(key))
+			add_child(option_button)
