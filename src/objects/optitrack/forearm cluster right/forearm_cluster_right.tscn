@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://bi4w50l5uqado"]
+
+[ext_resource type="PackedScene" uid="uid://cyuwwq10bjy27" path="res://objects/optitrack/forearm cluster right/fbx/forearm_cluster_right.fbx" id="1_voyhk"]
+
+[node name="ForearmClusterRight" type="Node3D" unique_id=2017748518]
+
+[node name="forearm_cluster_right" parent="." unique_id=696470872 instance=ExtResource("1_voyhk")]
+transform = Transform3D(-0.50000006, 0.75, -0.43301266, 0, 0.49999997, 0.86602545, 0.8660254, 0.43301278, -0.25, 0, 0, 0)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://desjimkbuet6n"]
+[gd_scene format=3 uid="uid://desjimkbuet6n"]
 
 [ext_resource type="PackedScene" uid="uid://utxy2vmv4wo7" path="res://devices/optitrack/optitrack.tscn" id="1_debns"]
 [ext_resource type="PackedScene" uid="uid://c6pgld2dtp3ln" path="res://objects/optitrack/calibration_square_200/calibration_square_200.tscn" id="1_v8m0l"]
@@ -6,9 +6,17 @@
 [sub_resource type="GDScript" id="GDScript_wt2o0"]
 script/source = "extends Node3D
 
+# ---------------------------------------------------------------------- #
+# This scene is used to visualize objects tracked by OptiTrack
+# A CAD model can be associated by ID, or a basic cube is displayed by default
+# ---------------------------------------------------------------------- #
+
 @export var available_models: Dictionary[String, PackedScene] = {
 	\"101\": preload(\"res://objects/optitrack/estrade/estrade.tscn\"),
 	\"102\": preload(\"res://objects/optitrack/simulateur/simulateur.tscn\"),
+	\"999\": preload(\"res://objects/optitrack/probe/probe.tscn\"),
+	\"201\": preload(\"res://objects/optitrack/forearm cluster left/forearm_cluster_left.tscn\"),
+	\"202\": preload(\"res://objects/optitrack/forearm cluster right/forearm_cluster_right.tscn\"),
 }
 
 var id_node = []
@@ -52,25 +60,25 @@ size = Vector2(10, 10)
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rkjy5"]
 albedo_color = Color(0.066632524, 0.14739972, 0.23030156, 1)
 
-[node name="OptitrackDebug" type="Node3D"]
+[node name="OptitrackDebug" type="Node3D" unique_id=1839747880]
 script = SubResource("GDScript_wt2o0")
 
-[node name="Camera3D" type="Camera3D" parent="."]
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1096232434]
 transform = Transform3D(-0.8396198, 0.12680158, -0.5281666, 0, 0.9723699, 0.23344538, 0.5431745, 0.19600536, -0.8164211, -1.9375651, 1.0255446, -2.7691398)
 fov = 45.0
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1720052297]
 environment = SubResource("Environment_7bum7")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1539077205]
 transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
 shadow_enabled = true
 
-[node name="optitrack" parent="." instance=ExtResource("1_debns")]
+[node name="optitrack" parent="." unique_id=845640168 instance=ExtResource("1_debns")]
 
-[node name="ground" type="MeshInstance3D" parent="."]
+[node name="ground" type="MeshInstance3D" parent="." unique_id=1483791142]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.28, 0)
 mesh = SubResource("PlaneMesh_debns")
 surface_material_override/0 = SubResource("StandardMaterial3D_rkjy5")
 
-[node name="calibration_square_200" parent="." instance=ExtResource("1_v8m0l")]
+[node name="calibration_square_200" parent="." unique_id=147072857 instance=ExtResource("1_v8m0l")]

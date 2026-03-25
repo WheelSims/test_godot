@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://c4oqvm6koxbf2"]
+
+[ext_resource type="PackedScene" uid="uid://ycp3ulr4e3qu" path="res://objects/optitrack/probe/fbx/probe.fbx" id="1_uhs10"]
+
+[node name="Probe" type="Node3D" unique_id=1413541405]
+
+[node name="probe" parent="." unique_id=361872328 instance=ExtResource("1_uhs10")]

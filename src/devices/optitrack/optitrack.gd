@@ -5,9 +5,9 @@ extends Node
 
 var _udp_receiver = PacketPeerUDP.new()
 var _udp_receiver_connected = false
-var data # Contenu du paquet UDP
+var data # Payload of the UDP packet
 
-# Informations générales du paquet UDP
+# General UDP packet information
 var message_id
 var packet_size
 var current_frame
@@ -15,7 +15,7 @@ var marker_set_count
 var unlabeled_markers_count
 var rigid_body_count
 
-var id_rigidbodies = []
+var id_rigidbodies = [] # List of rigidbody IDs seen
 
 
 func _ready():
@@ -32,7 +32,7 @@ func _process(_delta):
 		while _udp_receiver.get_available_packet_count() > 0:
 			data = _udp_receiver.get_packet()
 
-		# Informations générales du paquet UDP
+		# Get general information from the UDP packet
 		message_id = get_message_id(data)
 		packet_size = get_packet_size(data)
 		current_frame = get_current_frame(data)
@@ -40,40 +40,45 @@ func _process(_delta):
 		unlabeled_markers_count = get_unlabeled_markers_count(data)
 		rigid_body_count = get_rigid_body_count(data)
 
-		# Transmission des positions et orientations à chaque rigibody
+		# Send positions and rotations for each rigid body
 		for i in range(rigid_body_count):
 			
 			var result = unpack_rigid_body(data, i)
 			
-			## Positions et rotations
+			# Positions and rotations
 			var id_num = result[0]
-			var pos = result[1] # Vector3 positions (x,y,z) du centroïde
+			var pos = result[1] # Vector3 positions (x,y,z) of the centroid
 			var rot = result[2] # Quaternion (x,y,z,w)
 
-			# Erreur moyenne de la position
+			# Mean position error
 			var _mean_error = result[3]
 			
-			# Booleen si le corps rigidbody est capturé par les caméras
+			# Boolean flag indicating if the rigid body is tracked by the cameras
 			var _tracked = result[4]
 
+			# Add a rigid body node and assign its ID as its name
 			if not has_node(str(id_num)):
 				var node = Node3D.new()
 				node.name = str(id_num)
 				add_child(node)
 			
+			# Update the position and rotation of the rigid body node
 			self.get_node(str(id_num)).position = pos
 			self.get_node(str(id_num)).quaternion = rot
 		
+		# Remove rigid body nodes that are no longer tracked 
 		for child in get_children():
 			if child.name not in id_rigidbodies:
 				child.queue_free()
 		
+		# Clear the list of seen rigid body IDs for each iteration
 		id_rigidbodies.clear()
 
 	if main:
 		if not main.config.get_value("devices.optitrack.enabled"):
 			queue_free()
 
+# Functions to parse the UDP packet
 func get_message_id(_data):
 	message_id = PackedByteArray(_data.slice(0, 2)).decode_s16(0)
 	return message_id
@@ -109,16 +114,17 @@ func get_rigid_body_count(_data):
 	rigid_body_count = PackedByteArray(_data.slice(offset , offset+4)).decode_s32(0)
 	return rigid_body_count
 
+# Function to get rigid body data by ID
 func unpack_rigid_body(_data, n_rigidbody):
 	
 	var offset = n_rigidbody*38 + 20 
-	# 20  car les informations concernant les rigibodies commencent après le header
+	# Offset 20 since rigid body data begins after the header
 	
-	# Numéro Streaming ID
+	# Streaming ID
 	var _id_num = PackedByteArray(_data.slice(offset , offset+4)).decode_s32(0)
 	offset += 4
 
-	# Positions du centroïde
+	# Centroid positions
 	var pos_x = PackedByteArray(_data.slice(offset , offset+4)).decode_float(0)		
 	offset += 4
 	var pos_y = PackedByteArray(_data.slice(offset , offset+4)).decode_float(0)
@@ -138,21 +144,21 @@ func unpack_rigid_body(_data, n_rigidbody):
 	offset += 4
 	var _rot = Quaternion(rot_x, rot_y, rot_z, rot_w).normalized()
 
-	# Erreur moyenne
+	# Mean error
 	var _error = PackedByteArray(_data.slice(offset , offset+4)).decode_float(0)
 	offset += 4
 	
-	# Etat booléen : 1 si le marqueur est visible par les caméras
+	# Boolean flag: 1 if the marker is visible to the cameras
 	var _tracked = PackedByteArray(_data.slice(offset , offset+2)).decode_s16(0)
 	offset += 2
 	
 	
-	# Ajouter les id dans un dictionnaire pour les faire correspondre aux rigidbodies
+	# Track rigid body IDs in a list
 	if _id_num not in id_rigidbodies:
 		id_rigidbodies.append(str(_id_num))
 
-	
-	# Afficher les informations dans la console
+
+	## Print information to the console for debug
 	#var _current_frame = get_current_frame(data)
 	#if _current_frame % 100 == 0:
 		#print("\n \n\nFRAME : ", _current_frame)
@@ -164,11 +170,12 @@ func unpack_rigid_body(_data, n_rigidbody):
 	
 	return [_id_num, _pos, _rot, _error, _tracked]
 
-
+# Function to get node rigid body by ID
 func get_node_by_id(id):
 	if has_node(str(id)):
 		return get_node(str(id))
 
+# Function for debug overlay 
 func get_debug_text() -> String:
 	var text = ""
 	text += "Cameras "
