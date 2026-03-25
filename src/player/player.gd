@@ -1,8 +1,6 @@
 extends RigidBody3D
 class_name Player
 
-@onready var main: Node = get_tree().get_root().get_node("main")
-
 # ------------------
 # Editable constants
 # ------------------
@@ -77,17 +75,17 @@ func set_angular_speed(value: float):
 # Godot lifecycle
 # -----------------------
 func _ready():
-	pass
+	Globals.player = self
 
 func _process(_delta):
-	if main:
-		if main.config.value_changed("player", "player.mass") or _config_update_required:
-			mass = main.config.get_value("player.mass")
-		if main.config.value_changed("player", "player.camera.fov") or _config_update_required:
-			$camera.fov = main.config.get_value("player.camera.fov")
-		if main.config.value_changed("player", "player.camera.angle") or _config_update_required:
-			_camera_rotation_x_offset = main.config.get_value("player.camera.angle") / 180 * PI
-		_config_update_required = false
+
+	if Config.value_changed("player", "player.mass") or _config_update_required:
+		mass = Config.get_value("player.mass")
+	if Config.value_changed("player", "player.camera.fov") or _config_update_required:
+		$camera.fov = Config.get_value("player.camera.fov")
+	if Config.value_changed("player", "player.camera.angle") or _config_update_required:
+		_camera_rotation_x_offset = Config.get_value("player.camera.angle") / 180 * PI
+	_config_update_required = false
 	
 	# Only keep camera rotation around y (keep level)
 	$camera.rotation.x = _camera_rotation_x_offset - rotation.x
@@ -189,3 +187,7 @@ func _on_obstacle_colliders_body_shape_exited(body_rid: RID, body: Node3D, body_
 func _on_player_on_simulator_body_shape_entered(body_rid: RID, body: Node, body_shape_index: int, local_shape_index: int) -> void:
 	if body is Surface:
 		rolling_resistance_coefficient = body.resistance
+
+
+func _on_tree_exiting() -> void:
+	Globals.player = null

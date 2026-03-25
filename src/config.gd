@@ -3,7 +3,6 @@
 ## stored using a string identifier (e.g. "d_box.enabled"). Local saving is done automatically on
 ## set_value.
 extends Node
-@onready var main: Node = get_tree().get_root().get_node("main")
 
 # -------------------------------------------------------------------
 # Private variables and functions
@@ -58,6 +57,13 @@ func _save_config():
 	var file := FileAccess.open(_CONFIG_FILENAME, FileAccess.WRITE)
 	file.store_string(JSON.stringify(_contents, "\t"))
 	file.close()
+
+# -------------------------------------------------------------------
+# Instantiating
+# -------------------------------------------------------------------
+func _ready():
+	load_config()
+	_save_config()  # In case there was no configuration file yet
 
 # -------------------------------------------------------------------
 # Public variables and functions

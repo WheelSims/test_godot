@@ -48,7 +48,6 @@ var _instantiatedArrows: Array[Node3D] = []
 var _finalArch: Node3D = null
 var _racePaused: bool = false
 var _on_race: bool = false
-var _player: RigidBody3D
 var _currentRaceType: RaceType = RaceType.NONE
 var _currentRaceMode: Race = null
 var distanceInput: float = 0
@@ -79,13 +78,13 @@ func _start_race() -> void:
 
 	match _currentRaceType:
 		RaceType.TIME_TRIAL:
-			_currentRaceMode = TimeTrial.new(distanceInput, _player)
+			_currentRaceMode = TimeTrial.new(distanceInput, Globals.player)
 			_place_final_arch(distanceInput)
 			raceLength = distanceInput
 			race_mode_pause_menu.text = "RaceMode: Time Trial"
 			race_parameter.text = "Distance to travel = %.1f meters" % distanceInput
 		RaceType.DISTANCE_CHALLENGE:
-			_currentRaceMode = DistanceChallenge.new(timerInput, _player)
+			_currentRaceMode = DistanceChallenge.new(timerInput, Globals.player)
 			race_mode_pause_menu.text = "RaceMode: Distance Challenge"
 			race_parameter.text = "Timer = %.1f secondes" % timerInput
 			if (_finalArch != null):
@@ -200,19 +199,8 @@ func _play_music() -> void:
 
 func _on_trigger_area_entered(area: Area3D) -> void:
 	if area.is_in_group("Player") and not _currentRaceMode:
-		_player = area.get_parent()
 		raceChoiceMenu.show()
-		_show_on_front_window(_player)
-		_player.race_manager = self
 		_currentRaceType = RaceType.NONE
-		
-func _show_on_front_window(_player: Node3D) -> void:
-	var _front_proj = _player.get_node_or_null("FrontProjector")
-	var _ui_game = raceChoiceMenu.get_parent()
-	if _front_proj:
-		_ui_game.get_parent().remove_child(_ui_game)
-		_front_proj.add_child(_ui_game)
-		
 
 func _on_cancel_pressed() -> void:
 	raceChoiceMenu.hide()
@@ -257,8 +245,8 @@ func _on_cancel_end_menu_pressed() -> void:
 	SFX_player.play()
 
 func _on_restart_end_menu_pressed() -> void:
-	_player.global_transform = global_transform
-	_player.rotate(-Vector3.DOWN, PI/2)
+	Globals.player.global_transform = global_transform
+	Globals.player.rotate(-Vector3.DOWN, PI/2)
 	endMenu.hide()
 	raceChoiceMenu.show()
 	SFX_player.play()
@@ -273,8 +261,8 @@ func _on_cancel_pause_pressed() -> void:
 func _on_restart_pause_pressed() -> void:
 	_finish_race(true)
 	pauseMenu.hide()
-	_player.global_transform = global_transform
-	_player.rotate(-Vector3.DOWN, PI/2)
+	Globals.player.global_transform = global_transform
+	Globals.player.rotate(-Vector3.DOWN, PI/2)
 	raceChoiceMenu.show()
 	SFX_player.play()
 
