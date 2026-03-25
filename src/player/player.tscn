@@ -82,7 +82,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.620304, -0.278171)
 shape = SubResource("BoxShape3D_muua7")
 
 [node name="camera" type="Camera3D" parent="." unique_id=2117479106]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.98221004, -0.54131794)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.98221004, 0.08713648)
 current = true
 
 [node name="colliders_shape" type="CSGPolygon3D" parent="." unique_id=1827332428]

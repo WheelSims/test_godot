@@ -12,7 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://drl4jkx8cjnk4" path="res://objects/humans/louise/Louise.glb" id="9_jx88r"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ic017"]
-size = Vector3(31.9258, 1.3761, 6.89661)
+size = Vector3(51.006104, 1.3761, 17.214142)
 
 [sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_ic017"]
 
@@ -43,7 +43,7 @@ max_applaud_distance = 30.0
 [node name="Trigger" type="Area3D" parent="." unique_id=610262268]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Trigger" unique_id=1224530266]
-transform = Transform3D(1, 0, 0, 0, 0.999856, 0.0169463, 0, -0.0169463, 0.999856, -0.0214767, 0.729, 6.644)
+transform = Transform3D(1, 0, 0, 0, 0.999856, 0.0169463, 0, -0.0169463, 0.999856, -0.0030498505, 0.71723586, 5.9499016)
 shape = SubResource("BoxShape3D_ic017")
 
 [node name="Humans" type="Node3D" parent="." unique_id=1915998250]

@@ -9,16 +9,16 @@ func _ready():
 	get_node("floor_window/texture_rect").texture = main.scene_viewport.get_texture()
 	
 func _process(_delta):
-	if main.config.value_changed("front_floor_screens", "devices.screens.front_floor_screens.full_screen.enabled"):
-		if main.config.get_value("devices.screens.front_floor_screens.full_screen.enabled"):
+	if Config.value_changed("front_floor_screens", "devices.screens.front_floor_screens.full_screen.enabled"):
+		if Config.get_value("devices.screens.front_floor_screens.full_screen.enabled"):
 			var screen_count = DisplayServer.get_screen_count()
-			var screen_index = min(screen_count, main.config.get_value("devices.screens.front_floor_screens.full_screen.front_screen_index")-1)
+			var screen_index = min(screen_count, Config.get_value("devices.screens.front_floor_screens.full_screen.front_screen_index")-1)
 			screen_index = max(0, screen_index)
 			$front_window.set_current_screen(screen_index)
 			$front_window.mode = Window.MODE_FULLSCREEN
 
 
-			screen_index = min(screen_count, main.config.get_value("devices.screens.front_floor_screens.full_screen.floor_screen_index")-1)
+			screen_index = min(screen_count, Config.get_value("devices.screens.front_floor_screens.full_screen.floor_screen_index")-1)
 			screen_index = max(0, screen_index)
 			$floor_window.set_current_screen(screen_index)
 			$floor_window.mode = Window.MODE_FULLSCREEN
@@ -29,5 +29,5 @@ func _process(_delta):
 			$floor_window.mode = Window.MODE_WINDOWED
 			$floor_window.set_current_screen(0)
 
-	if not main.config.get_value("devices.screens.front_floor_screens.enabled"):
+	if not Config.get_value("devices.screens.front_floor_screens.enabled"):
 		queue_free()
