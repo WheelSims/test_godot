@@ -65,6 +65,10 @@ func _process(_delta):
 			# Update the position and rotation of the rigid body node
 			self.get_node(str(id_num)).position = pos
 			self.get_node(str(id_num)).quaternion = rot
+			
+			# Hide rigid body node if it is not tracked by the cameras
+			self.get_node(str(id_num)).visible = _tracked
+
 		
 		# Remove rigid body nodes that are no longer tracked 
 		for child in get_children():
