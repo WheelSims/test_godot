@@ -5,6 +5,7 @@
 [ext_resource type="AudioStream" uid="uid://cqtws6pdp4hq4" path="res://sounds/sounds/sound_effects/success_victory/powerupsuccess.wav" id="3_xkfxd"]
 [ext_resource type="AudioStream" uid="uid://0nlt1wf7012b" path="res://sounds/sounds/sound_effects/fail/pistol_sound_effect.wav" id="4_xkfxd"]
 [ext_resource type="AudioStream" uid="uid://guvpctnkxmnd" path="res://sounds/sounds/sound_effects/success_victory/Game-level-up-sound-effect.wav" id="5_xkfxd"]
+[ext_resource type="FontFile" uid="uid://dhgrwh2hhsqn2" path="res://ui/fonts/space_mono/SpaceMono-Bold.ttf" id="7_g4vkt"]
 [ext_resource type="FontFile" uid="uid://6gvtuocvhosd" path="res://ui/fonts/western_font/WEST____.ttf" id="7_xkfxd"]
 [ext_resource type="AudioStream" uid="uid://c1c5a3x5hbepx" path="res://sounds/music/western_game/RoccoW - Countryside Explosions.mp3" id="8_g4vkt"]
 
@@ -23,8 +24,8 @@ metadata/_custom_type_script = "uid://b7ky3pxedhqmw"
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -200.0
-offset_bottom = 206.33
+offset_left = -300.0
+offset_bottom = 212.0
 grow_horizontal = 0
 scale = Vector2(1.0138259, 1.0151427)
 theme_override_constants/margin_top = 20
@@ -69,18 +70,18 @@ layout_mode = 2
 [node name="title" type="Label" parent="score_margin_container/vbox/lap_time_hbox" unique_id=761854469]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("7_xkfxd")
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 30
 text = "Lap time"
 
 [node name="counter" type="Label" parent="score_margin_container/vbox/lap_time_hbox" unique_id=1591351342]
+custom_minimum_size = Vector2(70, 50)
 layout_mode = 2
 size_flags_horizontal = 10
-theme_override_fonts/font = ExtResource("7_xkfxd")
+theme_override_fonts/font = ExtResource("7_g4vkt")
 theme_override_font_sizes/font_size = 30
 text = "0.0"
 
 [node name="spacer3" type="Control" parent="score_margin_container/vbox" unique_id=337805146]
-custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
 
 [node name="total_time_hbox" type="HBoxContainer" parent="score_margin_container/vbox" unique_id=1705746166]
@@ -89,13 +90,15 @@ layout_mode = 2
 [node name="title" type="Label" parent="score_margin_container/vbox/total_time_hbox" unique_id=926511152]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("7_xkfxd")
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 30
 text = "Total time"
 
-[node name="counter" type="Label" parent="score_margin_container/vbox/total_time_hbox" unique_id=1774363274]
+[node name="counter" type="Label" parent="score_margin_container/vbox/total_time_hbox" unique_id=1952332799]
+custom_minimum_size = Vector2(70, 50)
 layout_mode = 2
 size_flags_horizontal = 10
-theme_override_fonts/font = ExtResource("7_xkfxd")
+size_flags_vertical = 0
+theme_override_fonts/font = ExtResource("7_g4vkt")
 theme_override_font_sizes/font_size = 30
 text = "0.0"
 

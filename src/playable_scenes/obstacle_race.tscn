@@ -35,16 +35,27 @@ fog_sky_affect = 0.316
 
 [sub_resource type="Resource" id="Resource_l3ugr"]
 script = ExtResource("3_fm0hh")
+challenge_gap_range = Vector2(5, 15)
 obstacle_opening_prob = 0.61
 transparent_op_wall_prob = 0.995
 metadata/_custom_type_script = "uid://epb7xgmjyv72"
 
 [sub_resource type="Resource" id="Resource_s7gpt"]
 script = ExtResource("3_fm0hh")
-race_length = 50
-race_width = 20.0
-obstacle_opening_prob = 0.43
-transparent_op_wall_prob = 0.46
+metadata/_custom_type_script = "uid://epb7xgmjyv72"
+
+[sub_resource type="Resource" id="Resource_nttjj"]
+script = ExtResource("3_fm0hh")
+challenge_gap_range = Vector2(5, 15)
+obstacle_opening_prob = 0.61
+transparent_op_wall_prob = 0.995
+metadata/_custom_type_script = "uid://epb7xgmjyv72"
+
+[sub_resource type="Resource" id="Resource_o4jwr"]
+script = ExtResource("3_fm0hh")
+challenge_gap_range = Vector2(5, 15)
+obstacle_opening_prob = 0.61
+transparent_op_wall_prob = 0.995
 metadata/_custom_type_script = "uid://epb7xgmjyv72"
 
 [node name="obstacle_race" type="Node3D" unique_id=16703744]
@@ -53,9 +64,10 @@ metadata/_custom_type_script = "uid://epb7xgmjyv72"
 environment = SubResource("Environment_np0qt")
 
 [node name="light" type="DirectionalLight3D" parent="." unique_id=1755760915]
-transform = Transform3D(-0.091294825, -0.97667766, -0.19433491, 0.5804045, -0.21076354, 0.7865808, -0.80919456, -0.040982105, 0.5861097, 0, 6.2602577, 0)
+transform = Transform3D(-0.091294825, -0.97667766, -0.19433491, 0.5804045, -0.21076354, 0.7865808, -0.80919456, -0.040982105, 0.5861097, 1.2769537, 6.2602577, 1.6716161)
 light_color = Color(0.90019286, 0.9067132, 0.8773114, 1)
 light_energy = 2.0
+light_bake_mode = 0
 shadow_enabled = true
 
 [node name="sand_ground" parent="." unique_id=907107042 instance=ExtResource("11_nttjj")]
@@ -171,7 +183,7 @@ transform = Transform3D(0.16938387, 0, -0.98555017, 0, 1, 0, 0.98555017, 0, 0.16
 transform = Transform3D(0.60985476, 0, 0.7925132, 0, 1, 0, -0.7925132, 0, 0.60985476, -20.597168, 0.018707335, 9.691775)
 
 [node name="obstacle_race_generator" parent="." unique_id=1913311282 instance=ExtResource("10_od86p")]
-races_data = Array[ExtResource("3_fm0hh")]([SubResource("Resource_l3ugr"), SubResource("Resource_s7gpt")])
+races_data = Array[ExtResource("3_fm0hh")]([SubResource("Resource_l3ugr"), SubResource("Resource_s7gpt"), SubResource("Resource_nttjj"), SubResource("Resource_o4jwr")])
 obstacle_infos = Array[ExtResource("4_ri6c8")]([ExtResource("10_3vxp2"), ExtResource("11_21j88"), ExtResource("14_s7gpt"), ExtResource("15_l3ugr"), ExtResource("16_nttjj")])
 transparent_wall_infos = Array[ExtResource("4_ri6c8")]([ExtResource("17_o4jwr")])
 opaque_wall_infos = Array[ExtResource("4_ri6c8")]([ExtResource("18_5vhhy")])
