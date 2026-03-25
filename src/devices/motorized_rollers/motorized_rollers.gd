@@ -1,5 +1,4 @@
 extends Node3D
-@onready var main: Node = get_tree().get_root().get_node("main")
 
 @export var UDP_SEND_IP: String = "192.168.0.200"
 @export var UDP_SEND_PORT: int = 25000
@@ -37,20 +36,20 @@ func _ready() -> void:
 	get_tree().set_auto_accept_quit(false)  # to send hw_enable false on quit
 
 func _process(delta: float) -> void:
-	if main.player:
+	if Globals.player:
 		hardware_enabled = true
-		if main.player.mass != _old_mass:
-			send_data(1, hardware_enabled, main.player.mass, 0)
-			_old_mass = main.player.mass
-		if main.player.rolling_resistance_coefficient != _old_rolling_resistance_coefficient:
+		if Globals.player.mass != _old_mass:
+			send_data(1, hardware_enabled, Globals.player.mass, 0)
+			_old_mass = Globals.player.mass
+		if Globals.player.rolling_resistance_coefficient != _old_rolling_resistance_coefficient:
 			_update_friction()
-			_old_rolling_resistance_coefficient = main.player.rolling_resistance_coefficient
-		if main.player.is_front_collision != _old_is_front_collision:
+			_old_rolling_resistance_coefficient = Globals.player.rolling_resistance_coefficient
+		if Globals.player.is_front_collision != _old_is_front_collision:
 			_update_friction()
-			_old_is_front_collision = main.player.is_front_collision
-		if main.player.is_rear_collision != _old_is_rear_collision:
+			_old_is_front_collision = Globals.player.is_front_collision
+		if Globals.player.is_rear_collision != _old_is_rear_collision:
 			_update_friction()
-			_old_is_rear_collision = main.player.is_rear_collision
+			_old_is_rear_collision = Globals.player.is_rear_collision
 		receive()
 
 	else:
@@ -75,15 +74,15 @@ func _update_friction():
 	var front_friction_coefficient: float
 	var rear_friction_coefficient: float
 	
-	if main.player.is_front_collision:
+	if Globals.player.is_front_collision:
 		front_friction_coefficient = _obstacle_friction_coefficient
 	else:
-		front_friction_coefficient = main.player.rolling_resistance_coefficient
+		front_friction_coefficient = Globals.player.rolling_resistance_coefficient
 		
-	if main.player.is_rear_collision:
+	if Globals.player.is_rear_collision:
 		rear_friction_coefficient = _obstacle_friction_coefficient
 	else:
-		rear_friction_coefficient = main.player.rolling_resistance_coefficient
+		rear_friction_coefficient = Globals.player.rolling_resistance_coefficient
 		
 	print(
 		"Rollers: Front friction update: Front = ",
@@ -107,9 +106,9 @@ func receive() -> void:
 		var cmd = (header / 2**16) % 2**12
 		stopped = header % 2**1
 
-		if main.player:
-			main.player.set_linear_speed(float(array_bytes.decode_double(4)))
-			main.player.set_angular_speed(float(array_bytes.decode_double(12)))
+		if Globals.player:
+			Globals.player.set_linear_speed(float(array_bytes.decode_double(4)))
+			Globals.player.set_angular_speed(float(array_bytes.decode_double(12)))
 
 func send_data(cmd, enable, arg1, arg2) -> void:
 	var bytes = PackedByteArray()
@@ -123,6 +122,6 @@ func send_data(cmd, enable, arg1, arg2) -> void:
 func _on_tree_exiting() -> void:
 	hardware_enabled = 0
 	send_data(1, hardware_enabled, 70, 0)
-	if main.player:
-		main.player.set_linear_speed(0.0)
-		main.player.set_angular_speed(0.0)
+	if Globals.player:
+		Globals.player.set_linear_speed(0.0)
+		Globals.player.set_angular_speed(0.0)

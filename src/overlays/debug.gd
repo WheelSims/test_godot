@@ -9,8 +9,8 @@ func _process(delta):
 	var text: String = ""
 	
 	# Player information
-	if main.player:
-		text += "%0.2f m/s\n" % main.player.get_linear_speed()
+	if Globals.player:
+		text += "%0.2f m/s\n" % Globals.player.get_linear_speed()
 	else:
 		text += "No player loaded.\n"
 	

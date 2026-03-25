@@ -1,5 +1,4 @@
 extends Node3D
-@onready var main: Node = get_tree().get_root().get_node("main")
 
 # ------------------------------------
 # Simulator geometry
@@ -112,7 +111,7 @@ func _ready() -> void:
 	get_tree().set_auto_accept_quit(false)  # pour pouvoir envoyer Stop
 
 	var output = []
-	var exit_code = OS.execute("tasklist.exe", [], output)
+	var _exit_code = OS.execute("tasklist.exe", [], output)
 	if dbox_driver_app not in output:
 		print("Starting D-Box driver app")
 		# Execute non-blocking
@@ -123,9 +122,9 @@ func _process(delta: float) -> void:
 	
 	var player_position: Vector3
 	var player_rotation: Vector3
-	if main.player:
-		player_position = main.player.global_position
-		player_rotation = main.player.rotation
+	if Globals.player:
+		player_position = Globals.player.global_position
+		player_rotation = Globals.player.rotation
 		current_mode = CurrentMode.PLAYING
 	else:
 		player_position = old_position
