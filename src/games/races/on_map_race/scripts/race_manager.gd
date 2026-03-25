@@ -55,6 +55,16 @@ var timerInput: float = 0
 var _totalRaceLength: float = 0
 
 func _ready() -> void:
+	if Config.get_value("game.racing.type") == 0:
+		_currentRaceType = RaceType.TIME_TRIAL
+	elif Config.get_value("game.racing.type") == 1:
+		_currentRaceType = RaceType.DISTANCE_CHALLENGE
+	else:
+		_currentRaceType = RaceType.NONE
+		
+	distanceInput = Config.get_value("game.racing.distance")
+	timerInput = Config.get_value("game.racing.time")
+	
 	if (path):
 		_totalRaceLength = path.curve.get_baked_length()
 		raceLengthLabel.text = "Total Race Length = %.0f m" % _totalRaceLength
@@ -198,9 +208,8 @@ func _play_music() -> void:
 # Trigger + Input Handling
 
 func _on_trigger_area_entered(area: Area3D) -> void:
-	if area.is_in_group("Player") and not _currentRaceMode:
-		raceChoiceMenu.show()
-		_currentRaceType = RaceType.NONE
+	if area.is_in_group("Player"):
+		_start_race()
 
 func _on_cancel_pressed() -> void:
 	raceChoiceMenu.hide()
