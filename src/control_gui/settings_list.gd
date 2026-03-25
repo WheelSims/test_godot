@@ -126,4 +126,8 @@ func _ready():
 			for item in Config.get_items(key):
 				option_button.add_item(item)
 			option_button.select(Config.get_value(key))
+			option_button.item_selected.connect(
+				func(value):
+					Config.set_value(key, value)
+			)
 			add_child(option_button)

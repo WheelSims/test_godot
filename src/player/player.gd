@@ -47,9 +47,6 @@ var _n_foot_obstacle = 0
 var _config_update_required: bool = true  # Update to match config
 var _camera_rotation_x_offset: float = 0.0
 
-#Access to race_manager
-var race_manager: RaceManager = null
-
 
 # -----------------------
 # Public functions
@@ -104,10 +101,7 @@ func _physics_process(delta: float) -> void:
 		desired_linear_velocity = 0
 	if abs(desired_angular_velocity) < ANGULAR_SPEED_DEADZONE:
 		desired_angular_velocity = 0
-	
-	#Other inputs (esc)
-	inputs()
-	
+		
 	if (
 		(desired_linear_velocity >= 0 and not is_front_collision)
 		or (desired_linear_velocity <= 0 and not is_rear_collision)
@@ -136,10 +130,6 @@ func read_keyboard_velocities():
 	_keyboard_angular_velocity = angular
 	
 	
-func inputs()->void:
-	if Input.is_action_just_pressed("ui_cancel") and race_manager:
-		race_manager.pause_command()
-
 func _on_obstacle_colliders_body_shape_entered(body_rid: RID, body: Node3D, body_shape_index: int, local_shape_index: int) -> void:
 	if body.get_groups().is_empty() and  body is not Surface:
 		match local_shape_index:

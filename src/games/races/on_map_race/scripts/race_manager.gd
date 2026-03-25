@@ -124,18 +124,6 @@ func _start_race() -> void:
 
 func _finish_race(forced: bool) -> void:
 	if not forced:
-		endMenu.show()
-		match _currentRaceType:
-			RaceType.TIME_TRIAL:
-				endScoreLabel.text = "Score: Time = %.1f s" % _currentRaceMode.timer
-				endParameterLabel.text = "Parameter: Distance = %.1f m" % _currentRaceMode.current_distance
-				race_mode_pause_menu.text = "Time Trial"
-			RaceType.DISTANCE_CHALLENGE:
-				endScoreLabel.text = "Score: Distance = %.1f m" % _currentRaceMode.current_distance
-				endParameterLabel.text = "Parameter: Timer = %.1f s" % _currentRaceMode.timer
-				race_mode_pause_menu.text = "Distance Challenge"
-				
-		
 		music_player.stream = victory_sound
 		music_player.play()
 	else:
@@ -143,7 +131,6 @@ func _finish_race(forced: bool) -> void:
 
 	_currentRaceMode = null
 	_on_race = false
-	raceHUD.hide()
 	_currentRaceType = RaceType.NONE
 	distance_challenge_button.button_pressed = false
 	time_trial_button.button_pressed = false
@@ -190,9 +177,9 @@ func _update_hud(distance: float, timer: float) -> void:
 	match _currentRaceType:
 		RaceType.TIME_TRIAL:
 			timerLabel.text = "Time: %.1f s" % timer
-			distanceLabel.text = "Distance Left: %.1f m" % (distanceInput - distance)
+			distanceLabel.text = "Distance Left: %.1f m" % abs(distanceInput - distance)
 		RaceType.DISTANCE_CHALLENGE:
-			timerLabel.text = "Time Left: %.1f s" % (timerInput - timer)
+			timerLabel.text = "Time Left: %.1f s" % abs(timerInput - timer)
 			distanceLabel.text = "Distance: %.1f m" % distance
 
 func _play_music() -> void:
@@ -210,72 +197,3 @@ func _play_music() -> void:
 func _on_trigger_area_entered(area: Area3D) -> void:
 	if area.is_in_group("Player"):
 		_start_race()
-
-func _on_cancel_pressed() -> void:
-	raceChoiceMenu.hide()
-	SFX_player.play()
-
-#SFX_player is played in _start_race function for that button
-func _on_start_pressed() -> void:
-	_start_race()
-
-func _on_time_trial_button_toggled(toggled_on: bool) -> void:
-	if (toggled_on):
-		_currentRaceType = RaceType.TIME_TRIAL
-		distance_challenge_button.button_pressed = false
-	else: _currentRaceType = RaceType.NONE
-	
-	SFX_player.play()
-
-func _on_distance_challenge_button_toggled(toggled_on: bool) -> void:
-	if (toggled_on):
-		_currentRaceType = RaceType.DISTANCE_CHALLENGE
-		time_trial_button.button_pressed = false
-	else: _currentRaceType = RaceType.NONE
-	
-	SFX_player.play()
-
-func _on_timer_value_changed(value: float) -> void:
-	timerInput = value
-	if not distance_challenge_button.button_pressed:
-		distance_challenge_button.button_pressed = true
-		SFX_player.play()
-		
-func _on_distance_value_changed(value: float) -> void:
-	distanceInput = value
-	if not time_trial_button.button_pressed:
-		time_trial_button.button_pressed = true
-		SFX_player.play()
-
-# End Menu Callbacks
-
-func _on_cancel_end_menu_pressed() -> void:
-	endMenu.hide()
-	SFX_player.play()
-
-func _on_restart_end_menu_pressed() -> void:
-	Globals.player.global_transform = global_transform
-	Globals.player.rotate(-Vector3.DOWN, PI/2)
-	endMenu.hide()
-	raceChoiceMenu.show()
-	SFX_player.play()
-
-# Pause Menu Callbacks
-
-func _on_cancel_pause_pressed() -> void:
-	_finish_race(true)
-	pauseMenu.hide()
-	SFX_player.play()
-
-func _on_restart_pause_pressed() -> void:
-	_finish_race(true)
-	pauseMenu.hide()
-	Globals.player.global_transform = global_transform
-	Globals.player.rotate(-Vector3.DOWN, PI/2)
-	raceChoiceMenu.show()
-	SFX_player.play()
-
-func _on_continue__pause_menu_pressed() -> void:
-	pauseMenu.hide()
-	_racePaused = false
-	SFX_player.play()
