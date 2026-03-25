@@ -30,5 +30,5 @@ func _process(delta):
 	
 	
 	# Should we quit
-	if not main.config.get_value("overlays.debug.enabled"):
+	if not Config.get_value("overlays.debug.enabled"):
 		queue_free()

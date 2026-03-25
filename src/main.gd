@@ -7,9 +7,6 @@ extends Node
 ## The viewport the 3D scene is rendered in.
 @onready var scene_viewport: SubViewport = get_node("scene_viewport")
 
-## The simulator configuration.
-@onready var config: Node = get_node("config")
-
 ## The player, automatically updated on scene change.
 var player: Node3D = null
 
@@ -23,14 +20,6 @@ var player: Node3D = null
 ## (private) Store the current scene.
 var _current_scene_node: Node3D = null
 
-
-# -------------------------------------------------------------------
-# Ready
-# -------------------------------------------------------------------
-
-func _ready():
-	config.load_config()
-	config._save_config()  # In case there was no config originally
 
 # -------------------------------------------------------------------
 # Scene loading/unloading
@@ -59,8 +48,8 @@ func unload_scene():
 ## Called by config when modified, mainly to instanciate new modules.
 func _process(_delta):
 	for key in available_overlays:
-		if config.value_changed("main", key) and config.get_value(key):
+		if Config.value_changed("main", key) and Config.get_value(key):
 			$scene_viewport.add_child(available_overlays[key].instantiate())
 	for key in available_devices:
-		if config.value_changed("main", key) and config.get_value(key):
+		if Config.value_changed("main", key) and Config.get_value(key):
 			add_child(available_devices[key].instantiate())

@@ -16,5 +16,5 @@ func _process(delta):
 	numerical_display_label.text =  "%0.1f m/s" % speed
 	
 	# Should we quit
-	if not main.config.get_value("overlays.speed_indicator.enabled"):
+	if not Config.get_value("overlays.speed_indicator.enabled"):
 		queue_free()

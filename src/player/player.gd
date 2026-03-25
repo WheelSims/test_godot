@@ -76,18 +76,15 @@ func set_angular_speed(value: float):
 # -----------------------
 # Godot lifecycle
 # -----------------------
-func _ready():
-	pass
-
 func _process(_delta):
-	if main:
-		if main.config.value_changed("player", "player.mass") or _config_update_required:
-			mass = main.config.get_value("player.mass")
-		if main.config.value_changed("player", "player.camera.fov") or _config_update_required:
-			$camera.fov = main.config.get_value("player.camera.fov")
-		if main.config.value_changed("player", "player.camera.angle") or _config_update_required:
-			_camera_rotation_x_offset = main.config.get_value("player.camera.angle") / 180 * PI
-		_config_update_required = false
+
+	if Config.value_changed("player", "player.mass") or _config_update_required:
+		mass = Config.get_value("player.mass")
+	if Config.value_changed("player", "player.camera.fov") or _config_update_required:
+		$camera.fov = Config.get_value("player.camera.fov")
+	if Config.value_changed("player", "player.camera.angle") or _config_update_required:
+		_camera_rotation_x_offset = Config.get_value("player.camera.angle") / 180 * PI
+	_config_update_required = false
 	
 	# Only keep camera rotation around y (keep level)
 	$camera.rotation.x = _camera_rotation_x_offset - rotation.x

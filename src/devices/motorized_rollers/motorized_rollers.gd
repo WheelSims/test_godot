@@ -59,7 +59,7 @@ func _process(delta: float) -> void:
 	# Just send the hardware enable continuously
 	send_data(0, hardware_enabled, 0, 0)
 	
-	if not main.config.get_value("devices.motorized_rollers.enabled"):
+	if not Config.get_value("devices.motorized_rollers.enabled"):
 		queue_free()
 
 
