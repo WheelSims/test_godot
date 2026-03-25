@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://cfmmtcpgllxbt"]
+[gd_scene load_steps=11 format=3 uid="uid://cfmmtcpgllxbt"]
 
 [ext_resource type="PackedScene" uid="uid://bcfu5sx4m6hm3" path="res://objects/wheelchair/angle_contact.tscn" id="2_wdam1"]
 [ext_resource type="PackedScene" uid="uid://ds06t01fw7lcb" path="res://objects/wheelchair/handrim.tscn" id="3_h0iuc"]
@@ -278,191 +278,191 @@ func create_trail(pos: Vector3, alpha: float) -> MeshInstance3D:
 	return instance
 "
 
-[node name="StreamingOptitrack" type="Node3D" unique_id=1372750009]
+[node name="StreamingOptitrack" type="Node3D"]
 script = SubResource("GDScript_086ox")
 
-[node name="Camera_Iso" type="Camera3D" parent="." unique_id=738619512]
-transform = Transform3D(0.5949489, 0.27490336, -0.7552907, -1.3594585e-08, 0.9396927, 0.34202015, 0.8037635, -0.20348452, 0.5590691, -1.9506109, 0.915015, 1.3918793)
+[node name="Camera_Iso" type="Camera3D" parent="."]
+transform = Transform3D(0.594949, 0.274903, -0.755291, -1.35946e-08, 0.939693, 0.34202, 0.803764, -0.203485, 0.559069, -1.95061, 0.915015, 1.39188)
 cull_mask = 1048479
 fov = 45.0
 
-[node name="hand_right" type="Node3D" parent="." unique_id=1972789446]
+[node name="hand_right" type="Node3D" parent="."]
 script = SubResource("GDScript_6k3nw")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="hand_right" unique_id=1208010330]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="hand_right"]
 transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
 layers = 4
 mesh = SubResource("BoxMesh_2eqg6")
 skeleton = NodePath("")
 
-[node name="hand_left" type="Node3D" parent="." unique_id=1299828810]
+[node name="hand_left" type="Node3D" parent="."]
 script = SubResource("GDScript_kwtud")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="hand_left" unique_id=483839162]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="hand_left"]
 transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
 layers = 2
 mesh = SubResource("BoxMesh_2eqg6")
 skeleton = NodePath("")
 
-[node name="wheel_right" type="Node3D" parent="." unique_id=1798953585]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0, 0.3)
+[node name="wheel_right" type="Node3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0.3)
 
-[node name="rear_wheel_right" parent="wheel_right" unique_id=821090249 instance=ExtResource("4_086ox")]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
+[node name="rear_wheel_right" parent="wheel_right" instance=ExtResource("4_086ox")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 
-[node name="BézierCircle_004" parent="wheel_right/rear_wheel_right/rear_wheel" parent_id_path=PackedInt32Array(821090249, 1416927850) index="0" unique_id=2000540256]
+[node name="BézierCircle_004" parent="wheel_right/rear_wheel_right/rear_wheel" index="0"]
 layers = 4
 
-[node name="BézierCircle_005" parent="wheel_right/rear_wheel_right/rear_wheel" parent_id_path=PackedInt32Array(821090249, 1416927850) index="1" unique_id=1666782846]
+[node name="BézierCircle_005" parent="wheel_right/rear_wheel_right/rear_wheel" index="1"]
 layers = 4
 
-[node name="BézierCircle_006" parent="wheel_right/rear_wheel_right/rear_wheel" parent_id_path=PackedInt32Array(821090249, 1416927850) index="2" unique_id=598642149]
+[node name="BézierCircle_006" parent="wheel_right/rear_wheel_right/rear_wheel" index="2"]
 layers = 4
 
-[node name="Cylinder_013" parent="wheel_right/rear_wheel_right/rear_wheel" parent_id_path=PackedInt32Array(821090249, 1416927850) index="3" unique_id=1585116572]
+[node name="Cylinder_013" parent="wheel_right/rear_wheel_right/rear_wheel" index="3"]
 layers = 4
 
-[node name="Cylinder_014" parent="wheel_right/rear_wheel_right/rear_wheel" parent_id_path=PackedInt32Array(821090249, 1416927850) index="4" unique_id=1933588465]
+[node name="Cylinder_014" parent="wheel_right/rear_wheel_right/rear_wheel" index="4"]
 layers = 4
 
-[node name="Cylinder_015" parent="wheel_right/rear_wheel_right/rear_wheel" parent_id_path=PackedInt32Array(821090249, 1416927850) index="5" unique_id=531833053]
+[node name="Cylinder_015" parent="wheel_right/rear_wheel_right/rear_wheel" index="5"]
 layers = 4
 
-[node name="Cylinder_016" parent="wheel_right/rear_wheel_right/rear_wheel" parent_id_path=PackedInt32Array(821090249, 1416927850) index="6" unique_id=808111673]
+[node name="Cylinder_016" parent="wheel_right/rear_wheel_right/rear_wheel" index="6"]
 layers = 4
 
-[node name="Cylinder_017" parent="wheel_right/rear_wheel_right/rear_wheel" parent_id_path=PackedInt32Array(821090249, 1416927850) index="7" unique_id=1678391125]
+[node name="Cylinder_017" parent="wheel_right/rear_wheel_right/rear_wheel" index="7"]
 layers = 4
 
-[node name="Cylinder_018" parent="wheel_right/rear_wheel_right/rear_wheel" parent_id_path=PackedInt32Array(821090249, 1416927850) index="8" unique_id=833422011]
+[node name="Cylinder_018" parent="wheel_right/rear_wheel_right/rear_wheel" index="8"]
 layers = 4
 
-[node name="Cylinder_019" parent="wheel_right/rear_wheel_right/rear_wheel" parent_id_path=PackedInt32Array(821090249, 1416927850) index="9" unique_id=450149053]
+[node name="Cylinder_019" parent="wheel_right/rear_wheel_right/rear_wheel" index="9"]
 layers = 4
 
-[node name="Cylinder_020" parent="wheel_right/rear_wheel_right/rear_wheel" parent_id_path=PackedInt32Array(821090249, 1416927850) index="10" unique_id=1500352944]
+[node name="Cylinder_020" parent="wheel_right/rear_wheel_right/rear_wheel" index="10"]
 layers = 4
 
-[node name="Cylinder_021" parent="wheel_right/rear_wheel_right/rear_wheel" parent_id_path=PackedInt32Array(821090249, 1416927850) index="11" unique_id=593493418]
+[node name="Cylinder_021" parent="wheel_right/rear_wheel_right/rear_wheel" index="11"]
 layers = 4
 
-[node name="Cylinder_022" parent="wheel_right/rear_wheel_right/rear_wheel" parent_id_path=PackedInt32Array(821090249, 1416927850) index="12" unique_id=1820500564]
+[node name="Cylinder_022" parent="wheel_right/rear_wheel_right/rear_wheel" index="12"]
 layers = 4
 
-[node name="Cylinder_023" parent="wheel_right/rear_wheel_right/rear_wheel" parent_id_path=PackedInt32Array(821090249, 1416927850) index="13" unique_id=411050152]
+[node name="Cylinder_023" parent="wheel_right/rear_wheel_right/rear_wheel" index="13"]
 layers = 4
 
-[node name="Cylinder_024" parent="wheel_right/rear_wheel_right/rear_wheel" parent_id_path=PackedInt32Array(821090249, 1416927850) index="14" unique_id=1001901401]
+[node name="Cylinder_024" parent="wheel_right/rear_wheel_right/rear_wheel" index="14"]
 layers = 4
 
-[node name="Cylinder_025" parent="wheel_right/rear_wheel_right/rear_wheel" parent_id_path=PackedInt32Array(821090249, 1416927850) index="15" unique_id=496448505]
+[node name="Cylinder_025" parent="wheel_right/rear_wheel_right/rear_wheel" index="15"]
 layers = 4
 
-[node name="angle_contact_right" parent="wheel_right" unique_id=1483047403 instance=ExtResource("2_wdam1")]
+[node name="angle_contact_right" parent="wheel_right" instance=ExtResource("2_wdam1")]
 
-[node name="Circle" parent="wheel_right/angle_contact_right/angle_contact" parent_id_path=PackedInt32Array(1483047403, 1772018118) index="0" unique_id=1045782093]
+[node name="Circle" parent="wheel_right/angle_contact_right/angle_contact" index="0"]
 layers = 4
 
-[node name="handrim_right" parent="wheel_right" unique_id=1261809836 instance=ExtResource("3_h0iuc")]
+[node name="handrim_right" parent="wheel_right" instance=ExtResource("3_h0iuc")]
 
-[node name="BézierCircle_003" parent="wheel_right/handrim_right/handrim" parent_id_path=PackedInt32Array(1261809836, 196758062) index="0" unique_id=1225760875]
+[node name="BézierCircle_003" parent="wheel_right/handrim_right/handrim" index="0"]
 layers = 5
 
-[node name="camera_offset_right" type="Node3D" parent="wheel_right" unique_id=1179133510]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 1, 0, 0)
+[node name="camera_offset_right" type="Node3D" parent="wheel_right"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 1, 0, 0)
 
-[node name="RemoteTransform3D" type="RemoteTransform3D" parent="wheel_right/camera_offset_right" unique_id=946601206]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0, 0)
+[node name="RemoteTransform3D" type="RemoteTransform3D" parent="wheel_right/camera_offset_right"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
 remote_path = NodePath("../../../view_wheel_right/SubViewport/Camera_Right")
 
-[node name="wheel_left" type="Node3D" parent="." unique_id=2008861505]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0, -0.3)
+[node name="wheel_left" type="Node3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, -0.3)
 
-[node name="rear_wheel_left" parent="wheel_left" unique_id=149440537 instance=ExtResource("4_086ox")]
+[node name="rear_wheel_left" parent="wheel_left" instance=ExtResource("4_086ox")]
 
-[node name="BézierCircle_004" parent="wheel_left/rear_wheel_left/rear_wheel" parent_id_path=PackedInt32Array(149440537, 1416927850) index="0" unique_id=2000540256]
+[node name="BézierCircle_004" parent="wheel_left/rear_wheel_left/rear_wheel" index="0"]
 layers = 2
 
-[node name="BézierCircle_005" parent="wheel_left/rear_wheel_left/rear_wheel" parent_id_path=PackedInt32Array(149440537, 1416927850) index="1" unique_id=1666782846]
+[node name="BézierCircle_005" parent="wheel_left/rear_wheel_left/rear_wheel" index="1"]
 layers = 2
 
-[node name="BézierCircle_006" parent="wheel_left/rear_wheel_left/rear_wheel" parent_id_path=PackedInt32Array(149440537, 1416927850) index="2" unique_id=598642149]
+[node name="BézierCircle_006" parent="wheel_left/rear_wheel_left/rear_wheel" index="2"]
 layers = 2
 
-[node name="Cylinder_013" parent="wheel_left/rear_wheel_left/rear_wheel" parent_id_path=PackedInt32Array(149440537, 1416927850) index="3" unique_id=1585116572]
+[node name="Cylinder_013" parent="wheel_left/rear_wheel_left/rear_wheel" index="3"]
 layers = 2
 
-[node name="Cylinder_014" parent="wheel_left/rear_wheel_left/rear_wheel" parent_id_path=PackedInt32Array(149440537, 1416927850) index="4" unique_id=1933588465]
+[node name="Cylinder_014" parent="wheel_left/rear_wheel_left/rear_wheel" index="4"]
 layers = 2
 
-[node name="Cylinder_015" parent="wheel_left/rear_wheel_left/rear_wheel" parent_id_path=PackedInt32Array(149440537, 1416927850) index="5" unique_id=531833053]
+[node name="Cylinder_015" parent="wheel_left/rear_wheel_left/rear_wheel" index="5"]
 layers = 2
 
-[node name="Cylinder_016" parent="wheel_left/rear_wheel_left/rear_wheel" parent_id_path=PackedInt32Array(149440537, 1416927850) index="6" unique_id=808111673]
+[node name="Cylinder_016" parent="wheel_left/rear_wheel_left/rear_wheel" index="6"]
 layers = 2
 
-[node name="Cylinder_017" parent="wheel_left/rear_wheel_left/rear_wheel" parent_id_path=PackedInt32Array(149440537, 1416927850) index="7" unique_id=1678391125]
+[node name="Cylinder_017" parent="wheel_left/rear_wheel_left/rear_wheel" index="7"]
 layers = 2
 
-[node name="Cylinder_018" parent="wheel_left/rear_wheel_left/rear_wheel" parent_id_path=PackedInt32Array(149440537, 1416927850) index="8" unique_id=833422011]
+[node name="Cylinder_018" parent="wheel_left/rear_wheel_left/rear_wheel" index="8"]
 layers = 2
 
-[node name="Cylinder_019" parent="wheel_left/rear_wheel_left/rear_wheel" parent_id_path=PackedInt32Array(149440537, 1416927850) index="9" unique_id=450149053]
+[node name="Cylinder_019" parent="wheel_left/rear_wheel_left/rear_wheel" index="9"]
 layers = 2
 
-[node name="Cylinder_020" parent="wheel_left/rear_wheel_left/rear_wheel" parent_id_path=PackedInt32Array(149440537, 1416927850) index="10" unique_id=1500352944]
+[node name="Cylinder_020" parent="wheel_left/rear_wheel_left/rear_wheel" index="10"]
 layers = 2
 
-[node name="Cylinder_021" parent="wheel_left/rear_wheel_left/rear_wheel" parent_id_path=PackedInt32Array(149440537, 1416927850) index="11" unique_id=593493418]
+[node name="Cylinder_021" parent="wheel_left/rear_wheel_left/rear_wheel" index="11"]
 layers = 2
 
-[node name="Cylinder_022" parent="wheel_left/rear_wheel_left/rear_wheel" parent_id_path=PackedInt32Array(149440537, 1416927850) index="12" unique_id=1820500564]
+[node name="Cylinder_022" parent="wheel_left/rear_wheel_left/rear_wheel" index="12"]
 layers = 2
 
-[node name="Cylinder_023" parent="wheel_left/rear_wheel_left/rear_wheel" parent_id_path=PackedInt32Array(149440537, 1416927850) index="13" unique_id=411050152]
+[node name="Cylinder_023" parent="wheel_left/rear_wheel_left/rear_wheel" index="13"]
 layers = 2
 
-[node name="Cylinder_024" parent="wheel_left/rear_wheel_left/rear_wheel" parent_id_path=PackedInt32Array(149440537, 1416927850) index="14" unique_id=1001901401]
+[node name="Cylinder_024" parent="wheel_left/rear_wheel_left/rear_wheel" index="14"]
 layers = 2
 
-[node name="Cylinder_025" parent="wheel_left/rear_wheel_left/rear_wheel" parent_id_path=PackedInt32Array(149440537, 1416927850) index="15" unique_id=496448505]
+[node name="Cylinder_025" parent="wheel_left/rear_wheel_left/rear_wheel" index="15"]
 layers = 2
 
-[node name="angle_contact_left" parent="wheel_left" unique_id=1816208007 instance=ExtResource("2_wdam1")]
+[node name="angle_contact_left" parent="wheel_left" instance=ExtResource("2_wdam1")]
 
-[node name="Circle" parent="wheel_left/angle_contact_left/angle_contact" parent_id_path=PackedInt32Array(1816208007, 1772018118) index="0" unique_id=1045782093]
+[node name="Circle" parent="wheel_left/angle_contact_left/angle_contact" index="0"]
 layers = 2
 
-[node name="handrim_left" parent="wheel_left" unique_id=1273185063 instance=ExtResource("3_h0iuc")]
+[node name="handrim_left" parent="wheel_left" instance=ExtResource("3_h0iuc")]
 
-[node name="BézierCircle_003" parent="wheel_left/handrim_left/handrim" parent_id_path=PackedInt32Array(1273185063, 196758062) index="0" unique_id=1225760875]
+[node name="BézierCircle_003" parent="wheel_left/handrim_left/handrim" index="0"]
 layers = 2
 
-[node name="camera_offset_left" type="Node3D" parent="wheel_left" unique_id=1469255201]
+[node name="camera_offset_left" type="Node3D" parent="wheel_left"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0)
 
-[node name="RemoteTransform3D" type="RemoteTransform3D" parent="wheel_left/camera_offset_left" unique_id=2091368885]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0, 0)
+[node name="RemoteTransform3D" type="RemoteTransform3D" parent="wheel_left/camera_offset_left"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
 remote_path = NodePath("../../../view_wheel_left/SubViewport/Camera_Left")
 
-[node name="view_wheel_left" type="SubViewportContainer" parent="." unique_id=460742081]
+[node name="view_wheel_left" type="SubViewportContainer" parent="."]
 offset_top = 30.0
 offset_right = 512.0
 offset_bottom = 542.0
 scale = Vector2(0.5, 0.5)
 
-[node name="SubViewport" type="SubViewport" parent="view_wheel_left" unique_id=1422651814]
+[node name="SubViewport" type="SubViewport" parent="view_wheel_left"]
 transparent_bg = true
 handle_input_locally = false
 render_target_update_mode = 4
 
-[node name="Camera_Left" type="Camera3D" parent="view_wheel_left/SubViewport" unique_id=39377737]
-transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 4.371139e-08, 0, -1.3)
+[node name="Camera_Left" type="Camera3D" parent="view_wheel_left/SubViewport"]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 4.37114e-08, 0, -1.3)
 cull_mask = 1047586
 projection = 1
 fov = 45.0
 
-[node name="view_wheel_right" type="SubViewportContainer" parent="." unique_id=2133956201]
+[node name="view_wheel_right" type="SubViewportContainer" parent="."]
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
@@ -473,42 +473,42 @@ offset_bottom = 542.0
 grow_horizontal = 0
 scale = Vector2(0.5, 0.5)
 
-[node name="SubViewport" type="SubViewport" parent="view_wheel_right" unique_id=2002115450]
+[node name="SubViewport" type="SubViewport" parent="view_wheel_right"]
 transparent_bg = true
 handle_input_locally = false
 render_target_update_mode = 4
 
-[node name="Camera_Right" type="Camera3D" parent="view_wheel_right/SubViewport" unique_id=1612728968]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.371139e-08, 0, 1.3)
+[node name="Camera_Right" type="Camera3D" parent="view_wheel_right/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.37114e-08, 0, 1.3)
 cull_mask = 1047620
 projection = 1
 fov = 45.0
 
-[node name="view_wheel_left2" type="SubViewportContainer" parent="." unique_id=221580117]
+[node name="view_wheel_left2" type="SubViewportContainer" parent="."]
 offset_left = 420.0
 offset_top = 30.0
 offset_right = 932.0
 offset_bottom = 542.0
 scale = Vector2(0.5, 0.5)
 
-[node name="SubViewport" type="SubViewport" parent="view_wheel_left2" unique_id=1906106772]
+[node name="SubViewport" type="SubViewport" parent="view_wheel_left2"]
 transparent_bg = true
 handle_input_locally = false
 render_target_update_mode = 4
 
-[node name="Camera_Left" type="Camera3D" parent="view_wheel_left2/SubViewport" unique_id=1558525906]
-transform = Transform3D(-4.371139e-08, 1, 4.371139e-08, 0, -4.371139e-08, 1, 1, 4.371139e-08, 1.9106855e-15, 0, 2, 0)
+[node name="Camera_Left" type="Camera3D" parent="view_wheel_left2/SubViewport"]
+transform = Transform3D(-4.37114e-08, 1, 4.37114e-08, 0, -4.37114e-08, 1, 1, 4.37114e-08, 1.91069e-15, 0, 2, 0)
 cull_mask = 1047558
 projection = 1
 fov = 45.0
 
-[node name="optitrack" parent="." unique_id=915745645 instance=ExtResource("5_ohprv")]
+[node name="optitrack" parent="." instance=ExtResource("5_ohprv")]
 visible = false
 
-[node name="trail_hand_right" type="Node3D" parent="." unique_id=308166930]
+[node name="trail_hand_right" type="Node3D" parent="."]
 script = SubResource("GDScript_ymvtp")
 
-[node name="trail_hand_left2" type="Node3D" parent="." unique_id=1750984441]
+[node name="trail_hand_left2" type="Node3D" parent="."]
 script = SubResource("GDScript_2cpfo")
 
 [editable path="wheel_right/rear_wheel_right"]
