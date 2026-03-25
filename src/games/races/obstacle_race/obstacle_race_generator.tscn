@@ -12,7 +12,10 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_5sq0i"]
 size = Vector3(6.6741943, 1, 1)
 
-[node name="obstacle_race_main" type="Node3D" unique_id=1913311282]
+[sub_resource type="BoxShape3D" id="BoxShape3D_5sq0i"]
+size = Vector3(6.6741943, 1, 1)
+
+[node name="obstacle_race_generator" type="Node3D" unique_id=1913311282]
 script = ExtResource("1_rnfno")
 finish_line = ExtResource("4_nl003")
 start_line = ExtResource("5_7pb3g")

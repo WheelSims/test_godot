@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://xwtfx6p27vlm"]
+
+[ext_resource type="Script" uid="uid://boe632ih0j5mm" path="res://devices/motorized_rollers/motorized_rollers.gd" id="1_codt6"]
+
+[node name="motorized_rollers" type="Node3D" unique_id=1893410104]
+script = ExtResource("1_codt6")
+
+[connection signal="tree_exiting" from="." to="." method="_on_tree_exiting"]

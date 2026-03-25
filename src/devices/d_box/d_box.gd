@@ -1,4 +1,5 @@
 extends Node3D
+@onready var main: Node = get_tree().get_root().get_node("main")
 
 # ------------------------------------
 # Simulator geometry
@@ -28,14 +29,27 @@ var max_simulated_height = max_height_amplitude / 2.0
 # ------------------------------------
 # D-Box driver helper
 # ------------------------------------
+const dbox_driver_path = "devices/d_box/dbox_driver/"
+const dbox_driver_app = "dbox_driver_app.exe"
 var udp_send_ip: String = "127.0.0.1"
 var udp_send_port: int = 25200
 var _udp_sender = PacketPeerUDP.new()
+var _d_box_initialized = false
 
-# ------------------------------------
-# Player
-# ------------------------------------
-@onready var player: RigidBody3D = get_parent()
+# -----------------------
+# Current mode
+# -----------------------
+enum CurrentMode {
+	ONBOARDING = 0,
+	PLAYING = 1,
+	PAUSE = 2,
+	OFFBOARDING = 3
+}
+@onready var current_mode = CurrentMode.ONBOARDING
+
+## Old state (to calculate speed and to get back gratually to ONBOARDING when the player unloads)
+var old_position: Vector3
+var old_rotation: Vector3
 
 ## Current height (total) of the platform
 @onready var current_dbox_normalized_height: float = 0.0
@@ -46,7 +60,15 @@ var _udp_sender = PacketPeerUDP.new()
 @onready var old_height_noise: float = 0.0
 @onready var old_pitch_noise: float = 0.0
 @onready var old_roll_noise: float = 0.0
-@onready var old_position = global_position
+
+func get_debug_text() -> String:
+	if current_mode == CurrentMode.ONBOARDING:
+		return "Onboarding"
+	elif current_mode == CurrentMode.PLAYING:
+		return "Playing"
+	else:
+		return ""
+
 
 func _notification(what):
 	if what == NOTIFICATION_WM_CLOSE_REQUEST:
@@ -55,6 +77,21 @@ func _notification(what):
 
 func send(command: int, arg0: float, arg1: float, arg2: float) -> void:
 	var bytes = PackedByteArray()
+	
+	if not _d_box_initialized:
+		_d_box_initialized = true
+			# DBox init
+		_udp_sender.connect_to_host(udp_send_ip, udp_send_port)
+		send_print_string("Receiving packets from Godot.\n")
+		send(1, 0, 0, 0)  # Init
+		send(2, 0, 0, 0)  # Open
+		send(3, 0, 0, 0)  # ResetState
+		send(4, 0, 0, 0)  # Config
+		send(7, 0, 0, 0)  # Center
+		send(5, 0, 0, 0)  # Start
+		send_print_string("Init done, ready to move.\n")
+
+	
 	bytes.resize(28)
 	bytes.encode_s32(0, command)
 	bytes.encode_double(4, arg0)
@@ -66,32 +103,40 @@ func send_print_string(text: String) -> void:
 	for character in text:
 		send(10, character.unicode_at(0), 0, 0)
 
+func pause_process(pause_time):
+	set_process(false)
+	await get_tree().create_timer(pause_time).timeout # create a timer and wait for it to time out
+	set_process(true)
+	
 func _ready() -> void:
-	_udp_sender.connect_to_host(udp_send_ip, udp_send_port)
 	get_tree().set_auto_accept_quit(false)  # pour pouvoir envoyer Stop
 
 	var output = []
 	var exit_code = OS.execute("tasklist.exe", [], output)
-	if "dbox_driver_app.exe" not in output:
+	if dbox_driver_app not in output:
 		print("Starting D-Box driver app")
 		# Execute non-blocking
-		OS.create_process("player/dbox_driver/dbox_driver_app.exe", [], true)
-
-
-	# DBox init
-	send_print_string("Receiving packets from Godot.\n")
-	send(1, 0, 0, 0)  # Init
-	send(2, 0, 0, 0)  # Open
-	send(3, 0, 0, 0)  # ResetState
-	send(4, 0, 0, 0)  # Config
-	send(7, 0, 0, 0)  # Center
-	send(5, 0, 0, 0)  # Start
-	send_print_string("Init done, ready to move.\n")
-
-
+		OS.create_process(dbox_driver_path + dbox_driver_app, [], true)
+		pause_process(2.0)  # Wait for the driver app to come alive
 
 func _process(delta: float) -> void:
-	var normalized_height_delta: float = (global_position.y - old_position.y) / max_height
+	
+	var player_position: Vector3
+	var player_rotation: Vector3
+	if main.player:
+		player_position = main.player.global_position
+		player_rotation = main.player.rotation
+		current_mode = CurrentMode.PLAYING
+	else:
+		player_position = old_position
+		player_rotation = old_rotation
+		current_mode = CurrentMode.ONBOARDING
+	
+	var velocity = (player_position - old_position) / delta
+	var speed = sqrt(velocity.dot(velocity))
+
+	
+	var normalized_height_delta: float = (player_position.y - old_position.y) / max_height
 
 	# Adjust height_delta so that height stays inside limits so that angles are still possibles
 	var new_dbox_normalized_height: float = current_dbox_normalized_height + normalized_height_delta
@@ -120,13 +165,8 @@ func _process(delta: float) -> void:
 	var roll_noise: float = old_roll_noise + delta * roll_noise_delta - (50.0 * delta) * old_roll_noise
 	old_roll_noise = roll_noise
 
-	var velocity = (global_position - old_position) / delta
-	var speed = sqrt(velocity.dot(velocity))
-	
-	old_position = global_position
-	
 	# Adjust current_pause_play_status
-	if player.current_mode == player.CurrentMode.PLAYING:
+	if current_mode == CurrentMode.PLAYING:
 		if current_pause_play_status < 1.0:
 			current_pause_play_status += delta / player_mode_switch_duration
 	else:
@@ -137,10 +177,17 @@ func _process(delta: float) -> void:
 		current_pause_play_status = 1.0
 	elif current_pause_play_status < 0.0:
 		current_pause_play_status = 0.0
-
+		
 	send(
 		7,
 		new_dbox_normalized_height + (height_noise * speed) - 1.0 + current_pause_play_status,
-		(-player.rotation.x / max_pitch_angle + (pitch_noise * speed)) * current_pause_play_status,
-		(player.rotation.z / max_roll_angle + (roll_noise * speed)) * current_pause_play_status
+		(-player_rotation.x / max_pitch_angle + (pitch_noise * speed)) * current_pause_play_status,
+		(player_rotation.z / max_roll_angle + (roll_noise * speed)) * current_pause_play_status
 	)
+	
+	old_position = player_position
+	old_rotation = player_rotation
+	
+	if not main.config.get_value("devices.d_box.enabled"):
+		queue_free()
+	

@@ -19,13 +19,19 @@ run/main_scene="uid://c5y4tat5hrad0"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 
+[audio]
+
+buses/default_bus_layout=""
+
 [display]
 
 window/size/viewport_width=1080
 window/size/viewport_height=720
 window/size/resizable=false
+window/size/always_on_top=true
 window/subwindows/embed_subwindows=false
 window/stretch/mode="viewport"
+window/dpi/allow_hidpi=false
 
 [global_group]
 

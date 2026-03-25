@@ -13,8 +13,12 @@ extends Node
 ## The player, automatically updated on scene change.
 var player: Node3D = null
 
-## The main window, automatically updated by devices/screens on window configuration change.
-var main_window: Window = null
+## The different overlays that can be loaded dynamically based on configuration options
+@export var available_overlays: Dictionary[String, PackedScene]
+
+## The different devices that can be loaded dynamically based on configuration options
+@export var available_devices: Dictionary[String, PackedScene]
+
 
 ## (private) Store the current scene.
 var _current_scene_node: Node3D = null
@@ -27,65 +31,36 @@ var _current_scene_node: Node3D = null
 func _ready():
 	config.load_config()
 	config._save_config()  # In case there was no config originally
-	
-	# Load at least the main window
-	$screens.load_windows()
-	
-	# Apply config
-	for key in config.get_keys():
-		config_value_changed(key)
 
 # -------------------------------------------------------------------
 # Scene loading/unloading
 # -------------------------------------------------------------------
 
-## Load scene.
+## Load scene and update player reference.
 func load_scene(path: String):
 	# Unload current scene first (to be sure)
 	unload_scene()
-	
 	# Load the scene
 	_current_scene_node = load(path).instantiate()
-	scene_viewport.add_child(_current_scene_node)
-	
-	# Update the player reference and mass
+	scene_viewport.add_child(_current_scene_node)	
+	# Update the player reference
 	player = _current_scene_node.get_node("player")
-	player.mass = config.get_value("player.mass")
 
-## Unload scene.
+## Unload scene and update player reference.
 func unload_scene():
 	if _current_scene_node:
 		_current_scene_node.queue_free()
 	player = null
 
 # -------------------------------------------------------------------
-# Overlay loading/unloading
-# -------------------------------------------------------------------
-
-## Load overlays
-func load_overlays():
-	if config.get_value("overlays.speed_indicator.enabled"):
-		main_window.get_node("overlays").add_child(load("res://overlays/speed_indicator.tscn").instantiate())
-	
-## Unload overlays
-func unload_overlays():
-	if main_window:
-		for node in main_window.get_node("overlays").get_children():
-			node.queue_free()
-
-
-
-# -------------------------------------------------------------------
 # Updated config value
 # -------------------------------------------------------------------
 
-## Propagate config value changes to their corresponding modules
-# TODO Still not modular enough. Each module should check for changes in config and act accordingly.
-func config_value_changed(key):
-	match(key):
-		"overlays.speed_indicator.enabled":
-			unload_overlays()
-			load_overlays()
-		"devices.screens.floor.enabled":
-			$screens.unload_windows()
-			$screens.load_windows()
+## Called by config when modified, mainly to instanciate new modules.
+func _process(_delta):
+	for key in available_overlays:
+		if config.value_changed("main", key) and config.get_value(key):
+			$scene_viewport.add_child(available_overlays[key].instantiate())
+	for key in available_devices:
+		if config.value_changed("main", key) and config.get_value(key):
+			add_child(available_devices[key].instantiate())

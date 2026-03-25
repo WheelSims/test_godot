@@ -10,18 +10,6 @@ class_name Player
 @export var KB_LINEAR_SPEED: float = 2  # m/s
 @export var KB_ANGULAR_SPEED: float = 1  # rad/s
 
-
-# -----------------------
-# Current mode
-# -----------------------
-enum CurrentMode {
-	ONBOARDING = 0,
-	PLAYING = 1,
-	PAUSE = 2,
-	OFFBOARDING = 3
-}
-@onready var current_mode = CurrentMode.PLAYING
-
 # -----------------------
 # Custom nodes
 # -----------------------
@@ -31,15 +19,13 @@ enum CurrentMode {
 )
 
 # -----------------------
-# Access to current velocity, use get method
+# Current velocity
 # -----------------------
-var _linear_velocity: float = 0.0
-var _angular_velocity: float = 0.0
+var _device_linear_velocity: float = 0.0
+var _device_angular_velocity: float = 0.0
+var _keyboard_linear_velocity: float = 0.0
+var _keyboard_angular_velocity: float = 0.0
 
-# -----------------------
-# Check for value updates
-# -----------------------
-@onready var _old_mass: float = mass
 
 # -----------------------
 # Dynamics/collisions
@@ -61,11 +47,22 @@ var race_manager: RaceManager = null
 # -----------------------
 # Public functions
 # -----------------------
+## Return linear speed set by device + keyboard
 func get_linear_speed():
-	return _linear_velocity
+	return _device_linear_velocity + _keyboard_linear_velocity
 
+## Return linear speed set by device + keyboard
 func get_angular_speed():
-	return _angular_velocity
+	return _device_angular_velocity + _keyboard_linear_velocity
+
+## Set linear speed from device
+func set_linear_speed(value: float):
+	_device_linear_velocity = value
+	
+## Set angular speed from device
+func set_angular_speed(value: float):
+	_device_angular_velocity = value
+
 
 # -----------------------
 # Godot lifecycle
@@ -73,49 +70,39 @@ func get_angular_speed():
 func _ready():
 	pass
 
-func _process(delta):
+func _process(_delta):
 	if main:
-		if main.config.get_value("player.mass") != _old_mass:
+		if main.config.value_changed("player", "player.mass"):
 			mass = main.config.get_value("player.mass")
-			_old_mass = mass
-			print(mass)
+		if main.config.value_changed("player", "player.camera.fov"):
+			$camera.fov = main.config.get_value("player.camera.fov")
+		if main.config.value_changed("player", "player.camera.angle"):
+			$camera.rotation.x = main.config.get_value("player.camera.angle") / 180 * PI
 
 func _physics_process(delta: float) -> void:
-	var desired_linear_velocity := 0.0
-	var desired_angular_velocity := 0.0
+	var desired_linear_velocity := _device_linear_velocity
+	var desired_angular_velocity := _device_angular_velocity
 	
 	# Keyboard navigation
-	var keyboard_desired_velocities = get_keyboard_velocities()
-	desired_linear_velocity += keyboard_desired_velocities[0]
-	desired_angular_velocity += keyboard_desired_velocities[1]
+	read_keyboard_velocities()
+	desired_linear_velocity += _keyboard_linear_velocity
+	desired_angular_velocity += _keyboard_angular_velocity
 	
 	#Other inputs (esc)
 	inputs()
 	
-	# Rollers navigation
-	if motors != null:
-		motors.receive()
-		
-		desired_linear_velocity += motors.linear_velocity
-		desired_angular_velocity += motors.angular_velocity
-
-	# Appliquer les mouvements
 	if (
 		(desired_linear_velocity >= 0 and not is_front_collision)
 		or (desired_linear_velocity <= 0 and not is_rear_collision)
 	):
 		translate(Vector3(0, 0, -1) * desired_linear_velocity * delta)
 	rotate(Vector3.UP, desired_angular_velocity * delta)
-	
-	# For external access using getters
-	_linear_velocity = desired_linear_velocity
-	_angular_velocity = desired_angular_velocity
 
 
 # -----------------------
 # Other functions
 # -----------------------
-func get_keyboard_velocities() -> Array[float]:
+func read_keyboard_velocities():
 	var linear := 0.0
 	var angular := 0.0
 
@@ -127,8 +114,10 @@ func get_keyboard_velocities() -> Array[float]:
 		angular += KB_ANGULAR_SPEED
 	if Input.is_action_pressed("ui_right"):
 		angular -= KB_ANGULAR_SPEED
-		
-	return [linear, angular]
+
+	_keyboard_linear_velocity = linear
+	_keyboard_angular_velocity = angular
+	
 	
 func inputs()->void:
 	if Input.is_action_just_pressed("ui_cancel") and race_manager:

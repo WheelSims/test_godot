@@ -103,16 +103,3 @@ func _on_button_stop_pressed() -> void:
 		main.unload_scene()
 	else:
 		get_tree().quit()
-
-
-func _on_onboard_button_pressed() -> void:
-	if main.player:
-		main.player.current_mode = main.player.CurrentMode.ONBOARDING
-	else:
-		print("Launch a scene before clicking this button.")
-
-func _on_play_button_pressed() -> void:
-	if main.player:
-		main.player.current_mode = main.player.CurrentMode.PLAYING
-	else:
-		print("Launch a scene before clicking this button.")

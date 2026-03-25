@@ -2,11 +2,71 @@
 
 [ext_resource type="Script" uid="uid://cnjpl135ppqka" path="res://main.gd" id="1_0xm2m"]
 [ext_resource type="PackedScene" uid="uid://dq2eiii6jcj6u" path="res://control_gui/control_gui.tscn" id="1_ig7tw"]
+[ext_resource type="Script" uid="uid://bcwkevpt7iwo1" path="res://overlays/speed_indicator.gd" id="2_lquwl"]
 [ext_resource type="Script" uid="uid://db602oks11677" path="res://config.gd" id="3_h2yge"]
-[ext_resource type="Script" uid="uid://eg8crkfvfumy" path="res://devices/screens/screens.gd" id="4_1bvp3"]
+[ext_resource type="PackedScene" uid="uid://xwtfx6p27vlm" path="res://devices/motorized_rollers/motorized_rollers.tscn" id="4_5vw27"]
+[ext_resource type="PackedScene" uid="uid://f24s3bar65fp" path="res://overlays/debug.tscn" id="4_272bh"]
+[ext_resource type="PackedScene" uid="uid://ck2thoxwmsujy" path="res://devices/d_box/d_box.tscn" id="5_5vw27"]
+[ext_resource type="PackedScene" uid="uid://k18bpclv0qnw" path="res://devices/screens/single_screen.tscn" id="6_5vw27"]
+[ext_resource type="PackedScene" uid="uid://bvnocfmlki4nf" path="res://devices/screens/front_floor_screens.tscn" id="7_kek77"]
+
+[sub_resource type="FontFile" id="FontFile_2x147"]
+subpixel_positioning = 0
+msdf_pixel_range = 14
+msdf_size = 128
+cache/0/variation_coordinates = {}
+cache/0/face_index = 0
+cache/0/embolden = 0.0
+cache/0/transform = Transform2D(1, 0, 0, 1, 0, 0)
+cache/0/spacing_top = 0
+cache/0/spacing_bottom = 0
+cache/0/spacing_space = 0
+cache/0/spacing_glyph = 0
+cache/0/baseline_offset = 0.0
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+cache/0/50/0/ascent = 0.0
+cache/0/50/0/descent = 0.0
+cache/0/50/0/underline_position = 0.0
+cache/0/50/0/underline_thickness = 0.0
+cache/0/50/0/scale = 1.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_tb8oj"]
+font = SubResource("FontFile_2x147")
+font_size = 50
+font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="PackedScene" id="PackedScene_7mycd"]
+_bundled = {
+"conn_count": 0,
+"conns": PackedInt32Array(),
+"editable_instances": [],
+"id_paths": [PackedInt32Array(), PackedInt32Array()],
+"names": PackedStringArray("speed_indicator", "Control", "layout_mode", "anchors_preset", "anchor_right", "anchor_bottom", "grow_horizontal", "grow_vertical", "script", "numerical_display_label", "numerical_display", "Polygon2D", "position", "scale", "polygon", "text", "Label", "offset_right", "offset_bottom", "text", "label_settings", "horizontal_alignment", "vertical_alignment", "metadata/_edit_use_anchors_"),
+"node_count": 3,
+"node_ids": PackedInt32Array(1000748984, 1602561436, 870021671),
+"node_paths": [NodePath("."), NodePath("./numerical_display")],
+"nodes": PackedInt32Array(-1, -1, 1, 0, -1, 8, 2, 0, 3, 1, 4, 2, 5, 3, 6, 4, 7, 5, 8, 6, 1073741833, 7, 0, 1073741824, 0, 11, 10, -1, 3, 12, 8, 13, 9, 14, 10, 0, 1073741825, 0, 16, 15, -1, 7, 17, 11, 18, 12, 19, 13, 20, 14, 21, 15, 22, 16, 23, 17, 0),
+"variants": [3, 15, 1.0, 1.0, 2, 2, ExtResource("2_lquwl"), NodePath("numerical_display/text"), Vector2(55, 534), Vector2(0.61, 0.78), PackedVector2Array(0, 100, 0, 0, 300, 0, 300, 100), 300.0, 99.0, "0 m/s", SubResource("LabelSettings_tb8oj"), 1, 1, true],
+"version": 3
+}
 
 [node name="main" type="Node" unique_id=184152060]
 script = ExtResource("1_0xm2m")
+available_overlays = Dictionary[String, PackedScene]({
+"overlays.debug.enabled": ExtResource("4_272bh"),
+"overlays.speed_indicator.enabled": SubResource("PackedScene_7mycd")
+})
+available_devices = Dictionary[String, PackedScene]({
+"": null,
+"devices.d_box.enabled": ExtResource("5_5vw27"),
+"devices.motorized_rollers.enabled": ExtResource("4_5vw27"),
+"devices.screens.front_floor_screens.enabled": ExtResource("7_kek77"),
+"devices.screens.single_screen.enabled": ExtResource("6_5vw27")
+})
 
 [node name="control_gui" parent="." unique_id=728106337 instance=ExtResource("1_ig7tw")]
 
@@ -16,6 +76,3 @@ size = Vector2i(1280, 720)
 
 [node name="config" type="Node" parent="." unique_id=2101992792]
 script = ExtResource("3_h2yge")
-
-[node name="screens" type="Node" parent="." unique_id=1303186923]
-script = ExtResource("4_1bvp3")

@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://wtfxg03h3x6y"]
 
 [ext_resource type="Texture2D" uid="uid://bin0r5ay2ix4g" path="res://environments/hdr/desert_sunset.hdr" id="1_ci2c1"]
-[ext_resource type="PackedScene" uid="uid://hnxp88a0five" path="res://games/races/obstacle_race/obstacle_race_main.tscn" id="2_labfn"]
+[ext_resource type="PackedScene" uid="uid://hnxp88a0five" path="res://games/races/obstacle_race/obstacle_race_generator.tscn" id="2_labfn"]
 [ext_resource type="Script" uid="uid://epb7xgmjyv72" path="res://games/races/obstacle_race/generator/scripts/race_data.gd" id="3_fm0hh"]
 [ext_resource type="Script" uid="uid://brpk4pab7wouw" path="res://games/races/obstacle_race/generator/scripts/object_info.gd" id="4_ri6c8"]
 [ext_resource type="PackedScene" uid="uid://t4035q8axi6v" path="res://objects/race_objects/western_theme/scenes/hay_bale.tscn" id="5_eqbci"]
@@ -29,7 +29,6 @@ sky_material = SubResource("PanoramaSkyMaterial_8psf5")
 [sub_resource type="Environment" id="Environment_np0qt"]
 background_mode = 2
 sky = SubResource("Sky_ghu3m")
-fog_enabled = true
 fog_light_color = Color(0.73333335, 0.5882353, 0.4627451, 1)
 fog_density = 0.005
 fog_sky_affect = 0.316
