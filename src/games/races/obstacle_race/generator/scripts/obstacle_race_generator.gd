@@ -59,8 +59,6 @@ func _arch_generation(line: PackedScene, is_start_line: bool)->void:
 	line_instance.rotate(Vector3.UP, -PI/2)
 	var left_crowd: Crowd = line_instance.get_child(0)
 	var right_crowd: Crowd = line_instance.get_child(1)
-	left_crowd.on_race = true
-	right_crowd.on_race = true
 	if is_start_line:
 		line_instance.position.x = current_race_data.race_start_x
 		var area: Area3D = challenge_area.instantiate()
