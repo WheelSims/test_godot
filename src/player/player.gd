@@ -1,14 +1,15 @@
 extends RigidBody3D
 class_name Player
 
-@onready var main: Node = get_tree().get_root().get_node("main")
-
 # ------------------
 # Editable constants
 # ------------------
 @export_group("Keyboard Control")
 @export var KB_LINEAR_SPEED: float = 2  # m/s
 @export var KB_ANGULAR_SPEED: float = 1  # rad/s
+@export var LINEAR_SPEED_DEADZONE: float = 0.04  # m/s
+@export var ANGULAR_SPEED_DEADZONE: float = 0.04  # rad/s
+
 
 # -----------------------
 # Custom nodes
@@ -40,8 +41,11 @@ var _n_rf_obstacle = 0
 var _n_lf_obstacle = 0
 var _n_foot_obstacle = 0
 
-#Access to race_manager
-var race_manager: RaceManager = null
+# -----------------------
+# Config related
+# -----------------------
+var _config_update_required: bool = true  # Update to match config
+var _camera_rotation_x_offset: float = 0.0
 
 
 # -----------------------
@@ -68,16 +72,21 @@ func set_angular_speed(value: float):
 # Godot lifecycle
 # -----------------------
 func _ready():
-	pass
+	Globals.player = self
 
 func _process(_delta):
-	if main:
-		if main.config.value_changed("player", "player.mass"):
-			mass = main.config.get_value("player.mass")
-		if main.config.value_changed("player", "player.camera.fov"):
-			$camera.fov = main.config.get_value("player.camera.fov")
-		if main.config.value_changed("player", "player.camera.angle"):
-			$camera.rotation.x = main.config.get_value("player.camera.angle") / 180 * PI
+
+	if Config.value_changed("player", "player.mass") or _config_update_required:
+		mass = Config.get_value("player.mass")
+	if Config.value_changed("player", "player.camera.fov") or _config_update_required:
+		$camera.fov = Config.get_value("player.camera.fov")
+	if Config.value_changed("player", "player.camera.angle") or _config_update_required:
+		_camera_rotation_x_offset = Config.get_value("player.camera.angle") / 180 * PI
+	_config_update_required = false
+	
+	# Only keep camera rotation around y (keep level)
+	$camera.rotation.x = _camera_rotation_x_offset - rotation.x
+	$camera.rotation.z = - rotation.z
 
 func _physics_process(delta: float) -> void:
 	var desired_linear_velocity := _device_linear_velocity
@@ -88,9 +97,11 @@ func _physics_process(delta: float) -> void:
 	desired_linear_velocity += _keyboard_linear_velocity
 	desired_angular_velocity += _keyboard_angular_velocity
 	
-	#Other inputs (esc)
-	inputs()
-	
+	if abs(desired_linear_velocity) < LINEAR_SPEED_DEADZONE:
+		desired_linear_velocity = 0
+	if abs(desired_angular_velocity) < ANGULAR_SPEED_DEADZONE:
+		desired_angular_velocity = 0
+		
 	if (
 		(desired_linear_velocity >= 0 and not is_front_collision)
 		or (desired_linear_velocity <= 0 and not is_rear_collision)
@@ -119,10 +130,6 @@ func read_keyboard_velocities():
 	_keyboard_angular_velocity = angular
 	
 	
-func inputs()->void:
-	if Input.is_action_just_pressed("ui_cancel") and race_manager:
-		race_manager.pause_command()
-
 func _on_obstacle_colliders_body_shape_entered(body_rid: RID, body: Node3D, body_shape_index: int, local_shape_index: int) -> void:
 	if body.get_groups().is_empty() and  body is not Surface:
 		match local_shape_index:
@@ -170,3 +177,7 @@ func _on_obstacle_colliders_body_shape_exited(body_rid: RID, body: Node3D, body_
 func _on_player_on_simulator_body_shape_entered(body_rid: RID, body: Node, body_shape_index: int, local_shape_index: int) -> void:
 	if body is Surface:
 		rolling_resistance_coefficient = body.resistance
+
+
+func _on_tree_exiting() -> void:
+	Globals.player = null
