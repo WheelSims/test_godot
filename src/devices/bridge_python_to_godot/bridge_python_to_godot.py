@@ -18,83 +18,58 @@ print("Python connected to Godot...")
 
 
 # basics functions
-def fonction_2():
+def fonction_test():
     print("\nrequest received...")
-    _send_data("hello")
+    _send_data({"type": "response", "data": "hello"})
     print("response sent to Godot : hello")
 
 
-
 # functions to call anything command : Godot to Python
-command = {
-    "fonction_2": fonction_2
-    }
+command = {"fonction_test": fonction_test}
+
+
 def call_command(_json):
-    
+
     _module = _json.get("module")
-    _command = _json.get("command")   
+    _command = _json.get("command")
     _arg = _json.get("arg")
 
     try:
         if _module is None:
             func = command[_command]
-        
+
         if _arg is not None:
             func(_arg)
         else:
             func()
     except:
-        print("la fonction n'existe pas") 
+        print("la fonction n'existe pas")
 
-# Bridge functions UDP : Python to Godot 
+
+# Bridge functions UDP : Python to Godot
 def _send_data(data):
 
     try:
-        message = json.dumps(data).encode('utf-8')
+        message = json.dumps(data).encode("utf-8")
         sock.sendto(message, (UDP_IP, GODOT_PORT))
-            
+
     except KeyboardInterrupt:
         pass
- 
-       
+
+
 # Listening Godot requests
 try:
     while True:
         try:
             message, address = sock.recvfrom(1024)
-            commande = message.decode('utf-8')
+            commande = message.decode("utf-8")
             commande = json.loads(commande)
 
             call_command(commande)
 
         except socket.timeout:
             continue
-        
-except KeyboardInterrupt: 
+except KeyboardInterrupt:
     pass
 finally:
     sock.close()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    

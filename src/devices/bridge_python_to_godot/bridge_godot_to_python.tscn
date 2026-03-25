@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://by4moh82fka4a"]
+
+[ext_resource type="Script" uid="uid://dmu4r4xv5sj52" path="res://devices/bridge_python_to_godot/bridge_godot_to_python.gd" id="1_pq4o4"]
+
+[node name="BridgeGodotToPython" type="Node3D" unique_id=1558268186]
+script = ExtResource("1_pq4o4")

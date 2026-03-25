@@ -1,0 +1,227 @@
+[gd_scene format=3 uid="uid://dia8a3a5kyhoy"]
+
+[ext_resource type="PackedScene" uid="uid://bm1b5ewq26kcl" path="res://overlays/biofeedback_optitrack.tscn" id="1_wh2gp"]
+
+[sub_resource type="GDScript" id="GDScript_wh2gp"]
+script/source = "extends Control
+
+@onready var subviewport = $SubViewportContainer/SubViewport
+@onready var texture_rect = $TextureRect
+@onready var texture_rect2 = $TextureRect2
+@onready var texture_rect3 = $TextureRect3
+@onready var texture_rect4 = $TextureRect4
+
+@onready var cam_rect = $SubViewportContainer/SubViewport/Camera_Left
+@onready var cam_rect2 = $SubViewportContainer/SubViewport/Camera_Right
+@onready var cam_rect3 = $SubViewportContainer/SubViewport/Camera_Left_2/Camera_Left
+@onready var cam_rect4 = $SubViewportContainer/SubViewport/Camera_Right_2/Camera_Right
+
+func _ready() -> void:
+	
+	var rect = ColorRect.new()
+	rect.color = Color.BLACK
+	rect.set_anchors_preset(Control.PRESET_FULL_RECT)
+	add_child(rect)
+
+	pass	
+	#cam_rect.current = true
+	#texture_rect.texture = subviewport.get_texture()
+	#
+	#cam_rect2.current = true
+	#texture_rect2.texture = subviewport.get_texture()
+	#
+	#cam_rect3.current = true
+	#texture_rect3.texture = subviewport.get_texture()
+	#
+	#cam_rect4.current = true
+	#texture_rect4.texture = subviewport.get_texture()
+"
+
+[sub_resource type="Theme" id="Theme_wh2gp"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1aia7"]
+bg_color = Color(0, 0, 0, 0.392157)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(1, 1, 1, 0.392157)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = SubResource("GDScript_wh2gp")
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+layout_mode = 0
+offset_left = 101.0
+offset_top = 49.0
+offset_right = 613.0
+offset_bottom = 561.0
+
+[node name="StreamingOptitrack" parent="SubViewportContainer" instance=ExtResource("1_wh2gp")]
+
+[node name="PanelContainer" parent="SubViewportContainer/StreamingOptitrack" index="5"]
+visible = false
+
+[node name="view_wheel_left" parent="SubViewportContainer/StreamingOptitrack" index="6"]
+visible = false
+
+[node name="SubViewport" parent="SubViewportContainer/StreamingOptitrack/view_wheel_left" index="0"]
+handle_input_locally = false
+render_target_update_mode = 0
+
+[node name="view_wheel_left2" parent="SubViewportContainer/StreamingOptitrack" index="7"]
+visible = false
+
+[node name="SubViewport" parent="SubViewportContainer/StreamingOptitrack/view_wheel_left2" index="0"]
+render_target_update_mode = 0
+
+[node name="view_wheel_right" parent="SubViewportContainer/StreamingOptitrack" index="8"]
+visible = false
+
+[node name="SubViewport" parent="SubViewportContainer/StreamingOptitrack/view_wheel_right" index="0"]
+render_target_update_mode = 0
+
+[node name="view_wheel_right2" parent="SubViewportContainer/StreamingOptitrack" index="9"]
+visible = false
+
+[node name="SubViewport" parent="SubViewportContainer/StreamingOptitrack/view_wheel_right2" index="0"]
+render_target_update_mode = 0
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+transparent_bg = true
+handle_input_locally = false
+render_target_update_mode = 4
+
+[node name="Camera_Left" type="Camera3D" parent="SubViewportContainer/SubViewport"]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 4.37114e-08, 0, -1.3)
+cull_mask = 1047586
+projection = 1
+current = true
+fov = 45.0
+
+[node name="Camera_Right" type="Camera3D" parent="SubViewportContainer/SubViewport"]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 1)
+cull_mask = 1047620
+projection = 1
+fov = 45.0
+size = 3.0
+
+[node name="Camera_Left_2" type="Node3D" parent="SubViewportContainer/SubViewport"]
+transform = Transform3D(0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, 0.5, -0.4, 0, 0)
+
+[node name="Camera_Left" type="Camera3D" parent="SubViewportContainer/SubViewport/Camera_Left_2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 1)
+cull_mask = 1047586
+projection = 1
+fov = 45.0
+size = 3.0
+
+[node name="Camera_Right_2" type="Node3D" parent="SubViewportContainer/SubViewport"]
+transform = Transform3D(-0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, -0.5, 0, 0, 0)
+
+[node name="Camera_Right" type="Camera3D" parent="SubViewportContainer/SubViewport/Camera_Right_2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 1)
+cull_mask = 1047620
+projection = 1
+fov = 45.0
+size = 3.0
+
+[node name="SubViewport2" type="SubViewport" parent="SubViewportContainer"]
+transparent_bg = true
+handle_input_locally = false
+render_target_update_mode = 4
+
+[node name="Camera_Left" type="Camera3D" parent="SubViewportContainer/SubViewport2"]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 4.37114e-08, 0, -1.3)
+cull_mask = 1047586
+projection = 1
+current = true
+fov = 45.0
+
+[node name="Camera_Right" type="Camera3D" parent="SubViewportContainer/SubViewport2"]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 1)
+cull_mask = 1047620
+projection = 1
+fov = 45.0
+size = 3.0
+
+[node name="Camera_Left_2" type="Node3D" parent="SubViewportContainer/SubViewport2"]
+transform = Transform3D(0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, 0.5, -0.4, 0, 0)
+
+[node name="Camera_Left" type="Camera3D" parent="SubViewportContainer/SubViewport2/Camera_Left_2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 1)
+cull_mask = 1047586
+projection = 1
+fov = 45.0
+size = 3.0
+
+[node name="Camera_Right_2" type="Node3D" parent="SubViewportContainer/SubViewport2"]
+transform = Transform3D(-0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, -0.5, 0, 0, 0)
+
+[node name="Camera_Right" type="Camera3D" parent="SubViewportContainer/SubViewport2/Camera_Right_2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 1)
+cull_mask = 1047620
+projection = 1
+fov = 45.0
+size = 3.0
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 0
+offset_left = 320.0
+offset_top = 524.0
+offset_right = 820.0
+offset_bottom = 704.0
+theme = SubResource("Theme_wh2gp")
+theme_override_styles/panel = SubResource("StyleBoxFlat_1aia7")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 125.0
+offset_top = 141.0
+offset_right = 279.0
+offset_bottom = 344.0
+
+[node name="TextureRect2" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 399.0
+offset_top = 90.0
+offset_right = 553.0
+offset_bottom = 293.0
+
+[node name="TextureRect3" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 136.0
+offset_top = 310.0
+offset_right = 290.0
+offset_bottom = 513.0
+
+[node name="TextureRect4" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 487.0
+offset_top = 278.0
+offset_right = 641.0
+offset_bottom = 481.0
+
+[editable path="SubViewportContainer/StreamingOptitrack"]
+[editable path="SubViewportContainer/StreamingOptitrack/wheel_right/rear_wheel_right"]
+[editable path="SubViewportContainer/StreamingOptitrack/wheel_right/rear_wheel_right/rear_wheel"]
+[editable path="SubViewportContainer/StreamingOptitrack/wheel_right/angle_contact_right"]
+[editable path="SubViewportContainer/StreamingOptitrack/wheel_right/angle_contact_right/angle_contact"]
+[editable path="SubViewportContainer/StreamingOptitrack/wheel_right/handrim_right"]
+[editable path="SubViewportContainer/StreamingOptitrack/wheel_right/handrim_right/handrim"]
+[editable path="SubViewportContainer/StreamingOptitrack/wheel_left/rear_wheel_left"]
+[editable path="SubViewportContainer/StreamingOptitrack/wheel_left/rear_wheel_left/rear_wheel"]
+[editable path="SubViewportContainer/StreamingOptitrack/wheel_left/angle_contact_left"]
+[editable path="SubViewportContainer/StreamingOptitrack/wheel_left/angle_contact_left/angle_contact"]
+[editable path="SubViewportContainer/StreamingOptitrack/wheel_left/handrim_left"]
+[editable path="SubViewportContainer/StreamingOptitrack/wheel_left/handrim_left/handrim"]
