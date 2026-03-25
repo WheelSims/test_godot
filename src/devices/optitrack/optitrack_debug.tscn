@@ -1,45 +1,8 @@
 [gd_scene format=3 uid="uid://desjimkbuet6n"]
 
 [ext_resource type="PackedScene" uid="uid://utxy2vmv4wo7" path="res://devices/optitrack/optitrack.tscn" id="1_debns"]
+[ext_resource type="Script" uid="uid://c6c2ujky4siul" path="res://devices/optitrack/optitrack_debug.gd" id="1_rkjy5"]
 [ext_resource type="PackedScene" uid="uid://c6pgld2dtp3ln" path="res://objects/optitrack/calibration_square_200/calibration_square_200.tscn" id="1_v8m0l"]
-
-[sub_resource type="GDScript" id="GDScript_wt2o0"]
-script/source = "extends Node3D
-
-# ---------------------------------------------------------------------- #
-# This scene is used to visualize objects tracked by OptiTrack
-# A CAD model can be associated by ID, or a basic cube is displayed by default
-# ---------------------------------------------------------------------- #
-
-@export var available_models: Dictionary[String, PackedScene] = {
-	\"101\": preload(\"res://objects/optitrack/estrade/estrade.tscn\"),
-	\"102\": preload(\"res://objects/optitrack/simulateur/simulateur.tscn\"),
-	\"999\": preload(\"res://objects/optitrack/probe/probe.tscn\"),
-	\"201\": preload(\"res://objects/optitrack/forearm cluster left/forearm_cluster_left.tscn\"),
-	\"202\": preload(\"res://objects/optitrack/forearm cluster right/forearm_cluster_right.tscn\"),
-}
-
-var id_node = []
-
-func _ready() -> void:
-	pass
-
-
-func _process(_delta: float) -> void:
-
-	for child in $optitrack.get_children():
-		if child.name in available_models and len(child.get_children()) == 0:
-			var scene: PackedScene = available_models[child.name]
-			var instance = scene.instantiate()
-			child.add_child(instance)
-		elif child.name not in available_models and len(child.get_children()) == 0:
-			var mesh_instance = MeshInstance3D.new()
-
-			var box = BoxMesh.new()
-			box.size = Vector3(0.15, 0.15, 0.15)
-			mesh_instance.mesh = box
-			child.add_child(mesh_instance)
-"
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_debns"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -61,7 +24,7 @@ size = Vector2(10, 10)
 albedo_color = Color(0.066632524, 0.14739972, 0.23030156, 1)
 
 [node name="OptitrackDebug" type="Node3D" unique_id=1839747880]
-script = SubResource("GDScript_wt2o0")
+script = ExtResource("1_rkjy5")
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1096232434]
 transform = Transform3D(-0.8396198, 0.12680158, -0.5281666, 0, 0.9723699, 0.23344538, 0.5431745, 0.19600536, -0.8164211, -1.9375651, 1.0255446, -2.7691398)
