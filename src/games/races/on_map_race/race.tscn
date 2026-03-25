@@ -36,9 +36,8 @@ corner_radius_bottom_left = 10
 [sub_resource type="BoxShape3D" id="BoxShape3D_cy171"]
 size = Vector3(1, 0.796936, 5.55579)
 
-[node name="Race" type="Node3D" unique_id=1426933983 node_paths=PackedStringArray("raceHUD", "timerLabel", "distanceLabel", "countdown_ui")]
+[node name="Race" type="Node3D" unique_id=1426933983 node_paths=PackedStringArray("timerLabel", "distanceLabel", "countdown_ui")]
 script = ExtResource("1_dv7no")
-raceHUD = NodePath("UI/RaceHUD")
 timerLabel = NodePath("UI/RaceHUD/HBoxContainer/Timer")
 distanceLabel = NodePath("UI/RaceHUD/HBoxContainer/Distance")
 countdown_ui = NodePath("UI/Countdown")

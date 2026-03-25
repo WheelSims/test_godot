@@ -55,6 +55,9 @@ func _ready() -> void:
 	
 	if (path):
 		_totalRaceLength = path.curve.get_baked_length()
+		
+	_place_final_arch(distanceInput)
+	
 
 func _process(delta: float) -> void:
 	if _currentRaceMode and _on_race:
