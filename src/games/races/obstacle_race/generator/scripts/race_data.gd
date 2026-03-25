@@ -25,3 +25,4 @@ var race_start_x : float = 0
 var end_race_x_pos : float = 0
 # the player score for the race
 var score: int = 0
+var lap_time: float = 0

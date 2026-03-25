@@ -9,6 +9,9 @@
 [ext_resource type="PackedScene" uid="uid://cr3xh7scx7rpn" path="res://games/races/obstacle_race/game/game.tscn" id="6_bugko"]
 [ext_resource type="AudioStream" uid="uid://cu8nnids6jdsc" path="res://sounds/sounds/sound_effects/success_victory/coin-grab-sound-effect.wav" id="6_dex0t"]
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_5sq0i"]
+size = Vector3(6.6741943, 1, 1)
+
 [node name="obstacle_race_main" type="Node3D" unique_id=1913311282]
 script = ExtResource("1_rnfno")
 finish_line = ExtResource("4_nl003")
@@ -27,3 +30,11 @@ sound_applaud_on = false
 
 [node name="Crowd2" parent="start_line" unique_id=1102909474 instance=ExtResource("5_8r2kh")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 7.947, 0, -3.309)
+
+[node name="area_3d" type="Area3D" parent="start_line" unique_id=1734212055]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="start_line/area_3d" unique_id=1240628814]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.07684326, 0.52076817, 8.881784e-16)
+shape = SubResource("BoxShape3D_5sq0i")
+
+[connection signal="area_entered" from="start_line/area_3d" to="game" method="on_race_entered"]

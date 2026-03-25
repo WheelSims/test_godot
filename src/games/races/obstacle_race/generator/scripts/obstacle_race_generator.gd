@@ -66,6 +66,7 @@ func _arch_generation(line: PackedScene, is_start_line: bool)->void:
 		var area: Area3D = challenge_area.instantiate()
 		area.position.x = current_race_data.race_start_x
 		area.scale.z = current_race_data.race_width
+		area.scale.x = 0.1
 		add_child(area)
 		area.area_entered.connect(game_script.on_race_entered)
 	else:
@@ -73,6 +74,7 @@ func _arch_generation(line: PackedScene, is_start_line: bool)->void:
 		current_race_data.end_race_x_pos = line_instance.position.x
 		var area: Area3D = challenge_area.instantiate()
 		area.position.x = _current_x_pos
+		area.scale.x = 0.1
 		area.scale.z = current_race_data.race_width
 		add_child(area)
 		area.area_entered.connect(game_script.on_race_exited.bind(area))
