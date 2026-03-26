@@ -82,15 +82,15 @@ func _process(_delta):
 			queue_free()
 
 
-# Functions to parse the UDP packet
+## Parse UDP packet.
 func get_message_id(_data):
 	message_id = PackedByteArray(_data.slice(0, 2)).decode_s16(0)
 	return message_id
 
 
-# Function to get rigid body data by ID
-func unpack_rigid_body(_data, n_rigidbody):
-	var offset = n_rigidbody * 38 + 20
+## Get position/rotation/status of body i_rigidbody
+func unpack_rigid_body(_data, i_rigidbody):
+	var offset = i_rigidbody * 38 + 20
 	# Offset 20 since rigid body data begins after the header
 
 	# Streaming ID
@@ -132,13 +132,13 @@ func unpack_rigid_body(_data, n_rigidbody):
 	return [_id_num, _pos, _rot, _error, _tracked]
 
 
-# Function to get node rigid body by ID
+## Get rigid body node using its integer ID
 func get_node_by_id(id):
 	if has_node(str(id)):
 		return get_node(str(id))
 
 
-# Function for debug overlay
+## Debug overlay
 func get_debug_text() -> String:
 	var text = ""
 	text += "Cameras "
