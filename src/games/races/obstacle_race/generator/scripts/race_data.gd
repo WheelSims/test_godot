@@ -2,7 +2,7 @@ extends Resource
 class_name RaceData
 ## Class that takes all the parameters of an obstacle race.
 
-@export var race_length: int = 100
+@export var race_length: float = 100
 @export var race_width: float = 10
 ## The min and max of distance between the challenges. 
 @export var challenge_gap_range: Vector2 = Vector2(5,10)

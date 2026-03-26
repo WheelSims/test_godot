@@ -5,18 +5,24 @@
 [ext_resource type="PackedScene" uid="uid://chmobfkl5px2n" path="res://games/races/obstacle_race/game/challenge_area.tscn" id="4_5bi0x"]
 [ext_resource type="PackedScene" uid="uid://c4jen6mmu7mgu" path="res://games/races/common_objects/arch/finish_line.tscn" id="4_nl003"]
 [ext_resource type="PackedScene" uid="uid://bqcqt6d3sec64" path="res://games/races/common_objects/arch/start_line.glb" id="4_ogs1q"]
-[ext_resource type="Resource" uid="uid://b2dffsxjgctcc" path="res://games/races/obstacle_race/generator/object_infos_resources/stone_desert.tres" id="4_tr6d4"]
 [ext_resource type="PackedScene" uid="uid://cctnfvdwdceio" path="res://games/races/common_objects/arch/start_line.tscn" id="5_7pb3g"]
 [ext_resource type="PackedScene" uid="uid://d4dm6lh1tu5fw" path="res://games/races/common_objects/crowd/crowd.tscn" id="5_8r2kh"]
+[ext_resource type="PackedScene" uid="uid://cnkavq43degkn" path="res://objects/race_objects/western_theme/scenes/stone_desert.tscn" id="5_gyig0"]
 [ext_resource type="PackedScene" uid="uid://cr3xh7scx7rpn" path="res://games/races/obstacle_race/game/game.tscn" id="6_bugko"]
 [ext_resource type="AudioStream" uid="uid://cu8nnids6jdsc" path="res://sounds/sounds/sound_effects/success_victory/coin-grab-sound-effect.wav" id="6_dex0t"]
+[ext_resource type="Script" uid="uid://brpk4pab7wouw" path="res://games/races/obstacle_race/generator/scripts/object_info.gd" id="6_xiet3"]
+
+[sub_resource type="Resource" id="Resource_h3i1o"]
+script = ExtResource("6_xiet3")
+scene = ExtResource("5_gyig0")
+local_scale = Vector3(2.2478027, 1.9057618, 1.6027222)
 
 [node name="obstacle_race_generator" type="Node3D" unique_id=1913311282]
 script = ExtResource("1_rnfno")
 finish_line_with_decor = ExtResource("2_ddun5")
 finish_line = ExtResource("4_nl003")
 start_line = ExtResource("5_7pb3g")
-border_info = ExtResource("4_tr6d4")
+border_info = SubResource("Resource_h3i1o")
 challenge_area = ExtResource("4_5bi0x")
 
 [node name="game" parent="." unique_id=450303502 instance=ExtResource("6_bugko")]

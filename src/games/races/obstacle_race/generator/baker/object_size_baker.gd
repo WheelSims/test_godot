@@ -16,13 +16,13 @@ func _run():
 		if instance is WorldScaleCalculator:
 			object_info.scene = scene
 			var inst: WorldScaleCalculator = instance
-			inst.get_precise_size_z()
+			inst.get_precise_size()
 			object_info.type = inst.object_type
 			if inst.object_type == WorldScaleCalculator.ObjectType.Obstacle:
-				object_info.z_sizes = inst.write_sizes_with_rotation([90, 45, -45, 0])
+				object_info.sizes = inst.write_sizes_with_rotation([90, 45, -45, 0])
 			else:
-				object_info.z_sizes = inst.write_sizes_with_rotation()
-			object_info.local_scale = inst.get_precise_size()
+				object_info.sizes = inst.write_sizes_with_rotation()
+			object_info.local_scale = inst.get_size()
 		else:
 			push_error("The PackedeScene %s is not a WorldScaleCalculator" %scene.resource_name)
 		

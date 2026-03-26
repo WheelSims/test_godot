@@ -60,7 +60,7 @@ func on_obstacle_collision(body: Area3D, area3D_emitter: Area3D)->void:
 		obstacle_collision = true
 		area3D_emitter.set_deferred("monitoring", false)
 	
-func on_challenge_area_entered(body: Area3D)->void:
+func on_challenge_area_entered(body: Area3D, _area3D_emitter: Area3D)->void:
 	if body.is_in_group("Player"):
 		on_challenge = true
 		obstacle_collision = false
@@ -100,8 +100,8 @@ func on_race_exited(body: Area3D, area3D_emitter: Area3D)->void:
 		set_crowds_visible(races_data[current_race_data_i-1].final_crowds, false)
 	area3D_emitter.set_deferred("monitoring", false)
 	
-func set_crowds_visible(crowds: Array[Crowd], visible:bool)->void:
+func set_crowds_visible(crowds: Array[Crowd], _visible:bool)->void:
 	if crowds.size() == 0:
 		return
 	for crowd in crowds:
-		crowd.visible = visible
+		crowd.visible = _visible

@@ -22,6 +22,9 @@ var current_race_data: RaceData
 ## A dictionary with object infos as key and their potential sizes as values.
 ## The selected objects are the obstacles used on the current challenge generation.
 var _quanted_race_obst_sizes: Dictionary = {}
+## The highest value of obstacle x_size on current challenge. 
+## It allows to calculate the x_size of the challenge area
+var _x_size_chal: float = 0
 
 ## _current_x_pos progresses as the levels build up (with [method challenge_generation])
 var _current_x_pos : float = 0
@@ -49,7 +52,7 @@ func _arches_generation()->void:
 	if (current_race_data_indice>0):
 		_arch_generation(start_line, true)
 	else:
-		_challenge_area_set(current_race_data.race_start_x,game_script.on_race_entered, true)
+		_area_generation(current_race_data.race_start_x, game_script.on_race_entered)
 	if (current_race_data_indice == races_data.size()-1):
 		_arch_generation(finish_line_with_decor, false)
 	else:
@@ -68,23 +71,24 @@ func _arch_generation(line: PackedScene, is_start_line: bool)->void:
 	if is_start_line:
 		races_data[current_race_data_indice].start_crowds = crowd_list
 		line_instance.position.x = current_race_data.race_start_x
-		_challenge_area_set(current_race_data.race_start_x ,game_script.on_race_entered, true)
+		_area_generation(current_race_data.race_start_x, game_script.on_race_entered)
 	else:
 		current_race_data.final_crowds = crowd_list
 		line_instance.position.x = _current_x_pos
 		current_race_data.end_race_x_pos = line_instance.position.x
-		_challenge_area_set(_current_x_pos, game_script.on_race_exited, false)
+		_area_generation(_current_x_pos, game_script.on_race_exited)
 
-func _challenge_area_set(position_x: float, method_to_bind: Callable, area_entered: bool) -> void:
+## Generate an area3d with the 
+func _area_generation(position_x: float, method_connected_to_area_entered: Callable = Callable(),  method_connected_to_area_exited: Callable = Callable(), scale_x :float = 0) -> void:
 	var area: Area3D = challenge_area.instantiate()
 	area.position.x = position_x
-	area.scale.x = 0.1
 	area.scale.z = current_race_data.race_width
 	add_child(area)
-	if area_entered:
-		area.area_entered.connect(method_to_bind.bind(area))
-	else:
-		area.area_exited.connect(method_to_bind.bind(area))
+	if scale_x > 0 : area.scale.x = scale_x
+	if method_connected_to_area_entered.is_valid():
+		area.area_entered.connect(method_connected_to_area_entered.bind(area))
+	if method_connected_to_area_exited.is_valid():
+		area.area_exited.connect(method_connected_to_area_exited.bind(area))
 
 ## Generate border of race and the transition to the next race
 func _border_generation() -> void:
@@ -113,11 +117,11 @@ func _line_border_generation(first_point: Vector3, last_point: Vector3)->float:
 	var distance = direction.length()
 	var cursor = 0.0
 	var cursor_pos = first_point
-	var rotation = rad_to_deg(Vector3.RIGHT.signed_angle_to(direction, Vector3.UP))
+	var _rotation = rad_to_deg(Vector3.RIGHT.signed_angle_to(direction, Vector3.UP))
 	while cursor < distance:
 		cursor_pos += direction.normalized() * border_length / 2
-		_spawn_border(cursor_pos.x, cursor_pos.z, border_info.scene, rotation)  # left border
-		_spawn_border(cursor_pos.x,  cursor_pos.z, border_info.scene, rotation)  # right border
+		_spawn_border(cursor_pos.x, cursor_pos.z, border_info.scene, _rotation)  # left border
+		_spawn_border(cursor_pos.x,  cursor_pos.z, border_info.scene, _rotation)  # right border
 		cursor += border_length
 		cursor_pos += direction.normalized() * border_length / 2
 	return cursor
@@ -139,12 +143,7 @@ func _challenges_generation() -> void:
 	current_race_data.challenge_gap = _rng.randf_range(current_race_data.challenge_gap_range.x, current_race_data.challenge_gap_range.y)
 	_current_x_pos += current_race_data.challenge_gap
 	while _current_x_pos < current_race_data.race_length + current_race_data.race_start_x:
-		var instance: Area3D = challenge_area.instantiate()
-		instance.scale.z = current_race_data.race_width
-		instance.position.x = _current_x_pos
-		add_child(instance)
-		instance.area_entered.connect(game_script.on_challenge_area_entered)
-		instance.area_exited.connect(game_script.on_challenge_area_exited.bind(instance))
+		_x_size_chal = 0
 		if _rng.randf() < current_race_data.obstacle_opening_prob:
 			# Obstacle case
 			_challenge_builder(_current_x_pos, 0.25, obstacle_infos.pick_random())
@@ -152,11 +151,12 @@ func _challenges_generation() -> void:
 			if _rng.randf() < current_race_data.transparent_op_wall_prob:
 				# Transparant wall case
 				var object_info: ObjectInfo = transparent_wall_infos.pick_random()
-				_challenge_builder(_current_x_pos, object_info.z_sizes.values()[0], transparent_wall_infos.pick_random())
+				_challenge_builder(_current_x_pos, object_info.get_z_sizes().values()[0], transparent_wall_infos.pick_random())
 			else:
 				# Opaque wall case
 				_challenge_builder(_current_x_pos, 0.25,  opaque_wall_infos.pick_random())
-		#current_race_data.challenge_gap = _rng.randf_range(current_race_data.challenge_gap_range.x, current_race_data.challenge_gap_range.y)
+		print(_x_size_chal)
+		_area_generation(_current_x_pos, game_script.on_challenge_area_entered, game_script.on_challenge_area_exited, _x_size_chal)
 		_current_x_pos += current_race_data.challenge_gap
 
 ## A challenge is a line of obstacles or walls.
@@ -208,7 +208,7 @@ func _segments_to_objects(object_info: ObjectInfo, segments: Array[Segment], qua
 		cursor_z += scale_z/2
 		if segments[i].type == Segment.SegmentType.WALL:
 			if object_info.type == WorldScaleCalculator.ObjectType.Obstacle:  _obstacle_spawn(pos_x, cursor_z, scale_z)
-			elif object_info.type == WorldScaleCalculator.ObjectType.ScalableWall: _scalable_object_spawn(pos_x, cursor_z, scale_z, object_info.scene)
+			elif object_info.type == WorldScaleCalculator.ObjectType.ScalableWall: _scalable_object_spawn(pos_x, cursor_z, scale_z, object_info)
 			elif object_info.type == WorldScaleCalculator.ObjectType.UnitWall: _unit_object_spawn(pos_x, cursor_z - scale_z/2, segments[i].length, object_info)
 		cursor_z += scale_z/2
 
@@ -219,10 +219,12 @@ func _obstacle_spawn(pos_x: float, pos_z: float, scale_z: float)->void:
 		push_error("Didn't find an obstacle for that scale: %.3f" % scale_z)
 		return
 	var instance := obstacle.scene.instantiate()
-	var list: Array = obstacle.z_sizes.values()
+	var list: Array = obstacle.get_z_sizes().values()
 	var original_scale = MathUtils.clother_number(list, scale_z)
-	var y_rotation = MathUtils.find_random_key(obstacle.z_sizes, original_scale, _rng)
-	
+	var y_rotation = MathUtils.find_random_key(obstacle.get_z_sizes(), original_scale, _rng)
+	var obst_x_size = obstacle.sizes[y_rotation].x
+	if obst_x_size > _x_size_chal:
+		_x_size_chal = obst_x_size
 	instance.position.x = pos_x
 	if y_rotation != null:
 		instance.visual_instance.rotation_degrees.y = y_rotation
@@ -231,8 +233,11 @@ func _obstacle_spawn(pos_x: float, pos_z: float, scale_z: float)->void:
 	add_child(instance)
 	instance.area3D.area_entered.connect(game_script.on_obstacle_collision.bind(instance.area3D))
 	
-func _scalable_object_spawn(pos_x: float, pos_z: float, scale_z: float, obj_sample: PackedScene)->void:
-	var obstacle: WorldScaleCalculator = obj_sample.instantiate()
+func _scalable_object_spawn(pos_x: float, pos_z: float, scale_z: float, obj_info: ObjectInfo)->void:
+	var obstacle: WorldScaleCalculator = obj_info.scene.instantiate()
+	var obst_x_size = obj_info.sizes.values()[0].x
+	if obst_x_size > _x_size_chal:
+		_x_size_chal = obst_x_size
 	if obstacle == null:
 		push_error("an obstacle didn't instantiate")
 		return
@@ -243,11 +248,14 @@ func _scalable_object_spawn(pos_x: float, pos_z: float, scale_z: float, obj_samp
 	obstacle.area3D.area_entered.connect(game_script.on_obstacle_collision.bind(obstacle.area3D))
 	
 func _unit_object_spawn(pos_x: float, cursor_z: float, segment_length: int, object_info: ObjectInfo)->void:
-	var _remainder = fmod(current_race_data.race_width, object_info.z_sizes.values()[0]) ## _remainder
+	var obst_x_size = object_info.sizes.values()[0].x
+	if obst_x_size > _x_size_chal:
+		_x_size_chal = obst_x_size
+	var _remainder = fmod(current_race_data.race_width, object_info.get_z_sizes().values()[0]) ## _remainder
 	for i in range(0, segment_length):
 		var instance: Node3D = object_info.scene.instantiate()
 		instance.position.x = pos_x
-		instance.position.z = cursor_z + (i + 0.5) * object_info.z_sizes.values()[0] + _remainder
+		instance.position.z = cursor_z + (i + 0.5) * object_info.get_z_sizes().values()[0] + _remainder
 		add_child(instance)
 		instance.area3D.area_entered.connect(game_script.on_obstacle_collision.bind(instance.area3D))
 
@@ -258,7 +266,7 @@ func _quant_race_obst_sizes(quantum:float)->Array[int]:
 	_quanted_race_obst_sizes.clear()
 	var list: Array[int] = []
 	for obst_info in obstacle_infos:
-		var _obstacles_sizes = obst_info.z_sizes
+		var _obstacles_sizes = obst_info.get_z_sizes()
 		var list_lengths: Array[float] = []
 		for length in _obstacles_sizes.values():
 			var n := MathUtils.clother_xquantum(quantum, length)
@@ -280,10 +288,10 @@ func _validate_config() -> void:
 	_validate_resource_array(transparent_wall_infos, "transparent_wall_infos")
 	_validate_resource_array(opaque_wall_infos, "opaque_wall_infos")
 	
-func _validate_resource_array(array: Array, name: String) -> void:
-	assert(not array.is_empty(), "%s cannot be empty" % name)
+func _validate_resource_array(array: Array, r_name: String) -> void:
+	assert(not array.is_empty(), "%s cannot be empty" % r_name)
 	for i in array.size():
 		if (array[i] is ObjectInfo):
-			assert(array[i].is_valid(), "%s contains invalid element at index %d" % [name, i])
+			assert(array[i].is_valid(), "%s contains invalid element at index %d" % [r_name, i])
 		else:
-			assert(is_instance_valid(array[i]), "%s contains invalid element at index %d" % [name, i])
+			assert(is_instance_valid(array[i]), "%s contains invalid element at index %d" % [r_name, i])
