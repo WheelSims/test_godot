@@ -3,71 +3,43 @@ class_name Crowd
 
 @export var race_manager : RaceManager
 @export var crowd : Array[Node3D]
-@export var audio_stream : AudioStreamPlayer3D
-@export var _start_applaud : AudioStream
-@export var _applaud_loop : AudioStream
+@onready var audio_stream : AudioStreamPlayer3D = $audio_stream_player
 var _player_in: bool = false
-var _trans_anim: float = 0
-@export var trans_accel: float = 2
-@export var is_final_crowd_on_race = false
-var on_race: bool = true
-var _player_area: Area3D
-@export var max_applaud_distance : float
-@export var sound_applaud_on: bool = true
+var _anim_fade_duration: float = 1.0
 
-func _ready() -> void:		
-	audio_stream.stream = _start_applaud
-	
-func _process(delta: float) -> void:
-	if race_manager:
-		on_race = race_manager._on_race
-	
-	# Too far -> Stop applauding
-	if (audio_stream.playing and _player_area and _player_area.global_position.distance_to(global_position) > max_applaud_distance):
-		_stop_clap()
-	
-	# Applaud Conditions
-	if (_trans_anim < 1 and _player_in and on_race):
-		_trans_anim = lerp(_trans_anim ,1.1, trans_accel * delta)
-		_clap(_trans_anim)
-		if not audio_stream.playing:
-			_play_sound()
-	elif (_trans_anim>0 and !on_race and !is_final_crowd_on_race):
-		_trans_anim = 0
-		_clap(_trans_anim)
-		audio_stream.stop()
-	if not audio_stream.playing and _trans_anim > 0:
-		_trans_anim = 0
-		_clap(_trans_anim)
-	
-	##For humans to look at the player
-	if (_trans_anim>0):
+func _process(_delta: float) -> void:
+	if _player_in:
+		# Make humans look at the player
 		for human in crowd:
-			human.look_at(_player_area.global_position, Vector3.UP, true)
+			if Globals.player:
+				human.look_at(Globals.player.global_position, Vector3.UP, true)
 
-func _play_sound() -> void:
-	if not sound_applaud_on:
-		audio_stream.volume_db = - INF
-	audio_stream.play()
-	
-	await audio_stream.finished
-	
-	if (on_race):
-		audio_stream.stream = _applaud_loop
-		audio_stream.play()
-	
-	
-func _clap(__trans_anim: float) -> void:
+func _set_animation_blend(amount):
+	# Set sound volume
+	audio_stream.max_db = (amount - 1) * 6
+	if amount == 0:
+		audio_stream.stop()
+		
 	for human in crowd:
-			var anim_tree = human.get_node("AnimationTree")
-			anim_tree.set("parameters/Blend2/blend_amount", __trans_anim)
-			
+		var anim_tree = human.get_node("AnimationTree")
+		anim_tree.set("parameters/Blend2/blend_amount", amount)
+	
+
+func _start_clap() -> void:
+	_player_in = true
+	audio_stream.play()
+	var tween = create_tween()
+	tween.tween_method(_set_animation_blend, 0.0,  1.0, _anim_fade_duration)
+
 func _stop_clap()->void:
 	_player_in = false
-	_clap(0)
-	audio_stream.stop()
+	var tween = create_tween()
+	tween.tween_method(_set_animation_blend, 1.0,  0.0, _anim_fade_duration)
 
 func _on_trigger_area_entered(area: Area3D) -> void:
-	if (area.is_in_group("Player")):
-		_player_area = area
-		_player_in = true
+	if area.is_in_group("Player"):
+		_start_clap()
+
+func _on_trigger_area_exited(area: Area3D) -> void:
+	if area.is_in_group("Player"):
+		_stop_clap()

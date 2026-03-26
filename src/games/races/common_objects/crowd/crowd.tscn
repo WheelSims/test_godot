@@ -1,8 +1,6 @@
 [gd_scene format=3 uid="uid://d4dm6lh1tu5fw"]
 
 [ext_resource type="Script" uid="uid://cvd1sagu0gxt1" path="res://games/races/common_objects/crowd/crowd.gd" id="1_vnpyj"]
-[ext_resource type="AudioStream" uid="uid://s7gfl17x3yd6" path="res://sounds/sounds/human_sounds/Start_Long_CheerfullClap.wav" id="2_u0hxl"]
-[ext_resource type="AudioStream" uid="uid://bj5hb2klk7cds" path="res://sounds/sounds/human_sounds/Loop_applause-cheerfully.wav" id="3_p25mo"]
 [ext_resource type="PackedScene" uid="uid://bkjobwvhg7dc7" path="res://objects/humans/kate/Kate.glb" id="4_k5jmy"]
 [ext_resource type="AnimationLibrary" uid="uid://bts1ll33xtosf" path="res://objects/humans/clap_animation.res" id="5_4rk5d"]
 [ext_resource type="Script" uid="uid://dfyjjqr1v7goo" path="res://games/races/obstacle_race/generator/scripts/ground_aligned.gd" id="5_h0dsn"]
@@ -10,9 +8,11 @@
 [ext_resource type="PackedScene" uid="uid://cclt12mtoo2ln" path="res://objects/humans/megan/Megan.glb" id="7_3qijt"]
 [ext_resource type="PackedScene" uid="uid://6ifdnfmdvbsc" path="res://objects/humans/josh/Josh.glb" id="8_i1d6g"]
 [ext_resource type="PackedScene" uid="uid://drl4jkx8cjnk4" path="res://objects/humans/louise/Louise.glb" id="9_jx88r"]
+[ext_resource type="AudioStream" uid="uid://bplphalxgmtcc" path="res://sounds/sounds/human_sounds/crowd_cheering.res" id="11_40b2f"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_ic017"]
-size = Vector3(51.006104, 1.3761, 17.214142)
+[sub_resource type="SphereShape3D" id="SphereShape3D_h0dsn"]
+margin = 1.0
+radius = 40.0
 
 [sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_ic017"]
 
@@ -32,19 +32,15 @@ nodes/Idle/node = SubResource("AnimationNodeAnimation_whwfu")
 nodes/Idle/position = Vector2(-280, 180)
 node_connections = [&"output", 0, &"Blend2", &"Blend2", 0, &"Idle", &"Blend2", 1, &"ClapAnimation"]
 
-[node name="Crowd" type="Node3D" unique_id=104881149 node_paths=PackedStringArray("crowd", "audio_stream")]
+[node name="Crowd" type="Node3D" unique_id=104881149 node_paths=PackedStringArray("crowd")]
 script = ExtResource("1_vnpyj")
 crowd = [NodePath("Humans/Kate"), NodePath("Humans/Megan"), NodePath("Humans/Josh"), NodePath("Humans/Louise"), NodePath("Humans/Kate2"), NodePath("Humans/Megan2"), NodePath("Humans/Josh2"), NodePath("Humans/Louise2"), NodePath("Humans/Kate3"), NodePath("Humans/Megan3"), NodePath("Humans/Josh3"), NodePath("Humans/Louise3"), NodePath("Humans/Kate4"), NodePath("Humans/Megan4"), NodePath("Humans/Josh4"), NodePath("Humans/Louise4")]
-audio_stream = NodePath("AudioStreamPlayer3D")
-_start_applaud = ExtResource("2_u0hxl")
-_applaud_loop = ExtResource("3_p25mo")
-max_applaud_distance = 30.0
 
 [node name="Trigger" type="Area3D" parent="." unique_id=610262268]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Trigger" unique_id=1224530266]
 transform = Transform3D(1, 0, 0, 0, 0.999856, 0.0169463, 0, -0.0169463, 0.999856, -0.0030498505, 0.71723586, 5.9499016)
-shape = SubResource("BoxShape3D_ic017")
+shape = SubResource("SphereShape3D_h0dsn")
 
 [node name="Humans" type="Node3D" parent="." unique_id=1915998250]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.29132, 0, 0)
@@ -321,11 +317,10 @@ parameters/Blend2/blend_amount = 0.0
 target_position = Vector3(0, -10, 0)
 hit_back_faces = false
 
-[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="." unique_id=1638612047]
-stream = ExtResource("2_u0hxl")
+[node name="audio_stream_player" type="AudioStreamPlayer3D" parent="." unique_id=1638612047]
+stream = ExtResource("11_40b2f")
 volume_db = -6.0
-unit_size = 59.14
-autoplay = true
+unit_size = 30.0
 
 [connection signal="area_entered" from="Trigger" to="." method="_on_trigger_area_entered"]
 [connection signal="area_exited" from="Trigger" to="." method="_on_trigger_area_exited"]

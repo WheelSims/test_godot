@@ -14,11 +14,13 @@ point_count = 9
 
 [node name="ParkEnvironment" parent="." unique_id=1813439283 instance=ExtResource("1_trtnn")]
 
-[node name="Race" parent="." unique_id=396843458 node_paths=PackedStringArray("path") instance=ExtResource("2_g5yr7")]
+[node name="Race" parent="." unique_id=396843458 node_paths=PackedStringArray("raceHUD", "path") instance=ExtResource("2_g5yr7")]
 transform = Transform3D(-0.005026847, 0, -0.99998695, 0, 1, 0, 0.99998695, 0, -0.005026847, 4.62002, 3.61702e-05, -60.0613)
+raceHUD = NodePath("UI/RaceHUD")
 path = NodePath("Path3D")
-end_arch_left_crowd = true
 
 [node name="Path3D" type="Path3D" parent="Race" unique_id=1393479340]
 transform = Transform3D(-0.719074, 0, 0.694934, 0, 1, 0, -0.694934, 0, -0.719074, 0, 0, 0)
 curve = SubResource("Curve3D_n6s4s")
+
+[editable path="Race"]

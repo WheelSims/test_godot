@@ -5,22 +5,10 @@ enum RaceType { TIME_TRIAL, DISTANCE_CHALLENGE, NONE }
 
 #UI Elements
 @export_group("UI Elements")
-@export var raceChoiceMenu: PanelContainer
-@export var raceLengthLabel: Label
-@export var distance_challenge_button: Button
-@export var time_trial_button: Button
 @export var raceHUD: MarginContainer
 @export var timerLabel: Label
 @export var distanceLabel: Label
-@export var endMenu: PanelContainer
-@export var endScoreLabel: Label
-@export var endParameterLabel: Label
-@export var pauseMenu: PanelContainer
-@export var race_mode_pause_menu: Label
-@export var race_mode_end_menu: Label
-@export var race_parameter: Label
 @export var countdown_ui: Control
-
 
 #Game Elements
 @export_group("Game Elements")
@@ -67,7 +55,9 @@ func _ready() -> void:
 	
 	if (path):
 		_totalRaceLength = path.curve.get_baked_length()
-		raceLengthLabel.text = "Total Race Length = %.0f m" % _totalRaceLength
+		
+	_place_final_arch(distanceInput)
+	
 
 func _process(delta: float) -> void:
 	if _currentRaceMode and _on_race:
@@ -76,12 +66,8 @@ func _process(delta: float) -> void:
 			_update_hud(_currentRaceMode.current_distance, _currentRaceMode.timer)
 
 		if _currentRaceMode.is_finished():
-			_finish_race(false)
+			_finish_race()
 
-func pause_command() -> void:
-	if _currentRaceMode:
-		_racePaused = !_racePaused
-		pauseMenu.visible = _racePaused
 
 func _start_race() -> void:
 	var raceLength = _totalRaceLength
@@ -91,25 +77,15 @@ func _start_race() -> void:
 			_currentRaceMode = TimeTrial.new(distanceInput, Globals.player)
 			_place_final_arch(distanceInput)
 			raceLength = distanceInput
-			race_mode_pause_menu.text = "RaceMode: Time Trial"
-			race_parameter.text = "Distance to travel = %.1f meters" % distanceInput
 		RaceType.DISTANCE_CHALLENGE:
 			_currentRaceMode = DistanceChallenge.new(timerInput, Globals.player)
-			race_mode_pause_menu.text = "RaceMode: Distance Challenge"
-			race_parameter.text = "Timer = %.1f secondes" % timerInput
 			if (_finalArch != null):
 				_finalArch.queue_free()
 		_:
-			SFX_player.stream = click_error
-			SFX_player.play()
-			await SFX_player.finished
-			SFX_player.stream = click_tone
-			push_error("Please choose a race type.")
 			return
 	
 	
 	SFX_player.play()
-	raceChoiceMenu.hide()
 	countdown_ui.start_countdown()
 	
 	# Wait for signal before starting race
@@ -122,19 +98,12 @@ func _start_race() -> void:
 	_spawn_arrows(distanceBetweenArrows, raceLength)
 	
 
-func _finish_race(forced: bool) -> void:
-	if not forced:
-		music_player.stream = victory_sound
-		music_player.play()
-	else:
-		music_player.stop()
-
+func _finish_race() -> void:
+	music_player.stream = victory_sound
+	music_player.play()
 	_currentRaceMode = null
 	_on_race = false
-	_currentRaceType = RaceType.NONE
-	distance_challenge_button.button_pressed = false
-	time_trial_button.button_pressed = false
-	
+	_currentRaceType = RaceType.NONE	
 	_clear_arrows()
 
 func _place_final_arch(distance: float) -> void:
@@ -191,8 +160,6 @@ func _play_music() -> void:
 	if (_on_race):
 		music_player.stream = music_loop
 		music_player.play()
-
-# Trigger + Input Handling
 
 func _on_trigger_area_entered(area: Area3D) -> void:
 	if area.is_in_group("Player"):

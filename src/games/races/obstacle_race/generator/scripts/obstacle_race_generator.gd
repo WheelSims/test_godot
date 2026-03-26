@@ -65,8 +65,6 @@ func _arch_generation(line: PackedScene, is_start_line: bool)->void:
 	line_instance.rotate(Vector3.UP, -PI/2)
 	var left_crowd: Crowd = line_instance.get_child(0)
 	var right_crowd: Crowd = line_instance.get_child(1)
-	left_crowd.on_race = true
-	right_crowd.on_race = true
 	var crowd_list : Array[Crowd]= [left_crowd, right_crowd]
 	if is_start_line:
 		races_data[current_race_data_indice].start_crowds = crowd_list
