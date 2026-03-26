@@ -44,8 +44,8 @@ var _defaults: Dictionary[String, Dictionary] = {
 	"devices.motorized_rollers.enabled": {"order": 3.6, "label": "Motorized rollers", "type": "bool", "default": false},
 	"devices.optitrack.enabled": {"order": 3.7, "label": "Optitrack", "type": "bool", "default": false},
 
-	"coordinates.left_wheel_center": {"order":4.01, "label": "Left wheel center", "type": "array", "default": [0.0, 0.0, 0.0], "reference": "simulator"},
-	"coordinates.right_wheel_center": {"order":4.02, "label": "Right wheel center", "type": "array", "default": [0.0, 0.0, 0.0], "reference": "simulator"},
+	"coordinates.left_wheel_center": {"order":4.01, "label": "Left wheel center", "type": "array", "default": [-0.2, 0.3, -0.75], "reference": "simulator"},
+	"coordinates.right_wheel_center": {"order":4.02, "label": "Right wheel center", "type": "array", "default": [-0.2, 0.3, -0.2], "reference": "simulator"},
 	"coordinates.left_hand": {"order":4.03, "label": "Left hand", "type": "array", "default": [0.0, 0.0, 0.0], "reference": "forearm_cluster_left"},
 	"coordinates.right_hand": {"order":4.04, "label": "Right hand", "type": "array", "default": [0.0, 0.0, 0.0], "reference": "forearm_cluster_right"},
 }

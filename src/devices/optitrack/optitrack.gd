@@ -132,6 +132,12 @@ func unpack_rigid_body(_data, n_rigidbody):
 	return [_id_num, _pos, _rot, _error, _tracked]
 
 
+# Function to get node rigid body by ID
+func get_node_by_id(id):
+	if has_node(str(id)):
+		return get_node(str(id))
+
+
 # Function for debug overlay
 func get_debug_text() -> String:
 	var text = ""
