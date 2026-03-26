@@ -1,257 +1,14 @@
-[gd_scene format=3 uid="uid://bm1b5ewq26kcl"]
+[gd_scene load_steps=12 format=3 uid="uid://bm1b5ewq26kcl"]
 
 [ext_resource type="PackedScene" uid="uid://bi4w50l5uqado" path="res://objects/optitrack/forearm cluster right/forearm_cluster_right.tscn" id="1_2n6hd"]
 [ext_resource type="PackedScene" uid="uid://dwlinbk7uaug" path="res://objects/wheelchair/rear_wheel.tscn" id="1_hiv0f"]
+[ext_resource type="Script" uid="uid://xko3m2vsf5ak" path="res://overlays/biofeedback_optitrack/biofeedback_optitrack.gd" id="1_j7inm"]
 [ext_resource type="PackedScene" uid="uid://c1ynlvcc8h1vj" path="res://objects/optitrack/forearm cluster left/forearm_cluster_left.tscn" id="2_hiv0f"]
+[ext_resource type="Script" uid="uid://bffbdeose3vjm" path="res://overlays/biofeedback_optitrack/hand.gd" id="2_l04ny"]
 [ext_resource type="PackedScene" uid="uid://bcfu5sx4m6hm3" path="res://objects/wheelchair/angle_contact.tscn" id="3_ss2qs"]
 [ext_resource type="PackedScene" uid="uid://ds06t01fw7lcb" path="res://objects/wheelchair/handrim.tscn" id="4_8bgme"]
-
-[sub_resource type="GDScript" id="GDScript_m28wg"]
-script/source = "extends Node3D
-
-@onready var main: Node = get_tree().get_root().get_node(\"main\")
-
-# Wheelchair variables
-@export_group(\"Wheels\")
-
-@export_subgroup(\"Wheel Left\")
-@export var position_wheel_l = Vector3(0, 0, -0.3)
-#@export var orientation_wheel_l = Vector3(0, -PI/2, 0)
-@export var radius_wheel_l = 0.54
-@export var visibled_wheel_l = true
-@export var visibled_handrim_l = false
-@export var visibled_angle_contact_l = true
-
-@export_subgroup(\"Wheel Right\")
-@export var position_wheel_r = Vector3(0, 0, 0.3)
-#@export var orientation_wheel_r = Vector3(0, -PI/2, 0)
-@export var radius_wheel_r = 0.54
-@export var visibled_wheel_r = true
-@export var visibled_handrim_r = false
-@export var visibled_angle_contact_r = true
-
-# Bridge Godot to Python variables
-var PYTHON_IP = \"127.0.0.1\"
-var PYTHON_PORT = 4243
-var UDP_RECEIVE_PORT: int = 4242
-var _udp_receiver = PacketPeerUDP.new()
-var _udp_receiver_connected = false
-var data
-
-
-func _ready() -> void:
-	_udp_receiver.bind(UDP_RECEIVE_PORT)
-	
-	# Test function to send request to Python
-	var request = '{\"command\": \"fonction_2\"}'
-	_send_request(request)
-	
-	window_user()
-
-func _process(_delta):
-	
-	update_wheelchair()
-	_receive_data()
-	
-	
-	if main:
-		if not main.config.get_value(\"overlays.biofeedback_optitrack.enabled\"):
-			queue_free()
-		
-	pass
-
-
-func update_wheelchair():
-	
-	$wheel_left.scale = Vector3(-1/radius_wheel_l*0.2+1, radius_wheel_l, radius_wheel_l)
-	$wheel_left.position = position_wheel_l
-	#$wheel_left.rotation = orientation_wheel_l
-	$wheel_left.visible = visibled_wheel_l
-	
-	$wheel_left/angle_contact_left.visible = visibled_angle_contact_l
-	$wheel_left/handrim_left.visible = visibled_handrim_l
-	
-
-	$wheel_right.scale = Vector3(-1/radius_wheel_r*0.2+1, radius_wheel_r, radius_wheel_r)
-	$wheel_right.position = position_wheel_r
-	#$wheel_right.rotation = orientation_wheel_r
-	$wheel_right.visible = visibled_wheel_r
-	
-	$wheel_right/angle_contact_right.visible = visibled_angle_contact_r
-	$wheel_right/handrim_right.visible = visibled_handrim_r
-
-
-func _receive_data(): # Listening Python response
-	
-	if _udp_receiver.get_available_packet_count() > 0:  # We received something
-		if not _udp_receiver_connected:
-			_udp_receiver_connected = true
-		
-		data = _udp_receiver.get_packet()
-		# Discard everything until the very last packet we received
-		while _udp_receiver.get_available_packet_count() > 0:
-			data = _udp_receiver.get_packet()
-		
-		var json_string = data.get_string_from_utf8()
-		var json = JSON.new()
-		json.parse(json_string)
-		
-		data = json.get_data()
-		print(\"response received : \", data)
-func _send_request(_request): # Bridge functions UDP : Godot to Python
-
-	var message_utf8 = _request.to_utf8_buffer()
-	
-	_udp_receiver.set_dest_address(PYTHON_IP, PYTHON_PORT)
-	
-	var err = _udp_receiver.put_packet(message_utf8)
-	if err == OK:
-		print(\"\\nrequest sent to python : \", _request)
-	else:
-		print(\"Erreur d'envoi\")
-
-func _input(event): # Test function to send request to Python
-	if event.is_action_pressed(\"ui_accept\"):
-		var request = '{\"command\": \"fonction_2\"}'
-		_send_request(request)
-
-
-func window_user():
-
-	var window = Window.new()
-	window.title = \"Nouvelle fenêtre\"
-	window.size = Vector2i(350, 650)
-	window.position = Vector2i(10, 50)
-	window.always_on_top = true
-	window.borderless = false
-	window.unresizable = false
-	var scene = load(\"res://overlays/biofeedback_optitrack_gui.tscn\").instantiate()
-	window.add_child(scene)
-
-	get_tree().root.add_child(window)
-"
-
-[sub_resource type="GDScript" id="GDScript_6k3nw"]
-script/source = "extends Node3D
-@onready var main: Node = get_tree().get_root().get_node(\"main\")
-
-
-@export var id_hand_tracked = 202
-@export var id_repere_simulateur = 102
-@export var coordinates_wheel_center = \"coordinates.right_wheel_center\"
-
-
-func _ready() -> void:
-	pass
-
-func _process(_delta):
-
-	if main:
-		if main.config.get_value(\"devices.optitrack.enabled\"):
-			
-			var _pos_center_wheel = Vector3( \\
-			main.config.get_value(coordinates_wheel_center)[0], \\
-			main.config.get_value(coordinates_wheel_center)[1], \\
-			main.config.get_value(coordinates_wheel_center)[2]  \\
-			)
-			
-			var node_hand_tracked = main.get_node(\"optitrack\").get_node_by_id(id_hand_tracked)
-			var node_repere_simulateur = main.get_node(\"optitrack\").get_node_by_id(id_repere_simulateur)
-			
-			if node_hand_tracked and node_repere_simulateur:
-				
-				var T0S = node_repere_simulateur.global_transform.affine_inverse()
-				
-				self.global_transform = T0S * node_hand_tracked.global_transform
-				
-				self.position -= _pos_center_wheel 
-				self.position += $\"..\".position_wheel_r
-"
-
-[sub_resource type="GDScript" id="GDScript_kwtud"]
-script/source = "extends Node3D
-@onready var main: Node = get_tree().get_root().get_node(\"main\")
-
-
-@export var id_hand_tracked = 201
-@export var id_repere_simulateur = 102
-@export var coordinates_wheel_center = \"coordinates.left_wheel_center\"
-
-
-func _ready() -> void:
-	pass
-
-func _process(_delta):
-
-	if main:
-		if main.config.get_value(\"devices.optitrack.enabled\"):
-			
-			var _pos_center_wheel = Vector3( \\
-			main.config.get_value(coordinates_wheel_center)[0], \\
-			main.config.get_value(coordinates_wheel_center)[1], \\
-			main.config.get_value(coordinates_wheel_center)[2]  \\
-			)
-			
-			var node_hand_tracked = main.get_node(\"optitrack\").get_node_by_id(id_hand_tracked)
-			var node_repere_simulateur = main.get_node(\"optitrack\").get_node_by_id(id_repere_simulateur)
-			
-			if node_hand_tracked and node_repere_simulateur:
-				
-				var T0S = node_repere_simulateur.global_transform.affine_inverse()
-				
-				self.global_transform = T0S * node_hand_tracked.global_transform
-				
-				self.position -= _pos_center_wheel 
-				self.position += $\"..\".position_wheel_l
-"
-
-[sub_resource type="GDScript" id="GDScript_l04ny"]
-script/source = "extends Node3D
-
-@onready var main: Node = get_tree().get_root().get_node(\"main\")
-
-func _ready() -> void:
-	pass
-
-
-func _process(_delta):
-	if main:
-		if main.player != null:
-			
-			var entraxe = 0.6
-			var radius = 0.6
-			var player_linear_speed = main.player.get_linear_speed()
-			var player_angular_speed = main.player.get_angular_speed()
-			
-			var wheel_angular_speed = (player_linear_speed + entraxe / 2 * player_angular_speed)/radius
-
-			self.rotation += Vector3(wheel_angular_speed, 0, 0) * _delta
-	pass
-"
-
-[sub_resource type="GDScript" id="GDScript_2n6hd"]
-script/source = "extends Node3D
-
-@onready var main: Node = get_tree().get_root().get_node(\"main\")
-
-func _ready() -> void:
-	pass
-
-
-func _process(_delta):
-	if main:
-		if main.player != null:
-			
-			var entraxe = 0.6
-			var radius = 0.6
-			var player_linear_speed = main.player.get_linear_speed()
-			var player_angular_speed = main.player.get_angular_speed()
-			
-			var wheel_angular_speed = -(player_linear_speed - entraxe / 2 * player_angular_speed)/radius
-
-			self.rotation += Vector3(wheel_angular_speed, 0, 0) * _delta
-	pass
-"
+[ext_resource type="Script" uid="uid://b8g4t15ows352" path="res://overlays/biofeedback_optitrack/rear_wheel.gd" id="5_nqdaa"]
+[ext_resource type="Script" uid="uid://coolyg87mle6" path="res://overlays/biofeedback_optitrack/trail_hand.gd" id="8_6okfu"]
 
 [sub_resource type="Theme" id="Theme_2n6hd"]
 
@@ -267,290 +24,158 @@ corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 
-[sub_resource type="GDScript" id="GDScript_ymvtp"]
-script/source = "extends Node3D
+[node name="StreamingOptitrack" type="Node3D"]
+script = ExtResource("1_j7inm")
 
-@onready var main: Node = get_tree().get_root().get_node(\"main\")
-
-var points = []
-var frame_limit = 100
-var trail_size = 0.02
-var trails = []
-var i = 0
-
-@export var coordinates_hand = \"coordinates.right_hand\"
-var pos_trail = Vector3(0, 0, 0)
-
-func _process(_delta):
-
-	var _pos_hand = Vector3(0, 0, 0)
-	
-	if main:
-		if main.config.get_value(\"devices.optitrack.enabled\"):
-			
-			_pos_hand = Vector3( \\
-				main.config.get_value(coordinates_hand)[0], \\
-				main.config.get_value(coordinates_hand)[1], \\
-				main.config.get_value(coordinates_hand)[2]  \\
-				)
-
-	var pos_hand = $\"../hand_right\".position + $\"../hand_right\".global_transform.basis * _pos_hand
-
-	if i >= frame_limit:
-		points.remove_at(0)
-	points.append(pos_hand)
-	i += 1
-
-	for trail in trails:
-		trail.queue_free()
-	trails.clear()
-
-	for u in range(1, len(points)):
-
-		var alpha = float(u) / len(points)
-		alpha = pow(alpha, 1.5)
-		
-		var trail = create_trail(points[u], alpha)
-		trails.append(trail)
-
-func create_trail(pos: Vector3, alpha: float) -> MeshInstance3D:
-
-	var mesh = SphereMesh.new()
-	mesh.radius = trail_size * alpha
-	mesh.height = trail_size * 2 * alpha
-	mesh.radial_segments = 8
-	mesh.rings = 8
-	
-	var instance = MeshInstance3D.new()
-	instance.mesh = mesh
-	instance.position = pos + Vector3(0, 0, 0.05)
-	
-	var mat = StandardMaterial3D.new()
-	mat.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
-	mat.albedo_color = Color(1, 0, 0, alpha)
-	instance.material_override = mat
-	instance.layers = 1 << 6
-	
-	add_child(instance)
-	return instance
-"
-
-[sub_resource type="GDScript" id="GDScript_2cpfo"]
-script/source = "extends Node3D
-
-@onready var main: Node = get_tree().get_root().get_node(\"main\")
-
-var points = []
-var frame_limit = 100
-var trail_size = 0.02
-var trails = []
-var i = 0
-
-@export var coordinates_hand = \"coordinates.left_hand\"
-var pos_trail = Vector3(0, 0, 0)
-
-func _process(_delta):
-
-	var _pos_hand = Vector3(0, 0, 0)
-	
-	if main:
-		if main.config.get_value(\"devices.optitrack.enabled\"):
-			
-			_pos_hand = Vector3( \\
-				main.config.get_value(coordinates_hand)[0], \\
-				main.config.get_value(coordinates_hand)[1], \\
-				main.config.get_value(coordinates_hand)[2]  \\
-				)
-
-	var pos_hand = $\"../hand_left\".position + $\"../hand_left\".global_transform.basis * _pos_hand
-
-	if i >= frame_limit:
-		points.remove_at(0)
-	points.append(pos_hand)
-	i += 1
-
-	for trail in trails:
-		trail.queue_free()
-	trails.clear()
-
-	for u in range(1, len(points)):
-
-		var alpha = float(u) / len(points)
-		alpha = pow(alpha, 1.5)
-		
-		var trail = create_trail(points[u], alpha)
-		trails.append(trail)
-
-func create_trail(pos: Vector3, alpha: float) -> MeshInstance3D:
-
-	var mesh = SphereMesh.new()
-	mesh.radius = trail_size * alpha
-	mesh.height = trail_size * 2 * alpha
-	mesh.radial_segments = 8
-	mesh.rings = 8
-	
-	var instance = MeshInstance3D.new()
-	instance.mesh = mesh
-	instance.position = pos + Vector3(0, 0, -0.05)
-	
-	var mat = StandardMaterial3D.new()
-	mat.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
-	mat.albedo_color = Color(1, 0, 0, alpha)
-	instance.material_override = mat
-	instance.layers = 1 << 5
-	
-	add_child(instance)
-	return instance
-"
-
-[node name="StreamingOptitrack" type="Node3D" unique_id=882248492]
-script = SubResource("GDScript_m28wg")
-
-[node name="Camera_Iso" type="Camera3D" parent="." unique_id=1177989452]
+[node name="Camera_Iso" type="Camera3D" parent="."]
 transform = Transform3D(0.594949, 0.274903, -0.755291, -1.35946e-08, 0.939693, 0.34202, 0.803764, -0.203485, 0.559069, -1.95061, 0.915015, 1.39188)
 cull_mask = 1048472
 fov = 45.0
 
-[node name="hand_right" type="Node3D" parent="." unique_id=555204567]
-script = SubResource("GDScript_6k3nw")
+[node name="hand_right" type="Node3D" parent="."]
+script = ExtResource("2_l04ny")
+side = "right"
 
-[node name="ForearmClusterRight" parent="hand_right" unique_id=2037753450 instance=ExtResource("1_2n6hd")]
+[node name="ForearmClusterRight" parent="hand_right" instance=ExtResource("1_2n6hd")]
 
-[node name="hand_left" type="Node3D" parent="." unique_id=162852541]
-script = SubResource("GDScript_kwtud")
+[node name="hand_left" type="Node3D" parent="."]
+script = ExtResource("2_l04ny")
+side = "left"
 
-[node name="ForearmClusterLeft" parent="hand_left" unique_id=1950772314 instance=ExtResource("2_hiv0f")]
+[node name="ForearmClusterLeft" parent="hand_left" instance=ExtResource("2_hiv0f")]
 
-[node name="wheel_right" type="Node3D" parent="." unique_id=1763049549]
+[node name="wheel_right" type="Node3D" parent="."]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0.3)
 
-[node name="rear_wheel_right" parent="wheel_right" unique_id=1972306828 instance=ExtResource("1_hiv0f")]
+[node name="rear_wheel_right" parent="wheel_right" instance=ExtResource("1_hiv0f")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
-script = SubResource("GDScript_l04ny")
+script = ExtResource("5_nqdaa")
+side = "right"
 
-[node name="BézierCircle_004" parent="wheel_right/rear_wheel_right/rear_wheel" parent_id_path=PackedInt32Array(1972306828, 1416927850) index="0" unique_id=2000540256]
+[node name="BézierCircle_004" parent="wheel_right/rear_wheel_right/rear_wheel" index="0"]
 layers = 4
 
-[node name="BézierCircle_005" parent="wheel_right/rear_wheel_right/rear_wheel" parent_id_path=PackedInt32Array(1972306828, 1416927850) index="1" unique_id=1666782846]
+[node name="BézierCircle_005" parent="wheel_right/rear_wheel_right/rear_wheel" index="1"]
 layers = 4
 
-[node name="BézierCircle_006" parent="wheel_right/rear_wheel_right/rear_wheel" parent_id_path=PackedInt32Array(1972306828, 1416927850) index="2" unique_id=598642149]
+[node name="BézierCircle_006" parent="wheel_right/rear_wheel_right/rear_wheel" index="2"]
 layers = 4
 
-[node name="Cylinder_013" parent="wheel_right/rear_wheel_right/rear_wheel" parent_id_path=PackedInt32Array(1972306828, 1416927850) index="3" unique_id=1585116572]
+[node name="Cylinder_013" parent="wheel_right/rear_wheel_right/rear_wheel" index="3"]
 layers = 4
 
-[node name="Cylinder_014" parent="wheel_right/rear_wheel_right/rear_wheel" parent_id_path=PackedInt32Array(1972306828, 1416927850) index="4" unique_id=1933588465]
+[node name="Cylinder_014" parent="wheel_right/rear_wheel_right/rear_wheel" index="4"]
 layers = 4
 
-[node name="Cylinder_015" parent="wheel_right/rear_wheel_right/rear_wheel" parent_id_path=PackedInt32Array(1972306828, 1416927850) index="5" unique_id=531833053]
+[node name="Cylinder_015" parent="wheel_right/rear_wheel_right/rear_wheel" index="5"]
 layers = 4
 
-[node name="Cylinder_016" parent="wheel_right/rear_wheel_right/rear_wheel" parent_id_path=PackedInt32Array(1972306828, 1416927850) index="6" unique_id=808111673]
+[node name="Cylinder_016" parent="wheel_right/rear_wheel_right/rear_wheel" index="6"]
 layers = 4
 
-[node name="Cylinder_017" parent="wheel_right/rear_wheel_right/rear_wheel" parent_id_path=PackedInt32Array(1972306828, 1416927850) index="7" unique_id=1678391125]
+[node name="Cylinder_017" parent="wheel_right/rear_wheel_right/rear_wheel" index="7"]
 layers = 4
 
-[node name="Cylinder_018" parent="wheel_right/rear_wheel_right/rear_wheel" parent_id_path=PackedInt32Array(1972306828, 1416927850) index="8" unique_id=833422011]
+[node name="Cylinder_018" parent="wheel_right/rear_wheel_right/rear_wheel" index="8"]
 layers = 4
 
-[node name="Cylinder_019" parent="wheel_right/rear_wheel_right/rear_wheel" parent_id_path=PackedInt32Array(1972306828, 1416927850) index="9" unique_id=450149053]
+[node name="Cylinder_019" parent="wheel_right/rear_wheel_right/rear_wheel" index="9"]
 layers = 4
 
-[node name="Cylinder_020" parent="wheel_right/rear_wheel_right/rear_wheel" parent_id_path=PackedInt32Array(1972306828, 1416927850) index="10" unique_id=1500352944]
+[node name="Cylinder_020" parent="wheel_right/rear_wheel_right/rear_wheel" index="10"]
 layers = 4
 
-[node name="Cylinder_021" parent="wheel_right/rear_wheel_right/rear_wheel" parent_id_path=PackedInt32Array(1972306828, 1416927850) index="11" unique_id=593493418]
+[node name="Cylinder_021" parent="wheel_right/rear_wheel_right/rear_wheel" index="11"]
 layers = 4
 
-[node name="Cylinder_022" parent="wheel_right/rear_wheel_right/rear_wheel" parent_id_path=PackedInt32Array(1972306828, 1416927850) index="12" unique_id=1820500564]
+[node name="Cylinder_022" parent="wheel_right/rear_wheel_right/rear_wheel" index="12"]
 layers = 4
 
-[node name="Cylinder_023" parent="wheel_right/rear_wheel_right/rear_wheel" parent_id_path=PackedInt32Array(1972306828, 1416927850) index="13" unique_id=411050152]
+[node name="Cylinder_023" parent="wheel_right/rear_wheel_right/rear_wheel" index="13"]
 layers = 4
 
-[node name="Cylinder_024" parent="wheel_right/rear_wheel_right/rear_wheel" parent_id_path=PackedInt32Array(1972306828, 1416927850) index="14" unique_id=1001901401]
+[node name="Cylinder_024" parent="wheel_right/rear_wheel_right/rear_wheel" index="14"]
 layers = 4
 
-[node name="Cylinder_025" parent="wheel_right/rear_wheel_right/rear_wheel" parent_id_path=PackedInt32Array(1972306828, 1416927850) index="15" unique_id=496448505]
+[node name="Cylinder_025" parent="wheel_right/rear_wheel_right/rear_wheel" index="15"]
 layers = 4
 
-[node name="angle_contact_right" parent="wheel_right" unique_id=1008077509 instance=ExtResource("3_ss2qs")]
+[node name="angle_contact_right" parent="wheel_right" instance=ExtResource("3_ss2qs")]
 
-[node name="Circle" parent="wheel_right/angle_contact_right/angle_contact" parent_id_path=PackedInt32Array(1008077509, 1772018118) index="0" unique_id=1045782093]
+[node name="Circle" parent="wheel_right/angle_contact_right/angle_contact" index="0"]
 layers = 4
 
-[node name="handrim_right" parent="wheel_right" unique_id=352565267 instance=ExtResource("4_8bgme")]
+[node name="handrim_right" parent="wheel_right" instance=ExtResource("4_8bgme")]
 
-[node name="BézierCircle_003" parent="wheel_right/handrim_right/handrim" parent_id_path=PackedInt32Array(352565267, 196758062) index="0" unique_id=1225760875]
+[node name="BézierCircle_003" parent="wheel_right/handrim_right/handrim" index="0"]
 layers = 5
 
-[node name="wheel_left" type="Node3D" parent="." unique_id=1861641127]
+[node name="wheel_left" type="Node3D" parent="."]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, -0.3)
 
-[node name="rear_wheel_left" parent="wheel_left" unique_id=125053492 instance=ExtResource("1_hiv0f")]
-script = SubResource("GDScript_2n6hd")
+[node name="rear_wheel_left" parent="wheel_left" instance=ExtResource("1_hiv0f")]
+script = ExtResource("5_nqdaa")
+side = "left"
 
-[node name="BézierCircle_004" parent="wheel_left/rear_wheel_left/rear_wheel" parent_id_path=PackedInt32Array(125053492, 1416927850) index="0" unique_id=2000540256]
+[node name="BézierCircle_004" parent="wheel_left/rear_wheel_left/rear_wheel" index="0"]
 layers = 2
 
-[node name="BézierCircle_005" parent="wheel_left/rear_wheel_left/rear_wheel" parent_id_path=PackedInt32Array(125053492, 1416927850) index="1" unique_id=1666782846]
+[node name="BézierCircle_005" parent="wheel_left/rear_wheel_left/rear_wheel" index="1"]
 layers = 2
 
-[node name="BézierCircle_006" parent="wheel_left/rear_wheel_left/rear_wheel" parent_id_path=PackedInt32Array(125053492, 1416927850) index="2" unique_id=598642149]
+[node name="BézierCircle_006" parent="wheel_left/rear_wheel_left/rear_wheel" index="2"]
 layers = 2
 
-[node name="Cylinder_013" parent="wheel_left/rear_wheel_left/rear_wheel" parent_id_path=PackedInt32Array(125053492, 1416927850) index="3" unique_id=1585116572]
+[node name="Cylinder_013" parent="wheel_left/rear_wheel_left/rear_wheel" index="3"]
 layers = 2
 
-[node name="Cylinder_014" parent="wheel_left/rear_wheel_left/rear_wheel" parent_id_path=PackedInt32Array(125053492, 1416927850) index="4" unique_id=1933588465]
+[node name="Cylinder_014" parent="wheel_left/rear_wheel_left/rear_wheel" index="4"]
 layers = 2
 
-[node name="Cylinder_015" parent="wheel_left/rear_wheel_left/rear_wheel" parent_id_path=PackedInt32Array(125053492, 1416927850) index="5" unique_id=531833053]
+[node name="Cylinder_015" parent="wheel_left/rear_wheel_left/rear_wheel" index="5"]
 layers = 2
 
-[node name="Cylinder_016" parent="wheel_left/rear_wheel_left/rear_wheel" parent_id_path=PackedInt32Array(125053492, 1416927850) index="6" unique_id=808111673]
+[node name="Cylinder_016" parent="wheel_left/rear_wheel_left/rear_wheel" index="6"]
 layers = 2
 
-[node name="Cylinder_017" parent="wheel_left/rear_wheel_left/rear_wheel" parent_id_path=PackedInt32Array(125053492, 1416927850) index="7" unique_id=1678391125]
+[node name="Cylinder_017" parent="wheel_left/rear_wheel_left/rear_wheel" index="7"]
 layers = 2
 
-[node name="Cylinder_018" parent="wheel_left/rear_wheel_left/rear_wheel" parent_id_path=PackedInt32Array(125053492, 1416927850) index="8" unique_id=833422011]
+[node name="Cylinder_018" parent="wheel_left/rear_wheel_left/rear_wheel" index="8"]
 layers = 2
 
-[node name="Cylinder_019" parent="wheel_left/rear_wheel_left/rear_wheel" parent_id_path=PackedInt32Array(125053492, 1416927850) index="9" unique_id=450149053]
+[node name="Cylinder_019" parent="wheel_left/rear_wheel_left/rear_wheel" index="9"]
 layers = 2
 
-[node name="Cylinder_020" parent="wheel_left/rear_wheel_left/rear_wheel" parent_id_path=PackedInt32Array(125053492, 1416927850) index="10" unique_id=1500352944]
+[node name="Cylinder_020" parent="wheel_left/rear_wheel_left/rear_wheel" index="10"]
 layers = 2
 
-[node name="Cylinder_021" parent="wheel_left/rear_wheel_left/rear_wheel" parent_id_path=PackedInt32Array(125053492, 1416927850) index="11" unique_id=593493418]
+[node name="Cylinder_021" parent="wheel_left/rear_wheel_left/rear_wheel" index="11"]
 layers = 2
 
-[node name="Cylinder_022" parent="wheel_left/rear_wheel_left/rear_wheel" parent_id_path=PackedInt32Array(125053492, 1416927850) index="12" unique_id=1820500564]
+[node name="Cylinder_022" parent="wheel_left/rear_wheel_left/rear_wheel" index="12"]
 layers = 2
 
-[node name="Cylinder_023" parent="wheel_left/rear_wheel_left/rear_wheel" parent_id_path=PackedInt32Array(125053492, 1416927850) index="13" unique_id=411050152]
+[node name="Cylinder_023" parent="wheel_left/rear_wheel_left/rear_wheel" index="13"]
 layers = 2
 
-[node name="Cylinder_024" parent="wheel_left/rear_wheel_left/rear_wheel" parent_id_path=PackedInt32Array(125053492, 1416927850) index="14" unique_id=1001901401]
+[node name="Cylinder_024" parent="wheel_left/rear_wheel_left/rear_wheel" index="14"]
 layers = 2
 
-[node name="Cylinder_025" parent="wheel_left/rear_wheel_left/rear_wheel" parent_id_path=PackedInt32Array(125053492, 1416927850) index="15" unique_id=496448505]
+[node name="Cylinder_025" parent="wheel_left/rear_wheel_left/rear_wheel" index="15"]
 layers = 2
 
-[node name="angle_contact_left" parent="wheel_left" unique_id=1179818001 instance=ExtResource("3_ss2qs")]
+[node name="angle_contact_left" parent="wheel_left" instance=ExtResource("3_ss2qs")]
 
-[node name="Circle" parent="wheel_left/angle_contact_left/angle_contact" parent_id_path=PackedInt32Array(1179818001, 1772018118) index="0" unique_id=1045782093]
+[node name="Circle" parent="wheel_left/angle_contact_left/angle_contact" index="0"]
 layers = 2
 
-[node name="handrim_left" parent="wheel_left" unique_id=1537257177 instance=ExtResource("4_8bgme")]
+[node name="handrim_left" parent="wheel_left" instance=ExtResource("4_8bgme")]
 
-[node name="BézierCircle_003" parent="wheel_left/handrim_left/handrim" parent_id_path=PackedInt32Array(1537257177, 196758062) index="0" unique_id=1225760875]
+[node name="BézierCircle_003" parent="wheel_left/handrim_left/handrim" index="0"]
 layers = 2
 
-[node name="PanelContainer" type="PanelContainer" parent="." unique_id=2111678267]
+[node name="PanelContainer" type="PanelContainer" parent="."]
 offset_left = 320.0
 offset_top = 524.0
 offset_right = 820.0
@@ -558,89 +183,89 @@ offset_bottom = 704.0
 theme = SubResource("Theme_2n6hd")
 theme_override_styles/panel = SubResource("StyleBoxFlat_hiv0f")
 
-[node name="view_wheel_left" type="SubViewportContainer" parent="." unique_id=746699479]
+[node name="view_wheel_left" type="SubViewportContainer" parent="."]
 offset_left = 231.0
 offset_top = 180.0
 offset_right = 831.0
 offset_bottom = 780.0
 
-[node name="SubViewport" type="SubViewport" parent="view_wheel_left" unique_id=265442527]
+[node name="SubViewport" type="SubViewport" parent="view_wheel_left"]
 transparent_bg = true
 handle_input_locally = false
 size = Vector2i(600, 600)
 render_target_update_mode = 4
 
-[node name="Node3D" type="Node3D" parent="view_wheel_left/SubViewport" unique_id=528424303]
+[node name="Node3D" type="Node3D" parent="view_wheel_left/SubViewport"]
 transform = Transform3D(0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, 0.5, -0.4, 0, 0)
 
-[node name="Camera_Left" type="Camera3D" parent="view_wheel_left/SubViewport/Node3D" unique_id=553136105]
+[node name="Camera_Left" type="Camera3D" parent="view_wheel_left/SubViewport/Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 1)
 cull_mask = 1047586
 projection = 1
 fov = 45.0
 size = 3.0
 
-[node name="view_wheel_left2" type="SubViewportContainer" parent="." unique_id=894698115]
+[node name="view_wheel_left2" type="SubViewportContainer" parent="."]
 offset_left = 210.0
 offset_top = 347.0
 offset_right = 610.0
 offset_bottom = 747.0
 
-[node name="SubViewport" type="SubViewport" parent="view_wheel_left2" unique_id=1550561656]
+[node name="SubViewport" type="SubViewport" parent="view_wheel_left2"]
 transparent_bg = true
 handle_input_locally = false
 size = Vector2i(400, 400)
 render_target_update_mode = 4
 
-[node name="Camera_Left" type="Camera3D" parent="view_wheel_left2/SubViewport" unique_id=793072968]
+[node name="Camera_Left" type="Camera3D" parent="view_wheel_left2/SubViewport"]
 transform = Transform3D(1, 0, -8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0.7, -1)
 cull_mask = 1047586
 projection = 1
 fov = 45.0
 size = 3.0
 
-[node name="view_wheel_right" type="SubViewportContainer" parent="." unique_id=836937905]
+[node name="view_wheel_right" type="SubViewportContainer" parent="."]
 offset_left = 270.0
 offset_top = 180.0
 offset_right = 870.0
 offset_bottom = 780.0
 
-[node name="SubViewport" type="SubViewport" parent="view_wheel_right" unique_id=106881948]
+[node name="SubViewport" type="SubViewport" parent="view_wheel_right"]
 transparent_bg = true
 handle_input_locally = false
 size = Vector2i(600, 600)
 render_target_update_mode = 4
 
-[node name="Node3D" type="Node3D" parent="view_wheel_right/SubViewport" unique_id=140329084]
+[node name="Node3D" type="Node3D" parent="view_wheel_right/SubViewport"]
 transform = Transform3D(-0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, -0.5, 0, 0, 0)
 
-[node name="Camera_Right" type="Camera3D" parent="view_wheel_right/SubViewport/Node3D" unique_id=292626004]
+[node name="Camera_Right" type="Camera3D" parent="view_wheel_right/SubViewport/Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 1)
 cull_mask = 1047620
 projection = 1
 fov = 45.0
 size = 3.0
 
-[node name="view_wheel_right2" type="SubViewportContainer" parent="." unique_id=1987905163]
+[node name="view_wheel_right2" type="SubViewportContainer" parent="."]
 offset_left = 532.0
 offset_top = 347.0
 offset_right = 932.0
 offset_bottom = 747.0
 
-[node name="SubViewport" type="SubViewport" parent="view_wheel_right2" unique_id=278384919]
+[node name="SubViewport" type="SubViewport" parent="view_wheel_right2"]
 transparent_bg = true
 handle_input_locally = false
 size = Vector2i(400, 400)
 render_target_update_mode = 4
 
-[node name="Camera_Right" type="Camera3D" parent="view_wheel_right2/SubViewport" unique_id=1805306753]
+[node name="Camera_Right" type="Camera3D" parent="view_wheel_right2/SubViewport"]
 transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 1)
 cull_mask = 1047620
 projection = 1
 fov = 45.0
 size = 3.0
 
-[node name="view_wheel_top" type="SubViewportContainer" parent="." unique_id=1170180803]
+[node name="view_wheel_top" type="SubViewportContainer" parent="."]
 visible = false
 offset_left = 420.0
 offset_top = 30.0
@@ -648,22 +273,24 @@ offset_right = 932.0
 offset_bottom = 542.0
 scale = Vector2(0.5, 0.5)
 
-[node name="SubViewport" type="SubViewport" parent="view_wheel_top" unique_id=1786107048]
+[node name="SubViewport" type="SubViewport" parent="view_wheel_top"]
 transparent_bg = true
 handle_input_locally = false
 render_target_update_mode = 0
 
-[node name="Camera_Top" type="Camera3D" parent="view_wheel_top/SubViewport" unique_id=1648148549]
+[node name="Camera_Top" type="Camera3D" parent="view_wheel_top/SubViewport"]
 transform = Transform3D(-4.37114e-08, 1, 4.37114e-08, 0, -4.37114e-08, 1, 1, 4.37114e-08, 1.91069e-15, 0, 2, 0)
 cull_mask = 1047558
 projection = 1
 fov = 45.0
 
-[node name="trail_hand_right" type="Node3D" parent="." unique_id=274959697]
-script = SubResource("GDScript_ymvtp")
+[node name="trail_hand_right" type="Node3D" parent="."]
+script = ExtResource("8_6okfu")
+side = "right"
 
-[node name="trail_hand_left" type="Node3D" parent="." unique_id=1815991017]
-script = SubResource("GDScript_2cpfo")
+[node name="trail_hand_left" type="Node3D" parent="."]
+script = ExtResource("8_6okfu")
+side = "left"
 
 [editable path="wheel_right/rear_wheel_right"]
 [editable path="wheel_right/rear_wheel_right/rear_wheel"]

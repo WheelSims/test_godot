@@ -1,4 +1,6 @@
-[gd_scene load_steps=9 format=3 uid="uid://dplhvslsrr6oi"]
+[gd_scene load_steps=8 format=3 uid="uid://dplhvslsrr6oi"]
+
+[ext_resource type="Script" uid="uid://bbwd1obrx2ctc" path="res://overlays/biofeedback_optitrack/biofeedback_optitrack_gui.gd" id="1_tlu87"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rspjr"]
 bg_color = Color(0, 0, 0, 1)
@@ -10,92 +12,8 @@ content_margin_right = 10.0
 content_margin_bottom = 10.0
 bg_color = Color(0.146641, 0.146641, 0.146641, 1)
 
-[sub_resource type="GDScript" id="GDScript_optod"]
-script/source = "extends VBoxContainer
-
-@onready var config: Node = get_tree().get_root().get_node(\"main/config\")
-
-var group = ButtonGroup.new()
-var selected_key = null
-
-var items = {}
-
-func _ready():
-	create_item(\"coordinates.left_wheel_center\")
-	create_item(\"coordinates.right_wheel_center\")
-	create_item(\"coordinates.left_hand\")
-	create_item(\"coordinates.right_hand\")
-	
-	update_values()
-
-func _process(_delta: float) -> void:
-	if config.value_changed(\"biofeedback\", \"coordinates.left_wheel_center\") \\
-	or config.value_changed(\"biofeedback\", \"coordinates.right_wheel_center\") \\
-	or config.value_changed(\"biofeedback\", \"coordinates.left_hand\") \\
-	or config.value_changed(\"biofeedback\", \"coordinates.right_hand\"):
-		update_values()
-
-
-func create_item(key):
-	
-	add_child(HSeparator.new())
-	
-	var label = Label.new()
-	label.text = config.get_label(key)
-	add_child(label)
-	
-	var h_container = HBoxContainer.new()
-	
-	var button = Button.new()
-	button.text = \"       Select       \"
-	button.toggle_mode = true
-	button.button_group = group
-	
-	var pressed = StyleBoxFlat.new()
-	pressed.bg_color = Color(0.0, 0.39, 0.58)
-	button.add_theme_stylebox_override(\"pressed\", pressed)
-	
-	button.pressed.connect(_on_item_selected.bind(key))
-	h_container.add_child(button)
-	
-	var v_container = VBoxContainer.new()
-	
-	var value_labels = []
-	
-	for i in range(3):
-		var label_value = Label.new()
-		label_value.text = \"...\"
-		v_container.add_child(label_value)
-		value_labels.append(label_value)
-	
-	h_container.add_child(v_container)
-	add_child(h_container)
-	
-	items[key] = {\"labels\": value_labels}
-	
-	if selected_key == null:
-		button.button_pressed = true
-		selected_key = key
-
-
-func update_values():
-	
-	for key in items.keys():
-		
-		var value = config.get_value(key)
-		var labels = items[key][\"labels\"]
-		
-		for i in range(3):
-			labels[i].text = \"   \" + str(snapped(value[i], 0.0001)) + \"...\"
-
-func _on_item_selected(key):
-	selected_key = key
-"
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_t73oe"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_km7rt"]
-bg_color = Color(0, 0.329412, 0.478431, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_un652"]
+bg_color = Color(0, 0.3895, 0.57, 1)
 corner_radius_top_left = 10
 corner_radius_top_right = 10
 corner_radius_bottom_right = 10
@@ -108,69 +26,14 @@ corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_un652"]
-bg_color = Color(0, 0.3895, 0.57, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_km7rt"]
+bg_color = Color(0, 0.329412, 0.478431, 1)
 corner_radius_top_left = 10
 corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 
-[sub_resource type="GDScript" id="GDScript_d30il"]
-script/source = "extends Button
-
-@onready var main: Node = get_tree().get_root().get_node(\"main\")
-
-var duration_timer = 10
-
-func _ready():
-	
-	self.pressed.connect(_on_button_pressed)
-		
-		
-func _on_button_pressed():
-	
-	# Delay
-	var t = duration_timer
-	for i in range(duration_timer):
-		disabled = true
-		self.text = str(t)
-		await get_tree().create_timer(1.0).timeout
-		t -= 1
-	disabled = false
-	self.text = \"AIMING\"
-	
-	
-	var pos = [] # Initialize probe's positions
-	var coordinates = $\"../settings_panel/ScrollContainer/settings_list\".selected_key
-	
-	var ID_frame_reference = 102
-	var ID_probe = 999
-	
-	if main:
-		# Get probe's positions
-		if main.get_node(\"optitrack\"):
-	
-			if coordinates == \"coordinates.left_wheel_center\" or coordinates == \"coordinates.right_wheel_center\":
-				ID_frame_reference = 102
-			elif coordinates == \"coordinates.left_hand\":
-				ID_frame_reference = 201
-			elif coordinates == \"coordinates.right_hand\":
-				ID_frame_reference = 202
-
-			var node_optitrack = main.get_node(\"optitrack\")
-			if node_optitrack.get_node(str(ID_probe)) and node_optitrack.get_node(str(ID_frame_reference)):
-				
-				var node_probe = node_optitrack.get_node(str(ID_probe))
-				var node_frame_reference = node_optitrack.get_node(str(ID_frame_reference))
-				
-				var T0S = node_frame_reference.global_transform.affine_inverse()
-				
-				pos = T0S.origin + T0S.basis * node_probe.position
-
-		# Set XXX coordinates using probe position
-		if main.get_node(\"config\"):
-			main.get_node(\"config\").set_value(coordinates, [pos.x, pos.y, pos.z])
-"
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_t73oe"]
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -179,6 +42,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_tlu87")
 
 [node name="main_panel" type="ColorRect" parent="."]
 layout_mode = 1
@@ -209,39 +73,37 @@ theme_override_constants/margin_bottom = 10
 [node name="main_vbox_container" type="VBoxContainer" parent="main_panel/margin_container"]
 layout_mode = 2
 
-[node name="settings_panel" type="VBoxContainer" parent="main_panel/margin_container/main_vbox_container"]
+[node name="aimings_panel" type="VBoxContainer" parent="main_panel/margin_container/main_vbox_container"]
 layout_mode = 2
 
-[node name="settings_title" type="Label" parent="main_panel/margin_container/main_vbox_container/settings_panel"]
+[node name="aimings_title" type="Label" parent="main_panel/margin_container/main_vbox_container/aimings_panel"]
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_rspjr")
 text = "Settings"
 horizontal_alignment = 1
 
-[node name="ScrollContainer" type="ScrollContainer" parent="main_panel/margin_container/main_vbox_container/settings_panel"]
+[node name="ScrollContainer" type="ScrollContainer" parent="main_panel/margin_container/main_vbox_container/aimings_panel"]
 custom_minimum_size = Vector2(250, 500)
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_2evn0")
 
-[node name="settings_list" type="VBoxContainer" parent="main_panel/margin_container/main_vbox_container/settings_panel/ScrollContainer"]
+[node name="aimings_list" type="VBoxContainer" parent="main_panel/margin_container/main_vbox_container/aimings_panel/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-script = SubResource("GDScript_optod")
 
 [node name="ColorRect" type="ColorRect" parent="main_panel/margin_container/main_vbox_container"]
 custom_minimum_size = Vector2(0, 5)
 layout_mode = 2
 color = Color(0, 0, 0, 1)
 
-[node name="stop_button" type="Button" parent="main_panel/margin_container/main_vbox_container"]
+[node name="aiming_button" type="Button" parent="main_panel/margin_container/main_vbox_container"]
 layout_mode = 2
 size_flags_vertical = 10
 theme_override_font_sizes/font_size = 40
-theme_override_styles/focus = SubResource("StyleBoxEmpty_t73oe")
-theme_override_styles/hover = SubResource("StyleBoxFlat_km7rt")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_qyryk")
 theme_override_styles/normal = SubResource("StyleBoxFlat_un652")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_qyryk")
+theme_override_styles/hover = SubResource("StyleBoxFlat_km7rt")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_t73oe")
 text = "AIMING"
-script = SubResource("GDScript_d30il")
