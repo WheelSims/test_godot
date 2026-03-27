@@ -1,10 +1,12 @@
 extends Node3D
+
 @onready var main: Node = get_tree().get_root().get_node("main")
 
+# Selected side of the wheelchair (left or right)
 @export_enum("left", "right") var side: String
 
-var id_hand_tracked
-var id_repere_simulateur
+var id_forearm_cluster
+var id_simulator_reference
 var coordinates_wheel_center
 var position_wheel_key
 
@@ -16,32 +18,38 @@ func _process(_delta):
 	if main:
 		if main.config.get_value("devices.optitrack.enabled"):
 			
+			# Get wheel center positions
 			var _pos_center_wheel = Vector3( \
 			main.config.get_value(coordinates_wheel_center)[0], \
 			main.config.get_value(coordinates_wheel_center)[1], \
 			main.config.get_value(coordinates_wheel_center)[2]  \
 			)
 			
-			var node_hand_tracked = main.get_node("optitrack").get_node_by_id(id_hand_tracked)
-			var node_repere_simulateur = main.get_node("optitrack").get_node_by_id(id_repere_simulateur)
+			# Get forearm cluster and simulator reference nodes from OptiTrack by their IDs
+			var node_forearm_cluster = main.get_node("optitrack").get_node_by_id(id_forearm_cluster)
+			var node_simulator_reference = main.get_node("optitrack").get_node_by_id(id_simulator_reference)
 			
-			if node_hand_tracked and node_repere_simulateur:
+			if node_forearm_cluster and node_simulator_reference:
 				
-				var T0S = node_repere_simulateur.global_transform.affine_inverse()
+				# Get the inverse global transform of the simulator reference
+				var T0S = node_simulator_reference.global_transform.affine_inverse()
 				
-				self.global_transform = T0S * node_hand_tracked.global_transform
+				# Apply forearm's global coordinates relative to the simulator's local frame
+				self.global_transform = T0S * node_forearm_cluster.global_transform
 				
+				# Adjust position relative to the wheel center
 				self.position -= _pos_center_wheel 
 				self.position += $"..".get(position_wheel_key)
 
+# Set IDs, references, and coordinate variables based on the selected side (left or right)
 func _apply_side():
 	if side == "left":
-		id_hand_tracked = 201
-		id_repere_simulateur = 102
+		id_forearm_cluster = 201
+		id_simulator_reference = 102
 		coordinates_wheel_center = "coordinates.left_wheel_center"
 		position_wheel_key = "position_wheel_l"
 	elif side == "right":
-		id_hand_tracked = 202
-		id_repere_simulateur = 102
+		id_forearm_cluster = 202
+		id_simulator_reference = 102
 		coordinates_wheel_center = "coordinates.right_wheel_center"
 		position_wheel_key = "position_wheel_r"

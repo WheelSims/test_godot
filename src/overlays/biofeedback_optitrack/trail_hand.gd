@@ -2,6 +2,7 @@ extends Node3D
 
 @onready var main: Node = get_tree().get_root().get_node("main")
 
+# Selected side of the wheelchair (left or right)
 @export_enum("left", "right") var side: String
 
 var points = []
@@ -79,11 +80,11 @@ func _apply_side():
 		offset_trail = Vector3(0, 0, -0.05)
 		layer = 1 << 5
 		coordinates_hand = "coordinates.left_hand"
-		node_hand_key = "hand_left"
+		node_hand_key = "forearm_cluster_left"
 		
 	elif side == "right":
 		offset_trail = Vector3(0, 0, 0.05)
 		layer = 1 << 6
 		coordinates_hand = "coordinates.right_hand"
-		node_hand_key = "hand_right"
+		node_hand_key = "forearm_cluster_right"
 		

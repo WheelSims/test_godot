@@ -14,8 +14,8 @@ var _CONFIG_FILENAME = "user://config.json"
 var _defaults: Dictionary[String, Dictionary] = {
 	"player": {"order": 1, "label": "SIMULATED PARAMETERS"},
 	"player.mass": {"order": 1.01, "label": "User+wheelchair mass", "unit": "kg", "type": "float", "default": 70.0, "min": 10.0, "max": 300.0},
-	"player.wheel_diameter": {"order": 1.02, "label": "Wheel diameter", "unit": "m", "type": "float", "default": 62.0, "min": 40.0, "max": 80.0},
-	"player.pushrim_diameter": {"order": 1.03, "label": "Pushrim diameter", "unit": "m", "type": "float", "default": 54.0, "min": 40.0, "max": 80.0},
+	"player.wheel_diameter": {"order": 1.02, "label": "Wheel diameter", "unit": "mm", "type": "float", "default": 0.62, "min": 0.40, "max": 0.80},
+	"player.pushrim_diameter": {"order": 1.03, "label": "Pushrim diameter", "unit": "m", "type": "float", "default": 0.54, "min": 0.40, "max": 0.80},
 	"player.camera.fov": {"order": 1.04, "label": "Field of view", "unit": "deg", "type": "float", "default": 75.0, "min": 40.0, "max": 150.0},
 	"player.camera.angle": {"order": 1.05, "label": "Camera angle", "unit": "deg", "type": "float", "default": 0.0, "min": -45.0, "max": 45.0},
 

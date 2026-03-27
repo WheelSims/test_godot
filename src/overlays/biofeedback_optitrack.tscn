@@ -32,17 +32,17 @@ transform = Transform3D(0.594949, 0.274903, -0.755291, -1.35946e-08, 0.939693, 0
 cull_mask = 1048472
 fov = 45.0
 
-[node name="hand_right" type="Node3D" parent="."]
+[node name="forearm_cluster_right" type="Node3D" parent="."]
 script = ExtResource("2_l04ny")
 side = "right"
 
-[node name="ForearmClusterRight" parent="hand_right" instance=ExtResource("1_2n6hd")]
+[node name="ForearmClusterRight" parent="forearm_cluster_right" instance=ExtResource("1_2n6hd")]
 
-[node name="hand_left" type="Node3D" parent="."]
+[node name="forearm_cluster_left" type="Node3D" parent="."]
 script = ExtResource("2_l04ny")
 side = "left"
 
-[node name="ForearmClusterLeft" parent="hand_left" instance=ExtResource("2_hiv0f")]
+[node name="ForearmClusterLeft" parent="forearm_cluster_left" instance=ExtResource("2_hiv0f")]
 
 [node name="wheel_right" type="Node3D" parent="."]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0.3)
