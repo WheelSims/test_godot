@@ -66,6 +66,10 @@ func _arch_generation(line: PackedScene, is_start_line: bool)->void:
 	var left_crowd: Crowd = line_instance.get_child(0)
 	var right_crowd: Crowd = line_instance.get_child(1)
 	var crowd_list : Array[Crowd]= [left_crowd, right_crowd]
+	left_crowd.set_deferred("process_mode", PROCESS_MODE_DISABLED)
+	left_crowd.set_deferred("visible", false)
+	right_crowd.set_deferred("process_mode" ,PROCESS_MODE_DISABLED)
+	right_crowd.set_deferred("visible", false)
 	if is_start_line:
 		races_data[current_race_data_indice].start_crowds = crowd_list
 		line_instance.position.x = current_race_data.race_start_x
@@ -153,7 +157,6 @@ func _challenges_generation() -> void:
 			else:
 				# Opaque wall case
 				_challenge_builder(_current_x_pos, 0.25,  opaque_wall_infos.pick_random())
-		print(_x_size_chal)
 		_area_generation(_current_x_pos, game_script.on_challenge_area_entered, game_script.on_challenge_area_exited, _x_size_chal)
 		_current_x_pos += current_race_data.challenge_gap
 

@@ -3,9 +3,11 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cx5ywnkwclryy"
-path="res://.godot/imported/ClapAnimation_Ch07_1001_Specular.png-e0d22234eaba7fa7922bb89d7c967056.ctex"
+path.s3tc="res://.godot/imported/ClapAnimation_Ch07_1001_Specular.png-e0d22234eaba7fa7922bb89d7c967056.s3tc.ctex"
+path.etc2="res://.godot/imported/ClapAnimation_Ch07_1001_Specular.png-e0d22234eaba7fa7922bb89d7c967056.etc2.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"vram_texture": true
 }
 generator_parameters={
 "md5": "cc54f89ab2f803775b259523df174726"
@@ -14,11 +16,11 @@ generator_parameters={
 [deps]
 
 source_file="res://objects/humans/louise/ClapAnimation_Ch07_1001_Specular.png"
-dest_files=["res://.godot/imported/ClapAnimation_Ch07_1001_Specular.png-e0d22234eaba7fa7922bb89d7c967056.ctex"]
+dest_files=["res://.godot/imported/ClapAnimation_Ch07_1001_Specular.png-e0d22234eaba7fa7922bb89d7c967056.s3tc.ctex", "res://.godot/imported/ClapAnimation_Ch07_1001_Specular.png-e0d22234eaba7fa7922bb89d7c967056.etc2.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0

@@ -37,28 +37,33 @@ fog_sky_affect = 0.316
 [sub_resource type="Resource" id="Resource_l3ugr"]
 script = ExtResource("3_fm0hh")
 race_width = 20.0
-challenge_gap_range = Vector2(0, 10)
-obst_size_range = Vector2(0, 10)
-obstacle_opening_prob = 0.905
-transparent_op_wall_prob = 0.995
-metadata/_custom_type_script = "uid://epb7xgmjyv72"
-
-[sub_resource type="Resource" id="Resource_s7gpt"]
-script = ExtResource("3_fm0hh")
+obst_size_range = Vector2(0, 6)
+obstacle_opening_prob = 0.71
+transparent_op_wall_prob = 0.365
 metadata/_custom_type_script = "uid://epb7xgmjyv72"
 
 [sub_resource type="Resource" id="Resource_nttjj"]
 script = ExtResource("3_fm0hh")
-challenge_gap_range = Vector2(5, 15)
-obstacle_opening_prob = 0.61
-transparent_op_wall_prob = 0.995
+race_width = 20.0
+obst_size_range = Vector2(0, 6)
+obstacle_opening_prob = 0.71
+transparent_op_wall_prob = 0.365
 metadata/_custom_type_script = "uid://epb7xgmjyv72"
 
 [sub_resource type="Resource" id="Resource_o4jwr"]
 script = ExtResource("3_fm0hh")
-challenge_gap_range = Vector2(5, 15)
-obstacle_opening_prob = 0.61
-transparent_op_wall_prob = 0.995
+race_width = 20.0
+obst_size_range = Vector2(0, 6)
+obstacle_opening_prob = 0.71
+transparent_op_wall_prob = 0.365
+metadata/_custom_type_script = "uid://epb7xgmjyv72"
+
+[sub_resource type="Resource" id="Resource_0mna1"]
+script = ExtResource("3_fm0hh")
+race_width = 20.0
+obst_size_range = Vector2(0, 6)
+obstacle_opening_prob = 0.71
+transparent_op_wall_prob = 0.365
 metadata/_custom_type_script = "uid://epb7xgmjyv72"
 
 [sub_resource type="Resource" id="Resource_iqwvp"]
@@ -154,27 +159,35 @@ transform = Transform3D(-0.9927553, 0, -0.12015411, 0, 1, 0, 0.12015411, 0, -0.9
 
 [node name="cactus1" parent="start_decor" unique_id=917346 instance=ExtResource("17_5fffo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.369629, 0.016178455, -6.6997056)
+surface_material_override/0 = null
 
 [node name="cactus10" parent="start_decor" unique_id=1445569724 instance=ExtResource("17_5fffo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.556683, 0.016178455, -27.864288)
+surface_material_override/0 = null
 
 [node name="cactus11" parent="start_decor" unique_id=559481496 instance=ExtResource("17_5fffo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22.233091, 0.016178455, -20.829674)
+surface_material_override/0 = null
 
 [node name="cactus12" parent="start_decor" unique_id=1962059466 instance=ExtResource("17_5fffo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.325523, 0.016178455, -39.565857)
+surface_material_override/0 = null
 
 [node name="cactus13" parent="start_decor" unique_id=1855371588 instance=ExtResource("17_5fffo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -48.899387, 0.016178455, -15.8052635)
+surface_material_override/0 = null
 
 [node name="cactus14" parent="start_decor" unique_id=1804308106 instance=ExtResource("17_5fffo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -57.862404, 0.016180363, 11.159477)
+surface_material_override/0 = null
 
 [node name="cactus15" parent="start_decor" unique_id=862054176 instance=ExtResource("17_5fffo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31.76162, 0.016180363, 28.279694)
+surface_material_override/0 = null
 
 [node name="cactus16" parent="start_decor" unique_id=1198445926 instance=ExtResource("17_5fffo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31.76162, 0.016180363, 28.279694)
+surface_material_override/0 = null
 
 [node name="cactus2" parent="start_decor" unique_id=1135662658 instance=ExtResource("18_s7gpt")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22.865479, 0.017884541, 5.118391)
@@ -206,12 +219,13 @@ surface_material_override/0 = null
 
 [node name="cactus3" parent="start_decor" unique_id=1345116747 instance=ExtResource("17_5fffo")]
 transform = Transform3D(0.16938387, 0, -0.98555017, 0, 1, 0, 0.98555017, 0, 0.16938387, -3.7438965, 0.016178455, -5.165595)
+surface_material_override/0 = null
 
 [node name="chariot" parent="start_decor" unique_id=1503995864 instance=ExtResource("7_ri6c8")]
 transform = Transform3D(0.60985476, 0, 0.7925132, 0, 1, 0, -0.7925132, 0, 0.60985476, -20.597168, 0.018707335, 9.691775)
 
 [node name="obstacle_race_generator" parent="." unique_id=1913311282 instance=ExtResource("10_od86p")]
-races_data = Array[ExtResource("3_fm0hh")]([SubResource("Resource_l3ugr"), SubResource("Resource_s7gpt"), SubResource("Resource_nttjj"), SubResource("Resource_o4jwr")])
+races_data = Array[ExtResource("3_fm0hh")]([SubResource("Resource_l3ugr"), SubResource("Resource_nttjj"), SubResource("Resource_o4jwr"), SubResource("Resource_0mna1")])
 obstacle_infos = Array[ExtResource("4_ri6c8")]([ExtResource("10_3vxp2"), ExtResource("11_21j88"), ExtResource("14_s7gpt"), ExtResource("15_l3ugr"), ExtResource("16_nttjj"), ExtResource("17_l3ugr")])
 transparent_wall_infos = Array[ExtResource("4_ri6c8")]([SubResource("Resource_iqwvp")])
 opaque_wall_infos = Array[ExtResource("4_ri6c8")]([SubResource("Resource_5vhhy")])

@@ -3,9 +3,11 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b7o7csl1eocld"
-path="res://.godot/imported/Louise_Ch07_1001_Specular.png-6ff51b4128b0744753e3b97f3a18a385.ctex"
+path.s3tc="res://.godot/imported/Louise_Ch07_1001_Specular.png-6ff51b4128b0744753e3b97f3a18a385.s3tc.ctex"
+path.etc2="res://.godot/imported/Louise_Ch07_1001_Specular.png-6ff51b4128b0744753e3b97f3a18a385.etc2.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"vram_texture": true
 }
 generator_parameters={
 "md5": "cc54f89ab2f803775b259523df174726"
@@ -14,11 +16,11 @@ generator_parameters={
 [deps]
 
 source_file="res://objects/humans/louise/Louise_Ch07_1001_Specular.png"
-dest_files=["res://.godot/imported/Louise_Ch07_1001_Specular.png-6ff51b4128b0744753e3b97f3a18a385.ctex"]
+dest_files=["res://.godot/imported/Louise_Ch07_1001_Specular.png-6ff51b4128b0744753e3b97f3a18a385.s3tc.ctex", "res://.godot/imported/Louise_Ch07_1001_Specular.png-6ff51b4128b0744753e3b97f3a18a385.etc2.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0
