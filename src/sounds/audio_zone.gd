@@ -1,11 +1,10 @@
 extends Area3D
 
 @export var audio_mixer_bus_name: String
-var bus_index = AudioServer.get_bus_index(audio_mixer_bus_name)
+@onready var bus_index = AudioServer.get_bus_index("Environment")
 @export var fade_duration = 5
 
 func _ready()->void:
-	bus_index = AudioServer.get_bus_index(audio_mixer_bus_name)
 	_set_bus_volume(-80)
 	
 func _on_area_entered(area: Area3D) -> void:
@@ -26,4 +25,5 @@ func _fade_out():
 	
 
 func _set_bus_volume(volume_db: float):
-	AudioServer.set_bus_volume_db(bus_index, volume_db)
+	print(AudioServer.get_bus_index("Environment"))
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Environment"), volume_db)

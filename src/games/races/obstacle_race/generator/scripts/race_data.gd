@@ -25,3 +25,7 @@ var race_start_x : float = 0
 var end_race_x_pos : float = 0
 # the player score for the race
 var score: int = 0
+# time of player completing the race
+var lap_time: float = 0
+var start_crowds: Array[Crowd] = []
+var final_crowds: Array[Crowd] = []

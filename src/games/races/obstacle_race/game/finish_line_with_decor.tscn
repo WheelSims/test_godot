@@ -92,11 +92,13 @@ shadow_mesh = SubResource("ArrayMesh_hpqjy")
 
 [node name="LeftCrowd" parent="." unique_id=104881149 instance=ExtResource("1_qsrrj")]
 transform = Transform3D(0.298008, 0, 0.954563, 0, 1, 0, -0.954563, 0, 0.298008, -6.52749, 0, -2.12138)
+visible = false
 _applaud_loop = ExtResource("2_bqkbv")
 is_final_crowd_on_race = true
 
 [node name="RightCrowd" parent="." unique_id=806692792 instance=ExtResource("1_qsrrj")]
 transform = Transform3D(0.414233, 0, -0.910171, 0, 1, 0, 0.910171, 0, 0.414233, 6.69357, 0, -2.93145)
+visible = false
 _applaud_loop = ExtResource("2_bqkbv")
 is_final_crowd_on_race = true
 
