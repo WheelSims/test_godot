@@ -1,8 +1,5 @@
 extends Node3D
 
-@onready var main: Node = get_tree().get_root().get_node("main")
-@onready var config: Node = get_tree().get_root().get_node("main/config")
-
 # Wheelchair variables
 @export_group("Wheels")
 @export_subgroup("Wheel Left")
@@ -32,20 +29,20 @@ func _ready() -> void:
 func _process(_delta):
 	update_wheelchair()
 	
-	if main:
-		if not main.config.get_value("overlays.biofeedback_optitrack.enabled"):
-			queue_free()
+	if not Config.get_value("overlays.biofeedback_optitrack.enabled"):
+		queue_free()
+
 
 # Update wheelchair model based on configuration and tracking data
 func update_wheelchair():
 	
 	# Set wheel radius from configuration
-	radius_wheel = config.get_value("player.pushrim_diameter")
+	radius_wheel = Config.get_value("player.pushrim_diameter")
 	
 	# Compute distances between left and right wheel centers
-	anteroposterior_length = abs(config.get_value("coordinates.left_wheel_center")[0] - config.get_value("coordinates.right_wheel_center")[0])
-	vertical_distance_wheel = abs(config.get_value("coordinates.left_wheel_center")[1] - config.get_value("coordinates.right_wheel_center")[1])
-	mediolateral_distance_wheel = abs(config.get_value("coordinates.left_wheel_center")[2] - config.get_value("coordinates.right_wheel_center")[2])
+	anteroposterior_length = abs(Config.get_value("coordinates.left_wheel_center")[0] - Config.get_value("coordinates.right_wheel_center")[0])
+	vertical_distance_wheel = abs(Config.get_value("coordinates.left_wheel_center")[1] - Config.get_value("coordinates.right_wheel_center")[1])
+	mediolateral_distance_wheel = abs(Config.get_value("coordinates.left_wheel_center")[2] - Config.get_value("coordinates.right_wheel_center")[2])
 	
 	# Update left wheel scale, position and visibility
 	$wheel_left.scale = Vector3(-1/radius_wheel*0.2+1, radius_wheel, radius_wheel)
@@ -67,6 +64,7 @@ func update_wheelchair():
 	$wheel_right/angle_contact_right.visible = visibled_angle_contact_r
 	$wheel_right/handrim_right.visible = visibled_handrim_r
 
+
 # Create window gui for aiming at wheel centers and hands
 func window_user():
 	window = Window.new()
@@ -80,7 +78,7 @@ func window_user():
 
 	get_tree().root.add_child(window)
 
+
 # Close the window gui when the node exits the scene tree
 func _exit_tree():
 	window.queue_free()
-	

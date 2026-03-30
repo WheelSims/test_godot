@@ -1,7 +1,5 @@
 extends Node
 
-@onready var main: Node = get_tree().get_root().get_node("main")
-
 @export var UDP_RECEIVE_PORT: int = 1511
 
 var _udp_receiver = PacketPeerUDP.new()
@@ -77,9 +75,8 @@ func _process(_delta):
 		# Clear the list of seen rigid body IDs for each iteration
 		id_rigidbodies.clear()
 
-	if main:
-		if not main.config.get_value("devices.optitrack.enabled"):
-			queue_free()
+	if not Config.get_value("devices.optitrack.enabled"):
+		queue_free()
 
 
 ## Parse UDP packet.

@@ -41,6 +41,7 @@ var _defaults: Dictionary[String, Dictionary] = {
 	"devices.others": {"order": 4.4, "label": "Other devices"},
 	"devices.d_box.enabled": {"order": 4.5, "label": "D-Box", "type": "bool", "default": false},
 	"devices.motorized_rollers.enabled": {"order": 4.6, "label": "Motorized rollers", "type": "bool", "default": false},
+	"devices.optitrack.enabled": {"order": 4.7, "label": "Optitrack", "type": "bool", "default": false},
 
 	"coordinates.left_wheel_center": {"order":5.01, "label": "Left wheel center", "type": "array", "default": [-0.2, 0.3, -0.75], "reference": "simulator"},
 	"coordinates.right_wheel_center": {"order":5.02, "label": "Right wheel center", "type": "array", "default": [-0.2, 0.3, -0.2], "reference": "simulator"},

@@ -1,12 +1,11 @@
 extends Control
 
-@onready var main: Node = get_tree().get_root().get_node("main")
 @export var numerical_display_label: Label
 
-func _process(delta):
+func _process(_delta):
 	var speed: float
-	if main.player:
-		speed = main.player.get_linear_speed()
+	if Globals.player:
+		speed = Globals.player.get_linear_speed()
 	else:
 		speed = 0.0
 		

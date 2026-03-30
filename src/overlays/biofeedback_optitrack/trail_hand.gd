@@ -1,7 +1,5 @@
 extends Node3D
 
-@onready var main: Node = get_tree().get_root().get_node("main")
-
 # Selected side of the wheelchair (left or right)
 @export_enum("left", "right") var side: String
 
@@ -26,14 +24,13 @@ func _process(_delta):
 	if $"..".trails_visibled:
 		var _pos_hand = Vector3(0, 0, 0)
 		
-		if main:
-			if main.config.get_value("devices.optitrack.enabled"):
-				
-				_pos_hand = Vector3( \
-					main.config.get_value(coordinates_hand)[0], \
-					main.config.get_value(coordinates_hand)[1], \
-					main.config.get_value(coordinates_hand)[2]  \
-					)
+		if Config.get_value("devices.optitrack.enabled"):
+			
+			_pos_hand = Vector3( \
+				Config.get_value(coordinates_hand)[0], \
+				Config.get_value(coordinates_hand)[1], \
+				Config.get_value(coordinates_hand)[2]  \
+				)
 
 		var pos_hand = $"..".get_node(node_hand_key).position + $"..".get_node(node_hand_key).global_transform.basis * _pos_hand
 		
