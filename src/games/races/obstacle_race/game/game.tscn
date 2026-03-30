@@ -2,17 +2,19 @@
 
 [ext_resource type="Script" uid="uid://b7ky3pxedhqmw" path="res://games/races/obstacle_race/game/scripts/obstacle_race_game.gd" id="1_qg3sg"]
 [ext_resource type="PackedScene" uid="uid://wyeq87xnl78d" path="res://games/races/obstacle_race/game/score_popup.tscn" id="2_vm7ci"]
-[ext_resource type="StyleBox" uid="uid://bge2kgncvebc" path="res://ui/ui_race_panel.tres" id="3_nltd1"]
 [ext_resource type="AudioStream" uid="uid://cqtws6pdp4hq4" path="res://sounds/sounds/sound_effects/success_victory/powerupsuccess.wav" id="3_xkfxd"]
 [ext_resource type="AudioStream" uid="uid://0nlt1wf7012b" path="res://sounds/sounds/sound_effects/fail/pistol_sound_effect.wav" id="4_xkfxd"]
 [ext_resource type="AudioStream" uid="uid://guvpctnkxmnd" path="res://sounds/sounds/sound_effects/success_victory/Game-level-up-sound-effect.wav" id="5_xkfxd"]
+[ext_resource type="FontFile" uid="uid://dhgrwh2hhsqn2" path="res://ui/fonts/space_mono/SpaceMono-Bold.ttf" id="7_g4vkt"]
 [ext_resource type="FontFile" uid="uid://6gvtuocvhosd" path="res://ui/fonts/western_font/WEST____.ttf" id="7_xkfxd"]
 [ext_resource type="AudioStream" uid="uid://c1c5a3x5hbepx" path="res://sounds/music/western_game/RoccoW - Countryside Explosions.mp3" id="8_g4vkt"]
 
-[node name="game" type="Node3D" unique_id=450303502 node_paths=PackedStringArray("score_label")]
+[node name="game" type="Node3D" unique_id=450303502 node_paths=PackedStringArray("score_label", "lap_time_label", "total_time_label")]
 script = ExtResource("1_qg3sg")
 score_popup_scene = ExtResource("2_vm7ci")
-score_label = NodePath("score_margin_container/score_label")
+score_label = NodePath("score_margin_container/vbox/score_label")
+lap_time_label = NodePath("score_margin_container/vbox/lap_time_hbox/counter")
+total_time_label = NodePath("score_margin_container/vbox/total_time_hbox/counter")
 challenge_success_sound = ExtResource("3_xkfxd")
 challenge_fail_sound = ExtResource("4_xkfxd")
 race_success_sound = ExtResource("5_xkfxd")
@@ -22,13 +24,17 @@ metadata/_custom_type_script = "uid://b7ky3pxedhqmw"
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -173.0
-offset_bottom = 191.0
+offset_left = -300.0
+offset_bottom = 212.0
 grow_horizontal = 0
+scale = Vector2(1.0138259, 1.0151427)
 theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 
-[node name="title_label" type="Label" parent="score_margin_container" unique_id=169065937]
+[node name="vbox" type="VBoxContainer" parent="score_margin_container" unique_id=725708063]
+layout_mode = 2
+
+[node name="title_label" type="Label" parent="score_margin_container/vbox" unique_id=169065937]
 layout_mode = 2
 size_flags_vertical = 0
 theme_override_fonts/font = ExtResource("7_xkfxd")
@@ -36,23 +42,65 @@ theme_override_font_sizes/font_size = 40
 text = "SCORE
 "
 horizontal_alignment = 1
-vertical_alignment = 2
+vertical_alignment = 1
+visible_characters = 5
+visible_ratio = 0.885
 
-[node name="score_label" type="Label" parent="score_margin_container" unique_id=1636212166]
+[node name="spacer" type="Control" parent="score_margin_container/vbox" unique_id=1882554657]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+
+[node name="score_label" type="Label" parent="score_margin_container/vbox" unique_id=1636212166]
 layout_mode = 2
 size_flags_horizontal = 4
-size_flags_vertical = 3
+size_flags_vertical = 1
 theme_override_fonts/font = ExtResource("7_xkfxd")
 theme_override_font_sizes/font_size = 60
 text = "1000"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="panel" type="Panel" parent="score_margin_container" unique_id=53642353]
-visible = false
-layout_direction = 1
+[node name="spacer2" type="Control" parent="score_margin_container/vbox" unique_id=1807134334]
+custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
-theme_override_styles/panel = ExtResource("3_nltd1")
+
+[node name="lap_time_hbox" type="HBoxContainer" parent="score_margin_container/vbox" unique_id=1454249065]
+layout_mode = 2
+
+[node name="title" type="Label" parent="score_margin_container/vbox/lap_time_hbox" unique_id=761854469]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7_xkfxd")
+theme_override_font_sizes/font_size = 30
+text = "Lap time"
+
+[node name="counter" type="Label" parent="score_margin_container/vbox/lap_time_hbox" unique_id=1591351342]
+custom_minimum_size = Vector2(70, 50)
+layout_mode = 2
+size_flags_horizontal = 10
+theme_override_fonts/font = ExtResource("7_g4vkt")
+theme_override_font_sizes/font_size = 30
+text = "0.0"
+
+[node name="spacer3" type="Control" parent="score_margin_container/vbox" unique_id=337805146]
+layout_mode = 2
+
+[node name="total_time_hbox" type="HBoxContainer" parent="score_margin_container/vbox" unique_id=1705746166]
+layout_mode = 2
+
+[node name="title" type="Label" parent="score_margin_container/vbox/total_time_hbox" unique_id=926511152]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7_xkfxd")
+theme_override_font_sizes/font_size = 30
+text = "Total time"
+
+[node name="counter" type="Label" parent="score_margin_container/vbox/total_time_hbox" unique_id=1952332799]
+custom_minimum_size = Vector2(70, 50)
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 0
+theme_override_fonts/font = ExtResource("7_g4vkt")
+theme_override_font_sizes/font_size = 30
+text = "0.0"
 
 [node name="sfx_player" type="AudioStreamPlayer" parent="." unique_id=1979759649]
 volume_db = 1.0
@@ -60,3 +108,5 @@ volume_db = 1.0
 [node name="music_player" type="AudioStreamPlayer" parent="." unique_id=1632099367]
 stream = ExtResource("8_g4vkt")
 autoplay = true
+
+[node name="Timer" type="Timer" parent="." unique_id=1007836736]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://dplhvslsrr6oi"]
+[gd_scene format=3 uid="uid://dplhvslsrr6oi"]
 
 [ext_resource type="Script" uid="uid://bbwd1obrx2ctc" path="res://overlays/biofeedback_optitrack/biofeedback_optitrack_gui.gd" id="1_tlu87"]
 

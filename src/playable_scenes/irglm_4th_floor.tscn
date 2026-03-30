@@ -9,3 +9,5 @@
 
 [node name="player" parent="." unique_id=510199262 instance=ExtResource("2_padg7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.8604975)
+
+[connection signal="tree_exiting" from="player" to="player" method="_on_tree_exiting"]

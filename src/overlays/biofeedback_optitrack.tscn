@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://bm1b5ewq26kcl"]
+[gd_scene format=3 uid="uid://bm1b5ewq26kcl"]
 
 [ext_resource type="PackedScene" uid="uid://bi4w50l5uqado" path="res://objects/optitrack/forearm cluster right/forearm_cluster_right.tscn" id="1_2n6hd"]
 [ext_resource type="PackedScene" uid="uid://dwlinbk7uaug" path="res://objects/wheelchair/rear_wheel.tscn" id="1_hiv0f"]

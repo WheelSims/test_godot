@@ -51,6 +51,7 @@ albedo_texture = ExtResource("1_kt6eb")
 size = Vector3(0.21081543, 0.25634766, 0.032196045)
 
 [node name="wind_turbine" type="Node3D" unique_id=578740055 node_paths=PackedStringArray("visual_instance", "collision_shape", "area3D")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.063440114, 0)
 script = ExtResource("1_llswu")
 visual_instance = NodePath("wind_turbine")
 collision_shape = NodePath("wind_turbine/StaticBody3D/CollisionShape3D")

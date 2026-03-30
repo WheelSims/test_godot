@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://cfmmtcpgllxbt"]
+[gd_scene format=3 uid="uid://cfmmtcpgllxbt"]
 
 [ext_resource type="PackedScene" uid="uid://bcfu5sx4m6hm3" path="res://objects/wheelchair/angle_contact.tscn" id="2_wdam1"]
 [ext_resource type="PackedScene" uid="uid://ds06t01fw7lcb" path="res://objects/wheelchair/handrim.tscn" id="3_h0iuc"]

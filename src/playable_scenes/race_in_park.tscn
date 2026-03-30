@@ -8,6 +8,6 @@
 [node name="RaceInParkGame" parent="." unique_id=858726196 instance=ExtResource("1_6f5yu")]
 
 [node name="player" parent="." unique_id=862065750 instance=ExtResource("2_t10na")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.13581, 3.54631e-05, -53.3227)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.8548965, 3.54631e-05, -55.204292)
 
 [connection signal="ready" from="." to="." method="_on_ready"]

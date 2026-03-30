@@ -43,10 +43,13 @@ func _level_generation()->void:
 	current_race_data_indice += 1
 	_current_x_pos += end_offset_to_restart
 
+
 ## Generate start and end lines with crowds.
 func _arches_generation()->void:
 	if (current_race_data_indice>0):
 		_arch_generation(start_line, true)
+	else:
+		_challenge_area_set(current_race_data.race_start_x,game_script.on_race_entered, true)
 	if (current_race_data_indice == races_data.size()-1):
 		_arch_generation(finish_line_with_decor, false)
 	else:
@@ -59,24 +62,28 @@ func _arch_generation(line: PackedScene, is_start_line: bool)->void:
 	line_instance.rotate(Vector3.UP, -PI/2)
 	var left_crowd: Crowd = line_instance.get_child(0)
 	var right_crowd: Crowd = line_instance.get_child(1)
-	left_crowd.on_race = true
-	right_crowd.on_race = true
+	var crowd_list : Array[Crowd]= [left_crowd, right_crowd]
 	if is_start_line:
+		races_data[current_race_data_indice].start_crowds = crowd_list
 		line_instance.position.x = current_race_data.race_start_x
-		var area: Area3D = challenge_area.instantiate()
-		area.position.x = current_race_data.race_start_x
-		area.scale.z = current_race_data.race_width
-		add_child(area)
-		area.area_entered.connect(game_script.on_race_entered)
+		_challenge_area_set(current_race_data.race_start_x ,game_script.on_race_entered, true)
 	else:
+		current_race_data.final_crowds = crowd_list
 		line_instance.position.x = _current_x_pos
 		current_race_data.end_race_x_pos = line_instance.position.x
-		var area: Area3D = challenge_area.instantiate()
-		area.position.x = _current_x_pos
-		area.scale.z = current_race_data.race_width
-		add_child(area)
-		area.area_entered.connect(game_script.on_race_exited.bind(area))
-	
+		_challenge_area_set(_current_x_pos, game_script.on_race_exited, false)
+
+func _challenge_area_set(position_x: float, method_to_bind: Callable, area_entered: bool) -> void:
+	var area: Area3D = challenge_area.instantiate()
+	area.position.x = position_x
+	area.scale.x = 0.1
+	area.scale.z = current_race_data.race_width
+	add_child(area)
+	if area_entered:
+		area.area_entered.connect(method_to_bind.bind(area))
+	else:
+		area.area_exited.connect(method_to_bind.bind(area))
+
 ## Generate border of race and the transition to the next race
 func _border_generation() -> void:
 	var cursor_x: float = current_race_data.race_start_x
