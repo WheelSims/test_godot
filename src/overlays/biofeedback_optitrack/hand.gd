@@ -16,13 +16,13 @@ func _ready() -> void:
 func _process(_delta):
 
 	if main:
-		if main.config.get_value("devices.optitrack.enabled"):
+		if Config.get_value("devices.optitrack.enabled"):
 			
 			# Get wheel center positions
 			var _pos_center_wheel = Vector3( \
-			main.config.get_value(coordinates_wheel_center)[0], \
-			main.config.get_value(coordinates_wheel_center)[1], \
-			main.config.get_value(coordinates_wheel_center)[2]  \
+			Config.get_value(coordinates_wheel_center)[0], \
+			Config.get_value(coordinates_wheel_center)[1], \
+			Config.get_value(coordinates_wheel_center)[2]  \
 			)
 			
 			# Get forearm cluster and simulator reference nodes from OptiTrack by their IDs

@@ -38,6 +38,12 @@ var _defaults: Dictionary[String, Dictionary] = {
 	"devices.screens.single_screen.full_screen.enabled": {"order": 4.22, "label": "Full screen", "type": "bool", "default": true},
 	"devices.screens.single_screen.full_screen.screen_index": {"order": 4.23, "label": "Front screen number", "type": "int", "default": 1, "min": 1, "max": 5},
 
+	"devices.screens.front_floor_screens": {"order": 4.3, "label": "Front+floor screens"},
+	"devices.screens.front_floor_screens.enabled": {"order": 4.31, "label": "Enabled", "type": "bool","default": false},
+	"devices.screens.front_floor_screens.full_screen.enabled": {"order": 4.32, "label": "Full screen", "type": "bool", "default": true},
+	"devices.screens.front_floor_screens.full_screen.front_screen_index": {"order": 4.33, "label": "Front screen number", "type": "int", "default": 2, "min": 1, "max": 5},
+	"devices.screens.front_floor_screens.full_screen.floor_screen_index": {"order": 4.34, "label": "Floor screen number", "type": "int", "default": 3, "min": 1, "max": 5},
+
 	"devices.others": {"order": 4.4, "label": "Other devices"},
 	"devices.d_box.enabled": {"order": 4.5, "label": "D-Box", "type": "bool", "default": false},
 	"devices.motorized_rollers.enabled": {"order": 4.6, "label": "Motorized rollers", "type": "bool", "default": false},

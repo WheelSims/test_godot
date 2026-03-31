@@ -23,15 +23,15 @@ func _ready() -> void:
 
 func _process(_delta):
 	if main:
-		if main.player != null:
+		if Globals.player != null:
 			
 			# Get fixed wheelchair parameters
 			mediolateral_distance_wheel = abs(config.get_value("coordinates.left_wheel_center")[2] - config.get_value("coordinates.right_wheel_center")[2])
 			radius = config.get_value("player.wheel_diameter")
 			
 			# Get current player linear and angular speeds
-			player_linear_speed = main.player.get_linear_speed()
-			player_angular_speed = main.player.get_angular_speed()
+			player_linear_speed = Globals.player.get_linear_speed()
+			player_angular_speed = Globals.player.get_angular_speed()
 			
 			# Compute angular speed of the wheel
 			if side == "left":

@@ -78,7 +78,7 @@ func _process(_delta):
 		id_rigidbodies.clear()
 
 	if main:
-		if not main.config.get_value("devices.optitrack.enabled"):
+		if not Config.get_value("devices.optitrack.enabled"):
 			queue_free()
 
 

@@ -5,8 +5,8 @@ extends Control
 
 func _process(delta):
 	var speed: float
-	if main.player:
-		speed = main.player.get_linear_speed()
+	if Globals.player:
+		speed = Globals.player.get_linear_speed()
 	else:
 		speed = 0.0
 		

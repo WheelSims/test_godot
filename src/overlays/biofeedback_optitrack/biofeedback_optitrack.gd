@@ -33,7 +33,7 @@ func _process(_delta):
 	update_wheelchair()
 	
 	if main:
-		if not main.config.get_value("overlays.biofeedback_optitrack.enabled"):
+		if not Config.get_value("overlays.biofeedback_optitrack.enabled"):
 			queue_free()
 
 # Update wheelchair model based on configuration and tracking data
