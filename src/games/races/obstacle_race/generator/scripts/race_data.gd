@@ -16,7 +16,7 @@ var challenge_gap: float
 @export var opening_size_range: Vector2 = Vector2(3,5)
 ## The min and max of wall sizes.
 @export var wall_size_range: Vector2 = Vector2(4, 7)
-##Probability that next challenge is an opening line or an obstacle line. 0 for opening and 1 for obstacle.
+##Probability that next challenge is an opening line or an obstacle line. 1 for obstacle and 0 for opening.
 @export var obstacle_opening_prob: float
 ##Probability that the walls of the opening line of the current challenge are transparent or not (fence or brickwall). 1 for transparency and 0 for opacity.
 @export var transparent_op_wall_prob: float

@@ -7,18 +7,12 @@
 [ext_resource type="PackedScene" uid="uid://c6wypqkubhmq" path="res://objects/race_objects/western_theme/scenes/chariot.tscn" id="7_ri6c8"]
 [ext_resource type="PackedScene" uid="uid://dvg5fhruf6tvk" path="res://objects/race_objects/western_theme/scenes/wind_turbine.tscn" id="8_ri6c8"]
 [ext_resource type="PackedScene" uid="uid://coruo7vfgu041" path="res://objects/race_objects/western_theme/scenes/saloon.tscn" id="9_eqbci"]
-[ext_resource type="Resource" uid="uid://bfq86aqnpo780" path="res://games/races/obstacle_race/generator/object_infos_resources/cactus1.tres" id="10_3vxp2"]
 [ext_resource type="PackedScene" uid="uid://ctats6epf18qk" path="res://games/races/obstacle_race/obstacle_race_generator.tscn" id="10_od86p"]
-[ext_resource type="Resource" uid="uid://lpx10hp8r5uh" path="res://games/races/obstacle_race/generator/object_infos_resources/cactus2.tres" id="11_21j88"]
 [ext_resource type="PackedScene" uid="uid://biluq7vv8ghsm" path="res://player/player.tscn" id="11_ci2c1"]
 [ext_resource type="PackedScene" uid="uid://bkf5e8aqyhucy" path="res://objects/race_objects/western_theme/scenes/sand_ground.tscn" id="11_nttjj"]
 [ext_resource type="PackedScene" uid="uid://diyc4k3lfoq2t" path="res://objects/race_objects/western_theme/scenes/fence.tscn" id="13_ri6c8"]
 [ext_resource type="PackedScene" uid="uid://blm1wlle8dcqr" path="res://objects/race_objects/western_theme/scenes/brick_wall.tscn" id="14_eqbci"]
-[ext_resource type="Resource" uid="uid://etxdb1oaan1p" path="res://games/races/obstacle_race/generator/object_infos_resources/chariot.tres" id="14_s7gpt"]
-[ext_resource type="Resource" uid="uid://d0sbid8xpu1q8" path="res://games/races/obstacle_race/generator/object_infos_resources/saloon.tres" id="15_l3ugr"]
-[ext_resource type="Resource" uid="uid://bd7erlbsrgi23" path="res://games/races/obstacle_race/generator/object_infos_resources/wind_turbine.tres" id="16_nttjj"]
 [ext_resource type="PackedScene" uid="uid://j1nf1nl4vpek" path="res://objects/race_objects/western_theme/scenes/cactus_1.tscn" id="17_5fffo"]
-[ext_resource type="Resource" uid="uid://b68yonl8ngd4q" path="res://games/races/obstacle_race/generator/object_infos_resources/straw_bale.tres" id="17_l3ugr"]
 [ext_resource type="PackedScene" uid="uid://cempjsi3nr5ir" path="res://objects/race_objects/western_theme/scenes/cactus_2.tscn" id="18_s7gpt"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_8psf5"]
@@ -65,6 +59,78 @@ obst_size_range = Vector2(0, 6)
 obstacle_opening_prob = 0.71
 transparent_op_wall_prob = 0.365
 metadata/_custom_type_script = "uid://epb7xgmjyv72"
+
+[sub_resource type="Resource" id="Resource_ri6c8"]
+script = ExtResource("4_ri6c8")
+scene = ExtResource("17_5fffo")
+sizes = {
+-45.0: Vector3(1.3406717, 3.447998, 1.3406717),
+0.0: Vector3(0.8959961, 3.447998, 1),
+45.0: Vector3(1.3406717, 3.447998, 1.3406717),
+90.0: Vector3(1, 3.447998, 0.89599615)
+}
+local_scale = Vector3(0.8959961, 2.300293, 1)
+type = 2
+
+[sub_resource type="Resource" id="Resource_eqbci"]
+script = ExtResource("4_ri6c8")
+scene = ExtResource("18_s7gpt")
+sizes = {
+-45.0: Vector3(1.0118911, 3.281189, 1.0342903),
+0.0: Vector3(0.84802246, 3.281189, 0.61486816),
+45.0: Vector3(1.0342903, 3.281189, 1.0118911),
+90.0: Vector3(0.6148682, 3.281189, 0.84802246)
+}
+local_scale = Vector3(0.8161621, 2.189087, 0.61486816)
+type = 2
+
+[sub_resource type="Resource" id="Resource_3vxp2"]
+script = ExtResource("4_ri6c8")
+scene = ExtResource("7_ri6c8")
+sizes = {
+-45.0: Vector3(5.0458603, 2.3733075, 5.045861),
+0.0: Vector3(5.4309077, 2.3733075, 1.7050172),
+45.0: Vector3(5.045861, 2.3733075, 5.3421307),
+90.0: Vector3(2.1315105, 2.3733075, 5.9065413)
+}
+local_scale = Vector3(5.4309077, 1.7050171, 1.4941406)
+type = 2
+
+[sub_resource type="Resource" id="Resource_21j88"]
+script = ExtResource("4_ri6c8")
+scene = ExtResource("9_eqbci")
+sizes = {
+-45.0: Vector3(7.6294975, 4.532337, 7.582029),
+0.0: Vector3(4.254145, 4.532337, 6.5355964),
+45.0: Vector3(7.582029, 4.532337, 7.6294975),
+90.0: Vector3(6.5355964, 4.532337, 4.254145)
+}
+local_scale = Vector3(4.1870117, 6.5355964, 3.1105263)
+type = 2
+
+[sub_resource type="Resource" id="Resource_5fffo"]
+script = ExtResource("4_ri6c8")
+scene = ExtResource("8_ri6c8")
+sizes = {
+-45.0: Vector3(1.7965869, 7.1429777, 1.603092),
+0.0: Vector3(1.0540771, 7.1429777, 1.4974174),
+45.0: Vector3(1.603092, 7.1429777, 1.9831699),
+90.0: Vector3(1.9308743, 7.1429777, 1.2349007)
+}
+local_scale = Vector3(1.0540771, 1.2130371, 4.7796316)
+type = 2
+
+[sub_resource type="Resource" id="Resource_s7gpt"]
+script = ExtResource("4_ri6c8")
+scene = ExtResource("5_eqbci")
+sizes = {
+-45.0: Vector3(2.375476, 2.556872, 2.3806117),
+0.0: Vector3(1.66595, 2.556872, 1.7041308),
+45.0: Vector3(2.3806117, 2.556872, 2.375476),
+90.0: Vector3(1.7041308, 2.556872, 1.6659501)
+}
+local_scale = Vector3(1.66595, 1.71033, 1.69348)
+type = 2
 
 [sub_resource type="Resource" id="Resource_iqwvp"]
 script = ExtResource("4_ri6c8")
@@ -226,6 +292,6 @@ transform = Transform3D(0.60985476, 0, 0.7925132, 0, 1, 0, -0.7925132, 0, 0.6098
 
 [node name="obstacle_race_generator" parent="." unique_id=1913311282 instance=ExtResource("10_od86p")]
 races_data = Array[ExtResource("3_fm0hh")]([SubResource("Resource_l3ugr"), SubResource("Resource_nttjj"), SubResource("Resource_o4jwr"), SubResource("Resource_0mna1")])
-obstacle_infos = Array[ExtResource("4_ri6c8")]([ExtResource("10_3vxp2"), ExtResource("11_21j88"), ExtResource("14_s7gpt"), ExtResource("15_l3ugr"), ExtResource("16_nttjj"), ExtResource("17_l3ugr")])
+obstacle_infos = Array[ExtResource("4_ri6c8")]([SubResource("Resource_ri6c8"), SubResource("Resource_eqbci"), SubResource("Resource_3vxp2"), SubResource("Resource_21j88"), SubResource("Resource_5fffo"), SubResource("Resource_s7gpt")])
 transparent_wall_infos = Array[ExtResource("4_ri6c8")]([SubResource("Resource_iqwvp")])
 opaque_wall_infos = Array[ExtResource("4_ri6c8")]([SubResource("Resource_5vhhy")])

@@ -1,17 +1,8 @@
 [gd_resource type="Resource" script_class="BakeConfig" format=3 uid="uid://bbcvt5y1uilt5"]
 
-[ext_resource type="PackedScene" uid="uid://t4035q8axi6v" path="res://objects/race_objects/western_theme/scenes/hay_bale.tscn" id="1_213pm"]
-[ext_resource type="PackedScene" uid="uid://cuk0l0062jdte" path="res://objects/race_objects/western_theme/scenes/cactus.tscn" id="2_ccoy4"]
-[ext_resource type="PackedScene" uid="uid://blm1wlle8dcqr" path="res://objects/race_objects/western_theme/scenes/brick_wall.tscn" id="3_6vgwk"]
-[ext_resource type="PackedScene" uid="uid://diyc4k3lfoq2t" path="res://objects/race_objects/western_theme/scenes/fence.tscn" id="4_nf7su"]
 [ext_resource type="Script" uid="uid://b1uk27b80uwpr" path="res://games/races/obstacle_race/generator/baker/bake_config.gd" id="5_h5xd5"]
-[ext_resource type="PackedScene" uid="uid://cnkavq43degkn" path="res://objects/race_objects/western_theme/scenes/stone_desert.tscn" id="5_ro6tt"]
-[ext_resource type="PackedScene" uid="uid://c6wypqkubhmq" path="res://objects/race_objects/western_theme/scenes/chariot.tscn" id="6_l0p7j"]
-[ext_resource type="PackedScene" uid="uid://coruo7vfgu041" path="res://objects/race_objects/western_theme/scenes/saloon.tscn" id="7_0t4ux"]
-[ext_resource type="PackedScene" uid="uid://dvg5fhruf6tvk" path="res://objects/race_objects/western_theme/scenes/wind_turbine.tscn" id="8_00a6b"]
-[ext_resource type="PackedScene" uid="uid://j1nf1nl4vpek" path="res://objects/race_objects/western_theme/scenes/cactus_1.tscn" id="9_ek4uu"]
-[ext_resource type="PackedScene" uid="uid://cempjsi3nr5ir" path="res://objects/race_objects/western_theme/scenes/cactus_2.tscn" id="10_213pm"]
 
 [resource]
 script = ExtResource("5_h5xd5")
-objects_to_bake = Array[PackedScene]([ExtResource("1_213pm"), ExtResource("2_ccoy4"), ExtResource("3_6vgwk"), ExtResource("4_nf7su"), ExtResource("5_ro6tt"), ExtResource("6_l0p7j"), ExtResource("7_0t4ux"), ExtResource("8_00a6b"), ExtResource("9_ek4uu"), ExtResource("10_213pm")])
+objects_to_bake_folder_path = null
+object_info_folder_path = null
