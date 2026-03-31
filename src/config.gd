@@ -32,6 +32,12 @@ var _defaults: Dictionary[String, Dictionary] = {
 	"devices": {"order": 4, "label": "DEVICE SETTINGS"},
 
 	"devices.screens": {"order": 4.1, "label": "Screens"},
+
+	"devices.screens.single_screen": {"order": 4.2, "label": "Single screen"},
+	"devices.screens.single_screen.enabled": {"order": 4.21, "label": "Enabled", "type": "bool", "default": true},
+	"devices.screens.single_screen.full_screen.enabled": {"order": 4.22, "label": "Full screen", "type": "bool", "default": true},
+	"devices.screens.single_screen.full_screen.screen_index": {"order": 4.23, "label": "Front screen number", "type": "int", "default": 1, "min": 1, "max": 5},
+
 	"devices.screens.front_floor_screens": {"order": 4.3, "label": "Front+floor screens"},
 	"devices.screens.front_floor_screens.enabled": {"order": 4.31, "label": "Enabled", "type": "bool","default": false},
 	"devices.screens.front_floor_screens.full_screen.enabled": {"order": 4.32, "label": "Full screen", "type": "bool", "default": true},
@@ -42,6 +48,7 @@ var _defaults: Dictionary[String, Dictionary] = {
 	"devices.d_box.enabled": {"order": 4.5, "label": "D-Box", "type": "bool", "default": false},
 	"devices.motorized_rollers.enabled": {"order": 4.6, "label": "Motorized rollers", "type": "bool", "default": false},
 	"devices.optitrack.enabled": {"order": 4.7, "label": "Optitrack", "type": "bool", "default": false},
+
 
 	"coordinates.left_wheel_center": {"order":5.01, "label": "Left wheel center", "type": "array", "default": [-0.2, 0.3, -0.75], "reference": "simulator"},
 	"coordinates.right_wheel_center": {"order":5.02, "label": "Right wheel center", "type": "array", "default": [-0.2, 0.3, -0.2], "reference": "simulator"},
