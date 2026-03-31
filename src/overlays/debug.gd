@@ -9,8 +9,8 @@ func _process(delta):
 	var text: String = ""
 	
 	# Player information
-	if main.player:
-		text += "%0.2f m/s\n" % main.player.get_linear_speed()
+	if Globals.player:
+		text += "%0.2f m/s\n" % Globals.player.get_linear_speed()
 	else:
 		text += "No player loaded.\n"
 	
@@ -30,5 +30,5 @@ func _process(delta):
 	
 	
 	# Should we quit
-	if not main.config.get_value("overlays.debug.enabled"):
+	if not Config.get_value("overlays.debug.enabled"):
 		queue_free()

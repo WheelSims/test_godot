@@ -1,9 +1,11 @@
-[gd_scene format=3 uid="uid://hnxp88a0five"]
+[gd_scene format=3 uid="uid://ctats6epf18qk"]
 
 [ext_resource type="Script" uid="uid://cn4e2xmcav5ft" path="res://games/races/obstacle_race/generator/scripts/obstacle_race_generator.gd" id="1_rnfno"]
+[ext_resource type="PackedScene" uid="uid://b4m6qj4cek20f" path="res://games/races/obstacle_race/game/finish_line_with_decor.tscn" id="2_ddun5"]
 [ext_resource type="PackedScene" uid="uid://chmobfkl5px2n" path="res://games/races/obstacle_race/game/challenge_area.tscn" id="4_5bi0x"]
 [ext_resource type="PackedScene" uid="uid://c4jen6mmu7mgu" path="res://games/races/common_objects/arch/finish_line.tscn" id="4_nl003"]
 [ext_resource type="PackedScene" uid="uid://bqcqt6d3sec64" path="res://games/races/common_objects/arch/start_line.glb" id="4_ogs1q"]
+[ext_resource type="Resource" uid="uid://b2dffsxjgctcc" path="res://games/races/obstacle_race/generator/object_infos_resources/stone_desert.tres" id="4_tr6d4"]
 [ext_resource type="PackedScene" uid="uid://cctnfvdwdceio" path="res://games/races/common_objects/arch/start_line.tscn" id="5_7pb3g"]
 [ext_resource type="PackedScene" uid="uid://d4dm6lh1tu5fw" path="res://games/races/common_objects/crowd/crowd.tscn" id="5_8r2kh"]
 [ext_resource type="PackedScene" uid="uid://cr3xh7scx7rpn" path="res://games/races/obstacle_race/game/game.tscn" id="6_bugko"]
@@ -11,8 +13,10 @@
 
 [node name="obstacle_race_generator" type="Node3D" unique_id=1913311282]
 script = ExtResource("1_rnfno")
+finish_line_with_decor = ExtResource("2_ddun5")
 finish_line = ExtResource("4_nl003")
 start_line = ExtResource("5_7pb3g")
+border_info = ExtResource("4_tr6d4")
 challenge_area = ExtResource("4_5bi0x")
 
 [node name="game" parent="." unique_id=450303502 instance=ExtResource("6_bugko")]

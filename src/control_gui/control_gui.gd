@@ -10,7 +10,6 @@ var PLAYABLE_SCENES_FOLDER_PATH = "res://playable_scenes"
 # References
 # -------------------------------------------------------------------
 @onready var main: Node = get_tree().get_root().get_node("main")
-@onready var config: Node = main.get_node("config")
 
 
 # --- Scene Buttons ---

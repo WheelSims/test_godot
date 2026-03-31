@@ -8,10 +8,12 @@
 
 [node name="LeftCrowd" parent="." index="0" unique_id=957298145 instance=ExtResource("2_nhs2w")]
 transform = Transform3D(0.298008, 0, 0.954563, 0, 1, 0, -0.954563, 0, 0.298008, -6.52749, 0, -2.12138)
+visible = false
 _applaud_loop = ExtResource("3_a5w7r")
 is_final_crowd_on_race = true
 
 [node name="RightCrowd" parent="." index="1" unique_id=609985348 instance=ExtResource("2_nhs2w")]
 transform = Transform3D(0.414233, 0, -0.910171, 0, 1, 0, 0.910171, 0, 0.414233, 6.69357, 0, -2.93145)
+visible = false
 _applaud_loop = ExtResource("3_a5w7r")
 is_final_crowd_on_race = true

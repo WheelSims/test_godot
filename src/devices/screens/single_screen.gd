@@ -10,17 +10,17 @@ func _ready():
 
 func _process(_delta):
 	if (
-		main.config.value_changed("single_screen", "devices.screens.single_screen.full_screen.enabled")
-		or main.config.value_changed("single_screen", "devices.screens.single_screen.full_screen.screen_index")
+		Config.value_changed("single_screen", "devices.screens.single_screen.full_screen.enabled")
+		or Config.value_changed("single_screen", "devices.screens.single_screen.full_screen.screen_index")
 	):
-		if main.config.get_value("devices.screens.single_screen.full_screen.enabled"):
+		if Config.get_value("devices.screens.single_screen.full_screen.enabled"):
 			var screen_count = DisplayServer.get_screen_count()
-			var screen_index = min(screen_count, main.config.get_value("devices.screens.single_screen.full_screen.screen_index") - 1)
+			var screen_index = min(screen_count, Config.get_value("devices.screens.single_screen.full_screen.screen_index") - 1)
 			screen_index = max(0, screen_index)
 			$main_window.set_current_screen(screen_index)
 			$main_window.mode = Window.MODE_FULLSCREEN
 		else:
 			$main_window.mode = Window.MODE_WINDOWED
 
-	if not main.config.get_value("devices.screens.single_screen.enabled"):
+	if not Config.get_value("devices.screens.single_screen.enabled"):
 		queue_free()
