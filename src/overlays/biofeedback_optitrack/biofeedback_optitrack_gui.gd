@@ -7,7 +7,7 @@ extends Control
 # ---------------------------------------------------------------------- #
 
 @onready var main: Node = get_tree().get_root().get_node("main")
-@onready var config: Node = get_tree().get_root().get_node("main/config")
+#@onready var config: Node = get_tree().get_root().get_node("main/config")
 
 # UI elements
 @onready var node_aimings_list = $main_panel/margin_container/main_vbox_container/aimings_panel/ScrollContainer/aimings_list
@@ -36,10 +36,10 @@ func _ready():
 func _process(_delta: float) -> void:
 	
 	# Update aiming list values when coordinates change
-	if config.value_changed("biofeedback", "coordinates.left_wheel_center") \
-	or config.value_changed("biofeedback", "coordinates.right_wheel_center") \
-	or config.value_changed("biofeedback", "coordinates.left_hand") \
-	or config.value_changed("biofeedback", "coordinates.right_hand"):
+	if Config.value_changed("biofeedback", "coordinates.left_wheel_center") \
+	or Config.value_changed("biofeedback", "coordinates.right_wheel_center") \
+	or Config.value_changed("biofeedback", "coordinates.left_hand") \
+	or Config.value_changed("biofeedback", "coordinates.right_hand"):
 		update_values()
 
 
@@ -50,7 +50,7 @@ func create_item(key):
 	
 	# Add header using the name of the coordinate
 	var label = Label.new()
-	label.text = config.get_label(key)
+	label.text = Config.get_label(key)
 	node_aimings_list.add_child(label)
 	
 	# Add button to select the current coordinate
@@ -97,7 +97,7 @@ func update_values():
 	
 	for key in items.keys():
 		
-		var value = config.get_value(key)
+		var value = Config.get_value(key)
 		var labels = items[key]["labels"]
 		
 		for i in range(3):
@@ -150,5 +150,4 @@ func _on_button_pressed():
 				pos = T0S.origin + T0S.basis * node_probe.position
 
 		# Save captured coordinates to configuration
-		if main.get_node("config"):
-			main.get_node("config").set_value(coordinates, [pos.x, pos.y, pos.z])
+		Config.set_value(coordinates, [pos.x, pos.y, pos.z])
