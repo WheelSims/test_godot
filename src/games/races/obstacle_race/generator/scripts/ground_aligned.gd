@@ -11,9 +11,10 @@ func transform_correction() -> float:
 		collision_normal = down_ray.get_collision_normal()
 	if  not down_ray.is_colliding():
 		return 0		
+	down_ray.enabled = false
 	return (global_position - collision_point).y
 
-func _ready() -> void:
+func _enter_tree() -> void:
 	await get_tree().process_frame
 	var y_offset = transform_correction()
 	position -= y_offset * Vector3.UP

@@ -3,9 +3,11 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://doragxm6yqbjv"
-path="res://.godot/imported/Josh_Ch23_1001_Specular.png-7d9f04760a9219e78af94c8c0e736f8e.ctex"
+path.s3tc="res://.godot/imported/Josh_Ch23_1001_Specular.png-7d9f04760a9219e78af94c8c0e736f8e.s3tc.ctex"
+path.etc2="res://.godot/imported/Josh_Ch23_1001_Specular.png-7d9f04760a9219e78af94c8c0e736f8e.etc2.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"vram_texture": true
 }
 generator_parameters={
 "md5": "c1fa85008f5bef2592f0f54e57c0c8bd"
@@ -14,11 +16,11 @@ generator_parameters={
 [deps]
 
 source_file="res://objects/humans/josh/Josh_Ch23_1001_Specular.png"
-dest_files=["res://.godot/imported/Josh_Ch23_1001_Specular.png-7d9f04760a9219e78af94c8c0e736f8e.ctex"]
+dest_files=["res://.godot/imported/Josh_Ch23_1001_Specular.png-7d9f04760a9219e78af94c8c0e736f8e.s3tc.ctex", "res://.godot/imported/Josh_Ch23_1001_Specular.png-7d9f04760a9219e78af94c8c0e736f8e.etc2.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0
