@@ -51,7 +51,8 @@ func update_wheelchair():
 	$wheel_left.visible = visibled_wheel_l
 	
 	# Update left wheel sub-elements visibility
-	$wheel_left/angle_contact_left.visible = visibled_angle_contact_l
+	$wheel_left/angle_start_contact_left.visible = visibled_angle_contact_l
+	$wheel_left/angle_end_contact_left.visible = visibled_angle_contact_l
 	$wheel_left/handrim_left.visible = visibled_handrim_l
 
 	# Update right wheel scale, position and visibility
@@ -61,7 +62,8 @@ func update_wheelchair():
 	$wheel_right.visible = visibled_wheel_r
 	
 	# Update right wheel sub-elements visibility
-	$wheel_right/angle_contact_right.visible = visibled_angle_contact_r
+	$wheel_right/angle_start_contact_right.visible = visibled_angle_contact_r
+	$wheel_right/angle_end_contact_right.visible = visibled_angle_contact_r
 	$wheel_right/handrim_right.visible = visibled_handrim_r
 
 

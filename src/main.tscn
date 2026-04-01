@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://c5y4tat5hrad0"]
+[gd_scene load_steps=12 format=3 uid="uid://c5y4tat5hrad0"]
 
 [ext_resource type="Script" uid="uid://cnjpl135ppqka" path="res://main.gd" id="1_0xm2m"]
 [ext_resource type="PackedScene" uid="uid://dq2eiii6jcj6u" path="res://control_gui/control_gui.tscn" id="1_ig7tw"]
@@ -12,7 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://k18bpclv0qnw" path="res://devices/screens/single_screen.tscn" id="8_efxa6"]
 [ext_resource type="PackedScene" uid="uid://bvnocfmlki4nf" path="res://devices/screens/front_floor_screens.tscn" id="9_dg77c"]
 
-[node name="main" type="Node" unique_id=825869746]
+[node name="main" type="Node"]
 script = ExtResource("1_0xm2m")
 available_overlays = Dictionary[String, PackedScene]({
 "overlays.biofeedback_optitrack.enabled": ExtResource("4_dg77c"),
@@ -27,11 +27,11 @@ available_devices = Dictionary[String, PackedScene]({
 "devices.screens.single_screen.enabled": ExtResource("8_efxa6")
 })
 
-[node name="control_gui" parent="." unique_id=749235116 instance=ExtResource("1_ig7tw")]
+[node name="control_gui" parent="." instance=ExtResource("1_ig7tw")]
 
-[node name="scene_viewport" type="SubViewport" parent="." unique_id=303553975]
+[node name="scene_viewport" type="SubViewport" parent="."]
 audio_listener_enable_3d = true
 size = Vector2i(1280, 720)
 
-[node name="config" type="Node" parent="." unique_id=1764387018]
+[node name="config" type="Node" parent="."]
 script = ExtResource("3_h2yge")

@@ -28,8 +28,8 @@ var _defaults: Dictionary[String, Dictionary] = {
 	"overlays.speed_indicator.enabled": {"order": 3.01, "label": "Speed indicator", "type": "bool", "default": true},
 	"overlays.debug.enabled": {"order": 3.02, "label": "Debug", "type": "bool", "default": false},
 	"overlays.biofeedback_optitrack.enabled": {"order": 3.03, "label": "Biofeedback Optitrack", "type": "bool", "default": false},
-	"overlays.contact_start_angle": {"order": 3.04, "label": "Contact start angle", "unit": "deg", "type": "float", "default": -20.0, "min": -40.0, "max": 20.0},
-	"overlays.contact_end_angle": {"order": 3.04, "label": "Contact end angle", "unit": "deg", "type": "float", "default": 40.0, "min": 20.0, "max": 60.0},
+	"overlays.contact_start_angle": {"order": 3.04, "label": "Contact start angle", "unit": "deg", "type": "float", "default": -55.0, "min": -65.0, "max": 20.0},
+	"overlays.contact_end_angle": {"order": 3.05, "label": "Contact end angle", "unit": "deg", "type": "float", "default": 55.0, "min": 20.0, "max": 140.0},
 
 
 	"devices": {"order": 4, "label": "DEVICE SETTINGS"},
