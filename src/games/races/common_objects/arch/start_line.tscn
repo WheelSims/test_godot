@@ -6,12 +6,14 @@
 [node name="StartArch" type="Node3D" unique_id=536656800]
 
 [node name="LeftCrowd" parent="." unique_id=1575322916 instance=ExtResource("2_qcewo")]
+process_mode = 0
 transform = Transform3D(0.298008, 0, 0.954563, 0, 1, 0, -0.954563, 0, 0.298008, -6.52749, 0, -2.12138)
-visible = false
+visible = true
 
 [node name="RightCrowd" parent="." unique_id=131074658 instance=ExtResource("2_qcewo")]
+process_mode = 0
 transform = Transform3D(0.414233, 0, -0.910171, 0, 1, 0, 0.910171, 0, 0.414233, 6.69357, 0, -2.93145)
-visible = false
+visible = true
 
 [node name="start_line" parent="." unique_id=53014184 instance=ExtResource("2_t3adg")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0214319, 0.061215, -0.0427135)

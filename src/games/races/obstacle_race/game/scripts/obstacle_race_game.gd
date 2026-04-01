@@ -58,9 +58,9 @@ func on_obstacle_collision(body: Area3D, area3D_emitter: Area3D)->void:
 		add_score(-fail_point_val)
 		play_sfx(challenge_fail_sound)
 		obstacle_collision = true
-		area3D_emitter.set_deferred("monitoring", false)
+		area3D_emitter.set_deferred("process_mode", ProcessMode.PROCESS_MODE_DISABLED)
 	
-func on_challenge_area_entered(body: Area3D)->void:
+func on_challenge_area_entered(body: Area3D, _area3D_emitter: Area3D)->void:
 	if body.is_in_group("Player"):
 		on_challenge = true
 		obstacle_collision = false
@@ -72,7 +72,7 @@ func on_challenge_area_exited(body: Area3D, area3D_emitter: Area3D)->void:
 	if not obstacle_collision:
 		add_score(success_point_val)
 		play_sfx(challenge_success_sound)
-	area3D_emitter.set_deferred("monitoring", false)
+	area3D_emitter.set_deferred("process_mode", ProcessMode.PROCESS_MODE_DISABLED)
 	
 func on_race_entered(body: Area3D, area3D_emitter: Area3D)->void:
 	if not body.is_in_group("Player"):
@@ -87,7 +87,7 @@ func on_race_entered(body: Area3D, area3D_emitter: Area3D)->void:
 		set_crowds_visible(current_race_data.final_crowds, true)
 	if current_race_data_i < races_data.size()-1:
 		set_crowds_visible(races_data[current_race_data_i+1].start_crowds, true)
-	area3D_emitter.set_deferred("monitoring", false)
+	area3D_emitter.set_deferred("process_mode", ProcessMode.PROCESS_MODE_DISABLED)
 	
 func on_race_exited(body: Area3D, area3D_emitter: Area3D)->void:
 	if not body.get_parent().is_in_group("Player"):
@@ -98,10 +98,15 @@ func on_race_exited(body: Area3D, area3D_emitter: Area3D)->void:
 	set_crowds_visible(races_data[current_race_data_i].start_crowds, false)
 	if current_race_data_i > 0:
 		set_crowds_visible(races_data[current_race_data_i-1].final_crowds, false)
-	area3D_emitter.set_deferred("monitoring", false)
+	area3D_emitter.set_deferred("process_mode", ProcessMode.PROCESS_MODE_DISABLED)
 	
-func set_crowds_visible(crowds: Array[Crowd], visible:bool)->void:
+func set_crowds_visible(crowds: Array[Crowd], _enable:bool)->void:
 	if crowds.size() == 0:
 		return
 	for crowd in crowds:
-		crowd.visible = visible
+		if _enable:
+			crowd.process_mode = PROCESS_MODE_INHERIT
+			crowd.visible = true
+		else:
+			crowd.process_mode = PROCESS_MODE_DISABLED
+			crowd.visible = false

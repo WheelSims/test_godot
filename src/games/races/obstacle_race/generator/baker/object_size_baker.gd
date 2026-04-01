@@ -6,7 +6,7 @@ extends EditorScript
 var config: BakeConfig = load("res://games/races/obstacle_race/generator/baker/bake_config_res.tres")
 
 func _run():
-	var objects_to_bake: Array[PackedScene] = config.objects_to_bake
+	var objects_to_bake: Array[PackedScene] = load_packed_scenes_from_folder(config.objects_to_bake_folder_path)
 	for scene in objects_to_bake:
 		var instance = scene.instantiate()
 		EditorInterface.get_edited_scene_root().add_child(instance)
@@ -16,15 +16,15 @@ func _run():
 		if instance is WorldScaleCalculator:
 			object_info.scene = scene
 			var inst: WorldScaleCalculator = instance
-			inst.get_precise_size_z()
+			inst.get_precise_size()
 			object_info.type = inst.object_type
 			if inst.object_type == WorldScaleCalculator.ObjectType.Obstacle:
-				object_info.z_sizes = inst.write_sizes_with_rotation([90, 45, -45, 0])
+				object_info.sizes = inst.write_sizes_with_rotation([90, 45, -45, 0])
 			else:
-				object_info.z_sizes = inst.write_sizes_with_rotation()
-			object_info.local_scale = inst.get_precise_size()
+				object_info.sizes = inst.write_sizes_with_rotation()
+			object_info.local_scale = inst.get_size()
 		else:
-			push_error("The PackedeScene %s is not a WorldScaleCalculator" %scene.resource_name)
+			print("The Packed Scene %s is not a WorldScaleCalculator." %scene.resource_name)
 		
 		if not DirAccess.dir_exists_absolute(config.object_info_folder_path):
 			DirAccess.make_dir_recursive_absolute(config.object_info_folder_path)
@@ -36,3 +36,27 @@ func _run():
 		print(path)
 
 		instance.queue_free()
+		
+func load_packed_scenes_from_folder(folder_path: String) -> Array[PackedScene]:
+	var scenes: Array[PackedScene] = []
+
+	var dir := DirAccess.open(folder_path)
+	if dir == null:
+		push_error("Cannot open folder: " + folder_path)
+		return scenes
+
+	dir.list_dir_begin()
+
+	var file_name := dir.get_next()
+	while file_name != "":
+		if !dir.current_is_dir():
+			if file_name.ends_with(".tscn"):
+				var full_path := folder_path.path_join(file_name)
+				var scene := load(full_path) as PackedScene
+				if scene:
+					scenes.append(scene)
+
+		file_name = dir.get_next()
+
+	dir.list_dir_end()
+	return scenes

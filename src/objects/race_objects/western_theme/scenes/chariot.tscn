@@ -49,7 +49,7 @@ area3D = NodePath("chariot/Wagon_low/Area3D")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8879746, 0)
 
 [node name="Wagon_low" type="MeshInstance3D" parent="chariot" unique_id=815018188]
-transform = Transform3D(1000, 0, 0, 0, -4.371139e-05, 1000, 0, -1000, -4.371139e-05, 0, 0, 0)
+transform = Transform3D(1000, 0, 0, 0, -4.371139e-05, 1000, 0, -1000, -4.371139e-05, -0.60891914, 0, 0)
 mesh = SubResource("ArrayMesh_exdkk")
 surface_material_override/0 = SubResource("StandardMaterial3D_j43rk")
 
@@ -58,7 +58,6 @@ transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="chariot/Wagon_low/StaticBody3D" unique_id=276141937]
 transform = Transform3D(0.9999438, 0, 0, 0, 0.9999438, 0, 0, 0, 0.9999438, 0.00047563345, -5.664397e-05, -8.807719e-06)
-visible = false
 shape = SubResource("BoxShape3D_0qd8i")
 
 [node name="Area3D" type="Area3D" parent="chariot/Wagon_low" unique_id=2077486986]

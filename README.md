@@ -1,8 +1,8 @@
 # wheelsims
 
-```{warning}
-This is a work in progress.
-```
+This is a work in progress. The information below is outdated. The most up-to-date info is [here](https://github.com/WheelSims/wheelsims_doc/blob/main/README.md)
+
+---
 
 This is the main repository for the WheelSims project. It contains [Godot](https://godotengine.org/) code and assets that implement the VR portion of the IRGLM Simulator in Montreal. This code should be eventually extensible to other wheelchair simulators.
 

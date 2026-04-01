@@ -9,8 +9,8 @@ static func clother_xquantum(quantum: float, number_to_round: float)->int:
 	else:
 		return int(number_to_round/quantum)+1
 
-##Get the clother number from a quanted list. 
-##ex: number = 1.75 => get 1.666
+##Get the clother number from a quanted list 
+##ex: y = 1.75 => get 1.666
 static func clother_number(list: Array, y: float)->float:
 	var min_dif := INF
 	var number: float
