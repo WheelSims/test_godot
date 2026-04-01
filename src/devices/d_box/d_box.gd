@@ -33,7 +33,7 @@ const dbox_driver_app = "dbox_driver_app.exe"
 var udp_send_ip: String = "127.0.0.1"
 var udp_send_port: int = 25200
 var _udp_sender = PacketPeerUDP.new()
-var _d_box_initialized = false
+var _d_box_initialized = true  # reverted to false if driver process not running
 
 # -----------------------
 # Current mode
@@ -80,7 +80,6 @@ func send(command: int, arg0: float, arg1: float, arg2: float) -> void:
 	if not _d_box_initialized:
 		_d_box_initialized = true
 			# DBox init
-		_udp_sender.connect_to_host(udp_send_ip, udp_send_port)
 		send_print_string("Receiving packets from Godot.\n")
 		send(1, 0, 0, 0)  # Init
 		send(2, 0, 0, 0)  # Open
@@ -89,6 +88,8 @@ func send(command: int, arg0: float, arg1: float, arg2: float) -> void:
 		send(7, 0, 0, 0)  # Center
 		send(5, 0, 0, 0)  # Start
 		send_print_string("Init done, ready to move.\n")
+		send_print_string("WARNING: CLOSING THIS WINDOW WILL RAISE THE PLATFORM.\n")
+		send_print_string("Do not close this window until the participant completely left the simulator.\n")
 
 	
 	bytes.resize(28)
@@ -112,11 +113,14 @@ func _ready() -> void:
 
 	var output = []
 	var _exit_code = OS.execute("tasklist.exe", [], output)
-	if dbox_driver_app not in output:
+	if dbox_driver_app not in output[0]:
 		print("Starting D-Box driver app")
 		# Execute non-blocking
 		OS.create_process(dbox_driver_path + dbox_driver_app, [], true)
 		pause_process(2.0)  # Wait for the driver app to come alive
+		_d_box_initialized = false
+
+	_udp_sender.connect_to_host(udp_send_ip, udp_send_port)
 
 func _process(delta: float) -> void:
 	
@@ -179,7 +183,7 @@ func _process(delta: float) -> void:
 		
 	send(
 		7,
-		new_dbox_normalized_height + (height_noise * speed) - 1.0 + current_pause_play_status,
+		(new_dbox_normalized_height + (height_noise * speed)) * current_pause_play_status - 1.0 + current_pause_play_status,
 		(-player_rotation.x / max_pitch_angle + (pitch_noise * speed)) * current_pause_play_status,
 		(player_rotation.z / max_roll_angle + (roll_noise * speed)) * current_pause_play_status
 	)
