@@ -4,12 +4,12 @@
 [ext_resource type="PackedScene" uid="uid://dwlinbk7uaug" path="res://objects/wheelchair/rear_wheel.tscn" id="1_hiv0f"]
 [ext_resource type="Script" uid="uid://xko3m2vsf5ak" path="res://overlays/biofeedback_optitrack/biofeedback_optitrack.gd" id="1_j7inm"]
 [ext_resource type="PackedScene" uid="uid://c1ynlvcc8h1vj" path="res://objects/optitrack/forearm cluster left/forearm_cluster_left.tscn" id="2_hiv0f"]
-[ext_resource type="Script" path="res://overlays/biofeedback_optitrack/hand.gd" id="2_l04ny"]
+[ext_resource type="Script" uid="uid://bffbdeose3vjm" path="res://overlays/biofeedback_optitrack/hand.gd" id="2_l04ny"]
 [ext_resource type="PackedScene" uid="uid://bcfu5sx4m6hm3" path="res://objects/wheelchair/angle_contact.tscn" id="3_ss2qs"]
 [ext_resource type="PackedScene" uid="uid://ds06t01fw7lcb" path="res://objects/wheelchair/handrim.tscn" id="4_8bgme"]
-[ext_resource type="Script" path="res://overlays/biofeedback_optitrack/rear_wheel.gd" id="5_nqdaa"]
-[ext_resource type="Script" path="res://overlays/biofeedback_optitrack/trail_hand.gd" id="8_6okfu"]
+[ext_resource type="Script" uid="uid://b8g4t15ows352" path="res://overlays/biofeedback_optitrack/rear_wheel.gd" id="5_nqdaa"]
 [ext_resource type="Script" uid="uid://dkxhvcukp6fi2" path="res://overlays/biofeedback_optitrack/angle_contact.gd" id="8_tdhcr"]
+[ext_resource type="Script" uid="uid://dyf4x7j1o2k7q" path="res://overlays/biofeedback_optitrack/trail_hand.gd" id="10_tdhcr"]
 
 [sub_resource type="Theme" id="Theme_2n6hd"]
 
@@ -303,13 +303,13 @@ cull_mask = 1047558
 projection = 1
 fov = 45.0
 
-[node name="trail_hand_right" type="Node3D" parent="." unique_id=586146981]
-script = ExtResource("8_6okfu")
-side = "right"
-
-[node name="trail_hand_left" type="Node3D" parent="." unique_id=536609145]
-script = ExtResource("8_6okfu")
+[node name="trail_hand_left" type="MultiMeshInstance3D" parent="." unique_id=523207625]
+script = ExtResource("10_tdhcr")
 side = "left"
+
+[node name="trail_hand_right" type="MultiMeshInstance3D" parent="." unique_id=1349041245]
+script = ExtResource("10_tdhcr")
+side = "right"
 
 [editable path="wheel_right/rear_wheel_right"]
 [editable path="wheel_right/rear_wheel_right/rear_wheel"]

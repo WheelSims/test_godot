@@ -1,5 +1,7 @@
 extends Node3D
 
+@onready var main: Node = get_tree().get_root().get_node("main")
+
 # Wheelchair variables
 @export_group("Wheels")
 @export_subgroup("Wheel Left")
@@ -25,6 +27,11 @@ var window
 
 func _ready() -> void:
 	window_user()
+
+	# Ensure OptiTrack is added when this overlay scene runs standalone (outside main)
+	if not main:
+		var instance = preload("res://devices/optitrack/optitrack.tscn").instantiate()
+		add_child(instance)
 
 func _process(_delta):
 	update_wheelchair()
@@ -78,7 +85,7 @@ func window_user():
 	var scene = load("res://overlays/biofeedback_optitrack_gui.tscn").instantiate()
 	window.add_child(scene)
 
-	get_tree().root.add_child(window)
+	add_child(window)
 
 
 # Close the window gui when the node exits the scene tree

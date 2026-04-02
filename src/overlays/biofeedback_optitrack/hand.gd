@@ -13,17 +13,10 @@ var node_forearm_cluster
 var node_simulator_reference 
 
 func _ready() -> void:
-	
-	# 
-	if not main and not get_tree().get_root().has_node("optitrack"):
-		var instance = preload("res://devices/optitrack/optitrack.tscn").instantiate()
-		get_tree().current_scene.add_child.call_deferred(instance)
-	
 	_apply_side()
 
 func _process(_delta):
 
-	#if main:
 	if Config.get_value("devices.optitrack.enabled"):
 		
 		# Get wheel center positions
@@ -37,7 +30,7 @@ func _process(_delta):
 		if main:
 			node_forearm_cluster = main.get_node("optitrack").get_node_by_id(id_forearm_cluster)
 			node_simulator_reference = main.get_node("optitrack").get_node_by_id(id_simulator_reference)
-		else:
+		else: # If overlay scene runs standalone (outside main)
 			node_forearm_cluster = get_tree().current_scene.get_node("optitrack").get_node_by_id(id_forearm_cluster)
 			node_simulator_reference = get_tree().current_scene.get_node("optitrack").get_node_by_id(id_simulator_reference)
 		
@@ -52,6 +45,7 @@ func _process(_delta):
 			# Adjust position relative to the wheel center
 			self.position -= _pos_center_wheel 
 			self.position += $"..".get(position_wheel_key)
+
 
 # Set IDs, references, and coordinate variables based on the selected side (left or right)
 func _apply_side():

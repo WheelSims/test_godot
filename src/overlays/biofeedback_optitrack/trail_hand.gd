@@ -1,87 +1,93 @@
-extends Node3D
+extends MultiMeshInstance3D 
 
 # Selected side of the wheelchair (left or right)
-@export_enum("left", "right") var side: String
+@export_enum("left", "right") var side: String 
 
-var points = []
 var frame_limit = 100
-var trail_size = 0.02
-var trails = []
-var i = 0
-
+var trail_size = 0.15
 var offset_trail
 var layer
 var coordinates_hand
 var node_hand_key
+var list_pos_hand = []
+var list_alpha = []
 
-var pos_trail = Vector3(0, 0, 0)
-
-func _ready() -> void:
+func _ready() -> void: 
 	_apply_side()
+	
+	# Initialize scale values along the trail based on point age
+	for i in range(frame_limit):
+		var t = float(i) / (frame_limit - 1)
+		list_alpha.append(pow(t, 2.0))
+	
+	init_multimesh()
 
-func _process(_delta):
-
-	if $"..".trails_visibled:
-		var _pos_hand = Vector3(0, 0, 0)
+func _process(_delta): 
 		
-		if Config.get_value("devices.optitrack.enabled"):
+	# Compute hand position for trail: hand coordinates in cluster space transformed to world space with offset
+	var _pos_hand = Vector3.ZERO 
+	if Config.get_value("devices.optitrack.enabled"): 
+		# Get hand coordinates relative to cluster
+		_pos_hand = Vector3(Config.get_value(coordinates_hand)[0], Config.get_value(coordinates_hand)[1], Config.get_value(coordinates_hand)[2]) 
+		
+		# Transform hand position to world space and apply trail offset
+		var hand_node = $"..".get_node(node_hand_key) 
+		var pos_hand = hand_node.position + hand_node.global_transform.basis * _pos_hand + offset_trail 
+		
+		# Update hand positions list to maintain trail over time
+		if len(list_pos_hand) < frame_limit:
+			list_pos_hand.append(pos_hand)
+		else:
+			list_pos_hand.remove_at(0)
+			list_pos_hand.append(pos_hand)
+		
+		# Update multimesh instances to render trail points with position and scale
+		for i in range(len(list_pos_hand)): 
+			var t = Transform3D()
+			t.origin = list_pos_hand[i]
+			t.basis = Basis().scaled(Vector3.ONE * trail_size * list_alpha[i])
 			
-			_pos_hand = Vector3( \
-				Config.get_value(coordinates_hand)[0], \
-				Config.get_value(coordinates_hand)[1], \
-				Config.get_value(coordinates_hand)[2]  \
-				)
+			self.multimesh.set_instance_transform(i, t)
 
-		var pos_hand = $"..".get_node(node_hand_key).position + $"..".get_node(node_hand_key).global_transform.basis * _pos_hand
-		
-		if i >= frame_limit:
-			points.remove_at(0)
-		points.append(pos_hand)
-		i += 1
-
-		for trail in trails:
-			trail.queue_free()
-		trails.clear()
-
-		for u in range(1, len(points)):
-
-			var alpha = float(u) / len(points)
-			alpha = pow(alpha, 1.5)
-			
-			var trail = create_trail(points[u], alpha)
-			trails.append(trail)
-
-func create_trail(pos: Vector3, alpha: float) -> MeshInstance3D:
-
-	var mesh = SphereMesh.new()
-	mesh.radius = trail_size * alpha
-	mesh.height = trail_size * 2 * alpha
-	mesh.radial_segments = 8
-	mesh.rings = 8
-	
-	var instance = MeshInstance3D.new()
-	instance.mesh = mesh
-	instance.position = pos + offset_trail
-	
-	var mat = StandardMaterial3D.new()
-	mat.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
-	mat.albedo_color = Color(1, 0, 0, alpha)
-	instance.material_override = mat
-	instance.layers = layer
-	
-	add_child(instance)
-	return instance
-
-func _apply_side():
-	if side == "left":
-		offset_trail = Vector3(0, 0, -0.05)
-		layer = 1 << 5
-		coordinates_hand = "coordinates.left_hand"
-		node_hand_key = "forearm_cluster_left"
-		
-	elif side == "right":
-		offset_trail = Vector3(0, 0, 0.05)
-		layer = 1 << 6
-		coordinates_hand = "coordinates.right_hand"
+# Set trail offset, rendering layer, and hand references based on the selected side (left or right)
+func _apply_side(): 
+	if side == "left": 
+		offset_trail = Vector3(0, 0, -0.05) 
+		layer = 1 << 5 
+		coordinates_hand = "coordinates.left_hand" 
+		node_hand_key = "forearm_cluster_left" 
+	elif side == "right": 
+		offset_trail = Vector3(0, 0, 0.05) 
+		layer = 1 << 6 
+		coordinates_hand = "coordinates.right_hand" 
 		node_hand_key = "forearm_cluster_right"
-		
+
+
+func init_multimesh():
+	
+	# Create and set the multimesh
+	var mm = MultiMesh.new()
+	mm.transform_format = MultiMesh.TRANSFORM_3D 
+	mm.instance_count = frame_limit 
+	
+	# Create the mesh for each trail point
+	var mesh = SphereMesh.new() 
+	mesh.radius = trail_size 
+	mesh.height = trail_size * 2 
+	mesh.radial_segments = 8 
+	mesh.rings = 8 
+	mm.mesh = mesh 
+	
+	self.multimesh = mm 
+	self.layers = layer 
+	
+	# Set the color of the trail meshes
+	var mat = StandardMaterial3D.new() 
+	mat.albedo_color = Color(1, 0, 0, 1) 
+	self.material_override = mat 
+	
+	# Initialize all multimesh instances
+	var t = Transform3D()
+	t.basis = Basis().scaled(Vector3.ONE * trail_size)
+	for i in range(frame_limit): 
+		mm.set_instance_transform(i, t) 

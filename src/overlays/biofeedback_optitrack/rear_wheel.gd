@@ -13,11 +13,6 @@ var player_angular_speed
 
 var wheel_angular_speed
 
-
-func _ready() -> void:
-	pass
-
-
 func _process(_delta):
 
 	if Globals.player != null:
@@ -38,4 +33,3 @@ func _process(_delta):
 
 		# Apply computed rotation to the wheel for this frame
 		self.rotation += Vector3(wheel_angular_speed, 0, 0) * _delta
-	pass
