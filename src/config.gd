@@ -13,8 +13,8 @@ var _CONFIG_FILENAME = "user://config.json"
 var _defaults: Dictionary[String, Dictionary] = {
 	"player": {"order": 1, "label": "SIMULATED PARAMETERS"},
 	"player.mass": {"order": 1.01, "label": "User+wheelchair mass", "unit": "kg", "type": "float", "default": 70.0, "min": 10.0, "max": 300.0},
-	"player.wheel_diameter": {"order": 1.02, "label": "Wheel diameter", "unit": "m", "type": "float", "default": 0.62, "min": 0.40, "max": 0.80},
-	"player.pushrim_diameter": {"order": 1.03, "label": "Pushrim diameter", "unit": "m", "type": "float", "default": 0.54, "min": 0.40, "max": 0.80},
+	"player.wheel_diameter": {"order": 1.02, "label": "Wheel diameter", "unit": "m", "type": "float", "default": 0.62, "min": 0.40, "max": 0.80, "step": 0.01},
+	"player.pushrim_diameter": {"order": 1.03, "label": "Pushrim diameter", "unit": "m", "type": "float", "default": 0.54, "min": 0.40, "max": 0.80, "step": 0.01},
 	"player.camera.fov": {"order": 1.04, "label": "Field of view", "unit": "deg", "type": "float", "default": 75.0, "min": 40.0, "max": 150.0},
 	"player.camera.angle": {"order": 1.05, "label": "Camera angle", "unit": "deg", "type": "float", "default": 0.0, "min": -45.0, "max": 45.0},
 
@@ -139,12 +139,19 @@ func get_min_value(key: String):
 	else:
 		return null
 
-## Get config min value or null if not existing
+## Get config max value or null if not existing
 func get_max_value(key: String):
 	if key in _defaults and "max" in _defaults[key]:
 		return _defaults[key]["max"]
 	else:
 		return null
+
+## Get config step value or 1.0 if not existing
+func get_step_value(key: String):
+	if key in _defaults and "step" in _defaults[key]:
+		return _defaults[key]["step"]
+	else:
+		return 1.0
 
 ## Get items or null if not existing
 func get_items(key: String):
