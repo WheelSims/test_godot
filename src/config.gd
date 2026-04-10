@@ -141,12 +141,20 @@ func get_min_value(key: String):
 		return null
 
 
-## Get config min value or null if not existing
+## Get config max value or null if not existing
 func get_max_value(key: String):
 	if key in _defaults and "max" in _defaults[key]:
 		return _defaults[key]["max"]
 	else:
 		return null
+
+
+## Get config step value or 1.0 if not existing
+func get_step_value(key: String):
+	if key in _defaults and "step" in _defaults[key]:
+		return _defaults[key]["step"]
+	else:
+		return 1.0
 
 
 ## Get items or null if not existing

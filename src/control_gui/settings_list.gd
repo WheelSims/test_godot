@@ -50,6 +50,7 @@ func _ready():
 				var control = HSlider.new()
 				control.min_value = Config.get_min_value(key)
 				control.max_value = Config.get_max_value(key)
+				control.step = Config.get_step_value(key)
 				control.custom_minimum_size.x = 200
 				control.scrollable = false
 				control.value = Config.get_value(key)
