@@ -51,6 +51,7 @@ var _defaults: Dictionary[String, Dictionary] = {
 	"devices.d_box.enabled": {"order": 4.5, "label": "D-Box", "type": "bool", "default": false},
 	"devices.motorized_rollers.enabled": {"order": 4.6, "label": "Motorized rollers", "type": "bool", "default": false},
 	"devices.optitrack.enabled": {"order": 4.7, "label": "Optitrack", "type": "bool", "default": false},
+	"devices.python.enabled": {"order": 4.8, "label": "Python", "type": "bool", "default": false},
 
 
 	"coordinates.left_wheel_center": {"order":5.01, "label": "Left wheel center", "type": "array", "default": [-0.2, 0.3, -0.75], "reference": "simulator"},
@@ -58,6 +59,7 @@ var _defaults: Dictionary[String, Dictionary] = {
 	"coordinates.left_hand": {"order":5.03, "label": "Left hand", "type": "array", "default": [0.0, 0.0, 0.0], "reference": "forearm_cluster_left"},
 	"coordinates.right_hand": {"order":5.04, "label": "Right hand", "type": "array", "default": [0.0, 0.0, 0.0], "reference": "forearm_cluster_right"},
 
+	"python_app.path": {"order": 6.1, "label": "Python app path", "type": "string"}
 }
 
 ## Overrides
