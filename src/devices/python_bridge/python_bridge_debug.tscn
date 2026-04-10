@@ -1,7 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://by4moh82fka4a"]
+[gd_scene format=3 uid="uid://by4moh82fka4a"]
 
-[ext_resource type="Script" uid="uid://bn4ag3kp8snae" path="res://devices/python/python_debug.gd" id="1_rwxs8"]
-[ext_resource type="PackedScene" uid="uid://x4hefxmnqe41" path="res://devices/python/python.tscn" id="2_pbcx4"]
+[ext_resource type="Script" uid="uid://bn4ag3kp8snae" path="res://devices/python_bridge/python_bridge_debug.gd" id="1_rwxs8"]
+[ext_resource type="PackedScene" uid="uid://x4hefxmnqe41" path="res://devices/python_bridge/python_bridge.tscn" id="2_pbcx4"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_00v1h"]
 bg_color = Color(0, 0, 0, 1)
@@ -36,7 +36,7 @@ corner_radius_bottom_left = 10
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_nxaun"]
 
-[node name="Python_debug" type="Control"]
+[node name="python_bridge_debug" type="Control" unique_id=571678131]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -45,9 +45,12 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_rwxs8")
 
-[node name="Python" parent="." instance=ExtResource("2_pbcx4")]
+[node name="python_bridge" parent="." unique_id=820797880 instance=ExtResource("2_pbcx4")]
+UDP_SEND_IP = "127.0.0.1"
+UDP_SEND_PORT = 4243
+UDP_RECEIVE_PORT = 4242
 
-[node name="main_panel" type="ColorRect" parent="."]
+[node name="main_panel" type="ColorRect" parent="." unique_id=1523492271]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -60,7 +63,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.592157, 0.592157, 0.592157, 1)
 
-[node name="margin_container" type="MarginContainer" parent="main_panel"]
+[node name="margin_container" type="MarginContainer" parent="main_panel" unique_id=2120339223]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -73,35 +76,35 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="main_vbox_container" type="VBoxContainer" parent="main_panel/margin_container"]
+[node name="main_vbox_container" type="VBoxContainer" parent="main_panel/margin_container" unique_id=1917773736]
 layout_mode = 2
 
-[node name="requests_panel" type="VBoxContainer" parent="main_panel/margin_container/main_vbox_container"]
+[node name="requests_panel" type="VBoxContainer" parent="main_panel/margin_container/main_vbox_container" unique_id=966064810]
 layout_mode = 2
 
-[node name="requests_title" type="Label" parent="main_panel/margin_container/main_vbox_container/requests_panel"]
+[node name="requests_title" type="Label" parent="main_panel/margin_container/main_vbox_container/requests_panel" unique_id=1186878171]
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_00v1h")
 text = "Functions"
 horizontal_alignment = 1
 
-[node name="ScrollContainer" type="ScrollContainer" parent="main_panel/margin_container/main_vbox_container/requests_panel"]
+[node name="scroll_container" type="ScrollContainer" parent="main_panel/margin_container/main_vbox_container/requests_panel" unique_id=407813670]
 custom_minimum_size = Vector2(250, 500)
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_71vx8")
 
-[node name="requests_list" type="VBoxContainer" parent="main_panel/margin_container/main_vbox_container/requests_panel/ScrollContainer"]
+[node name="requests_list" type="VBoxContainer" parent="main_panel/margin_container/main_vbox_container/requests_panel/scroll_container" unique_id=1464491902]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="ColorRect" type="ColorRect" parent="main_panel/margin_container/main_vbox_container"]
+[node name="color_rect" type="ColorRect" parent="main_panel/margin_container/main_vbox_container" unique_id=1674222702]
 custom_minimum_size = Vector2(0, 5)
 layout_mode = 2
 color = Color(0, 0, 0, 1)
 
-[node name="send_button" type="Button" parent="main_panel/margin_container/main_vbox_container"]
+[node name="send_button" type="Button" parent="main_panel/margin_container/main_vbox_container" unique_id=2035050764]
 layout_mode = 2
 size_flags_vertical = 10
 theme_override_font_sizes/font_size = 40

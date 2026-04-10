@@ -1,9 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://x4hefxmnqe41"]
-
-[ext_resource type="Script" uid="uid://dmu4r4xv5sj52" path="res://devices/python/python_.gd" id="1_pq4o4"]
-
-[node name="Python" type="Node3D"]
-script = ExtResource("1_pq4o4")
-UDP_SEND_IP = null
-UDP_SEND_PORT = null
-UDP_RECEIVE_PORT = null

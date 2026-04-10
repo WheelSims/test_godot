@@ -6,7 +6,7 @@ extends Control
 # ---------------------------------------------------------------------- #
 
 # UI elements
-@onready var node_requests_list = $main_panel/margin_container/main_vbox_container/requests_panel/ScrollContainer/requests_list
+@onready var node_requests_list = $main_panel/margin_container/main_vbox_container/requests_panel/scroll_container/requests_list
 @onready var node_send_button = $main_panel/margin_container/main_vbox_container/send_button
 
 var group = ButtonGroup.new() # Button group to allow only one selection at a time
@@ -21,11 +21,11 @@ func _ready() -> void:
 	## Connect send button pressed signal
 	node_send_button.pressed.connect(_on_button_pressed)
 	
-	while not $Python._udp_receiver_connected:
+	while not $python_bridge._udp_receiver_connected:
 		await get_tree().create_timer(1.0).timeout
 
 	## Add functions items to the fonctions list
-	data = $Python.receive_data()
+	data = $python_bridge.receive_data()
 	for i in data:
 		create_item(i)
 	
@@ -70,9 +70,9 @@ func create_item(key):
 func _on_button_pressed():
 	
 	if selected_key == "receive data from python":
-		data = $Python.receive_data()
+		data = $python_bridge.receive_data()
 		print(data)
 	elif selected_key == "close":
 		queue_free()
 	else:
-		$Python.send_request({"command": selected_key})
+		$python_bridge.send_request({"command": selected_key})
