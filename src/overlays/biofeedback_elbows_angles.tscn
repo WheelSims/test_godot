@@ -1,0 +1,228 @@
+[gd_scene load_steps=19 format=3 uid="uid://cs8epqc1phd0o"]
+
+[ext_resource type="Script" uid="uid://csksk7ur8r6nq" path="res://overlays/biofeedback_elbows_angles/biofeedback_elbows_angles.gd" id="1_8m4re"]
+[ext_resource type="Script" uid="uid://b2cjkn5ryorwl" path="res://overlays/biofeedback_elbows_angles/hand.gd" id="2_h1fb7"]
+[ext_resource type="PackedScene" uid="uid://bi4w50l5uqado" path="res://objects/optitrack/forearm cluster right/forearm_cluster_right.tscn" id="3_hgp5i"]
+[ext_resource type="Script" uid="uid://wrix6wqoj87q" path="res://overlays/elbow.gd" id="4_h1fb7"]
+[ext_resource type="Script" uid="uid://d4ih13qmh8ipt" path="res://overlays/biofeedback_elbows_angles/control.gd" id="5_hgp5i"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_tlfsw"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_h1fb7"]
+sky_material = SubResource("ProceduralSkyMaterial_tlfsw")
+
+[sub_resource type="Environment" id="Environment_hgp5i"]
+background_mode = 2
+sky = SubResource("Sky_h1fb7")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="SphereMesh" id="SphereMesh_tlfsw"]
+radial_segments = 16
+rings = 8
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_tlfsw"]
+height = 5.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tlfsw"]
+albedo_color = Color(0.9607843, 0.23921569, 0.3882353, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h1fb7"]
+albedo_color = Color(0.6431373, 0.8980392, 0.03529412, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hgp5i"]
+albedo_color = Color(0.19607843, 0.6627451, 0.9607843, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_h1fb7"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nc1c4"]
+albedo_color = Color(0.19434929, 0.19434926, 0.19434926, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_h1fb7"]
+font_size = 10
+
+[sub_resource type="LabelSettings" id="LabelSettings_nc1c4"]
+font_size = 10
+
+[sub_resource type="LabelSettings" id="LabelSettings_hgp5i"]
+font_size = 10
+
+[node name="BiofeedbackElbowsAngles" type="Node3D"]
+script = ExtResource("1_8m4re")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_hgp5i")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+
+[node name="forearm_cluster_right" type="Node3D" parent="."]
+script = ExtResource("2_h1fb7")
+side = "right"
+cluster = "forearm"
+
+[node name="ForearmClusterRight" parent="forearm_cluster_right" instance=ExtResource("3_hgp5i")]
+
+[node name="arm_cluster_right" type="Node3D" parent="."]
+script = ExtResource("2_h1fb7")
+side = "right"
+cluster = "arm"
+
+[node name="ArmClusterRight" parent="arm_cluster_right" instance=ExtResource("3_hgp5i")]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-0.8396198, 0.12680158, -0.5281666, 0, 0.9723699, 0.23344538, 0.5431745, 0.19600536, -0.8164211, -1.9375651, 1.0255446, -2.7691398)
+fov = 45.0
+
+[node name="elbow_right" type="Node3D" parent="."]
+script = ExtResource("4_h1fb7")
+
+[node name="acromion" type="Node3D" parent="elbow_right"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="elbow_right/acromion"]
+transform = Transform3D(0.025, 0, 0, 0, 0.025, 0, 0, 0, 0.025, 0, 0, 0)
+mesh = SubResource("SphereMesh_tlfsw")
+
+[node name="lateral_epicondyl" type="Node3D" parent="elbow_right"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="elbow_right/lateral_epicondyl"]
+transform = Transform3D(0.025, 0, 0, 0, 0.025, 0, 0, 0, 0.025, 0, 0, 0)
+mesh = SubResource("SphereMesh_tlfsw")
+
+[node name="medial_epicondyl" type="Node3D" parent="elbow_right"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="elbow_right/medial_epicondyl"]
+transform = Transform3D(0.025, 0, 0, 0, 0.025, 0, 0, 0, 0.025, 0, 0, 0)
+mesh = SubResource("SphereMesh_tlfsw")
+
+[node name="radial_styloid" type="Node3D" parent="elbow_right"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="elbow_right/radial_styloid"]
+transform = Transform3D(0.025, 0, 0, 0, 0.025, 0, 0, 0, 0.025, 0, 0, 0)
+mesh = SubResource("SphereMesh_tlfsw")
+
+[node name="ulnar_styloid" type="Node3D" parent="elbow_right"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="elbow_right/ulnar_styloid"]
+transform = Transform3D(0.025, 0, 0, 0, 0.025, 0, 0, 0, 0.025, 0, 0, 0)
+mesh = SubResource("SphereMesh_tlfsw")
+
+[node name="forearm_frame" type="Node3D" parent="elbow_right"]
+
+[node name="Red" type="MeshInstance3D" parent="elbow_right/forearm_frame"]
+transform = Transform3D(-1.0927848e-09, -0.025, 0, 0.025, -1.0927848e-09, 0, 0, 0, 0.025, 0.05, 0, 0)
+mesh = SubResource("CylinderMesh_tlfsw")
+surface_material_override/0 = SubResource("StandardMaterial3D_tlfsw")
+
+[node name="Green" type="MeshInstance3D" parent="elbow_right/forearm_frame"]
+transform = Transform3D(0.025, 0, 0, 0, 0.025, 0, 0, 0, 0.025, 0, 0.05, 0)
+mesh = SubResource("CylinderMesh_tlfsw")
+surface_material_override/0 = SubResource("StandardMaterial3D_h1fb7")
+
+[node name="Blue" type="MeshInstance3D" parent="elbow_right/forearm_frame"]
+transform = Transform3D(0.025, 0, 0, 0, -1.0927848e-09, -0.025, 0, 0.025, -1.0927848e-09, 0, 0, 0.05)
+mesh = SubResource("CylinderMesh_tlfsw")
+surface_material_override/0 = SubResource("StandardMaterial3D_hgp5i")
+
+[node name="Origine" type="MeshInstance3D" parent="elbow_right/forearm_frame"]
+transform = Transform3D(0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, 0, 0, 0)
+mesh = SubResource("SphereMesh_h1fb7")
+surface_material_override/0 = SubResource("StandardMaterial3D_nc1c4")
+
+[node name="arm_frame" type="Node3D" parent="elbow_right"]
+
+[node name="Red" type="MeshInstance3D" parent="elbow_right/arm_frame"]
+transform = Transform3D(-1.0927848e-09, -0.025, 0, 0.025, -1.0927848e-09, 0, 0, 0, 0.025, 0.05, 0, 0)
+mesh = SubResource("CylinderMesh_tlfsw")
+surface_material_override/0 = SubResource("StandardMaterial3D_tlfsw")
+
+[node name="Green" type="MeshInstance3D" parent="elbow_right/arm_frame"]
+transform = Transform3D(0.025, 0, 0, 0, 0.025, 0, 0, 0, 0.025, 0, 0.05, 0)
+mesh = SubResource("CylinderMesh_tlfsw")
+surface_material_override/0 = SubResource("StandardMaterial3D_h1fb7")
+
+[node name="Blue" type="MeshInstance3D" parent="elbow_right/arm_frame"]
+transform = Transform3D(0.025, 0, 0, 0, -1.0927848e-09, -0.025, 0, 0.025, -1.0927848e-09, 0, 0, 0.05)
+mesh = SubResource("CylinderMesh_tlfsw")
+surface_material_override/0 = SubResource("StandardMaterial3D_hgp5i")
+
+[node name="Origine" type="MeshInstance3D" parent="elbow_right/arm_frame"]
+transform = Transform3D(0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, 0, 0, 0)
+mesh = SubResource("SphereMesh_h1fb7")
+surface_material_override/0 = SubResource("StandardMaterial3D_nc1c4")
+
+[node name="Label" type="Label" parent="."]
+offset_left = 54.0
+offset_top = 75.0
+offset_right = 94.0
+offset_bottom = 98.0
+
+[node name="Label2" type="Label" parent="."]
+offset_left = 54.0
+offset_top = 100.0
+offset_right = 94.0
+offset_bottom = 123.0
+
+[node name="Label3" type="Label" parent="."]
+offset_left = 54.0
+offset_top = 125.0
+offset_right = 94.0
+offset_bottom = 148.0
+
+[node name="Control" type="Control" parent="."]
+custom_minimum_size = Vector2(20, 100)
+layout_mode = 3
+anchors_preset = 0
+offset_left = 800.0
+offset_top = 500.0
+offset_right = 820.0
+offset_bottom = 636.0
+script = ExtResource("5_hgp5i")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control"]
+layout_mode = 0
+offset_right = 20.0
+offset_bottom = 120.0
+
+[node name="max" type="Label" parent="Control/VBoxContainer"]
+layout_mode = 2
+text = "max"
+label_settings = SubResource("LabelSettings_h1fb7")
+horizontal_alignment = 1
+
+[node name="ColorRect" type="ColorRect" parent="Control/VBoxContainer"]
+custom_minimum_size = Vector2(20, 100)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/VBoxContainer/ColorRect"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -9.0
+offset_right = 58.0
+offset_bottom = 9.0
+grow_vertical = 0
+
+[node name="slider" type="ColorRect" parent="Control/VBoxContainer/ColorRect/HBoxContainer"]
+custom_minimum_size = Vector2(20, 5)
+layout_mode = 2
+size_flags_vertical = 4
+color = Color(0, 0.76, 0.39266664, 1)
+
+[node name="value" type="Label" parent="Control/VBoxContainer/ColorRect/HBoxContainer"]
+layout_mode = 2
+text = "value"
+label_settings = SubResource("LabelSettings_nc1c4")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="min" type="Label" parent="Control/VBoxContainer"]
+layout_mode = 2
+text = "min"
+label_settings = SubResource("LabelSettings_hgp5i")
+horizontal_alignment = 1

@@ -57,6 +57,12 @@ var _defaults: Dictionary[String, Dictionary] = {
 	"coordinates.right_wheel_center": {"order":5.02, "label": "Right wheel center", "type": "array", "default": [-0.2, 0.3, -0.2], "reference": "simulator"},
 	"coordinates.left_hand": {"order":5.03, "label": "Left hand", "type": "array", "default": [0.0, 0.0, 0.0], "reference": "forearm_cluster_left"},
 	"coordinates.right_hand": {"order":5.04, "label": "Right hand", "type": "array", "default": [0.0, 0.0, 0.0], "reference": "forearm_cluster_right"},
+	
+	"coordinates.acromion_right": {"order":5.05, "label": "Acromion right", "type": "array", "default": [0.0, 0.0, 0.0]},
+	"coordinates.lateral_epicondyl_right": {"order":5.06, "label": "Lateral epycondyl right", "type": "array", "default": [0.0, 0.0, 0.0]},
+	"coordinates.medial_epicondyl_right": {"order":5.07, "label": "Medial epycondyl right", "type": "array", "default": [0.0, 0.0, 0.0]},
+	"coordinates.radial_styloid_right": {"order":5.08, "label": "Radial styloid right", "type": "array", "default": [0.0, 0.0, 0.0]},
+	"coordinates.ulnar_styloid_right": {"order":5.09, "label": "Ulnar styloid right", "type": "array", "default": [0.0, 0.0, 0.0]},
 
 }
 
