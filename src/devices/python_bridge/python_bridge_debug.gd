@@ -1,8 +1,11 @@
 extends Control
 
 # ---------------------------------------------------------------------- #
-# This scene is used to test bridge communication between Godot and Python
-# A list of availables functions from python can be tested, then can ve checked response received
+# This scene is used to test the bridge between Godot and Python.
+# In the main configuration, select python_bridge_test.py as the Python script.
+#
+# The Python script sends to Godot a list of possible functions that can be
+# executed by clicking on UI buttons.
 # ---------------------------------------------------------------------- #
 
 # UI elements

@@ -23,7 +23,7 @@ func _ready():
 		print("Cannot launch Python because Python app script is unset.")
 		return
 
-	OS.create_process(python_app_path, [python_script_path])
+	OS.create_process(python_app_path, [python_script_path], true)
 
 	# Set UDP receiver and UDP sender
 	_udp_receiver.bind(UDP_RECEIVE_PORT)

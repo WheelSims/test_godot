@@ -46,9 +46,6 @@ grow_vertical = 2
 script = ExtResource("1_rwxs8")
 
 [node name="python_bridge" parent="." unique_id=820797880 instance=ExtResource("2_pbcx4")]
-UDP_SEND_IP = "127.0.0.1"
-UDP_SEND_PORT = 4243
-UDP_RECEIVE_PORT = 4242
 
 [node name="main_panel" type="ColorRect" parent="." unique_id=1523492271]
 layout_mode = 1
