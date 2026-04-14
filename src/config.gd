@@ -59,10 +59,10 @@ var _defaults: Dictionary[String, Dictionary] = {
 	"coordinates.right_hand": {"order":5.04, "label": "Right hand", "type": "array", "default": [0.0, 0.0, 0.0], "reference": "forearm_cluster_right"},
 	
 	"coordinates.acromion_right": {"order":5.05, "label": "Acromion right", "type": "array", "default": [0.0, 0.0, 0.0]},
-	"coordinates.lateral_epicondyl_right": {"order":5.06, "label": "Lateral epycondyl right", "type": "array", "default": [0.0, 0.0, 0.0]},
-	"coordinates.medial_epicondyl_right": {"order":5.07, "label": "Medial epycondyl right", "type": "array", "default": [0.0, 0.0, 0.0]},
-	"coordinates.radial_styloid_right": {"order":5.08, "label": "Radial styloid right", "type": "array", "default": [0.0, 0.0, 0.0]},
-	"coordinates.ulnar_styloid_right": {"order":5.09, "label": "Ulnar styloid right", "type": "array", "default": [0.0, 0.0, 0.0]},
+	"coordinates.lateral_epicondyl_right": {"order":5.06, "label": "Lateral epicondyl right", "type": "array", "default": [1.0, 0.0, 0.0]},
+	"coordinates.medial_epicondyl_right": {"order":5.07, "label": "Medial epicondyl right", "type": "array", "default": [0.0, 1.0, 0.0]},
+	"coordinates.radial_styloid_right": {"order":5.08, "label": "Radial styloid right", "type": "array", "default": [0.0, 0.0, 1.0]},
+	"coordinates.ulnar_styloid_right": {"order":5.09, "label": "Ulnar styloid right", "type": "array", "default": [1.0, 1.0, 0.0]},
 
 }
 

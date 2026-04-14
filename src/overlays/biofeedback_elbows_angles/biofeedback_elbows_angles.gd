@@ -12,10 +12,11 @@ func _ready() -> void:
 		var instance = preload("res://devices/optitrack/optitrack.tscn").instantiate()
 		add_child(instance)
 
-func _process(_delta):
+#func _process(_delta):
 	
-	if not Config.get_value("overlays.biofeedback_optitrack.enabled"):
-		queue_free()
+	#if main:
+		#if not Config.get_value("overlays.biofeedback_optitrack.enabled"):
+			#queue_free()
 
 
 # Create window gui for aiming at wheel centers and hands

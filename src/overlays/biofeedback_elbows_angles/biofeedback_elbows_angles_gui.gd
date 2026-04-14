@@ -130,7 +130,7 @@ func _on_button_pressed():
 	# Set reference frame ID based on the selected coordinate
 	if coordinates == "coordinates.acromion_right" \
 	or coordinates == "coordinates.lateral_epicondyl_right" \
-	or coordinates == "coordinates.medial_epycondyl_right":
+	or coordinates == "coordinates.medial_epicondyl_right":
 		ID_frame_reference = 302
 	elif coordinates == "coordinates.radial_styloid_right" or coordinates == "coordinates.ulnar_styloid_right":
 		ID_frame_reference = 202

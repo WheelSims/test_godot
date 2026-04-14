@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://c442nb7r107uw"]
+[gd_scene format=3 uid="uid://c442nb7r107uw"]
 
 [ext_resource type="Script" uid="uid://bg5ykdvu26wrn" path="res://overlays/biofeedback_elbows_angles/biofeedback_elbows_angles_gui.gd" id="1_n8c5h"]
 
@@ -35,7 +35,7 @@ corner_radius_bottom_left = 10
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_t73oe"]
 
-[node name="Control" type="Control"]
+[node name="Control" type="Control" unique_id=1543581945]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -44,7 +44,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_n8c5h")
 
-[node name="main_panel" type="ColorRect" parent="."]
+[node name="main_panel" type="ColorRect" parent="." unique_id=1189617252]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -57,7 +57,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.592157, 0.592157, 0.592157, 1)
 
-[node name="margin_container" type="MarginContainer" parent="main_panel"]
+[node name="margin_container" type="MarginContainer" parent="main_panel" unique_id=1927659110]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -70,35 +70,35 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="main_vbox_container" type="VBoxContainer" parent="main_panel/margin_container"]
+[node name="main_vbox_container" type="VBoxContainer" parent="main_panel/margin_container" unique_id=1841269988]
 layout_mode = 2
 
-[node name="aimings_panel" type="VBoxContainer" parent="main_panel/margin_container/main_vbox_container"]
+[node name="aimings_panel" type="VBoxContainer" parent="main_panel/margin_container/main_vbox_container" unique_id=697702400]
 layout_mode = 2
 
-[node name="aimings_title" type="Label" parent="main_panel/margin_container/main_vbox_container/aimings_panel"]
+[node name="aimings_title" type="Label" parent="main_panel/margin_container/main_vbox_container/aimings_panel" unique_id=227524555]
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_rspjr")
 text = "Settings"
 horizontal_alignment = 1
 
-[node name="ScrollContainer" type="ScrollContainer" parent="main_panel/margin_container/main_vbox_container/aimings_panel"]
+[node name="ScrollContainer" type="ScrollContainer" parent="main_panel/margin_container/main_vbox_container/aimings_panel" unique_id=36060091]
 custom_minimum_size = Vector2(250, 600)
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_2evn0")
 
-[node name="aimings_list" type="VBoxContainer" parent="main_panel/margin_container/main_vbox_container/aimings_panel/ScrollContainer"]
+[node name="aimings_list" type="VBoxContainer" parent="main_panel/margin_container/main_vbox_container/aimings_panel/ScrollContainer" unique_id=1210132875]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="ColorRect" type="ColorRect" parent="main_panel/margin_container/main_vbox_container"]
+[node name="ColorRect" type="ColorRect" parent="main_panel/margin_container/main_vbox_container" unique_id=1167233947]
 custom_minimum_size = Vector2(0, 5)
 layout_mode = 2
 color = Color(0, 0, 0, 1)
 
-[node name="aiming_button" type="Button" parent="main_panel/margin_container/main_vbox_container"]
+[node name="aiming_button" type="Button" parent="main_panel/margin_container/main_vbox_container" unique_id=1551293450]
 layout_mode = 2
 size_flags_vertical = 10
 theme_override_font_sizes/font_size = 40
