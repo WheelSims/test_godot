@@ -1,0 +1,147 @@
+[gd_scene load_steps=8 format=3 uid="uid://c5tbnk1yth8r8"]
+
+[ext_resource type="Script" uid="uid://dshp4p67kpaqf" path="res://overlays/biofeedback_push_frequency.gd" id="1_1j4x4"]
+[ext_resource type="Script" uid="uid://bydepwb6ugn6l" path="res://overlays/biofeedback_push_frequency/control.gd" id="1_lgowx"]
+
+[sub_resource type="Theme" id="Theme_lgowx"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1j4x4"]
+bg_color = Color(0, 0, 0, 0.392157)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(1, 1, 1, 0.392157)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="LabelSettings" id="LabelSettings_pa624"]
+font_size = 10
+
+[sub_resource type="LabelSettings" id="LabelSettings_1j4x4"]
+font_size = 10
+
+[sub_resource type="LabelSettings" id="LabelSettings_7yiij"]
+font_size = 10
+
+[node name="BiofeedbackPushFrequency" type="Node2D"]
+script = ExtResource("1_1j4x4")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+offset_left = 950.0
+offset_top = 520.0
+offset_right = 1050.0
+offset_bottom = 699.99915
+theme = SubResource("Theme_lgowx")
+theme_override_styles/panel = SubResource("StyleBoxFlat_1j4x4")
+
+[node name="Control" type="Control" parent="PanelContainer"]
+custom_minimum_size = Vector2(25, 100)
+layout_mode = 2
+script = ExtResource("1_lgowx")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/Control"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -68.0
+offset_bottom = 68.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Title" type="Label" parent="PanelContainer/Control/VBoxContainer"]
+layout_mode = 2
+text = "PUSH
+FREQUENCY"
+label_settings = SubResource("LabelSettings_pa624")
+horizontal_alignment = 1
+
+[node name="max" type="Label" parent="PanelContainer/Control/VBoxContainer"]
+layout_mode = 2
+text = "max"
+label_settings = SubResource("LabelSettings_1j4x4")
+horizontal_alignment = 1
+
+[node name="ColorRect" type="ColorRect" parent="PanelContainer/Control/VBoxContainer"]
+custom_minimum_size = Vector2(20, 100)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="ControlTarget" type="Control" parent="PanelContainer/Control/VBoxContainer/ColorRect"]
+custom_minimum_size = Vector2(20, 10)
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -10.0
+grow_vertical = 0
+
+[node name="ColorRect" type="ColorRect" parent="PanelContainer/Control/VBoxContainer/ColorRect/ControlTarget"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -10.0
+offset_right = 20.0
+grow_vertical = 0
+scale = Vector2(1, -1)
+color = Color(0, 0.7607843, 0.39215687, 1)
+
+[node name="min" type="Label" parent="PanelContainer/Control/VBoxContainer/ColorRect/ControlTarget/ColorRect"]
+layout_mode = 1
+offset_left = -25.0
+offset_right = -6.0
+offset_bottom = 14.0
+scale = Vector2(1, -1)
+pivot_offset = Vector2(0, 4)
+text = "min"
+label_settings = SubResource("LabelSettings_pa624")
+horizontal_alignment = 2
+autowrap_mode = 2
+
+[node name="max" type="Label" parent="PanelContainer/Control/VBoxContainer/ColorRect/ControlTarget/ColorRect"]
+layout_mode = 0
+offset_left = -25.0
+offset_right = -6.0
+offset_bottom = 14.0
+scale = Vector2(1, -1)
+pivot_offset = Vector2(0, 4)
+text = "max"
+label_settings = SubResource("LabelSettings_pa624")
+horizontal_alignment = 2
+autowrap_mode = 2
+
+[node name="ControlSlider" type="Control" parent="PanelContainer/Control/VBoxContainer/ColorRect"]
+anchors_preset = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/Control/VBoxContainer/ColorRect/ControlSlider"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -7.0
+offset_right = 56.0
+offset_bottom = 7.0
+grow_vertical = 2
+
+[node name="slider" type="ColorRect" parent="PanelContainer/Control/VBoxContainer/ColorRect/ControlSlider/HBoxContainer"]
+custom_minimum_size = Vector2(20, 6)
+layout_mode = 2
+size_flags_vertical = 4
+color = Color(0.76, 0, 0, 1)
+
+[node name="value" type="Label" parent="PanelContainer/Control/VBoxContainer/ColorRect/ControlSlider/HBoxContainer"]
+layout_mode = 2
+text = "value"
+label_settings = SubResource("LabelSettings_7yiij")
+vertical_alignment = 1
+
+[node name="min" type="Label" parent="PanelContainer/Control/VBoxContainer"]
+layout_mode = 2
+text = "min"
+label_settings = SubResource("LabelSettings_pa624")
+horizontal_alignment = 1

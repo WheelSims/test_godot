@@ -30,6 +30,7 @@ var _defaults: Dictionary[String, Dictionary] = {
 	"overlays.biofeedback_optitrack.enabled": {"order": 3.03, "label": "Biofeedback Optitrack", "type": "bool", "default": false},
 	"overlays.contact_start_angle": {"order": 3.04, "label": "Contact start angle", "unit": "deg", "type": "float", "default": -55.0, "min": -65.0, "max": 20.0},
 	"overlays.contact_end_angle": {"order": 3.05, "label": "Contact end angle", "unit": "deg", "type": "float", "default": 55.0, "min": 20.0, "max": 140.0},
+	"overlays.biofeedback_push_frequency.enabled": {"order": 3.06, "label": "Biofeedback push frequency", "type": "bool", "default": false},
 
 
 	"devices": {"order": 4, "label": "DEVICE SETTINGS"},
