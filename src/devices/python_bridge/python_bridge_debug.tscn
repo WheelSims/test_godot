@@ -1,0 +1,112 @@
+[gd_scene format=3 uid="uid://by4moh82fka4a"]
+
+[ext_resource type="Script" uid="uid://bn4ag3kp8snae" path="res://devices/python_bridge/python_bridge_debug.gd" id="1_rwxs8"]
+[ext_resource type="PackedScene" uid="uid://x4hefxmnqe41" path="res://devices/python_bridge/python_bridge.tscn" id="2_pbcx4"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_00v1h"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_71vx8"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0.146641, 0.146641, 0.146641, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sc3a5"]
+bg_color = Color(0, 0.3895, 0.57, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e34xm"]
+bg_color = Color(0, 0.388235, 0.584314, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a3rf8"]
+bg_color = Color(0, 0.329412, 0.478431, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_nxaun"]
+
+[node name="python_bridge_debug" type="Control" unique_id=571678131]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_rwxs8")
+
+[node name="python_bridge" parent="." unique_id=820797880 instance=ExtResource("2_pbcx4")]
+
+[node name="main_panel" type="ColorRect" parent="." unique_id=1523492271]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = 13.0
+offset_right = -28.0
+offset_bottom = -21.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.592157, 0.592157, 0.592157, 1)
+
+[node name="margin_container" type="MarginContainer" parent="main_panel" unique_id=2120339223]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="main_vbox_container" type="VBoxContainer" parent="main_panel/margin_container" unique_id=1917773736]
+layout_mode = 2
+
+[node name="requests_panel" type="VBoxContainer" parent="main_panel/margin_container/main_vbox_container" unique_id=966064810]
+layout_mode = 2
+
+[node name="requests_title" type="Label" parent="main_panel/margin_container/main_vbox_container/requests_panel" unique_id=1186878171]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_00v1h")
+text = "Functions"
+horizontal_alignment = 1
+
+[node name="scroll_container" type="ScrollContainer" parent="main_panel/margin_container/main_vbox_container/requests_panel" unique_id=407813670]
+custom_minimum_size = Vector2(250, 500)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_71vx8")
+
+[node name="requests_list" type="VBoxContainer" parent="main_panel/margin_container/main_vbox_container/requests_panel/scroll_container" unique_id=1464491902]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="color_rect" type="ColorRect" parent="main_panel/margin_container/main_vbox_container" unique_id=1674222702]
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 2
+color = Color(0, 0, 0, 1)
+
+[node name="send_button" type="Button" parent="main_panel/margin_container/main_vbox_container" unique_id=2035050764]
+layout_mode = 2
+size_flags_vertical = 10
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxFlat_sc3a5")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_e34xm")
+theme_override_styles/hover = SubResource("StyleBoxFlat_a3rf8")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_nxaun")
+text = "SEND REQUEST"

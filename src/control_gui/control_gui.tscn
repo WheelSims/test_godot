@@ -67,7 +67,6 @@ offset_right = -28.0
 offset_bottom = -21.0
 grow_horizontal = 2
 grow_vertical = 2
-focus_behavior_recursive = 1
 color = Color(0.592157, 0.592157, 0.592157, 1)
 
 [node name="margin_container" type="MarginContainer" parent="main_panel" unique_id=742625312]

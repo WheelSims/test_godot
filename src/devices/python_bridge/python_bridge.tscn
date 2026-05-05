@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://x4hefxmnqe41"]
+
+[ext_resource type="Script" uid="uid://dmu4r4xv5sj52" path="res://devices/python_bridge/python_bridge.gd" id="1_pq4o4"]
+
+[node name="python_bridge" type="Node3D" unique_id=1836553089]
+script = ExtResource("1_pq4o4")
