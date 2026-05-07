@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://b08elkg0pprvn"]
+
+[ext_resource type="PackedScene" uid="uid://cuq1nxd5y66fb" path="res://objects/optitrack/simulator/fbx/simulator.fbx" id="1_ot1if"]
+
+[node name="simulator" type="Node3D" unique_id=1935066638]
+
+[node name="simulator" parent="." unique_id=1676449537 instance=ExtResource("1_ot1if")]

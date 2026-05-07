@@ -1,3 +1,5 @@
+## This script creates two windows, sets them (or not) to fullscreen according to its Config value,
+## and assigns the top and bottom part of the main scene's viewport to them.
 extends Node
 @onready var main: Node = get_tree().get_root().get_node("main")
 

@@ -1,8 +1,13 @@
 [gd_scene format=3 uid="uid://desjimkbuet6n"]
 
 [ext_resource type="PackedScene" uid="uid://utxy2vmv4wo7" path="res://devices/optitrack/optitrack.tscn" id="1_debns"]
-[ext_resource type="Script" uid="uid://c6c2ujky4siul" path="res://devices/optitrack/optitrack_debug.gd" id="1_rkjy5"]
+[ext_resource type="Script" uid="uid://c6c2ujky4siul" path="res://devices/optitrack/debug/optitrack_debug.gd" id="1_rkjy5"]
 [ext_resource type="PackedScene" uid="uid://c6pgld2dtp3ln" path="res://objects/optitrack/calibration_square_200/calibration_square_200.tscn" id="1_v8m0l"]
+[ext_resource type="PackedScene" uid="uid://b08elkg0pprvn" path="res://objects/optitrack/simulator/simulator.tscn" id="2_0xpfp"]
+[ext_resource type="PackedScene" uid="uid://cbgre2g0x3ble" path="res://objects/optitrack/front_stage/front_stage.tscn" id="3_8djib"]
+[ext_resource type="PackedScene" uid="uid://c4oqvm6koxbf2" path="res://objects/optitrack/probe/probe.tscn" id="4_40647"]
+[ext_resource type="PackedScene" uid="uid://c1ynlvcc8h1vj" path="res://objects/optitrack/forearm_cluster_left/forearm_cluster_left.tscn" id="5_hwk7p"]
+[ext_resource type="PackedScene" uid="uid://bi4w50l5uqado" path="res://objects/optitrack/forearm_cluster_right/forearm_cluster_right.tscn" id="6_jwxtb"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_debns"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -25,6 +30,13 @@ albedo_color = Color(0.066632524, 0.14739972, 0.23030156, 1)
 
 [node name="OptitrackDebug" type="Node3D" unique_id=1839747880]
 script = ExtResource("1_rkjy5")
+available_models = Dictionary[String, PackedScene]({
+"\"101\"": ExtResource("3_8djib"),
+"\"102\"": ExtResource("2_0xpfp"),
+"\"201\"": ExtResource("5_hwk7p"),
+"\"202\"": ExtResource("6_jwxtb"),
+"\"999\"": ExtResource("4_40647")
+})
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1096232434]
 transform = Transform3D(-0.8396198, 0.12680158, -0.5281666, 0, 0.9723699, 0.23344538, 0.5431745, 0.19600536, -0.8164211, -1.9375651, 1.0255446, -2.7691398)

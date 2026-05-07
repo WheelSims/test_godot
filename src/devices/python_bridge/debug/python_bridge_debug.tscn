@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://by4moh82fka4a"]
 
-[ext_resource type="Script" uid="uid://bn4ag3kp8snae" path="res://devices/python_bridge/python_bridge_debug.gd" id="1_rwxs8"]
+[ext_resource type="Script" uid="uid://bn4ag3kp8snae" path="res://devices/python_bridge/debug/python_bridge_debug.gd" id="1_rwxs8"]
 [ext_resource type="PackedScene" uid="uid://x4hefxmnqe41" path="res://devices/python_bridge/python_bridge.tscn" id="2_pbcx4"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_00v1h"]

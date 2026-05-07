@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://bhew5h01biu8m"
-path="res://.godot/imported/estrade.fbx-d2760af929881d69247c6a27f0880987.scn"
+uid="uid://cuq1nxd5y66fb"
+path="res://.godot/imported/simulator.fbx-3a7e9af9741251ab49bb68a63217426f.scn"
 
 [deps]
 
-source_file="res://objects/optitrack/estrade/fbx/estrade.fbx"
-dest_files=["res://.godot/imported/estrade.fbx-d2760af929881d69247c6a27f0880987.scn"]
+source_file="res://objects/optitrack/simulator/fbx/simulator.fbx"
+dest_files=["res://.godot/imported/simulator.fbx-3a7e9af9741251ab49bb68a63217426f.scn"]
 
 [params]
 

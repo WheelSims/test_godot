@@ -63,7 +63,6 @@ func _ready():
 				)
 				container.add_child(control)
 				container.add_child(value_text)
-				add_child(container)
 
 				# Unit
 				var unit = Label.new()
@@ -101,7 +100,6 @@ func _ready():
 			# Switch
 			var control = CheckButton.new()
 			control.button_pressed = Config.get_value(key)
-			container.add_child(control)
 			control.toggled.connect(
 				func(value):
 					Config.set_value(key, value)

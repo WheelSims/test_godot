@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://cyuwwq10bjy27"
-path="res://.godot/imported/forearm_cluster_right.fbx-c2edeff2fad52f340d8b371770cb8f08.scn"
+path="res://.godot/imported/forearm_cluster_right.fbx-50cac7c5c2d1061f04e21ac86a1e7a87.scn"
 
 [deps]
 
-source_file="res://objects/optitrack/forearm cluster right/fbx/forearm_cluster_right.fbx"
-dest_files=["res://.godot/imported/forearm_cluster_right.fbx-c2edeff2fad52f340d8b371770cb8f08.scn"]
+source_file="res://objects/optitrack/forearm_cluster_right/fbx/forearm_cluster_right.fbx"
+dest_files=["res://.godot/imported/forearm_cluster_right.fbx-50cac7c5c2d1061f04e21ac86a1e7a87.scn"]
 
 [params]
 

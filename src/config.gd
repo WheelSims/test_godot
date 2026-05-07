@@ -1,7 +1,10 @@
 ## This script manages the simulator configuration and saves values that are different from defaults
-## on the local filesystem. Configuration values are accessed using get_value or set_value, and are
-## stored using a string identifier (e.g. "d_box.enabled"). Local saving is done automatically on
+## on the local filesystem. Configuration values are accessed using get_value or set_value using a
+## string identifier (e.g. "devices.d_box.enabled"). Local saving is done automatically on
 ## set_value.
+##
+## The configuration panel of the GUI is generated automatically based on the _defaults dictionary,
+## and user modifications to the configuration panel calls its corresponding set_value.
 extends Node
 
 # -------------------------------------------------------------------
