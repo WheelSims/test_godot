@@ -1,7 +1,7 @@
 ## This script manages the communication between the SpeedGoat system used by the high-realism
 ## manual wheelchair simulator at the IURDPM.
 ##
-## The communication protocol is described here: https://github.com/WheelSims/haptics
+## The communication protocol is described here: https://github.com/LabMOSA/wheelsims_haptics
 extends Node3D
 
 @export var UDP_SEND_IP: String = "192.168.0.200"

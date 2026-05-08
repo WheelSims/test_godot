@@ -3,8 +3,8 @@
 ## dbox_driver_app application instantiates a USB connection with the D-Box system, and starts
 ## listening for UDP packets sent by Godot.
 ##
-## The UDP protocol from Godot to the driver app is given here:
-## https://github.com/WheelSims/dbox_driver_app
+## The UDP protocol from Godot to the driver app is given here, along with the driver source:
+## https://github.com/LabMOSA/wheelsims_dbox_driver_app
 ##
 ## The script launches the driver app and the D-Box initiatialization when it is first enabled, and
 ## only if the driver app is not already running. By doing this, we don't have to wait for the whole

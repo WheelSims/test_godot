@@ -7,7 +7,7 @@
 ## Godot's simulation.
 ##
 ## Normally, the Python script is versioned on this repository:
-## https://github.com/WheelSims/analysis
+## https://github.com/LabMOSA/wheelsims_analysis
 extends Node3D
 
 @onready var main: Node = get_tree().get_root().get_node("main")

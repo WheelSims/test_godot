@@ -3,6 +3,10 @@
 ## string identifier (e.g. "devices.d_box.enabled"). Local saving is done automatically on
 ## set_value.
 ##
+## This script is autoloaded so that we can access the configuration options from any script, e.g.:
+## - Config.get_value(config_id)
+## - Config.value_changed(requester_id, config_id)
+##
 ## The configuration panel of the GUI is generated automatically based on the _defaults dictionary,
 ## and user modifications to the configuration panel calls its corresponding set_value.
 extends Node
