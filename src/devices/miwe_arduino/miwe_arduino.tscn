@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://bbopappiusb2k"]
+
+[ext_resource type="Script" uid="uid://0ov12yjcv54b" path="res://devices/miwe_arduino/miwe_arduino_gdserial.gd" id="1_055ck"]
+
+[node name="MiweArduino" type="Node3D" unique_id=777501389]
+script = ExtResource("1_055ck")

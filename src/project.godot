@@ -40,7 +40,7 @@ window/dpi/allow_hidpi=false
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/gdquest_gdscript_formatter/plugin.cfg")
+enabled=PackedStringArray("res://addons/gdquest_gdscript_formatter/plugin.cfg", "res://addons/gdserial/plugin.cfg")
 
 [global_group]
 

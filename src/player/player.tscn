@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://biluq7vv8ghsm"]
 
 [ext_resource type="Script" uid="uid://bo3s2kc1arfun" path="res://player/player.gd" id="1_l8h54"]
+[ext_resource type="PackedScene" uid="uid://bbopappiusb2k" path="res://devices/miwe_arduino/miwe_arduino.tscn" id="3_g1dw6"]
 [ext_resource type="Material" uid="uid://c8m804jjd75fg" path="res://objects/street/materials/traffic_lights/bulb_lights/traffic_light_bulb_red.tres" id="4_gwnis"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_r3fl7"]
@@ -101,6 +102,8 @@ depth = 0.15
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.174924, -0.702537, -0.56182)
 material_override = ExtResource("4_gwnis")
 depth = 0.15
+
+[node name="MiweArduino" parent="." unique_id=777501389 instance=ExtResource("3_g1dw6")]
 
 [connection signal="body_shape_entered" from="." to="." method="_on_player_on_simulator_body_shape_entered"]
 [connection signal="body_shape_entered" from="obstacle_colliders" to="." method="_on_obstacle_colliders_body_shape_entered"]
