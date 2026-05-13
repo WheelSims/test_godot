@@ -24,15 +24,7 @@ var value = 0.0
 @export var node_target_zone: Node
 @export var node_green_zone: Node
 
-func _ready():
-	var timer = Timer.new()
-	timer.wait_time = 0.5
-	timer.one_shot = false
-	timer.autostart = true
-	add_child(timer)
-	timer.timeout.connect(_update_loop)
-
-func _update_loop():
+func _process(_delta) -> void:
 	
 	if main.get_node("python_bridge"):
 		var data = main.get_node("python_bridge").receive_data()
@@ -59,8 +51,6 @@ func _update_loop():
 		# Should we quit
 		if not Config.get_value("overlays.biofeedback_push_frequency.enabled"):
 			queue_free()
-			
-		request_biofeedback()
 
 
 func request_biofeedback():

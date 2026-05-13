@@ -79,7 +79,7 @@ func _input(event):
 				"coordinates_right_hand": Config.get_value("coordinates.right_hand"),
 				"wheel_diameter": Config.get_value("player.pushrim_diameter"),
 						}
-			send_request({"command": "plot_biofeedback_godot", "arg": arg})
+			send_request({"command": "biofeedback_godot", "arg": arg})
 
 ## Close the python app when the node exits the scene tree
 func _exit_tree():
