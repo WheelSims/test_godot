@@ -51,8 +51,8 @@ func _process(_delta):
 			self.multimesh.set_instance_transform(i, t)
 	
 	var fin = Time.get_ticks_usec()
-	var temp_execution = (fin - debut)/1_000_000.0
-	print("Temps d'exécution trail_hand : %.6f secondes" % temp_execution)
+	var temp_execution = (fin - debut)/1_000.0
+	print("Temps d'exécution trail_hand : %.6f ms" % temp_execution)
 
 # Set trail offset, rendering layer, and hand references based on the selected side (left or right)
 func _apply_side(): 

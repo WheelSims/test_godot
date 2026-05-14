@@ -79,8 +79,8 @@ func _process(_delta):
 	if not Config.get_value("devices.optitrack.enabled"):
 		queue_free()
 	var fin = Time.get_ticks_usec()
-	var temp_execution = (fin - debut)/1_000_000.0
-	print("Temps d'exécution optitrack.gd : %.6f secondes" % temp_execution)
+	var temp_execution = (fin - debut)/1_000.0
+	print("Temps d'exécution optitrack.gd : %.6f ms" % temp_execution)
 
 ## Parse UDP packet.
 func get_message_id(_data):
