@@ -34,11 +34,14 @@ func _ready() -> void:
 		add_child(instance)
 
 func _process(_delta):
+	var debut = Time.get_ticks_usec()
 	update_wheelchair()
 	
 	if not Config.get_value("overlays.biofeedback_optitrack.enabled"):
 		queue_free()
-
+	var fin = Time.get_ticks_usec()
+	var temp_execution = (fin - debut)/1_000_000.0
+	print("Temps d'exécution biofeedback_optitrack.gd : %.6f secondes" % temp_execution)
 
 # Update wheelchair model based on configuration and tracking data
 func update_wheelchair():

@@ -23,7 +23,8 @@ func _ready() -> void:
 	init_multimesh()
 
 func _process(_delta): 
-		
+	
+	var debut = Time.get_ticks_usec()
 	# Compute hand position for trail: hand coordinates in cluster space transformed to world space with offset
 	var _pos_hand = Vector3.ZERO 
 	if Config.get_value("devices.optitrack.enabled"): 
@@ -48,6 +49,10 @@ func _process(_delta):
 			t.basis = Basis().scaled(Vector3.ONE * trail_size * list_alpha[i])
 			
 			self.multimesh.set_instance_transform(i, t)
+	
+	var fin = Time.get_ticks_usec()
+	var temp_execution = (fin - debut)/1_000_000.0
+	print("Temps d'exécution trail_hand : %.6f secondes" % temp_execution)
 
 # Set trail offset, rendering layer, and hand references based on the selected side (left or right)
 func _apply_side(): 

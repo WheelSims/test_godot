@@ -22,6 +22,7 @@ func _ready():
 
 
 func _process(_delta):
+	var debut = Time.get_ticks_usec()
 	if _udp_receiver.get_available_packet_count() > 0: # We received something
 		if not _udp_receiver_connected:
 			_udp_receiver_connected = true
@@ -77,7 +78,9 @@ func _process(_delta):
 
 	if not Config.get_value("devices.optitrack.enabled"):
 		queue_free()
-
+	var fin = Time.get_ticks_usec()
+	var temp_execution = (fin - debut)/1_000_000.0
+	print("Temps d'exécution optitrack.gd : %.6f secondes" % temp_execution)
 
 ## Parse UDP packet.
 func get_message_id(_data):

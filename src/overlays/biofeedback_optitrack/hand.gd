@@ -16,6 +16,8 @@ func _ready() -> void:
 	_apply_side()
 
 func _process(_delta):
+	var debut = Time.get_ticks_usec()
+
 
 	if Config.get_value("devices.optitrack.enabled"):
 		
@@ -45,7 +47,9 @@ func _process(_delta):
 			# Adjust position relative to the wheel center
 			self.position -= _pos_center_wheel 
 			self.position += $"..".get(position_wheel_key)
-
+	var fin = Time.get_ticks_usec()
+	var temp_execution = (fin - debut)/1_000_000.0
+	print("Temps d'exécution hand : %.6f secondes" % temp_execution)
 
 # Set IDs, references, and coordinate variables based on the selected side (left or right)
 func _apply_side():
