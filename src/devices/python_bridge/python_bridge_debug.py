@@ -9,6 +9,7 @@ import os
 from datetime import date
 import csv
 import glob
+import math
 
 # setting up the data logging folder and participant name
 data_folder = r'D:\Maria_school\Documents\S2026\data'
@@ -44,8 +45,8 @@ sock.bind((UDP_IP, PYTHON_PORT))
 # for a while True loop (keep collecting data)
 running = True
 
-# list to save trajectory data received
-trajectory = []
+# list to save trajectory data received: position, then rotation
+trajectory = [[],[]]
 
 # basics functions
 def function_1(arg = "argument"):
@@ -59,12 +60,22 @@ def function_3():
 
 def get_trajectory(arg):
     global trajectory
-    trajectory.append(list(arg.values()))
+    traj_received = list(arg.values())
+    for i in range(len(traj_received)):
+        if(traj_received[i] is None):
+            trajectory[i].append([math.nan, math.nan, math.nan])
+        else:
+            trajectory[i].append([x for x in traj_received[i].strip('()').split(',')])
     
 def save_trajectory(trajectory):
-    with open(os.path.join(folder, 'S'+session+'_'+str(date.today())+'.csv'), 'w', newline='') as file:
-            writer = csv.writer(file) 
-            writer.writerows(trajectory) 
+    traj_type=['_position', '_rotation']
+    #traj_all = [x + y for x, y in zip(trajectory[0], trajectory[1])]
+    for i in range(len(traj_type)):
+        filename = 'S'+session+'_'+str(date.today())+traj_type[i]+'.csv'
+        print(filename)
+        with open(os.path.join(folder, filename), 'w', newline='') as file:
+                writer = csv.writer(file) 
+                writer.writerows(trajectory[i]) 
     #print("done saving")
 
 # Close this Python app
@@ -95,7 +106,7 @@ def call_command(_json):
         if(_command!="trajectory"):
             print("request received : ", _command)
     except:
-        print("la fonction n'existe pas")
+        print(_command + " does not exist")
 
 # Bridge functions UDP : Python to Godot
 def _send_data(data):    
@@ -112,11 +123,13 @@ try:
     # Sending ping request, availables functions to Godot for debug scene
     print("Python connected to Godot...\n")
     time.sleep(0.1)
+    print('sending commands')
     _send_data(list(command.keys()))
     
     # Listening Godot requests
     while running:
         try:
+            print('trying to receive a message')
             # buffer size = 1024 bytes
             message, address = sock.recvfrom(1024)
             # decode is used to ensure string compatibility
@@ -131,7 +144,11 @@ try:
 except KeyboardInterrupt:
     pass
 finally:
-    print(trajectory)
+    print("\nsaving...")
     if len(trajectory)>0:
+        print('going into save')
         save_trajectory(trajectory)
+        print('going out of save')
+    time.sleep(5)
+
     sock.close()

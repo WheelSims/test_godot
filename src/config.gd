@@ -52,7 +52,7 @@ var _defaults: Dictionary[String, Dictionary] = {
 	"devices.python_bridge.enabled": { "order": 4.8, "label": "Python Bridge", "type": "bool", "default": false },
 	"devices.python_bridge.python_path": { "order": 4.81, "label": "Python app path", "type": "file", "default": "" },
 	"devices.python_bridge.script_path": { "order": 4.82, "label": "Python script path", "type": "file", "default": "" },
-	#"devices.data_logging.enabled": { "order": 4.8, "label": "Python Bridge", "type": "bool", "default": false },
+	"devices.data_logging.enabled": { "order": 4.8, "label": "Data Logging", "type": "bool", "default": true },
 	"coordinates.left_wheel_center": { "order": 5.01, "label": "Left wheel center", "type": "array", "default": [-0.2, 0.3, -0.75], "reference": "simulator" },
 	"coordinates.right_wheel_center": { "order": 5.02, "label": "Right wheel center", "type": "array", "default": [-0.2, 0.3, -0.2], "reference": "simulator" },
 	"coordinates.left_hand": { "order": 5.03, "label": "Left hand", "type": "array", "default": [0.0, 0.0, 0.0], "reference": "forearm_cluster_left" },
