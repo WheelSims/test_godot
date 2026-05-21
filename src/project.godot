@@ -27,6 +27,7 @@ buses/default_bus_layout=""
 
 Globals="*uid://cgra5b7yshr56"
 Config="*uid://db602oks11677"
+SignalBus="*uid://cw563spwpn73o"
 
 [display]
 

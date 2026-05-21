@@ -1,11 +1,12 @@
-## This script manages the player, including collisions with the terrain (due to gravity) and with
-## the objects. Independently of the simulator hardware, the player can always be moved using the
-## keyboard arrows.
+## This script manages the player, including collisions with the terrain (due to
+## gravity) and with the objects. Independently of the simulator hardware, the 
+## player can always be moved using the keyboard arrows.
 ##
-## The player is instanciated not in the main program, but instead in each `playable_scene`, so
-## that the playable scenes really are standalone and do not require an actual simulator to be
-## developed, tested and played. This means that when we load a new scene, a new player is
-## instanciated, and this player is destroyed when the scene is quit. This can be cumbersome in
+## The player is instanciated not in the main program, but instead in each 
+## `playable_scene`, so that the playable scenes really are standalone and do 
+## not require an actual simulator to be developed, tested and played. This
+## means that when we load a new scene, a new player is instanciated, and this
+## player is destroyed when the scene is quit. This can be cumbersome in
 ## different situations where we need access to the player, for example:
 ##
 ## - A device (e.g., motorized rollers, joystick) needs to set the player velocity
@@ -77,7 +78,7 @@ func get_linear_speed():
 
 ## Return linear speed set by device + keyboard
 func get_angular_speed():
-	return _device_angular_velocity + _keyboard_linear_velocity
+	return _device_angular_velocity + _keyboard_angular_velocity
 
 
 ## Set linear speed from device
@@ -109,7 +110,10 @@ func _process(_delta):
 	# Only keep camera rotation around y (keep level)
 	$camera.rotation.x = _camera_rotation_x_offset - rotation.x
 	$camera.rotation.z = -rotation.z
-
+	
+	await get_tree().process_frame
+	# MH data logging
+	SignalBus.player_speed.emit(_keyboard_linear_velocity, _keyboard_angular_velocity)
 
 func _physics_process(delta: float) -> void:
 	var desired_linear_velocity := _device_linear_velocity

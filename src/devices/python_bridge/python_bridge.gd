@@ -12,19 +12,36 @@ extends Node3D
 
 @onready var main: Node = get_tree().get_root().get_node("main")
 
-@export var UDP_SEND_IP: String = "127.0.0.1" # Python IP
-@export var UDP_SEND_PORT: int = 4243 # Python port
-@export var UDP_RECEIVE_PORT: int = 4242 # Godot port
+# UDP IP address
+@export var UDP_SEND_IP: String = "127.0.0.1" 
+# Python port
+@export var UDP_SEND_PORT: int = 4243 
+# Godot port
+@export var UDP_RECEIVE_PORT: int = 4242 
+# UDP receiver
 var _udp_receiver = PacketPeerUDP.new()
+# UDP sender
 var _udp_sender = PacketPeerUDP.new()
 var _udp_receiver_connected = false
 
+# MH data logging
+var player_info_linear = NAN #-1
+var player_info_angular = NAN #-1
+var dbox_position = NAN #-1
+var dbox_rotation = NAN #-1
+var dbox_height = NAN #-1
 
+# MH data logging
+func _player_signal_received(data1, data2):
+	player_info_linear = data1
+	player_info_angular = data2
+
+# this runs only once, at start
 func _ready():
 	# Launch Python app
 	var python_app_path: String = Config.get_value("devices.python_bridge.python_path")
 	var python_script_path: String = Config.get_value("devices.python_bridge.script_path")
-
+	
 	if (python_app_path == ""):
 		print("Cannot launch Python because Python app path is unset.")
 		return
@@ -38,18 +55,38 @@ func _ready():
 	# Set UDP receiver and UDP sender
 	_udp_receiver.bind(UDP_RECEIVE_PORT)
 	_udp_sender.connect_to_host(UDP_SEND_IP, UDP_SEND_PORT)
-
+	
 	# Waiting ping request from Python
-	while _udp_receiver.get_available_packet_count() == 0:
-		await get_tree().create_timer(1.0).timeout
+	# manual call to check for new data
+	
+	# MH data logging
+	# MH ASK ALEX ABOUT THIS!! (can i remove if not sending any info?)
+	#while _udp_receiver.get_available_packet_count() == 0:
+	#	await get_tree().create_timer(1.0).timeout
 	_udp_receiver_connected = true
-
+	
+	# MH data logging: move this to data_logging.gd class
+	#print('connection ', SignalBus.player_speed.is_connected(_player_signal_received))
+	SignalBus.player_speed.connect(_player_signal_received)
+	#print('connection ', SignalBus.player_speed.is_connected(_player_signal_received))
 
 func _process(_delta):
 	if main:
 		if not Config.get_value("devices.python_bridge.enabled"):
 			queue_free()
+		else:
+			# MH data logging
+			var arg = {"angular": player_info_angular,
+						"linear": player_info_linear}
 
+			send_request({"command": "trajectory", "arg": arg})
+			#send_request({"vitesse": [player_info_angular, player_info_angular]})
+			
+			#send_request({ "angular": player_info_angular,
+			#				"linear": player_info_linear, 
+			#				"position": dbox_position,
+			#				"rotation": dbox_rotation,
+			#				"height": dbox_height})
 
 ## Receive JSON data from Python
 func receive_data():
@@ -67,6 +104,7 @@ func receive_data():
 
 ## Sending JSON data to Python
 func send_request(data):
+	# to_utf8_buffer to ensure string compatibility
 	_udp_sender.put_packet(JSON.stringify(data).to_utf8_buffer())
 
 
@@ -79,7 +117,6 @@ func get_debug_text() -> String:
 	text += "connected.\n"
 	return text
 
-
 ## Close the python app when the node exits the scene tree
 func _exit_tree():
-	send_request({ "command": "close" })
+	send_request({ "command": "close"})
