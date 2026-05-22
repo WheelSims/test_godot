@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://caxylvba3turf"]
+
+[ext_resource type="Script" uid="uid://dh4po1rbuvxsg" path="res://data_logging.gd" id="1_lr7tf"]
+
+[node name="data_logging" type="Node2D" unique_id=490210181]
+script = ExtResource("1_lr7tf")

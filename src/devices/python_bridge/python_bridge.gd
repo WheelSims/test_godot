@@ -87,4 +87,6 @@ func get_debug_text() -> String:
 
 ## Close the python app when the node exits the scene tree
 func _exit_tree():
-	send_request({ "command": "close"})
+	send_request({ "command": "close",
+					"run_mode": "once",
+					"args": {}})

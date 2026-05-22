@@ -54,7 +54,7 @@ var _defaults: Dictionary[String, Dictionary] = {
 	"devices.python_bridge.script_path": { "order": 4.82, "label": "Python script path", "type": "file", "default": "" },
 	"devices.data_logging": { "order": 4.9, "label": "Data Logging" },
 	"devices.data_logging.enabled": { "order": 4.91, "label": "Logging", "type": "bool", "default": true },
-	"devices.data_logging.folder": { "order": 4.92, "label": "Logging", "type": "folder", "default": "" },
+	"devices.data_logging.folder": { "order": 4.92, "label": "Folder", "type": "folder", "default": "D:/Maria_school/Documents/S2026/data" },
 	"devices.data_logging.participant_id": { "order": 4.93, "label": "Participant ID", "type": "string", "default": "test" },
 	"devices.data_logging.player_trajectory": { "order": 4.94, "label": "Player Trajectory", "type": "bool", "default": true },
 	"devices.data_logging.instrumented_wheels": { "order": 4.95, "label": "Instrumented Wheels", "type": "bool", "default": false },
@@ -86,6 +86,7 @@ func _ready():
 	load_config()
 	# always start a session with the default participant_id = "test"
 	set_value("devices.data_logging.participant_id", "test")
+	set_value("devices.data_logging.folder", "D:/Maria_school/Documents/S2026/data")
 	_save_config() # In case there was no configuration file yet
 
 # -------------------------------------------------------------------
