@@ -112,9 +112,9 @@ func _process(_delta):
 	$camera.rotation.z = -rotation.z
 	
 	await get_tree().process_frame
-	# MH data logging
-	SignalBus.player_speed.emit(_keyboard_linear_velocity, _keyboard_angular_velocity)
-
+	# Player position and orientation are emitted to the player_trajectory signal
+	SignalBus.player_trajectory.emit(global_position, rotation)
+	
 func _physics_process(delta: float) -> void:
 	var desired_linear_velocity := _device_linear_velocity
 	var desired_angular_velocity := _device_angular_velocity

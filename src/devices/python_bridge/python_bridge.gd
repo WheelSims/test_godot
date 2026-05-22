@@ -24,15 +24,6 @@ var _udp_receiver = PacketPeerUDP.new()
 var _udp_sender = PacketPeerUDP.new()
 var _udp_receiver_connected = false
 
-# MH data logging
-var player_position = NAN #-1
-var player_rotation = NAN #-1
-
-# MH data logging
-func _player_signal_received(data1, data2):
-	player_position = data1
-	player_rotation = data2
-
 # this runs only once, at start
 func _ready():
 	# Launch Python app
@@ -59,23 +50,12 @@ func _ready():
 	while _udp_receiver.get_available_packet_count() == 0:
 		await get_tree().create_timer(1.0).timeout
 	_udp_receiver_connected = true
-	
-	# MH data logging: move this to data_logging.gd class
-	#print('connection ', SignalBus.player_speed.is_connected(_player_signal_received))
-	SignalBus.player_trajectory.connect(_player_signal_received)
-	print('connection ', SignalBus.player_trajectory.is_connected(_player_signal_received))
 
 func _process(_delta):
 	if main:
 		if not Config.get_value("devices.python_bridge.enabled"):
 			queue_free()
-		else:
-			# MH data logging
-			var arg = {"angular": player_position,
-						"linear": player_rotation}
-
-			send_request({"command": "trajectory", "arg": arg})
-
+			
 ## Receive JSON data from Python
 func receive_data():
 	var data

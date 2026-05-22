@@ -2,7 +2,7 @@
 ## on the local filesystem. Configuration values are accessed using get_value or set_value using a
 ## string identifier (e.g. "devices.d_box.enabled"). Local saving is done automatically on
 ## set_value.
-##
+## 
 ## This script is autoloaded so that we can access the configuration options from any script, e.g.:
 ## - Config.get_value(config_id)
 ## - Config.value_changed(requester_id, config_id)
@@ -52,7 +52,13 @@ var _defaults: Dictionary[String, Dictionary] = {
 	"devices.python_bridge.enabled": { "order": 4.8, "label": "Python Bridge", "type": "bool", "default": false },
 	"devices.python_bridge.python_path": { "order": 4.81, "label": "Python app path", "type": "file", "default": "" },
 	"devices.python_bridge.script_path": { "order": 4.82, "label": "Python script path", "type": "file", "default": "" },
-	"devices.data_logging.enabled": { "order": 4.8, "label": "Data Logging", "type": "bool", "default": true },
+	"devices.data_logging": { "order": 4.9, "label": "Data Logging" },
+	"devices.data_logging.enabled": { "order": 4.91, "label": "Logging", "type": "bool", "default": true },
+	"devices.data_logging.folder": { "order": 4.92, "label": "Logging", "type": "folder", "default": "" },
+	"devices.data_logging.participant_id": { "order": 4.93, "label": "Participant ID", "type": "string", "default": "test" },
+	"devices.data_logging.player_trajectory": { "order": 4.94, "label": "Player Trajectory", "type": "bool", "default": true },
+	"devices.data_logging.instrumented_wheels": { "order": 4.95, "label": "Instrumented Wheels", "type": "bool", "default": false },
+	"devices.data_logging.motion_capture": { "order": 4.96, "label": "Motion Capture", "type": "bool", "default": false },
 	"coordinates.left_wheel_center": { "order": 5.01, "label": "Left wheel center", "type": "array", "default": [-0.2, 0.3, -0.75], "reference": "simulator" },
 	"coordinates.right_wheel_center": { "order": 5.02, "label": "Right wheel center", "type": "array", "default": [-0.2, 0.3, -0.2], "reference": "simulator" },
 	"coordinates.left_hand": { "order": 5.03, "label": "Left hand", "type": "array", "default": [0.0, 0.0, 0.0], "reference": "forearm_cluster_left" },
@@ -78,6 +84,8 @@ func _save_config():
 # -------------------------------------------------------------------
 func _ready():
 	load_config()
+	# always start a session with the default participant_id = "test"
+	set_value("devices.data_logging.participant_id", "test")
 	_save_config() # In case there was no configuration file yet
 
 # -------------------------------------------------------------------
