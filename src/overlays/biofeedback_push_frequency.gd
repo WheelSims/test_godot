@@ -24,52 +24,63 @@ var value = 0.0
 @export var node_target_zone: Node
 @export var node_green_zone: Node
 
+var connected
+var arg
+
+func _ready():
+	update_arg()
+	connected = false
+
 func _process(_delta) -> void:
 	
-	if main.get_node("python_bridge"):
-		var data = main.get_node("python_bridge").receive_data()
-		#print(data)
-		if data is Dictionary:
-			if data["data"]["left"]["mean_push_frequency"]:
-				value = data["data"]["left"]["mean_push_frequency"]
+	if connected:
+		if main.get_node("python_bridge"):
+			var data = main.get_node("python_bridge").receive_data()
 
-		node_min_value.text = str(min_value)
-		node_max_value.text = str(max_value)
-		node_value.text = str(snappedf(value, 0.1))
+			if data is Dictionary:
+				var side = data["data"].keys()[0]
+				if data["data"][side]["mean_push_frequency"]:
+					value = data["data"][side]["mean_push_frequency"]
 
-		node_slider.position.y = node_slider_zone.size.y - (value - min_value) * node_slider_zone.size.y / (max_value-min_value)
-		node_slider.size.x = node_slider_zone.size.x
+			node_min_value.text = str(min_value)
+			node_max_value.text = str(max_value)
+			node_value.text = str(snappedf(value, 0.1))
+
+			node_slider.position.y = node_slider_zone.size.y - (value - min_value) * node_slider_zone.size.y / (max_value-min_value)
+			node_slider.size.x = node_slider_zone.size.x
+			
+			node_target_zone.position.y = node_slider_zone.size.y - (min_target_value - min_value) * node_slider_zone.size.y / (max_value-min_value)
+			node_green_zone.size.y = node_slider_zone.size.y * (max_target_value - min_target_value) / (max_value - min_value)
+
+			node_min_target_value.text = str(min_target_value)
+			node_max_target_value.text = str(max_target_value)
+			
+			node_max_target_value.position.y = node_green_zone.size.y
+	else:
+		if main.get_node("python_bridge") and not connected:
+			if main.get_node("python_bridge")._udp_receiver_connected:
+				connected = true
+				update_arg()
+				main.get_node("python_bridge").send_request({ "command": "biofeedback_update", "args": arg,"run_mode": "start" })
+				print("biofeedback_update : start")
+				
+	# Should we quit
+	if not Config.get_value("overlays.biofeedback_push_frequency.enabled"):
 		
-		node_target_zone.position.y = node_slider_zone.size.y - (min_target_value - min_value) * node_slider_zone.size.y / (max_value-min_value)
-		node_green_zone.size.y = node_slider_zone.size.y * (max_target_value - min_target_value) / (max_value - min_value)
-
-		node_min_target_value.text = str(min_target_value)
-		node_max_target_value.text = str(max_target_value)
+		main.get_node("python_bridge").send_request({ "command": "biofeedback_update", "args": {},"run_mode": "stop" })
+		print("biofeedback_update : stop")
 		
-		node_max_target_value.position.y = node_green_zone.size.y
+		update_arg()
+		main.get_node("python_bridge").send_request({ "command": "biofeedback_stop", "args": arg,"run_mode": "once" })
+		print("biofeedback_stop : once")
+		
+		queue_free()
 
-		# Should we quit
-		if not Config.get_value("overlays.biofeedback_push_frequency.enabled"):
-			queue_free()
-
-
-func request_biofeedback():
-	var arg = {
-		"coordinates_left_wheel_center": Config.get_value("coordinates.left_wheel_center"),
-		"coordinates_right_wheel_center": Config.get_value("coordinates.right_wheel_center"),
-		"coordinates_left_hand": Config.get_value("coordinates.left_hand"),
-		"coordinates_right_hand": Config.get_value("coordinates.right_hand"),
-		"wheel_diameter": Config.get_value("player.pushrim_diameter"),
-				}
-	main.get_node("python_bridge").send_request({"command": "biofeedback_godot", "arg": arg})
-
-
-func _exit_tree():
-	var arg = {
+func update_arg():
+	arg = {
 	"coordinates_left_wheel_center": Config.get_value("coordinates.left_wheel_center"),
 	"coordinates_right_wheel_center": Config.get_value("coordinates.right_wheel_center"),
 	"coordinates_left_hand": Config.get_value("coordinates.left_hand"),
 	"coordinates_right_hand": Config.get_value("coordinates.right_hand"),
 	"wheel_diameter": Config.get_value("player.pushrim_diameter"),
 			}
-	main.get_node("python_bridge").send_request({"command": "plot_biofeedback_godot", "arg": arg})

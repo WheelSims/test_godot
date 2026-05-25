@@ -69,18 +69,6 @@ func get_debug_text() -> String:
 	text += "connected.\n"
 	return text
 
-func _input(event):
-	if event is InputEventKey and event.pressed:
-		if event.keycode == KEY_P:
-			var arg = {
-				"coordinates_left_wheel_center": Config.get_value("coordinates.left_wheel_center"),
-				"coordinates_right_wheel_center": Config.get_value("coordinates.right_wheel_center"),
-				"coordinates_left_hand": Config.get_value("coordinates.left_hand"),
-				"coordinates_right_hand": Config.get_value("coordinates.right_hand"),
-				"wheel_diameter": Config.get_value("player.pushrim_diameter"),
-						}
-			send_request({"command": "biofeedback_godot", "arg": arg})
-
 ## Close the python app when the node exits the scene tree
 func _exit_tree():
-	send_request({ "command": "close" })
+	send_request({ "command": "close", "args": {},"run_mode": "once" })
