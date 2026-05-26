@@ -72,3 +72,5 @@ func get_debug_text() -> String:
 ## Close the python app when the node exits the scene tree
 func _exit_tree():
 	send_request({ "command": "close", "args": {},"run_mode": "once" })
+	# Delay to allow other overlays/devices to shut down before this device
+	await get_tree().create_timer(0.1).timeout

@@ -24,22 +24,27 @@ var value = 0.0
 @export var node_target_zone: Node
 @export var node_green_zone: Node
 
-var connected
+var connected = false
 var arg
-
-func _ready():
-	update_arg()
-	connected = false
 
 func _process(_delta) -> void:
 	
+	if main.has_node("python_bridge"):
+		if main.get_node("python_bridge")._udp_receiver_connected and not connected:
+			connected = true
+			update_arg()
+			main.get_node("python_bridge").send_request({ "command": "biofeedback_update", "args": arg,"run_mode": "start" })
+	else:
+		if connected:
+			connected = false
+
 	if connected:
-		if main.get_node("python_bridge"):
+		if main.has_node("python_bridge"):
 			var data = main.get_node("python_bridge").receive_data()
 
-			if data is Dictionary:
+			if data is Dictionary and data.has("data") and data["data"].size() > 0:
 				var side = data["data"].keys()[0]
-				if data["data"][side]["mean_push_frequency"]:
+				if data["data"][side].has("mean_push_frequency"):
 					value = data["data"][side]["mean_push_frequency"]
 
 			node_min_value.text = str(min_value)
@@ -56,25 +61,17 @@ func _process(_delta) -> void:
 			node_max_target_value.text = str(max_target_value)
 			
 			node_max_target_value.position.y = node_green_zone.size.y
-	else:
-		if main.get_node("python_bridge") and not connected:
-			if main.get_node("python_bridge")._udp_receiver_connected:
-				connected = true
-				update_arg()
-				main.get_node("python_bridge").send_request({ "command": "biofeedback_update", "args": arg,"run_mode": "start" })
-				print("biofeedback_update : start")
-				
-	# Should we quit
+
+# Should we quit
 	if not Config.get_value("overlays.biofeedback_push_frequency.enabled"):
-		
-		main.get_node("python_bridge").send_request({ "command": "biofeedback_update", "args": {},"run_mode": "stop" })
-		print("biofeedback_update : stop")
-		
-		update_arg()
-		main.get_node("python_bridge").send_request({ "command": "biofeedback_stop", "args": arg,"run_mode": "once" })
-		print("biofeedback_stop : once")
-		
+		if main.has_node("python_bridge") and connected:
+			main.get_node("python_bridge").send_request({ "command": "biofeedback_update", "args": {},"run_mode": "stop" })
+			
+			update_arg()
+			main.get_node("python_bridge").send_request({ "command": "biofeedback_stop", "args": arg,"run_mode": "once" })
+			
 		queue_free()
+	
 
 func update_arg():
 	arg = {
