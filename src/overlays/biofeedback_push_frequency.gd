@@ -58,7 +58,7 @@ func _process(_delta) -> void:
 
 
 	# Should we quit
-	if not Config.get_value("overlays.biofeedback_push_frequency.enabled"):
+	if not Config.get_value("overlays.biofeedback_push_frequency.enabled") and not Config.get_value("overlays.biofeedback_optitrack.enabled"):
 		# Stop the biofeedback from python bridge if this overlays is shut down
 		if main.has_node("python_bridge") and connected:
 			# Tell the python bridge to stop the repeating update process
