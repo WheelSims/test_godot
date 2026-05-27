@@ -19,6 +19,7 @@ var positions := []
 var layer
 var coordinates_wheel_center
 var offset_trail
+var virtual_wheel
 
 # Connection flags and request arguments
 var connected = false
@@ -86,12 +87,15 @@ func _apply_side():
 	if side == "left":
 		layer = 1 << 7
 		coordinates_wheel_center = "coordinates.left_wheel_center"
-		offset_trail = -1
+		offset_trail = 0.1
+		virtual_wheel = "../wheel_left"
 	elif side == "right":
 		layer = 1 << 8
 		coordinates_wheel_center = "coordinates.right_wheel_center"
-		offset_trail = 1
-
+		offset_trail = -0.1
+		virtual_wheel = "../wheel_right"
+		
+		
 func _init_multimesh():
 	
 	var mm = MultiMesh.new()
@@ -109,7 +113,7 @@ func _init_multimesh():
 	self.layers = layer
 	
 	var mat = StandardMaterial3D.new()
-	mat.albedo_color = Color(1, 1, 1, 1)
+	mat.albedo_color = Color(1, 0.8, 0, 1)
 	self.material_override = mat
 
 
@@ -127,7 +131,7 @@ func parse_points(data):
 	var _pos_center_wheel = Vector3( \
 	Config.get_value(coordinates_wheel_center)[0], \
 	Config.get_value(coordinates_wheel_center)[1], \
-	offset_trail  \
+	get_node(virtual_wheel).position[2]+offset_trail\
 	)
 		
 	var result: Array = []
