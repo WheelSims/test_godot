@@ -9,6 +9,7 @@ var _udp_receiver = PacketPeerUDP.new()
 var _udp_sender = PacketPeerUDP.new()
 var _udp_receiver_connected = false
 
+var latest_data = null
 
 func _ready():
 	# Launch Python app
@@ -39,20 +40,22 @@ func _process(_delta):
 	if main:
 		if not Config.get_value("devices.python_bridge.enabled"):
 			queue_free()
+	if _udp_receiver_connected:
+		_update_latest_data()
 
 
-## Receive JSON data from Python
+## Return latest JSON data from Python
 func receive_data():
-	var data
+	return latest_data
 
+## Receive and save JSON data from Python
+func _update_latest_data():
 	if _udp_receiver.get_available_packet_count() > 0: # We received something
-		data = _udp_receiver.get_packet()
-
+		var data = _udp_receiver.get_packet()
 		var json_string = data.get_string_from_utf8()
 		var json = JSON.new()
 		json.parse(json_string)
-
-		return json.get_data()
+		latest_data = json.get_data()
 
 
 ## Sending JSON data to Python
