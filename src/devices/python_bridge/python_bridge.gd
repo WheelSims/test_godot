@@ -56,7 +56,7 @@ func _process(_delta):
 
 
 ## Return latest JSON data from selected request queue
-func receive_data(id):
+func receive(id):
 	if not id in queue_requests_by_id:
 		queue_requests_by_id[id] = []
 	if queue_requests_by_id[id].size() > 0:
@@ -77,7 +77,7 @@ func _process_received_packets():
 
 
 ## Send JSON data to Python
-func send_request(data):
+func send(data):
 	_udp_sender.put_packet(JSON.stringify(data).to_utf8_buffer())
 
 
@@ -93,6 +93,6 @@ func get_debug_text() -> String:
 
 ## Close the python app when the node exits the scene tree
 func _exit_tree():
-	send_request({ "command": "close", "args": { }, "run_mode": "once" })
+	send({ "command": "close", "args": { }, "run_mode": "once" })
 	# Delay to allow other overlays/devices to shut down before this device
 	await get_tree().create_timer(0.1).timeout
