@@ -19,7 +19,8 @@ var _udp_receiver = PacketPeerUDP.new()
 var _udp_sender = PacketPeerUDP.new()
 var _udp_receiver_connected = false
 
-var queue_requests_by_id = {} # Queue storing received request data per id
+var queue_requests_by_id = { } # Queue storing received request data per id
+
 
 func _ready():
 	# Launch Python app
@@ -62,9 +63,10 @@ func receive_data(id):
 		var last_data = queue_requests_by_id[id].pop_at(-1)
 		return last_data
 
+
 ## Receive and save JSON data from Python bridge in requests queues
 func _process_received_packets():
-	if _udp_receiver.get_available_packet_count() > 0: # We received something
+	while _udp_receiver.get_available_packet_count() > 0: # We received something
 		var data = _udp_receiver.get_packet()
 		var json_string = data.get_string_from_utf8()
 		var json = JSON.new()
@@ -72,7 +74,7 @@ func _process_received_packets():
 
 		for id in queue_requests_by_id:
 			queue_requests_by_id[id].append(json.get_data())
-		
+
 
 ## Send JSON data to Python
 func send_request(data):
@@ -88,8 +90,9 @@ func get_debug_text() -> String:
 	text += "connected.\n"
 	return text
 
+
 ## Close the python app when the node exits the scene tree
 func _exit_tree():
-	send_request({ "command": "close", "args": {},"run_mode": "once" })
+	send_request({ "command": "close", "args": { }, "run_mode": "once" })
 	# Delay to allow other overlays/devices to shut down before this device
 	await get_tree().create_timer(0.1).timeout
