@@ -53,7 +53,7 @@ func _process(_delta) -> void:
 	# Update the slider if the process is connected
 	if connected:
 		if main.has_node("python_bridge"):
-			var data = main.get_node("python_bridge").receive_data()
+			var data = main.get_node("python_bridge").receive_data("biofeedback_push_frequency")
 			_update_slider(data)
 
 
@@ -73,9 +73,10 @@ func _process(_delta) -> void:
 func _update_slider(data):
 	
 	if data is Dictionary and data.has("data") and data["data"].size() > 0:
-		var side = data["data"].keys()[0]
-		if data["data"][side].has("mean_push_frequency"):
-			value = data["data"][side]["mean_push_frequency"]
+		if data["command"] == "biofeedback_update":
+			var side = data["data"].keys()[0]
+			if data["data"][side].has("mean_push_frequency"):
+				value = data["data"][side]["mean_push_frequency"]
 
 	node_min_value.text = str(min_value)
 	node_max_value.text = str(max_value)

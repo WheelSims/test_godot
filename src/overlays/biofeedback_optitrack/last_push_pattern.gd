@@ -49,15 +49,14 @@ func _process(_delta: float) -> void:
 	# Update                              if the process is connected
 	if connected:
 		if main.has_node("python_bridge"):
-			var data = main.get_node("python_bridge").receive_data()
+			var data = main.get_node("python_bridge").receive_data(last_push_pattern + "_" + side)
 			
 			if data is Dictionary and data.has("data") and data["data"].size() > 0:
-				if data["data"].keys()[0] == side:
-					#print(data["data"][side].keys())
-					#print("selected key = ", last_push_pattern)
-					var value = data["data"][side][last_push_pattern]
-					positions = parse_points(value)
-					_display_points()
+				if data["command"] == "biofeedback_update":
+					if data["data"].keys()[0] == side:
+						var value = data["data"][side][last_push_pattern]
+						positions = parse_points(value)
+						_display_points()
 
 	
 	# Should we quit
@@ -71,7 +70,7 @@ func _process(_delta: float) -> void:
 			main.get_node("python_bridge").send_request({ "command": "biofeedback_stop", "args": arg,"run_mode": "once" })
 		# Remove the overlay node from the scene tree
 		queue_free()
-		
+
 
 # Update the arguments to send the requests to the python bridge
 func _update_arg():
@@ -82,6 +81,7 @@ func _update_arg():
 	"coordinates_right_hand": Config.get_value("coordinates.right_hand"),
 	"wheel_diameter": Config.get_value("player.pushrim_diameter"),
 			}
+
 
 func _apply_side():
 	if side == "left":
@@ -94,8 +94,8 @@ func _apply_side():
 		coordinates_wheel_center = "coordinates.right_wheel_center"
 		offset_trail = -0.1
 		virtual_wheel = "../wheel_right"
-		
-		
+
+
 func _init_multimesh():
 	
 	var mm = MultiMesh.new()
