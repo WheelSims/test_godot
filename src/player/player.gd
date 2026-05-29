@@ -1,22 +1,42 @@
+## This script manages the player, including collisions with the terrain (due to gravity) and with
+## the objects. Independently of the simulator hardware, the player can always be moved using the
+## keyboard arrows.
+##
+## The player is instanciated not in the main program, but instead in each `playable_scene`, so
+## that the playable scenes really are standalone and do not require an actual simulator to be
+## developed, tested and played. This means that when we load a new scene, a new player is
+## instanciated, and this player is destroyed when the scene is quit. This can be cumbersome in
+## different situations where we need access to the player, for example:
+##
+## - A device (e.g., motorized rollers, joystick) needs to set the player velocity
+## - We want to record the trajectory of the player in a given level
+## - The crowd should always look at the player.
+##
+## For this matter, we can access the current player (if any) using the global
+## variable `Globals.player`, which always points to the current player
+## instance, and either read its global position/orientation, or get/set
+## its linear/angular velocity using its public `get_linear_speed()`,
+## `get_angular_speed()`, `set_linear_speed()` and `get_linear_speed()`
+## functions.
 extends RigidBody3D
+
 class_name Player
 
 # ------------------
 # Editable constants
 # ------------------
 @export_group("Keyboard Control")
-@export var KB_LINEAR_SPEED: float = 2  # m/s
-@export var KB_ANGULAR_SPEED: float = 1  # rad/s
-@export var LINEAR_SPEED_DEADZONE: float = 0.04  # m/s
-@export var ANGULAR_SPEED_DEADZONE: float = 0.04  # rad/s
-
+@export var KB_LINEAR_SPEED: float = 2 # m/s
+@export var KB_ANGULAR_SPEED: float = 1 # rad/s
+@export var LINEAR_SPEED_DEADZONE: float = 0.04 # m/s
+@export var ANGULAR_SPEED_DEADZONE: float = 0.04 # rad/s
 
 # -----------------------
 # Custom nodes
 # -----------------------
 @onready var motors = get_node_or_null("motors")
 @onready var player_text_node: Label = get_node_or_null(
-	"ui/player_text"
+	"ui/player_text",
 )
 
 # -----------------------
@@ -26,7 +46,6 @@ var _device_linear_velocity: float = 0.0
 var _device_angular_velocity: float = 0.0
 var _keyboard_linear_velocity: float = 0.0
 var _keyboard_angular_velocity: float = 0.0
-
 
 # -----------------------
 # Dynamics/collisions
@@ -44,7 +63,7 @@ var _n_foot_obstacle = 0
 # -----------------------
 # Config related
 # -----------------------
-var _config_update_required: bool = true  # Update to match config
+var _config_update_required: bool = true # Update to match config
 var _camera_rotation_x_offset: float = 0.0
 
 
@@ -55,14 +74,17 @@ var _camera_rotation_x_offset: float = 0.0
 func get_linear_speed():
 	return _device_linear_velocity + _keyboard_linear_velocity
 
+
 ## Return linear speed set by device + keyboard
 func get_angular_speed():
 	return _device_angular_velocity + _keyboard_linear_velocity
 
+
 ## Set linear speed from device
 func set_linear_speed(value: float):
 	_device_linear_velocity = value
-	
+
+
 ## Set angular speed from device
 func set_angular_speed(value: float):
 	_device_angular_velocity = value
@@ -74,8 +96,8 @@ func set_angular_speed(value: float):
 func _ready():
 	Globals.player = self
 
-func _process(_delta):
 
+func _process(_delta):
 	if Config.value_changed("player", "player.mass") or _config_update_required:
 		mass = Config.get_value("player.mass")
 	if Config.value_changed("player", "player.camera.fov") or _config_update_required:
@@ -83,25 +105,26 @@ func _process(_delta):
 	if Config.value_changed("player", "player.camera.angle") or _config_update_required:
 		_camera_rotation_x_offset = Config.get_value("player.camera.angle") / 180 * PI
 	_config_update_required = false
-	
+
 	# Only keep camera rotation around y (keep level)
 	$camera.rotation.x = _camera_rotation_x_offset - rotation.x
-	$camera.rotation.z = - rotation.z
+	$camera.rotation.z = -rotation.z
+
 
 func _physics_process(delta: float) -> void:
 	var desired_linear_velocity := _device_linear_velocity
 	var desired_angular_velocity := _device_angular_velocity
-	
+
 	# Keyboard navigation
 	read_keyboard_velocities()
 	desired_linear_velocity += _keyboard_linear_velocity
 	desired_angular_velocity += _keyboard_angular_velocity
-	
+
 	if abs(desired_linear_velocity) < LINEAR_SPEED_DEADZONE:
 		desired_linear_velocity = 0
 	if abs(desired_angular_velocity) < ANGULAR_SPEED_DEADZONE:
 		desired_angular_velocity = 0
-		
+
 	if (
 		(desired_linear_velocity >= 0 and not is_front_collision)
 		or (desired_linear_velocity <= 0 and not is_rear_collision)
@@ -128,10 +151,10 @@ func read_keyboard_velocities():
 
 	_keyboard_linear_velocity = linear
 	_keyboard_angular_velocity = angular
-	
-	
+
+
 func _on_obstacle_colliders_body_shape_entered(body_rid: RID, body: Node3D, body_shape_index: int, local_shape_index: int) -> void:
-	if body.get_groups().is_empty() and  body is not Surface:
+	if body.get_groups().is_empty() and body is not Surface:
 		match local_shape_index:
 			0:
 				_n_foot_obstacle += 1
@@ -148,6 +171,7 @@ func _on_obstacle_colliders_body_shape_entered(body_rid: RID, body: Node3D, body
 			4:
 				_n_rr_obstacle += 1
 				is_rear_collision = true
+
 
 func _on_obstacle_colliders_body_shape_exited(body_rid: RID, body: Node3D, body_shape_index: int, local_shape_index: int) -> void:
 	if body.get_groups().is_empty() and body is not Surface:
@@ -173,6 +197,7 @@ func _on_obstacle_colliders_body_shape_exited(body_rid: RID, body: Node3D, body_
 			and (_n_lr_obstacle == 0)
 		):
 			is_rear_collision = false
+
 
 func _on_player_on_simulator_body_shape_entered(body_rid: RID, body: Node, body_shape_index: int, local_shape_index: int) -> void:
 	if body is Surface:

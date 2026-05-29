@@ -1,4 +1,14 @@
 extends Node
+## Receive rigid body quaternions and positions streamed by Optitrack.
+##
+## This script connects to a UDP stream created by Optitrack Motive and creates/deletes child nodes
+## that represent the position/quaternion of the rigid bodies streamed by Motive. Each child node
+## name correspond to the integer identifier of the rigid body in Motive.
+##
+## Each child node is a 3DNode which local transform corresponds to the position/orientation of the
+## streamed rigid body. The `visible` property of the child node corresponds to the visibility of
+## the rigid body (e.g., if the rigid body is not detected in the scene, then its corresponding node
+## becomes invisible, until it is detected again).
 
 @export var UDP_RECEIVE_PORT: int = 1511
 
@@ -133,6 +143,8 @@ func unpack_rigid_body(_data, i_rigidbody):
 func get_node_by_id(id):
 	if has_node(str(id)):
 		return get_node(str(id))
+	else:
+		return null
 
 
 ## Debug overlay

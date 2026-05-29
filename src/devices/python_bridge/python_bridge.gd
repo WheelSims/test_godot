@@ -1,3 +1,13 @@
+## This script launches a Python script in a new Python instance. It then communicates with this
+## script using two unidirectional UDP connections. The paths of the Python interpreter and Python
+## script must be set in Config beforehand; this can be done easily using the GUI.
+##
+## The main role of this script is to outsource calculations such as propulsion analysis
+## to Python, so that we benefit from advanced data processing tools and we don't slow down
+## Godot's simulation.
+##
+## Normally, the Python script is versioned on this repository:
+## https://github.com/LabMOSA/wheelsims_analysis
 extends Node3D
 
 @onready var main: Node = get_tree().get_root().get_node("main")

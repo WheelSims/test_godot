@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bi4w50l5uqado"]
 
-[ext_resource type="PackedScene" uid="uid://cyuwwq10bjy27" path="res://objects/optitrack/forearm cluster right/fbx/forearm_cluster_right.fbx" id="1_voyhk"]
+[ext_resource type="PackedScene" uid="uid://cyuwwq10bjy27" path="res://objects/optitrack/forearm_cluster_right/fbx/forearm_cluster_right.fbx" id="1_voyhk"]
 
 [node name="ForearmClusterRight" type="Node3D" unique_id=2017748518]
 

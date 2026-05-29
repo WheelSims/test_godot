@@ -1,3 +1,5 @@
+## This script creates one window, sets it (or not) to fullscreen according to its Config value,
+## and assigns the main scene's viewport to it.
 extends Node
 @onready var main: Node = get_tree().get_root().get_node("main")
 

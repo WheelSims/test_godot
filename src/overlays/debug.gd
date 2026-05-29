@@ -1,3 +1,7 @@
+## This overlay prints debugging information on the screen. This works by going through every
+## device node that have been loaded dynamically and checking if they have a "get_debug_text()"
+## function. If they have such function, then it is called and the returned text is added to the
+## debug overlay.
 extends Control
 
 @onready var main: Node = get_tree().get_root().get_node("main")
@@ -15,8 +19,7 @@ func _process(delta):
 		text += "No player loaded.\n"
 	
 	# FPS information
-	var fps = 1/delta
-	_fps = 0.99 * _fps + 0.01 * 1/delta  # Rolling average on 100 samples
+	_fps = 0.9 * _fps + 0.1 * 1/delta  # Rolling average on 10 samples
 	text += "Current FPS: %0.0f FPS\n" % _fps
 	
 	# Check if any device has something to tell

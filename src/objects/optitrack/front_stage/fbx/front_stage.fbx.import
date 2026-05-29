@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://cuq1nxd5y66fb"
-path="res://.godot/imported/simulateur.fbx-e90d1e60a400da8ccfb010c7858ab33f.scn"
+uid="uid://bhew5h01biu8m"
+path="res://.godot/imported/front_stage.fbx-27d897086c18d4f71fa0b263029add60.scn"
 
 [deps]
 
-source_file="res://objects/optitrack/simulateur/fbx/simulateur.fbx"
-dest_files=["res://.godot/imported/simulateur.fbx-e90d1e60a400da8ccfb010c7858ab33f.scn"]
+source_file="res://objects/optitrack/front_stage/fbx/front_stage.fbx"
+dest_files=["res://.godot/imported/front_stage.fbx-27d897086c18d4f71fa0b263029add60.scn"]
 
 [params]
 

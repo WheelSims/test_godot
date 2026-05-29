@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://cbgre2g0x3ble"]
+
+[ext_resource type="PackedScene" uid="uid://bhew5h01biu8m" path="res://objects/optitrack/front_stage/fbx/front_stage.fbx" id="1_hd4fy"]
+
+[node name="front_stage" type="Node3D" unique_id=339659775]
+
+[node name="front_stage" parent="." unique_id=1090380253 instance=ExtResource("1_hd4fy")]
