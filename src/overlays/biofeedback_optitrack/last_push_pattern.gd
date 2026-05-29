@@ -40,7 +40,7 @@ func _process(_delta: float) -> void:
 		if main.get_node("python_bridge")._udp_receiver_connected and not connected:
 			connected = true
 			_update_arg()
-			main.get_node("python_bridge").send_request({ "command": "biofeedback_update", "args": arg,"run_mode": "start" })
+			main.get_node("python_bridge").send("biofeedback_update", arg, "start")
 	# Reset the connected flag if the python bridge is disconnected
 	else:
 		if connected:
@@ -49,7 +49,7 @@ func _process(_delta: float) -> void:
 	# Update                              if the process is connected
 	if connected:
 		if main.has_node("python_bridge"):
-			var data = main.get_node("python_bridge").receive_data(last_push_pattern + "_" + side)
+			var data = main.get_node("python_bridge").receive(last_push_pattern + "_" + side)
 			
 			if data is Dictionary and data.has("data") and data["data"].size() > 0:
 				if data["command"] == "biofeedback_update":
@@ -60,14 +60,14 @@ func _process(_delta: float) -> void:
 
 	
 	# Should we quit
-	if not Config.get_value("overlays.biofeedback_push_frequency.enabled") and not Config.get_value("overlays.biofeedback_optitrack.enabled"):
+	if not Config.get_value("overlays.biofeedback_optitrack.enabled"):
 		# Stop the biofeedback from python bridge if this overlays is shut down
-		if main.has_node("python_bridge") and connected:
+		if main.has_node("python_bridge") and connected and not Config.get_value("overlays.biofeedback_push_frequency.enabled"):
 			# Tell the python bridge to stop the repeating update process
-			main.get_node("python_bridge").send_request({ "command": "biofeedback_update", "args": {},"run_mode": "stop" })
+			main.get_node("python_bridge").send("biofeedback_update", { }, "stop")
 			# Send a final request to reset the biofeedback script data
 			_update_arg()
-			main.get_node("python_bridge").send_request({ "command": "biofeedback_stop", "args": arg,"run_mode": "once" })
+			main.get_node("python_bridge").send("biofeedback_stop", arg, "once")
 		# Remove the overlay node from the scene tree
 		queue_free()
 
