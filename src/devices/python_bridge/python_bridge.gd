@@ -55,15 +55,6 @@ func _process(_delta):
 		_process_received_packets()
 
 
-## Return latest JSON data from selected request queue
-func receive(id):
-	if not id in queue_requests_by_id:
-		queue_requests_by_id[id] = []
-	if queue_requests_by_id[id].size() > 0:
-		var last_data = queue_requests_by_id[id].pop_at(-1)
-		return last_data
-
-
 ## Receive and save JSON data from Python bridge in requests queues
 func _process_received_packets():
 	while _udp_receiver.get_available_packet_count() > 0: # We received something
@@ -76,9 +67,46 @@ func _process_received_packets():
 			queue_requests_by_id[id].append(json.get_data())
 
 
-## Send JSON data to Python
-func send(data):
-	_udp_sender.put_packet(JSON.stringify(data).to_utf8_buffer())
+## Receive data from Python.
+##
+## Parameters
+## ----------
+## id
+##     Name of the receive queue. If the receive queue does not exist yet, it is created. Each
+##     received data is appended to every receive queue, which ensures that calling receive() with
+##     a unique queue gives access to every received packets.
+##
+## Returns
+## -------
+## Dictionary
+##     If no data is available, returns an empty dictionary.
+##     If data is available, returns a dictionary with keys "command", which is the name of the
+##     python command that sent this data, and "data", which is a dictionary with the actual
+##     data.
+func receive(id: String) -> Dictionary:
+	if id not in queue_requests_by_id:
+		queue_requests_by_id[id] = []
+		return { }
+	if queue_requests_by_id[id].size() > 0:
+		var last_data = queue_requests_by_id[id].pop_at(-1)
+		return last_data
+	return { }
+
+
+## Run a Python command.
+##
+## Parameters
+## ----------
+## command
+##     One of the available commands in the python_bridge.py's COMMAND_MAPPING
+## args
+##     A dictionary containing any information required by the command
+## run_mode
+##     "once" to launch the command once, "start" to run it continuously, and "stop" to
+##     stop from running it continuously.
+func send(command: String, args: Dictionary, run_mode: String):
+	var request = { "command": command, "args": args, "run_mode": run_mode }
+	_udp_sender.put_packet(JSON.stringify(request).to_utf8_buffer())
 
 
 ## Debug overlay
@@ -93,6 +121,6 @@ func get_debug_text() -> String:
 
 ## Close the python app when the node exits the scene tree
 func _exit_tree():
-	send({ "command": "close", "args": { }, "run_mode": "once" })
+	send("close", { }, "once")
 	# Delay to allow other overlays/devices to shut down before this device
 	await get_tree().create_timer(0.1).timeout
