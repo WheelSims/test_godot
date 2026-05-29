@@ -1,21 +1,17 @@
 extends MultiMeshInstance3D
 
-# ---------------------------------------------------------------------- #
-
-
-
-# ---------------------------------------------------------------------- #
-
 @onready var main: Node = get_tree().get_root().get_node("main")
 
 var trail_size := 0.11
 
 # Selected side of the wheelchair (left or right)
 @export_enum("left", "right") var side: String 
+# Selected last push pattern from Python (1 -> last, 2 -> penultimate, 3 -> antepenultimate)
 @export_enum("last_push_pattern_1", "last_push_pattern_2", "last_push_pattern_3") var last_push_pattern: String 
 
 var positions := []
 
+# Variables depending on side
 var layer
 var coordinates_wheel_center
 var offset_trail
@@ -30,7 +26,7 @@ func _ready() -> void:
 		positions.append(Vector3(0, 0, 0))
 	_apply_side()
 	_init_multimesh()
-	_display_points()
+	_update_multimesh()
 
 
 func _process(_delta: float) -> void:
@@ -46,7 +42,7 @@ func _process(_delta: float) -> void:
 		if connected:
 			connected = false
 			
-	# Update                              if the process is connected
+	# Update loop process if the process is connected
 	if connected:
 		if main.has_node("python_bridge"):
 			var data = main.get_node("python_bridge").receive(last_push_pattern + "_" + side)
@@ -55,8 +51,8 @@ func _process(_delta: float) -> void:
 				if data["command"] == "biofeedback_update":
 					if data["data"].keys()[0] == side:
 						var value = data["data"][side][last_push_pattern]
-						positions = parse_points(value)
-						_display_points()
+						positions = parse_trail_points(value)
+						_update_multimesh()
 
 	
 	# Should we quit
@@ -83,6 +79,7 @@ func _update_arg():
 			}
 
 
+# Set layer, references, and coordinate variables based on the selected side (left or right)
 func _apply_side():
 	if side == "left":
 		layer = 1 << 7
@@ -117,7 +114,8 @@ func _init_multimesh():
 	self.material_override = mat
 
 
-func _display_points():
+# Update push pattern displayed
+func _update_multimesh():
 	for i in range(positions.size()):
 		var t = Transform3D()
 		t.origin = positions[i]
@@ -125,7 +123,8 @@ func _display_points():
 		multimesh.set_instance_transform(i, t)
 
 
-func parse_points(data):
+# Convert raw Python trajectory data into local Vector3 positions
+func parse_trail_points(data):
 	
 	# Get wheel center positions
 	var _pos_center_wheel = Vector3( \
@@ -137,7 +136,7 @@ func parse_points(data):
 	var result: Array = []
 	
 	for p in data:
-		p[2] = 0
+		p[2] = 0 # 2D projection
 		result.append(Vector3(p[0], p[1], p[2]) - _pos_center_wheel)
 		
 	return result
