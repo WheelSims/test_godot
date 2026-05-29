@@ -9,7 +9,7 @@ var _udp_receiver = PacketPeerUDP.new()
 var _udp_sender = PacketPeerUDP.new()
 var _udp_receiver_connected = false
 
-var latest_data = null
+var queue_requests_by_id = {} # Queue storing received request data per id
 
 func _ready():
 	# Launch Python app
@@ -30,7 +30,7 @@ func _ready():
 	_udp_receiver.bind(UDP_RECEIVE_PORT)
 	_udp_sender.connect_to_host(UDP_SEND_IP, UDP_SEND_PORT)
 
-	# Waiting ping request from Python
+	# Waiting ping request from Python bridge
 	while _udp_receiver.get_available_packet_count() == 0:
 		await get_tree().create_timer(1.0).timeout
 	_udp_receiver_connected = true
@@ -41,24 +41,30 @@ func _process(_delta):
 		if not Config.get_value("devices.python_bridge.enabled"):
 			queue_free()
 	if _udp_receiver_connected:
-		_update_latest_data()
+		_process_received_packets()
 
 
-## Return latest JSON data from Python
-func receive_data():
-	return latest_data
+## Return latest JSON data from selected request queue
+func receive_data(id):
+	if not id in queue_requests_by_id:
+		queue_requests_by_id[id] = []
+	if queue_requests_by_id[id].size() > 0:
+		var last_data = queue_requests_by_id[id].pop_at(-1)
+		return last_data
 
-## Receive and save JSON data from Python
-func _update_latest_data():
+## Receive and save JSON data from Python bridge in requests queues
+func _process_received_packets():
 	if _udp_receiver.get_available_packet_count() > 0: # We received something
 		var data = _udp_receiver.get_packet()
 		var json_string = data.get_string_from_utf8()
 		var json = JSON.new()
 		json.parse(json_string)
-		latest_data = json.get_data()
 
+		for id in queue_requests_by_id:
+			queue_requests_by_id[id].append(json.get_data())
+		
 
-## Sending JSON data to Python
+## Send JSON data to Python
 func send_request(data):
 	_udp_sender.put_packet(JSON.stringify(data).to_utf8_buffer())
 
