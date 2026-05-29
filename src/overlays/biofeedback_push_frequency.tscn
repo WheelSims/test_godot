@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://c5tbnk1yth8r8"]
+[gd_scene format=3 uid="uid://c5tbnk1yth8r8"]
 
 [ext_resource type="Script" uid="uid://dshp4p67kpaqf" path="res://overlays/biofeedback_push_frequency.gd" id="1_1j4x4"]
 
@@ -25,10 +25,13 @@ font_size = 10
 [sub_resource type="LabelSettings" id="LabelSettings_7yiij"]
 font_size = 10
 
-[node name="biofeedback_push_frequency" type="Control" node_paths=PackedStringArray("node_min_value", "node_max_value", "node_min_target_value", "node_max_target_value", "node_value", "node_slider_zone", "node_slider", "node_target_zone", "node_green_zone")]
+[node name="biofeedback_push_frequency" type="Control" unique_id=1961947020 node_paths=PackedStringArray("node_min_value", "node_max_value", "node_min_target_value", "node_max_target_value", "node_value", "node_slider_zone", "node_slider", "node_target_zone", "node_green_zone")]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_1j4x4")
+min_value = 0.0
+min_target_value = 0.4
+max_target_value = 1.2
 node_min_value = NodePath("overlay_panel/overlay_vbox_container/min_value")
 node_max_value = NodePath("overlay_panel/overlay_vbox_container/max_value")
 node_min_target_value = NodePath("overlay_panel/overlay_vbox_container/slider_zone/target_zone/green_zone/min_target_value")
@@ -39,7 +42,7 @@ node_slider = NodePath("overlay_panel/overlay_vbox_container/slider_zone/slider"
 node_target_zone = NodePath("overlay_panel/overlay_vbox_container/slider_zone/target_zone")
 node_green_zone = NodePath("overlay_panel/overlay_vbox_container/slider_zone/target_zone/green_zone")
 
-[node name="overlay_panel" type="PanelContainer" parent="."]
+[node name="overlay_panel" type="PanelContainer" parent="." unique_id=1378768941]
 layout_mode = 0
 offset_left = 950.0
 offset_top = 520.0
@@ -48,28 +51,28 @@ offset_bottom = 699.99915
 theme = SubResource("Theme_lgowx")
 theme_override_styles/panel = SubResource("StyleBoxFlat_1j4x4")
 
-[node name="overlay_vbox_container" type="VBoxContainer" parent="overlay_panel"]
+[node name="overlay_vbox_container" type="VBoxContainer" parent="overlay_panel" unique_id=679876289]
 layout_mode = 2
 
-[node name="title" type="Label" parent="overlay_panel/overlay_vbox_container"]
+[node name="title" type="Label" parent="overlay_panel/overlay_vbox_container" unique_id=1278107807]
 layout_mode = 2
 text = "PUSH
 FREQUENCY"
 label_settings = SubResource("LabelSettings_pa624")
 horizontal_alignment = 1
 
-[node name="max_value" type="Label" parent="overlay_panel/overlay_vbox_container"]
+[node name="max_value" type="Label" parent="overlay_panel/overlay_vbox_container" unique_id=1471418302]
 layout_mode = 2
 text = "max"
 label_settings = SubResource("LabelSettings_1j4x4")
 horizontal_alignment = 1
 
-[node name="slider_zone" type="ColorRect" parent="overlay_panel/overlay_vbox_container"]
+[node name="slider_zone" type="ColorRect" parent="overlay_panel/overlay_vbox_container" unique_id=1147785939]
 custom_minimum_size = Vector2(20, 100)
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="target_zone" type="Control" parent="overlay_panel/overlay_vbox_container/slider_zone"]
+[node name="target_zone" type="Control" parent="overlay_panel/overlay_vbox_container/slider_zone" unique_id=1857701781]
 custom_minimum_size = Vector2(20, 10)
 layout_mode = 1
 anchors_preset = 2
@@ -78,7 +81,7 @@ anchor_bottom = 1.0
 offset_top = -10.0
 grow_vertical = 0
 
-[node name="green_zone" type="ColorRect" parent="overlay_panel/overlay_vbox_container/slider_zone/target_zone"]
+[node name="green_zone" type="ColorRect" parent="overlay_panel/overlay_vbox_container/slider_zone/target_zone" unique_id=791038250]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -89,7 +92,7 @@ grow_vertical = 0
 scale = Vector2(1, -1)
 color = Color(0, 0.7607843, 0.39215687, 1)
 
-[node name="min_target_value" type="Label" parent="overlay_panel/overlay_vbox_container/slider_zone/target_zone/green_zone"]
+[node name="min_target_value" type="Label" parent="overlay_panel/overlay_vbox_container/slider_zone/target_zone/green_zone" unique_id=413093685]
 layout_mode = 1
 offset_left = -25.0
 offset_right = -6.0
@@ -101,7 +104,7 @@ label_settings = SubResource("LabelSettings_pa624")
 horizontal_alignment = 2
 autowrap_mode = 2
 
-[node name="max_target_value" type="Label" parent="overlay_panel/overlay_vbox_container/slider_zone/target_zone/green_zone"]
+[node name="max_target_value" type="Label" parent="overlay_panel/overlay_vbox_container/slider_zone/target_zone/green_zone" unique_id=186569926]
 layout_mode = 0
 offset_left = -25.0
 offset_right = -6.0
@@ -113,10 +116,10 @@ label_settings = SubResource("LabelSettings_pa624")
 horizontal_alignment = 2
 autowrap_mode = 2
 
-[node name="slider" type="Control" parent="overlay_panel/overlay_vbox_container/slider_zone"]
+[node name="slider" type="Control" parent="overlay_panel/overlay_vbox_container/slider_zone" unique_id=676311746]
 anchors_preset = 0
 
-[node name="h_box_container" type="HBoxContainer" parent="overlay_panel/overlay_vbox_container/slider_zone/slider"]
+[node name="h_box_container" type="HBoxContainer" parent="overlay_panel/overlay_vbox_container/slider_zone/slider" unique_id=1281199947]
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
@@ -126,19 +129,19 @@ offset_right = 56.0
 offset_bottom = 7.0
 grow_vertical = 2
 
-[node name="red_line_slider" type="ColorRect" parent="overlay_panel/overlay_vbox_container/slider_zone/slider/h_box_container"]
+[node name="red_line_slider" type="ColorRect" parent="overlay_panel/overlay_vbox_container/slider_zone/slider/h_box_container" unique_id=1613428399]
 custom_minimum_size = Vector2(20, 6)
 layout_mode = 2
 size_flags_vertical = 4
 color = Color(0.76, 0, 0, 1)
 
-[node name="value" type="Label" parent="overlay_panel/overlay_vbox_container/slider_zone/slider/h_box_container"]
+[node name="value" type="Label" parent="overlay_panel/overlay_vbox_container/slider_zone/slider/h_box_container" unique_id=903269268]
 layout_mode = 2
 text = "value"
 label_settings = SubResource("LabelSettings_7yiij")
 vertical_alignment = 1
 
-[node name="min_value" type="Label" parent="overlay_panel/overlay_vbox_container"]
+[node name="min_value" type="Label" parent="overlay_panel/overlay_vbox_container" unique_id=1533846735]
 layout_mode = 2
 text = "min"
 label_settings = SubResource("LabelSettings_pa624")
