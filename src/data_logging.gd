@@ -33,11 +33,18 @@ func _process(_delta: float) -> void:
 		or SignalBus.session_scene.is_connected(_scene_signal_received)==false):
 		SignalBus.session_scene.connect(_scene_signal_received)
 		print('Connection established with main.gd')
-		
-		if(Config.get_value("devices.data_logging.player_trajectory")==true):
-			# establishing connection with player.gd through SignalBus
-			SignalBus.player_trajectory.connect(_player_signal_received)
-			print('Connection established with player.gd')
+		SignalBus.player_trajectory.connect(_player_signal_received)
+		print('Connection established with player.gd')
+			
+		# MH: Later, will add if statement for "start" button in menu
+		var data_filename = {"folder": str(Config.get_value("devices.data_logging.folder")),
+							"participant": Config.get_value("devices.data_logging.participant_id"),
+							"instrumented_wheels": Config.get_value("devices.data_logging.instrumented_wheels"),
+							"motion_capture": Config.get_value("devices.data_logging.motion_capture")}
+			
+		main.get_node("python_bridge").send_request({"command": "start_logging", 
+													"run_mode": "once",
+													 "args": data_filename})
 	
 	# check that we can access the python_bridge
 	if(SignalBus.player_trajectory.is_connected(_player_signal_received)==true
@@ -45,15 +52,29 @@ func _process(_delta: float) -> void:
 		# only create a new file if a new scene is initiated
 		# MH: Qs for FC: double-click problem
 		if (current_scene!=new_scene):
+			if (current_scene!=""):
+				var timestamp = Time.get_unix_time_from_system()
+				var data_filename = {"folder": str(Config.get_value("devices.data_logging.folder")),
+									"participant": Config.get_value("devices.data_logging.participant_id"),
+									"scene": new_scene,
+									"time": timestamp,
+									"instrumented_wheels": Config.get_value("devices.data_logging.instrumented_wheels"),
+									"motion_capture": Config.get_value("devices.data_logging.motion_capture")}
+				main.get_node("python_bridge").send_request({"command": "end_logging", 
+															"run_mode": "once",
+															 "args": data_filename})
+				
+			var timestamp = Time.get_unix_time_from_system()
 			var data_filename = {"folder": str(Config.get_value("devices.data_logging.folder")),
-								"scene": new_scene,
 								"participant": Config.get_value("devices.data_logging.participant_id"),
+								"scene": new_scene,
+								"time": timestamp,
 								"player_position": Config.get_value("devices.data_logging.player_trajectory"),
 								"player_rotation": Config.get_value("devices.data_logging.player_trajectory"),
 								"instrumented_wheels": Config.get_value("devices.data_logging.instrumented_wheels"),
 								"motion_capture": Config.get_value("devices.data_logging.motion_capture")}
 			
-			main.get_node("python_bridge").send_request({"command": "create_file", 
+			main.get_node("python_bridge").send_request({"command": "create_trial", 
 														"run_mode": "once",
 														 "args": data_filename})
 			# update the current_scene variable
@@ -63,8 +84,9 @@ func _process(_delta: float) -> void:
 		if (current_scene!=""):
 			var timestamp = Time.get_unix_time_from_system()
 			var data_to_save = {"folder": Config.get_value("devices.data_logging.folder"),
-								"scene": current_scene,
 								"participant": Config.get_value("devices.data_logging.participant_id"),
+								"scene": current_scene,
+								"instrumented_wheels": Config.get_value("devices.data_logging.instrumented_wheels"),
 								"time": timestamp}
 			
 			# save player_trajectory only if this option is toggled on
