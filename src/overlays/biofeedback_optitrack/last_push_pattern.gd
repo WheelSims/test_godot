@@ -44,7 +44,9 @@ func _process(_delta: float) -> void:
 			
 	# Update loop process if the process is connected
 	if connected:
+		visible = true
 		if main.has_node("python_bridge"):
+			
 			var data = main.get_node("python_bridge").receive(last_push_pattern + "_" + side)
 			
 			if data is Dictionary and data.has("data") and data["data"].size() > 0:
@@ -53,6 +55,9 @@ func _process(_delta: float) -> void:
 						var value = data["data"][side][last_push_pattern]
 						positions = parse_trail_points(value)
 						_update_multimesh()
+	else:
+		visible = false
+
 
 	
 	# Should we quit
