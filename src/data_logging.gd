@@ -37,11 +37,13 @@ func _process(_delta: float) -> void:
 		print('Connection established with player.gd')
 			
 		# MH: Later, will add if statement for "start" button in menu
+		var timestamp = Time.get_unix_time_from_system()
 		var data_filename = {"folder": str(Config.get_value("devices.data_logging.folder")),
 							"participant": Config.get_value("devices.data_logging.participant_id"),
+							"time": timestamp,
 							"instrumented_wheels": Config.get_value("devices.data_logging.instrumented_wheels"),
 							"motion_capture": Config.get_value("devices.data_logging.motion_capture")}
-			
+		
 		main.get_node("python_bridge").send_request({"command": "start_logging", 
 													"run_mode": "once",
 													 "args": data_filename})
