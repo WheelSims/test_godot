@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://bm1b5ewq26kcl"]
+[gd_scene load_steps=14 format=3 uid="uid://bm1b5ewq26kcl"]
 
 [ext_resource type="PackedScene" uid="uid://bi4w50l5uqado" path="res://objects/optitrack/forearm_cluster_right/forearm_cluster_right.tscn" id="1_2n6hd"]
 [ext_resource type="PackedScene" uid="uid://dwlinbk7uaug" path="res://objects/wheelchair/rear_wheel.tscn" id="1_hiv0f"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" uid="uid://b8g4t15ows352" path="res://overlays/biofeedback_optitrack/rear_wheel.gd" id="5_nqdaa"]
 [ext_resource type="Script" uid="uid://dkxhvcukp6fi2" path="res://overlays/biofeedback_optitrack/angle_contact.gd" id="8_tdhcr"]
 [ext_resource type="Script" uid="uid://dyf4x7j1o2k7q" path="res://overlays/biofeedback_optitrack/trail_hand.gd" id="10_tdhcr"]
+[ext_resource type="Script" uid="uid://c4ps4n81cxcfr" path="res://overlays/biofeedback_optitrack/last_push_pattern.gd" id="11_itwwm"]
 
 [sub_resource type="Theme" id="Theme_2n6hd"]
 
@@ -25,176 +26,176 @@ corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 
-[node name="StreamingOptitrack" type="Node3D" unique_id=1621543878]
+[node name="StreamingOptitrack" type="Node3D"]
 script = ExtResource("1_j7inm")
 
-[node name="Camera_Iso" type="Camera3D" parent="." unique_id=1362348524]
+[node name="Camera_Iso" type="Camera3D" parent="."]
 transform = Transform3D(0.594949, 0.274903, -0.755291, -1.35946e-08, 0.939693, 0.34202, 0.803764, -0.203485, 0.559069, -1.95061, 0.915015, 1.39188)
 cull_mask = 1048472
 fov = 45.0
 
-[node name="forearm_cluster_right" type="Node3D" parent="." unique_id=735828909]
+[node name="forearm_cluster_right" type="Node3D" parent="."]
 script = ExtResource("2_l04ny")
 side = "right"
 
-[node name="ForearmClusterRight" parent="forearm_cluster_right" unique_id=1101839583 instance=ExtResource("1_2n6hd")]
+[node name="ForearmClusterRight" parent="forearm_cluster_right" instance=ExtResource("1_2n6hd")]
 
-[node name="forearm_cluster_left" type="Node3D" parent="." unique_id=278112822]
+[node name="forearm_cluster_left" type="Node3D" parent="."]
 script = ExtResource("2_l04ny")
 side = "left"
 
-[node name="ForearmClusterLeft" parent="forearm_cluster_left" unique_id=1325877511 instance=ExtResource("2_hiv0f")]
+[node name="ForearmClusterLeft" parent="forearm_cluster_left" instance=ExtResource("2_hiv0f")]
 
-[node name="wheel_right" type="Node3D" parent="." unique_id=1946971251]
+[node name="wheel_right" type="Node3D" parent="."]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0.3)
 
-[node name="rear_wheel_right" parent="wheel_right" unique_id=463232066 instance=ExtResource("1_hiv0f")]
+[node name="rear_wheel_right" parent="wheel_right" instance=ExtResource("1_hiv0f")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 script = ExtResource("5_nqdaa")
 side = "right"
 
-[node name="BézierCircle_004" parent="wheel_right/rear_wheel_right/rear_wheel" parent_id_path=PackedInt32Array(463232066, 1416927850) index="0" unique_id=2000540256]
+[node name="BézierCircle_004" parent="wheel_right/rear_wheel_right/rear_wheel" index="0"]
 layers = 4
 
-[node name="BézierCircle_005" parent="wheel_right/rear_wheel_right/rear_wheel" parent_id_path=PackedInt32Array(463232066, 1416927850) index="1" unique_id=1666782846]
+[node name="BézierCircle_005" parent="wheel_right/rear_wheel_right/rear_wheel" index="1"]
 layers = 4
 
-[node name="BézierCircle_006" parent="wheel_right/rear_wheel_right/rear_wheel" parent_id_path=PackedInt32Array(463232066, 1416927850) index="2" unique_id=598642149]
+[node name="BézierCircle_006" parent="wheel_right/rear_wheel_right/rear_wheel" index="2"]
 layers = 4
 
-[node name="Cylinder_013" parent="wheel_right/rear_wheel_right/rear_wheel" parent_id_path=PackedInt32Array(463232066, 1416927850) index="3" unique_id=1585116572]
+[node name="Cylinder_013" parent="wheel_right/rear_wheel_right/rear_wheel" index="3"]
 layers = 4
 
-[node name="Cylinder_014" parent="wheel_right/rear_wheel_right/rear_wheel" parent_id_path=PackedInt32Array(463232066, 1416927850) index="4" unique_id=1933588465]
+[node name="Cylinder_014" parent="wheel_right/rear_wheel_right/rear_wheel" index="4"]
 layers = 4
 
-[node name="Cylinder_015" parent="wheel_right/rear_wheel_right/rear_wheel" parent_id_path=PackedInt32Array(463232066, 1416927850) index="5" unique_id=531833053]
+[node name="Cylinder_015" parent="wheel_right/rear_wheel_right/rear_wheel" index="5"]
 layers = 4
 
-[node name="Cylinder_016" parent="wheel_right/rear_wheel_right/rear_wheel" parent_id_path=PackedInt32Array(463232066, 1416927850) index="6" unique_id=808111673]
+[node name="Cylinder_016" parent="wheel_right/rear_wheel_right/rear_wheel" index="6"]
 layers = 4
 
-[node name="Cylinder_017" parent="wheel_right/rear_wheel_right/rear_wheel" parent_id_path=PackedInt32Array(463232066, 1416927850) index="7" unique_id=1678391125]
+[node name="Cylinder_017" parent="wheel_right/rear_wheel_right/rear_wheel" index="7"]
 layers = 4
 
-[node name="Cylinder_018" parent="wheel_right/rear_wheel_right/rear_wheel" parent_id_path=PackedInt32Array(463232066, 1416927850) index="8" unique_id=833422011]
+[node name="Cylinder_018" parent="wheel_right/rear_wheel_right/rear_wheel" index="8"]
 layers = 4
 
-[node name="Cylinder_019" parent="wheel_right/rear_wheel_right/rear_wheel" parent_id_path=PackedInt32Array(463232066, 1416927850) index="9" unique_id=450149053]
+[node name="Cylinder_019" parent="wheel_right/rear_wheel_right/rear_wheel" index="9"]
 layers = 4
 
-[node name="Cylinder_020" parent="wheel_right/rear_wheel_right/rear_wheel" parent_id_path=PackedInt32Array(463232066, 1416927850) index="10" unique_id=1500352944]
+[node name="Cylinder_020" parent="wheel_right/rear_wheel_right/rear_wheel" index="10"]
 layers = 4
 
-[node name="Cylinder_021" parent="wheel_right/rear_wheel_right/rear_wheel" parent_id_path=PackedInt32Array(463232066, 1416927850) index="11" unique_id=593493418]
+[node name="Cylinder_021" parent="wheel_right/rear_wheel_right/rear_wheel" index="11"]
 layers = 4
 
-[node name="Cylinder_022" parent="wheel_right/rear_wheel_right/rear_wheel" parent_id_path=PackedInt32Array(463232066, 1416927850) index="12" unique_id=1820500564]
+[node name="Cylinder_022" parent="wheel_right/rear_wheel_right/rear_wheel" index="12"]
 layers = 4
 
-[node name="Cylinder_023" parent="wheel_right/rear_wheel_right/rear_wheel" parent_id_path=PackedInt32Array(463232066, 1416927850) index="13" unique_id=411050152]
+[node name="Cylinder_023" parent="wheel_right/rear_wheel_right/rear_wheel" index="13"]
 layers = 4
 
-[node name="Cylinder_024" parent="wheel_right/rear_wheel_right/rear_wheel" parent_id_path=PackedInt32Array(463232066, 1416927850) index="14" unique_id=1001901401]
+[node name="Cylinder_024" parent="wheel_right/rear_wheel_right/rear_wheel" index="14"]
 layers = 4
 
-[node name="Cylinder_025" parent="wheel_right/rear_wheel_right/rear_wheel" parent_id_path=PackedInt32Array(463232066, 1416927850) index="15" unique_id=496448505]
+[node name="Cylinder_025" parent="wheel_right/rear_wheel_right/rear_wheel" index="15"]
 layers = 4
 
-[node name="angle_end_contact_right" parent="wheel_right" unique_id=1048150737 instance=ExtResource("3_ss2qs")]
+[node name="angle_end_contact_right" parent="wheel_right" instance=ExtResource("3_ss2qs")]
 script = ExtResource("8_tdhcr")
 phase = "end"
 
 [node name="Circle" parent="wheel_right/angle_end_contact_right/angle_contact" index="0"]
 layers = 4
 
-[node name="angle_start_contact_right" parent="wheel_right" unique_id=1274347315 instance=ExtResource("3_ss2qs")]
+[node name="angle_start_contact_right" parent="wheel_right" instance=ExtResource("3_ss2qs")]
 script = ExtResource("8_tdhcr")
 phase = "start"
 
 [node name="Circle" parent="wheel_right/angle_start_contact_right/angle_contact" index="0"]
 layers = 4
 
-[node name="handrim_right" parent="wheel_right" unique_id=1184213355 instance=ExtResource("4_8bgme")]
+[node name="handrim_right" parent="wheel_right" instance=ExtResource("4_8bgme")]
 
-[node name="BézierCircle_003" parent="wheel_right/handrim_right/handrim" parent_id_path=PackedInt32Array(1184213355, 196758062) index="0" unique_id=1225760875]
+[node name="BézierCircle_003" parent="wheel_right/handrim_right/handrim" index="0"]
 layers = 5
 
-[node name="wheel_left" type="Node3D" parent="." unique_id=650814532]
+[node name="wheel_left" type="Node3D" parent="."]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, -0.3)
 
-[node name="rear_wheel_left" parent="wheel_left" unique_id=333736610 instance=ExtResource("1_hiv0f")]
+[node name="rear_wheel_left" parent="wheel_left" instance=ExtResource("1_hiv0f")]
 script = ExtResource("5_nqdaa")
 side = "left"
 
-[node name="BézierCircle_004" parent="wheel_left/rear_wheel_left/rear_wheel" parent_id_path=PackedInt32Array(333736610, 1416927850) index="0" unique_id=2000540256]
+[node name="BézierCircle_004" parent="wheel_left/rear_wheel_left/rear_wheel" index="0"]
 layers = 2
 
-[node name="BézierCircle_005" parent="wheel_left/rear_wheel_left/rear_wheel" parent_id_path=PackedInt32Array(333736610, 1416927850) index="1" unique_id=1666782846]
+[node name="BézierCircle_005" parent="wheel_left/rear_wheel_left/rear_wheel" index="1"]
 layers = 2
 
-[node name="BézierCircle_006" parent="wheel_left/rear_wheel_left/rear_wheel" parent_id_path=PackedInt32Array(333736610, 1416927850) index="2" unique_id=598642149]
+[node name="BézierCircle_006" parent="wheel_left/rear_wheel_left/rear_wheel" index="2"]
 layers = 2
 
-[node name="Cylinder_013" parent="wheel_left/rear_wheel_left/rear_wheel" parent_id_path=PackedInt32Array(333736610, 1416927850) index="3" unique_id=1585116572]
+[node name="Cylinder_013" parent="wheel_left/rear_wheel_left/rear_wheel" index="3"]
 layers = 2
 
-[node name="Cylinder_014" parent="wheel_left/rear_wheel_left/rear_wheel" parent_id_path=PackedInt32Array(333736610, 1416927850) index="4" unique_id=1933588465]
+[node name="Cylinder_014" parent="wheel_left/rear_wheel_left/rear_wheel" index="4"]
 layers = 2
 
-[node name="Cylinder_015" parent="wheel_left/rear_wheel_left/rear_wheel" parent_id_path=PackedInt32Array(333736610, 1416927850) index="5" unique_id=531833053]
+[node name="Cylinder_015" parent="wheel_left/rear_wheel_left/rear_wheel" index="5"]
 layers = 2
 
-[node name="Cylinder_016" parent="wheel_left/rear_wheel_left/rear_wheel" parent_id_path=PackedInt32Array(333736610, 1416927850) index="6" unique_id=808111673]
+[node name="Cylinder_016" parent="wheel_left/rear_wheel_left/rear_wheel" index="6"]
 layers = 2
 
-[node name="Cylinder_017" parent="wheel_left/rear_wheel_left/rear_wheel" parent_id_path=PackedInt32Array(333736610, 1416927850) index="7" unique_id=1678391125]
+[node name="Cylinder_017" parent="wheel_left/rear_wheel_left/rear_wheel" index="7"]
 layers = 2
 
-[node name="Cylinder_018" parent="wheel_left/rear_wheel_left/rear_wheel" parent_id_path=PackedInt32Array(333736610, 1416927850) index="8" unique_id=833422011]
+[node name="Cylinder_018" parent="wheel_left/rear_wheel_left/rear_wheel" index="8"]
 layers = 2
 
-[node name="Cylinder_019" parent="wheel_left/rear_wheel_left/rear_wheel" parent_id_path=PackedInt32Array(333736610, 1416927850) index="9" unique_id=450149053]
+[node name="Cylinder_019" parent="wheel_left/rear_wheel_left/rear_wheel" index="9"]
 layers = 2
 
-[node name="Cylinder_020" parent="wheel_left/rear_wheel_left/rear_wheel" parent_id_path=PackedInt32Array(333736610, 1416927850) index="10" unique_id=1500352944]
+[node name="Cylinder_020" parent="wheel_left/rear_wheel_left/rear_wheel" index="10"]
 layers = 2
 
-[node name="Cylinder_021" parent="wheel_left/rear_wheel_left/rear_wheel" parent_id_path=PackedInt32Array(333736610, 1416927850) index="11" unique_id=593493418]
+[node name="Cylinder_021" parent="wheel_left/rear_wheel_left/rear_wheel" index="11"]
 layers = 2
 
-[node name="Cylinder_022" parent="wheel_left/rear_wheel_left/rear_wheel" parent_id_path=PackedInt32Array(333736610, 1416927850) index="12" unique_id=1820500564]
+[node name="Cylinder_022" parent="wheel_left/rear_wheel_left/rear_wheel" index="12"]
 layers = 2
 
-[node name="Cylinder_023" parent="wheel_left/rear_wheel_left/rear_wheel" parent_id_path=PackedInt32Array(333736610, 1416927850) index="13" unique_id=411050152]
+[node name="Cylinder_023" parent="wheel_left/rear_wheel_left/rear_wheel" index="13"]
 layers = 2
 
-[node name="Cylinder_024" parent="wheel_left/rear_wheel_left/rear_wheel" parent_id_path=PackedInt32Array(333736610, 1416927850) index="14" unique_id=1001901401]
+[node name="Cylinder_024" parent="wheel_left/rear_wheel_left/rear_wheel" index="14"]
 layers = 2
 
-[node name="Cylinder_025" parent="wheel_left/rear_wheel_left/rear_wheel" parent_id_path=PackedInt32Array(333736610, 1416927850) index="15" unique_id=496448505]
+[node name="Cylinder_025" parent="wheel_left/rear_wheel_left/rear_wheel" index="15"]
 layers = 2
 
-[node name="angle_end_contact_left" parent="wheel_left" unique_id=1388632390 instance=ExtResource("3_ss2qs")]
+[node name="angle_end_contact_left" parent="wheel_left" instance=ExtResource("3_ss2qs")]
 script = ExtResource("8_tdhcr")
 phase = "end"
 
 [node name="Circle" parent="wheel_left/angle_end_contact_left/angle_contact" index="0"]
 layers = 2
 
-[node name="angle_start_contact_left" parent="wheel_left" unique_id=1408880044 instance=ExtResource("3_ss2qs")]
+[node name="angle_start_contact_left" parent="wheel_left" instance=ExtResource("3_ss2qs")]
 script = ExtResource("8_tdhcr")
 phase = "start"
 
 [node name="Circle" parent="wheel_left/angle_start_contact_left/angle_contact" index="0"]
 layers = 2
 
-[node name="handrim_left" parent="wheel_left" unique_id=340379809 instance=ExtResource("4_8bgme")]
+[node name="handrim_left" parent="wheel_left" instance=ExtResource("4_8bgme")]
 
-[node name="BézierCircle_003" parent="wheel_left/handrim_left/handrim" parent_id_path=PackedInt32Array(340379809, 196758062) index="0" unique_id=1225760875]
+[node name="BézierCircle_003" parent="wheel_left/handrim_left/handrim" index="0"]
 layers = 2
 
-[node name="PanelContainer" type="PanelContainer" parent="." unique_id=2002384850]
+[node name="PanelContainer" type="PanelContainer" parent="."]
 offset_left = 320.0
 offset_top = 524.0
 offset_right = 820.0
@@ -202,89 +203,89 @@ offset_bottom = 704.0
 theme = SubResource("Theme_2n6hd")
 theme_override_styles/panel = SubResource("StyleBoxFlat_hiv0f")
 
-[node name="view_wheel_left" type="SubViewportContainer" parent="." unique_id=402187831]
+[node name="view_wheel_left" type="SubViewportContainer" parent="."]
 offset_left = 231.0
 offset_top = 180.0
 offset_right = 831.0
 offset_bottom = 780.0
 
-[node name="SubViewport" type="SubViewport" parent="view_wheel_left" unique_id=438742054]
+[node name="SubViewport" type="SubViewport" parent="view_wheel_left"]
 transparent_bg = true
 handle_input_locally = false
 size = Vector2i(600, 600)
 render_target_update_mode = 4
 
-[node name="Node3D" type="Node3D" parent="view_wheel_left/SubViewport" unique_id=68265510]
+[node name="Node3D" type="Node3D" parent="view_wheel_left/SubViewport"]
 transform = Transform3D(0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, 0.5, -0.4, 0, 0)
 
-[node name="Camera_Left" type="Camera3D" parent="view_wheel_left/SubViewport/Node3D" unique_id=774265407]
+[node name="Camera_Left" type="Camera3D" parent="view_wheel_left/SubViewport/Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 1)
 cull_mask = 1047586
 projection = 1
 fov = 45.0
 size = 3.0
 
-[node name="view_wheel_left2" type="SubViewportContainer" parent="." unique_id=627867457]
+[node name="view_wheel_left2" type="SubViewportContainer" parent="."]
 offset_left = 210.0
 offset_top = 347.0
 offset_right = 610.0
 offset_bottom = 747.0
 
-[node name="SubViewport" type="SubViewport" parent="view_wheel_left2" unique_id=655262855]
+[node name="SubViewport" type="SubViewport" parent="view_wheel_left2"]
 transparent_bg = true
 handle_input_locally = false
 size = Vector2i(400, 400)
 render_target_update_mode = 4
 
-[node name="Camera_Left" type="Camera3D" parent="view_wheel_left2/SubViewport" unique_id=891988729]
+[node name="Camera_Left" type="Camera3D" parent="view_wheel_left2/SubViewport"]
 transform = Transform3D(1, 0, -8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0.7, -1)
-cull_mask = 1047586
+cull_mask = 1047714
 projection = 1
 fov = 45.0
 size = 3.0
 
-[node name="view_wheel_right" type="SubViewportContainer" parent="." unique_id=569501941]
+[node name="view_wheel_right" type="SubViewportContainer" parent="."]
 offset_left = 270.0
 offset_top = 180.0
 offset_right = 870.0
 offset_bottom = 780.0
 
-[node name="SubViewport" type="SubViewport" parent="view_wheel_right" unique_id=1589166066]
+[node name="SubViewport" type="SubViewport" parent="view_wheel_right"]
 transparent_bg = true
 handle_input_locally = false
 size = Vector2i(600, 600)
 render_target_update_mode = 4
 
-[node name="Node3D" type="Node3D" parent="view_wheel_right/SubViewport" unique_id=592005460]
+[node name="Node3D" type="Node3D" parent="view_wheel_right/SubViewport"]
 transform = Transform3D(-0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, -0.5, 0, 0, 0)
 
-[node name="Camera_Right" type="Camera3D" parent="view_wheel_right/SubViewport/Node3D" unique_id=2022016429]
+[node name="Camera_Right" type="Camera3D" parent="view_wheel_right/SubViewport/Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 1)
 cull_mask = 1047620
 projection = 1
 fov = 45.0
 size = 3.0
 
-[node name="view_wheel_right2" type="SubViewportContainer" parent="." unique_id=1928391593]
+[node name="view_wheel_right2" type="SubViewportContainer" parent="."]
 offset_left = 532.0
 offset_top = 347.0
 offset_right = 932.0
 offset_bottom = 747.0
 
-[node name="SubViewport" type="SubViewport" parent="view_wheel_right2" unique_id=236426997]
+[node name="SubViewport" type="SubViewport" parent="view_wheel_right2"]
 transparent_bg = true
 handle_input_locally = false
 size = Vector2i(400, 400)
 render_target_update_mode = 4
 
-[node name="Camera_Right" type="Camera3D" parent="view_wheel_right2/SubViewport" unique_id=2145061657]
+[node name="Camera_Right" type="Camera3D" parent="view_wheel_right2/SubViewport"]
 transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 1)
-cull_mask = 1047620
+cull_mask = 1047876
 projection = 1
 fov = 45.0
 size = 3.0
 
-[node name="view_wheel_top" type="SubViewportContainer" parent="." unique_id=1144560674]
+[node name="view_wheel_top" type="SubViewportContainer" parent="."]
 visible = false
 offset_left = 420.0
 offset_top = 30.0
@@ -292,24 +293,54 @@ offset_right = 932.0
 offset_bottom = 542.0
 scale = Vector2(0.5, 0.5)
 
-[node name="SubViewport" type="SubViewport" parent="view_wheel_top" unique_id=1451332508]
+[node name="SubViewport" type="SubViewport" parent="view_wheel_top"]
 transparent_bg = true
 handle_input_locally = false
 render_target_update_mode = 0
 
-[node name="Camera_Top" type="Camera3D" parent="view_wheel_top/SubViewport" unique_id=822805749]
+[node name="Camera_Top" type="Camera3D" parent="view_wheel_top/SubViewport"]
 transform = Transform3D(-4.37114e-08, 1, 4.37114e-08, 0, -4.37114e-08, 1, 1, 4.37114e-08, 1.91069e-15, 0, 2, 0)
 cull_mask = 1047558
 projection = 1
 fov = 45.0
 
-[node name="trail_hand_left" type="MultiMeshInstance3D" parent="." unique_id=523207625]
+[node name="trail_hand_left" type="MultiMeshInstance3D" parent="."]
 script = ExtResource("10_tdhcr")
 side = "left"
 
-[node name="trail_hand_right" type="MultiMeshInstance3D" parent="." unique_id=1349041245]
+[node name="trail_hand_right" type="MultiMeshInstance3D" parent="."]
 script = ExtResource("10_tdhcr")
 side = "right"
+
+[node name="last_push_pattern_left_1" type="MultiMeshInstance3D" parent="."]
+script = ExtResource("11_itwwm")
+side = "left"
+last_push_pattern = "last_push_pattern_1"
+
+[node name="last_push_pattern_left_2" type="MultiMeshInstance3D" parent="."]
+script = ExtResource("11_itwwm")
+side = "left"
+last_push_pattern = "last_push_pattern_2"
+
+[node name="last_push_pattern_left_3" type="MultiMeshInstance3D" parent="."]
+script = ExtResource("11_itwwm")
+side = "left"
+last_push_pattern = "last_push_pattern_3"
+
+[node name="last_push_pattern_right_1" type="MultiMeshInstance3D" parent="."]
+script = ExtResource("11_itwwm")
+side = "right"
+last_push_pattern = "last_push_pattern_1"
+
+[node name="last_push_pattern_right_2" type="MultiMeshInstance3D" parent="."]
+script = ExtResource("11_itwwm")
+side = "right"
+last_push_pattern = "last_push_pattern_2"
+
+[node name="last_push_pattern_right_3" type="MultiMeshInstance3D" parent="."]
+script = ExtResource("11_itwwm")
+side = "right"
+last_push_pattern = "last_push_pattern_3"
 
 [editable path="wheel_right/rear_wheel_right"]
 [editable path="wheel_right/rear_wheel_right/rear_wheel"]

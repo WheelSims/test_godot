@@ -9,15 +9,17 @@
 [ext_resource type="PackedScene" uid="uid://f24s3bar65fp" path="res://overlays/debug.tscn" id="4_272bh"]
 [ext_resource type="PackedScene" uid="uid://bm1b5ewq26kcl" path="res://overlays/biofeedback_optitrack.tscn" id="4_dg77c"]
 [ext_resource type="PackedScene" uid="uid://ck2thoxwmsujy" path="res://devices/d_box/d_box.tscn" id="5_5vw27"]
+[ext_resource type="PackedScene" uid="uid://c5tbnk1yth8r8" path="res://overlays/biofeedback_push_frequency.tscn" id="5_ycdy4"]
 [ext_resource type="PackedScene" uid="uid://utxy2vmv4wo7" path="res://devices/optitrack/optitrack.tscn" id="6_kek77"]
 [ext_resource type="PackedScene" uid="uid://k18bpclv0qnw" path="res://devices/screens/single_screen.tscn" id="8_efxa6"]
 [ext_resource type="PackedScene" uid="uid://bvnocfmlki4nf" path="res://devices/screens/front_floor_screens.tscn" id="9_dg77c"]
 [ext_resource type="PackedScene" uid="uid://x4hefxmnqe41" path="res://devices/python_bridge/python_bridge.tscn" id="10_dg77c"]
 
-[node name="main" type="Node" unique_id=842200446]
+[node name="main" type="Node" unique_id=502567777]
 script = ExtResource("1_0xm2m")
 available_overlays = Dictionary[String, PackedScene]({
 "overlays.biofeedback_optitrack.enabled": ExtResource("4_dg77c"),
+"overlays.biofeedback_push_frequency.enabled": ExtResource("5_ycdy4"),
 "overlays.debug.enabled": ExtResource("4_272bh"),
 "overlays.speed_indicator.enabled": ExtResource("2_efxa6")
 })
@@ -31,11 +33,11 @@ available_devices = Dictionary[String, PackedScene]({
 "devices.screens.single_screen.enabled": ExtResource("8_efxa6")
 })
 
-[node name="control_gui" parent="." unique_id=406102422 instance=ExtResource("1_ig7tw")]
+[node name="control_gui" parent="." unique_id=1623928739 instance=ExtResource("1_ig7tw")]
 
-[node name="scene_viewport" type="SubViewport" parent="." unique_id=795659673]
+[node name="scene_viewport" type="SubViewport" parent="." unique_id=1290056278]
 audio_listener_enable_3d = true
 size = Vector2i(1280, 720)
 
-[node name="config" type="Node" parent="." unique_id=2067591541]
+[node name="config" type="Node" parent="." unique_id=1203727179]
 script = ExtResource("3_h2yge")

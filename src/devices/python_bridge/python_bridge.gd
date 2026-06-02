@@ -12,24 +12,21 @@ extends Node3D
 
 @onready var main: Node = get_tree().get_root().get_node("main")
 
-# UDP IP address
-@export var UDP_SEND_IP: String = "127.0.0.1" 
-# Python port
-@export var UDP_SEND_PORT: int = 4243 
-# Godot port
-@export var UDP_RECEIVE_PORT: int = 4242 
-# UDP receiver
+@export var UDP_SEND_IP: String = "127.0.0.1" # Python IP
+@export var UDP_SEND_PORT: int = 4243 # Python port
+@export var UDP_RECEIVE_PORT: int = 4242 # Godot port
 var _udp_receiver = PacketPeerUDP.new()
-# UDP sender
 var _udp_sender = PacketPeerUDP.new()
 var _udp_receiver_connected = false
 
-# this runs only once, at start
+var queue_requests_by_id = { } # Queue storing received request data per id
+
+
 func _ready():
 	# Launch Python app
 	var python_app_path: String = Config.get_value("devices.python_bridge.python_path")
 	var python_script_path: String = Config.get_value("devices.python_bridge.script_path")
-	
+
 	if (python_app_path == ""):
 		print("Cannot launch Python because Python app path is unset.")
 		return
@@ -43,37 +40,73 @@ func _ready():
 	# Set UDP receiver and UDP sender
 	_udp_receiver.bind(UDP_RECEIVE_PORT)
 	_udp_sender.connect_to_host(UDP_SEND_IP, UDP_SEND_PORT)
-	
-	# Waiting ping request from Python
-	# manual call to check for new data
-	
+
+	# Waiting ping request from Python bridge
 	while _udp_receiver.get_available_packet_count() == 0:
 		await get_tree().create_timer(1.0).timeout
 	_udp_receiver_connected = true
+
 
 func _process(_delta):
 	if main:
 		if not Config.get_value("devices.python_bridge.enabled"):
 			queue_free()
-			
-## Receive JSON data from Python
-func receive_data():
-	var data
+	if _udp_receiver_connected:
+		_process_received_packets()
 
-	if _udp_receiver.get_available_packet_count() > 0: # We received something
-		data = _udp_receiver.get_packet()
 
+## Receive and save JSON data from Python bridge in requests queues
+func _process_received_packets():
+	while _udp_receiver.get_available_packet_count() > 0: # We received something
+		var data = _udp_receiver.get_packet()
 		var json_string = data.get_string_from_utf8()
 		var json = JSON.new()
 		json.parse(json_string)
 
-		return json.get_data()
+		for id in queue_requests_by_id:
+			queue_requests_by_id[id].append(json.get_data())
 
 
-## Sending JSON data to Python
-func send_request(data):
-	# to_utf8_buffer to ensure string compatibility
-	_udp_sender.put_packet(JSON.stringify(data).to_utf8_buffer())
+## Receive data from Python.
+##
+## Parameters
+## ----------
+## id
+##     Name of the receive queue. If the receive queue does not exist yet, it is created. Each
+##     received data is appended to every receive queue, which ensures that calling receive() with
+##     a unique queue gives access to every received packets.
+##
+## Returns
+## -------
+## Dictionary
+##     If no data is available, returns an empty dictionary.
+##     If data is available, returns a dictionary with keys "command", which is the name of the
+##     python command that sent this data, and "data", which is a dictionary with the actual
+##     data.
+func receive(id: String) -> Dictionary:
+	if id not in queue_requests_by_id:
+		queue_requests_by_id[id] = []
+		return { }
+	if queue_requests_by_id[id].size() > 0:
+		var last_data = queue_requests_by_id[id].pop_at(-1)
+		return last_data
+	return { }
+
+
+## Run a Python command.
+##
+## Parameters
+## ----------
+## command
+##     One of the available commands in the python_bridge.py's COMMAND_MAPPING
+## args
+##     A dictionary containing any information required by the command
+## run_mode
+##     "once" to launch the command once, "start" to run it continuously, and "stop" to
+##     stop from running it continuously.
+func send(command: String, args: Dictionary, run_mode: String):
+	var request = { "command": command, "args": args, "run_mode": run_mode }
+	_udp_sender.put_packet(JSON.stringify(request).to_utf8_buffer())
 
 
 ## Debug overlay
@@ -85,8 +118,9 @@ func get_debug_text() -> String:
 	text += "connected.\n"
 	return text
 
+
 ## Close the python app when the node exits the scene tree
 func _exit_tree():
-	send_request({ "command": "close",
-					"run_mode": "once",
-					"args": {}})
+	send("close", { }, "once")
+	# Delay to allow other overlays/devices to shut down before this device
+	await get_tree().create_timer(0.1).timeout
