@@ -44,7 +44,7 @@ func _process(_delta: float) -> void:
 							"instrumented_wheels": Config.get_value("devices.data_logging.instrumented_wheels"),
 							"motion_capture": Config.get_value("devices.data_logging.motion_capture")}
 		
-		main.get_node("python_bridge").send_request({"command": "start_logging", 
+		main.get_node("python_bridge").send({"command": "start_logging", 
 													"run_mode": "once",
 													 "args": data_filename})
 	
@@ -62,7 +62,7 @@ func _process(_delta: float) -> void:
 									"time": timestamp,
 									"instrumented_wheels": Config.get_value("devices.data_logging.instrumented_wheels"),
 									"motion_capture": Config.get_value("devices.data_logging.motion_capture")}
-				main.get_node("python_bridge").send_request({"command": "end_logging", 
+				main.get_node("python_bridge").send({"command": "end_logging", 
 															"run_mode": "once",
 															 "args": data_filename})
 				
@@ -76,7 +76,7 @@ func _process(_delta: float) -> void:
 								"instrumented_wheels": Config.get_value("devices.data_logging.instrumented_wheels"),
 								"motion_capture": Config.get_value("devices.data_logging.motion_capture")}
 			
-			main.get_node("python_bridge").send_request({"command": "create_trial", 
+			main.get_node("python_bridge").send({"command": "create_trial", 
 														"run_mode": "once",
 														 "args": data_filename})
 			# update the current_scene variable
@@ -104,7 +104,7 @@ func _process(_delta: float) -> void:
 			#	data_to_save["motion"] = player_motion
 			
 			# communicate the information to be saved in the file
-			main.get_node("python_bridge").send_request({"command": "data_logging", 
+			main.get_node("python_bridge").send({"command": "data_logging", 
 														"run_mode": "once",
 														"args": data_to_save})
 	
