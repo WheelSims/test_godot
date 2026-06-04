@@ -4,4 +4,4 @@
 
 [node name="Node3D" type="Node3D" unique_id=821090249]
 
-[node name="rear_wheel" parent="." unique_id=1416927850 instance=ExtResource("1_2movc")]
+[node name="rear_wheel" parent="." unique_id=1701913547 instance=ExtResource("1_2movc")]
