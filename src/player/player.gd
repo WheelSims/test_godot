@@ -112,8 +112,10 @@ func _process(_delta):
 	$camera.rotation.z = -rotation.z
 	
 	await get_tree().process_frame
-	# Player position and orientation are emitted to the player_trajectory signal
-	SignalBus.player_trajectory.emit(global_position, rotation)
+	
+	if(Config.get_value("devices.data_logging.player_trajectory")==true):
+		# Player position and orientation are emitted to the player_trajectory signal
+		SignalBus.player_trajectory.emit(global_position, rotation)
 	
 func _physics_process(delta: float) -> void:
 	var desired_linear_velocity := _device_linear_velocity

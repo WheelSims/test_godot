@@ -53,17 +53,18 @@ var _defaults: Dictionary[String, Dictionary] = {
 	"devices.python_bridge.enabled": { "order": 4.8, "label": "Python Bridge", "type": "bool", "default": false },
 	"devices.python_bridge.python_path": { "order": 4.81, "label": "Python app path", "type": "file", "default": "" },
 	"devices.python_bridge.script_path": { "order": 4.82, "label": "Python script path", "type": "file", "default": "" },
-	"devices.data_logging": { "order": 4.9, "label": "Data Logging" },
+	"devices.data_logging": { "order": 4.9, "label": "DATA LOGGING" },
 	"devices.data_logging.enabled": { "order": 4.91, "label": "Logging", "type": "bool", "default": true },
 	"devices.data_logging.folder": { "order": 4.92, "label": "Folder", "type": "folder", "default": "D:/Maria_school/Documents/S2026/data" },
 	"devices.data_logging.participant_id": { "order": 4.93, "label": "Participant ID", "type": "string", "default": "test" },
 	"devices.data_logging.player_trajectory": { "order": 4.94, "label": "Player Trajectory", "type": "bool", "default": true },
 	"devices.data_logging.instrumented_wheels": { "order": 4.95, "label": "Instrumented Wheels", "type": "bool", "default": false },
-	"devices.data_logging.motion_capture": { "order": 4.96, "label": "Motion Capture", "type": "bool", "default": false },
-	"coordinates.left_wheel_center": { "order": 5.01, "label": "Left wheel center", "type": "array", "default": [-0.2, 0.3, -0.75], "reference": "simulator" },
-	"coordinates.right_wheel_center": { "order": 5.02, "label": "Right wheel center", "type": "array", "default": [-0.2, 0.3, -0.2], "reference": "simulator" },
-	"coordinates.left_hand": { "order": 5.03, "label": "Left hand", "type": "array", "default": [0.0, 0.0, 0.0], "reference": "forearm_cluster_left" },
-	"coordinates.right_hand": { "order": 5.04, "label": "Right hand", "type": "array", "default": [0.0, 0.0, 0.0], "reference": "forearm_cluster_right" },
+	"devices.data_logging.instrumented_wheels.path": { "order": 4.96, "label": "NextWheel path", "type": "file", "default": "D:/Maria_school/Documents/S2026/nextwheel/software/python/nextwheel" },
+	"devices.data_logging.motion_capture": { "order": 4.97, "label": "Motion Capture", "type": "bool", "default": false },
+	"coordinates.left_wheel_center": { "order": 6.01, "label": "Left wheel center", "type": "array", "default": [-0.2, 0.3, -0.75], "reference": "simulator" },
+	"coordinates.right_wheel_center": { "order": 6.02, "label": "Right wheel center", "type": "array", "default": [-0.2, 0.3, -0.2], "reference": "simulator" },
+	"coordinates.left_hand": { "order": 6.03, "label": "Left hand", "type": "array", "default": [0.0, 0.0, 0.0], "reference": "forearm_cluster_left" },
+	"coordinates.right_hand": { "order": 6.04, "label": "Right hand", "type": "array", "default": [0.0, 0.0, 0.0], "reference": "forearm_cluster_right" },
 }
 
 ## Overrides
@@ -87,7 +88,6 @@ func _ready():
 	load_config()
 	# always start a session with the default participant_id = "test"
 	set_value("devices.data_logging.participant_id", "test")
-	set_value("devices.data_logging.folder", "D:/Maria_school/Documents/S2026/data")
 	_save_config() # In case there was no configuration file yet
 
 # -------------------------------------------------------------------
