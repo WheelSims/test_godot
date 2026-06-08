@@ -11,7 +11,6 @@
 [ext_resource type="PackedScene" uid="uid://dnejsadnifhhr" path="res://objects/humans/kate/kate.tscn" id="9_vyufj"]
 [ext_resource type="PackedScene" uid="uid://gcvy038757is" path="res://objects/humans/josh/josh.tscn" id="10_qknyg"]
 
-
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_o8o6p"]
 panorama = ExtResource("3_ynxnr")
 
@@ -110,9 +109,9 @@ _data = {
 }
 point_count = 11
 
-[node name="street_corner_environment" type="Node3D" unique_id=556198269]
+[node name="StreetCornerEnvironment" type="Node3D" unique_id=556198269]
 
-[node name="street_corner_terrain" parent="." unique_id=1951716418 instance=ExtResource("1_6qklj")]
+[node name="StreetCornerTerrain" parent="." unique_id=1951716418 instance=ExtResource("1_6qklj")]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=675999103]
 environment = SubResource("Environment_4wj2v")
@@ -260,7 +259,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -85.5275, -7.89699, -35.6942)
 curve = SubResource("Curve3D_4wj2v")
 
 [node name="PathFollow3D" type="PathFollow3D" parent="CarPaths/PathDarlingtonForward" unique_id=798683012]
-transform = Transform3D(-0.13939661, -0.14878437, -0.9789909, 7.450496e-09, 0.98863477, -0.15025271, 0.9902252, -0.020944776, -0.13781513, 1.94528, 0, -2.83992)
+transform = Transform3D(-0.13939661, -0.14878437, -0.97899085, 7.450496e-09, 0.9886347, -0.15025271, 0.9902252, -0.020944776, -0.13781512, 1.94528, 0, -2.83992)
 
 [node name="Car" parent="CarPaths/PathDarlingtonForward/PathFollow3D" unique_id=2111118256 instance=ExtResource("3_o8o6p")]
 transform = Transform3D(-0.999627, -9.6567e-05, -0.0276601, 5.58794e-09, 1.0001, -0.00349069, 0.0276601, -0.00348978, -0.999627, 1.90735e-06, -0.0590053, 0.00805664)
@@ -281,7 +280,7 @@ transform = Transform3D(1, 0, 0, 0, 0.999845, -0.017592, 0, 0.017592, 0.999845, 
 curve = SubResource("Curve3D_iesvt")
 
 [node name="PathFollow3D" type="PathFollow3D" parent="CarPaths/PathDarlington2Right" unique_id=1562997003]
-transform = Transform3D(-0.118138105, -0.13221464, -0.98415273, -1.4901113e-08, 0.99108696, -0.1331479, 0.9929938, -0.015729778, -0.11708627, 0.336403, 0, 0.0601158)
+transform = Transform3D(-0.1181381, -0.13221464, -0.98415273, -1.4901112e-08, 0.99108696, -0.1331479, 0.9929937, -0.015729778, -0.11708627, 0.336403, 0, 0.0601158)
 
 [node name="Car" parent="CarPaths/PathDarlington2Right/PathFollow3D" unique_id=1032639532 instance=ExtResource("3_o8o6p")]
 transform = Transform3D(-0.999254, -0.000941731, 0.0388797, -0.0016318, 0.999948, -0.0177258, -0.0388565, -0.0177774, -0.999103, -0.0170746, -0.20337, 0.371284)
@@ -291,7 +290,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -93.1214, 0, -43.0368)
 curve = SubResource("Curve3D_s8w58")
 
 [node name="PathFollow3D" type="PathFollow3D" parent="CarPaths/PathDarlington3Left" unique_id=2066790347]
-transform = Transform3D(-0.112044066, -0.1447176, -0.983107, -1.490113e-08, 0.98933846, -0.14563437, 0.99370116, -0.016317515, -0.11084952, 1.87475, -8.65935, 0.330887)
+transform = Transform3D(-0.11204406, -0.1447176, -0.983107, -1.4901129e-08, 0.98933846, -0.14563437, 0.9937011, -0.016317515, -0.11084952, 1.87475, -8.65935, 0.330887)
 
 [node name="Car" parent="CarPaths/PathDarlington3Left/PathFollow3D" unique_id=917875294 instance=ExtResource("3_o8o6p")]
 transform = Transform3D(-0.998025, -0.0304089, 0.0551558, -0.0280255, 0.99877, 0.0434317, -0.0564024, 0.0418035, -0.997549, 0, 0, 0)
@@ -311,7 +310,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.8241, -0.666341, 42.3775)
 curve = SubResource("Curve3D_fcu0f")
 
 [node name="PathFollow3D" type="PathFollow3D" parent="CarPaths/Path3" unique_id=2004966088]
-transform = Transform3D(0.8610321, -0.00899171, -0.5084669, -0.021526229, 0.99829394, -0.054106276, 0.50809085, 0.057532348, 0.8593771, 0.02175476, -0.5825969, 1.0367378)
+transform = Transform3D(0.8610322, -0.00899171, -0.5084669, -0.021526229, 0.9982939, -0.054106276, 0.50809085, 0.057532344, 0.8593771, 0.02175476, -0.5825969, 1.0367378)
 progress = 0.88807
 
 [node name="Car" parent="CarPaths/Path3/PathFollow3D" unique_id=1230577125 instance=ExtResource("3_o8o6p")]
@@ -322,7 +321,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26.8013, -1.11584, 42.1311)
 curve = SubResource("Curve3D_qknyg")
 
 [node name="PathFollow3D" type="PathFollow3D" parent="CarPaths/Path3D2" unique_id=1574575542]
-transform = Transform3D(0.85847795, -0.010642699, -0.5127384, -2.5810195e-05, 0.999783, -0.02079528, 0.5128491, 0.017865542, 0.8582916, 5.20871, 0.2169169, -7.949975)
+transform = Transform3D(0.85847795, -0.010642699, -0.5127384, -2.5810195e-05, 0.999783, -0.02079528, 0.5128491, 0.017865542, 0.85829157, 5.20871, 0.2169169, -7.949975)
 progress = 10.4311
 
 [node name="Car" parent="CarPaths/Path3D2/PathFollow3D" unique_id=1876777065 instance=ExtResource("3_o8o6p")]
@@ -372,33 +371,33 @@ progress = 96.0147
 [node name="Josh" parent="PedestrianPaths/Path32/PathFollow3D" unique_id=1552274764 instance=ExtResource("10_qknyg")]
 transform = Transform3D(-0.998434, 0, -0.0559383, 0, 1, 0, 0.0559383, 0, -0.998434, -9.53674e-07, 0, 0.237)
 
-[node name="trees" type="Node3D" parent="." unique_id=1754471002]
+[node name="Trees" type="Node3D" parent="." unique_id=1754471002]
 
-[node name="Tree1" parent="trees" unique_id=1922658507 instance=ExtResource("6_fcu0f")]
+[node name="Tree1" parent="Trees" unique_id=1922658507 instance=ExtResource("6_fcu0f")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.94186, -1.2855, 11.2646)
 
-[node name="Tree2" parent="trees" unique_id=413565450 instance=ExtResource("6_fcu0f")]
+[node name="Tree2" parent="Trees" unique_id=413565450 instance=ExtResource("6_fcu0f")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.98779, -2.57099, 27.0838)
 
-[node name="Tree3" parent="trees" unique_id=1763823440 instance=ExtResource("6_fcu0f")]
+[node name="Tree3" parent="Trees" unique_id=1763823440 instance=ExtResource("6_fcu0f")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.0441, -2.57099, 34.7093)
 
-[node name="Tree4" parent="trees" unique_id=1781177348 instance=ExtResource("6_fcu0f")]
+[node name="Tree4" parent="Trees" unique_id=1781177348 instance=ExtResource("6_fcu0f")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26.0972, -2.57099, 3.71307)
 
-[node name="Tree5" parent="trees" unique_id=1594517925 instance=ExtResource("6_fcu0f")]
+[node name="Tree5" parent="Trees" unique_id=1594517925 instance=ExtResource("6_fcu0f")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -39.0002, -2.57099, 14.2285)
 
-[node name="Tree6" parent="trees" unique_id=524593182 instance=ExtResource("6_fcu0f")]
+[node name="Tree6" parent="Trees" unique_id=524593182 instance=ExtResource("6_fcu0f")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -41.392, -2.57099, 33.483)
 
-[node name="Tree7" parent="trees" unique_id=1891224083 instance=ExtResource("6_fcu0f")]
+[node name="Tree7" parent="Trees" unique_id=1891224083 instance=ExtResource("6_fcu0f")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -73.2321, -6.83422, -15.1391)
 
-[node name="Tree8" parent="trees" unique_id=1285009393 instance=ExtResource("6_fcu0f")]
+[node name="Tree8" parent="Trees" unique_id=1285009393 instance=ExtResource("6_fcu0f")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.0181, -2.57099, -15.9565)
 
-[node name="Tree9" parent="trees" unique_id=2073960712 instance=ExtResource("6_fcu0f")]
+[node name="Tree9" parent="Trees" unique_id=2073960712 instance=ExtResource("6_fcu0f")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.7319, -2.57099, -29.2004)
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1653084713]

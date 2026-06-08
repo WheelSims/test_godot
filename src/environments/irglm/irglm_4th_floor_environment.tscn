@@ -2,9 +2,9 @@
 
 [ext_resource type="PackedScene" uid="uid://cbs02juddulma" path="res://terrain/irglm/irglm_4th_floor_terrain.tscn" id="1_wbod1"]
 
-[node name="irglm_4th_floor_environment" type="Node3D" unique_id=2134659720]
+[node name="IRGLM4thFloorEnvironment" type="Node3D" unique_id=2134659720]
 
-[node name="irglm_4th_floor_terrain" parent="." unique_id=293268853 instance=ExtResource("1_wbod1")]
+[node name="IRGLM4thFloorTerrain" parent="." unique_id=293268853 instance=ExtResource("1_wbod1")]
 
 [node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=1382027036]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.4533541, -3)
