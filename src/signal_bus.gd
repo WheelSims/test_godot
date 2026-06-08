@@ -3,6 +3,10 @@
 ## from a single script of interest
 extends Node
 
+# signal pertaining to python ping (python_bridge.gd)
+@warning_ignore("unused_signal")
+signal python_connected
+
 # signal pertaining to the current scene (main.gd)
 @warning_ignore("unused_signal")
 signal session_scene
