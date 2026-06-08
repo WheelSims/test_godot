@@ -2,5 +2,5 @@
 
 [ext_resource type="Script" uid="uid://dp5igd388f83o" path="res://devices/optitrack/optitrack.gd" id="1_rm6v3"]
 
-[node name="optitrack" type="Node3D" unique_id=1031805974]
+[node name="Optitrack" type="Node3D" unique_id=1031805974]
 script = ExtResource("1_rm6v3")

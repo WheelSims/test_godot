@@ -2,15 +2,15 @@
 
 [ext_resource type="Script" uid="uid://eg8crkfvfumy" path="res://devices/screens/single_screen.gd" id="1_mwtn7"]
 
-[node name="single_screen" type="Node2D" unique_id=1912241462]
+[node name="SingleScreen" type="Node2D" unique_id=1912241462]
 script = ExtResource("1_mwtn7")
 
-[node name="main_window" type="Window" parent="." unique_id=512478051]
+[node name="MainWindow" type="Window" parent="." unique_id=512478051]
 oversampling_override = 1.0
 position = Vector2i(0, 36)
 size = Vector2i(1280, 768)
 
-[node name="texture_rect" type="TextureRect" parent="main_window" unique_id=1108673996]
+[node name="TextureRect" type="TextureRect" parent="MainWindow" unique_id=1108673996]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -21,7 +21,7 @@ grow_vertical = 2
 expand_mode = 1
 stretch_mode = 3
 
-[node name="overlays" type="Control" parent="main_window" unique_id=1680080888]
+[node name="Overlays" type="Control" parent="MainWindow" unique_id=1680080888]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
