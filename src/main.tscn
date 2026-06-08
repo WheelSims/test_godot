@@ -31,11 +31,11 @@ available_devices = Dictionary[String, PackedScene]({
 "devices.screens.single_screen.enabled": ExtResource("8_efxa6")
 })
 
-[node name="control_gui" parent="." unique_id=1623928739 instance=ExtResource("1_ig7tw")]
+[node name="ControlGUI" parent="." unique_id=1623928739 instance=ExtResource("1_ig7tw")]
 
-[node name="scene_viewport" type="SubViewport" parent="." unique_id=1290056278]
+[node name="SceneViewport" type="SubViewport" parent="." unique_id=1290056278]
 audio_listener_enable_3d = true
 size = Vector2i(1280, 720)
 
-[node name="config" type="Node" parent="." unique_id=1203727179]
+[node name="Config" type="Node" parent="." unique_id=1203727179]
 script = ExtResource("3_h2yge")

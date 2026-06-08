@@ -3,7 +3,6 @@ extends Control
 # -------------------------------------------------------------------
 # Constants
 # -------------------------------------------------------------------
-var SIMULATOR_USERS_FILENAME = "user://simulator_users.json"
 var PLAYABLE_SCENES_FOLDER_PATH = "res://playable_scenes"
 
 # -------------------------------------------------------------------

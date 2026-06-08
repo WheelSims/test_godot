@@ -31,13 +31,6 @@ class_name Player
 @export var LINEAR_SPEED_DEADZONE: float = 0.04 # m/s
 @export var ANGULAR_SPEED_DEADZONE: float = 0.04 # rad/s
 
-# -----------------------
-# Custom nodes
-# -----------------------
-@onready var motors = get_node_or_null("motors")
-@onready var player_text_node: Label = get_node_or_null(
-	"ui/player_text",
-)
 
 # -----------------------
 # Current velocity
@@ -101,14 +94,14 @@ func _process(_delta):
 	if Config.value_changed("player", "player.mass") or _config_update_required:
 		mass = Config.get_value("player.mass")
 	if Config.value_changed("player", "player.camera.fov") or _config_update_required:
-		$camera.fov = Config.get_value("player.camera.fov")
+		$Camera.fov = Config.get_value("player.camera.fov")
 	if Config.value_changed("player", "player.camera.angle") or _config_update_required:
 		_camera_rotation_x_offset = Config.get_value("player.camera.angle") / 180 * PI
 	_config_update_required = false
 
 	# Only keep camera rotation around y (keep level)
-	$camera.rotation.x = _camera_rotation_x_offset - rotation.x
-	$camera.rotation.z = -rotation.z
+	$Camera.rotation.x = _camera_rotation_x_offset - rotation.x
+	$Camera.rotation.z = -rotation.z
 
 
 func _physics_process(delta: float) -> void:
