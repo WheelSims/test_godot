@@ -1,12 +1,11 @@
-## This script manages the player, including collisions with the terrain (due to
-## gravity) and with the objects. Independently of the simulator hardware, the 
-## player can always be moved using the keyboard arrows.
+## This script manages the player, including collisions with the terrain (due to gravity) and with
+## the objects. Independently of the simulator hardware, the player can always be moved using the
+## keyboard arrows.
 ##
-## The player is instanciated not in the main program, but instead in each 
-## `playable_scene`, so that the playable scenes really are standalone and do 
-## not require an actual simulator to be developed, tested and played. This
-## means that when we load a new scene, a new player is instanciated, and this
-## player is destroyed when the scene is quit. This can be cumbersome in
+## The player is instanciated not in the main program, but instead in each `playable_scene`, so
+## that the playable scenes really are standalone and do not require an actual simulator to be
+## developed, tested and played. This means that when we load a new scene, a new player is
+## instanciated, and this player is destroyed when the scene is quit. This can be cumbersome in
 ## different situations where we need access to the player, for example:
 ##
 ## - A device (e.g., motorized rollers, joystick) needs to set the player velocity
@@ -32,13 +31,6 @@ class_name Player
 @export var LINEAR_SPEED_DEADZONE: float = 0.04 # m/s
 @export var ANGULAR_SPEED_DEADZONE: float = 0.04 # rad/s
 
-# -----------------------
-# Custom nodes
-# -----------------------
-@onready var motors = get_node_or_null("motors")
-@onready var player_text_node: Label = get_node_or_null(
-	"ui/player_text",
-)
 
 # -----------------------
 # Current velocity
@@ -78,7 +70,7 @@ func get_linear_speed():
 
 ## Return linear speed set by device + keyboard
 func get_angular_speed():
-	return _device_angular_velocity + _keyboard_angular_velocity
+	return _device_angular_velocity + _keyboard_linear_velocity
 
 
 ## Set linear speed from device
@@ -102,21 +94,16 @@ func _process(_delta):
 	if Config.value_changed("player", "player.mass") or _config_update_required:
 		mass = Config.get_value("player.mass")
 	if Config.value_changed("player", "player.camera.fov") or _config_update_required:
-		$camera.fov = Config.get_value("player.camera.fov")
+		$Camera.fov = Config.get_value("player.camera.fov")
 	if Config.value_changed("player", "player.camera.angle") or _config_update_required:
 		_camera_rotation_x_offset = Config.get_value("player.camera.angle") / 180 * PI
 	_config_update_required = false
 
 	# Only keep camera rotation around y (keep level)
-	$camera.rotation.x = _camera_rotation_x_offset - rotation.x
-	$camera.rotation.z = -rotation.z
-	
-	await get_tree().process_frame
-	
-	if(Config.get_value("devices.data_logging.player_trajectory")==true):
-		# Player position and orientation are emitted to the player_trajectory signal
-		SignalBus.player_trajectory.emit(global_position, rotation)
-	
+	$Camera.rotation.x = _camera_rotation_x_offset - rotation.x
+	$Camera.rotation.z = -rotation.z
+
+
 func _physics_process(delta: float) -> void:
 	var desired_linear_velocity := _device_linear_velocity
 	var desired_angular_velocity := _device_angular_velocity

@@ -32,19 +32,22 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	
 	# Once start the analysis by sending a request to the python bridge
-	if main.has_node("python_bridge"):
-		if main.get_node("python_bridge")._udp_receiver_connected and not connected:
-			connected = true
-			_update_arg()
-			main.get_node("python_bridge").send("biofeedback_update", arg, "start")
-	# Reset the connected flag if the python bridge is disconnected
-	else:
-		if connected:
-			connected = false
+	if main:
+		if main.has_node("python_bridge"):
+			if main.get_node("python_bridge")._udp_receiver_connected and not connected:
+				connected = true
+				_update_arg()
+				main.get_node("python_bridge").send("biofeedback_update", arg, "start")
+		# Reset the connected flag if the python bridge is disconnected
+		else:
+			if connected:
+				connected = false
 			
 	# Update loop process if the process is connected
 	if connected:
+		visible = true
 		if main.has_node("python_bridge"):
+			
 			var data = main.get_node("python_bridge").receive(last_push_pattern + "_" + side)
 			
 			if data is Dictionary and data.has("data") and data["data"].size() > 0:
@@ -53,6 +56,9 @@ func _process(_delta: float) -> void:
 						var value = data["data"][side][last_push_pattern]
 						positions = parse_trail_points(value)
 						_update_multimesh()
+	else:
+		visible = false
+
 
 	
 	# Should we quit
@@ -132,7 +138,7 @@ func parse_trail_points(data):
 	Config.get_value(coordinates_wheel_center)[1], \
 	get_node(virtual_wheel).position[2]+offset_trail\
 	)
-		
+	
 	var result: Array = []
 	
 	for p in data:

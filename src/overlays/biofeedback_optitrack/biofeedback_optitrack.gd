@@ -1,6 +1,22 @@
-extends Node3D
+extends Node2D
 
 @onready var main: Node = get_tree().get_root().get_node("main")
+
+# Nodes
+@export var node_wheel_left :Node
+@export var node_wheel_right :Node
+@export var node_angle_start_contact_left :Node
+@export var node_angle_start_contact_right :Node
+@export var node_angle_end_contact_left :Node
+@export var node_angle_end_contact_right :Node
+@export var node_handrim_left :Node
+@export var node_handrim_right :Node
+@export var current_scene_3D :Node
+@export var view_left_1 :Node
+@export var view_left_2 :Node
+@export var view_right_1 :Node
+@export var view_right_2 :Node
+
 
 # Wheelchair variables
 @export_group("Wheels")
@@ -25,13 +41,25 @@ var mediolateral_distance_wheel
 
 var window
 
+
 func _ready() -> void:
+	# Create an isolated World3D so this SubViewport scene is not rendered in the main viewport
+	var world = World3D.new()
+	current_scene_3D.world_3d = world
+	
+	# Share the same World3D across all SubViewports so it is only rendered through UI overlays
+	view_left_1.world_3d = current_scene_3D.find_world_3d()
+	view_left_2.world_3d = current_scene_3D.find_world_3d()
+	view_right_1.world_3d = current_scene_3D.find_world_3d()
+	view_right_2.world_3d = current_scene_3D.find_world_3d()
+
 	window_user()
 
 	# Ensure OptiTrack is added when this overlay scene runs standalone (outside main)
 	if not main:
 		var instance = preload("res://devices/optitrack/optitrack.tscn").instantiate()
 		add_child(instance)
+
 
 func _process(_delta):
 	update_wheelchair()
@@ -52,26 +80,26 @@ func update_wheelchair():
 	mediolateral_distance_wheel = abs(Config.get_value("coordinates.left_wheel_center")[2] - Config.get_value("coordinates.right_wheel_center")[2])
 	
 	# Update left wheel scale, position and visibility
-	$wheel_left.scale = Vector3(-1/radius_wheel*0.2+1, radius_wheel, radius_wheel)
+	node_wheel_left.scale = Vector3(-1/radius_wheel*0.2+1, radius_wheel, radius_wheel)
 	position_wheel_l = Vector3(anteroposterior_length/2, vertical_distance_wheel/2, -mediolateral_distance_wheel/2)
-	$wheel_left.position = position_wheel_l
-	$wheel_left.visible = visibled_wheel_l
+	node_wheel_left.position = position_wheel_l
+	node_wheel_left.visible = visibled_wheel_l
 	
 	# Update left wheel sub-elements visibility
-	$wheel_left/angle_start_contact_left.visible = visibled_angle_contact_l
-	$wheel_left/angle_end_contact_left.visible = visibled_angle_contact_l
-	$wheel_left/handrim_left.visible = visibled_handrim_l
+	node_angle_start_contact_left.visible = visibled_angle_contact_l
+	node_angle_end_contact_left.visible = visibled_angle_contact_l
+	node_handrim_left.visible = visibled_handrim_l
 
 	# Update right wheel scale, position and visibility
-	$wheel_right.scale = Vector3(-1/radius_wheel*0.2+1, radius_wheel, radius_wheel)
+	node_wheel_right.scale = Vector3(-1/radius_wheel*0.2+1, radius_wheel, radius_wheel)
 	position_wheel_r = Vector3(anteroposterior_length/2, vertical_distance_wheel/2, mediolateral_distance_wheel/2)
-	$wheel_right.position = position_wheel_r
-	$wheel_right.visible = visibled_wheel_r
+	node_wheel_right.position = position_wheel_r
+	node_wheel_right.visible = visibled_wheel_r
 	
 	# Update right wheel sub-elements visibility
-	$wheel_right/angle_start_contact_right.visible = visibled_angle_contact_r
-	$wheel_right/angle_end_contact_right.visible = visibled_angle_contact_r
-	$wheel_right/handrim_right.visible = visibled_handrim_r
+	node_angle_start_contact_right.visible = visibled_angle_contact_r
+	node_angle_end_contact_right.visible = visibled_angle_contact_r
+	node_handrim_right.visible = visibled_handrim_r
 
 
 # Create window gui for aiming at wheel centers and hands

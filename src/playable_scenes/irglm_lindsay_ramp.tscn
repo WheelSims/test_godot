@@ -3,8 +3,8 @@
 [ext_resource type="PackedScene" uid="uid://bc8dr0hobakjf" path="res://environments/irglm/irglm_lindsay_ramp_environment.tscn" id="1_yen6j"]
 [ext_resource type="PackedScene" uid="uid://biluq7vv8ghsm" path="res://player/player.tscn" id="2_533jw"]
 
-[node name="irglm_lindsay_ramp" type="Node3D" unique_id=893113534]
+[node name="IRGLMLindsayRamp" type="Node3D" unique_id=893113534]
 
-[node name="irglm_lindsay_ramp_environment" parent="." unique_id=395705536 instance=ExtResource("1_yen6j")]
+[node name="IRGLMLindsayRampEnvironment" parent="." unique_id=395705536 instance=ExtResource("1_yen6j")]
 
-[node name="player" parent="." unique_id=510199262 instance=ExtResource("2_533jw")]
+[node name="Player" parent="." unique_id=510199262 instance=ExtResource("2_533jw")]

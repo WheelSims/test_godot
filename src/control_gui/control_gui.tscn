@@ -46,7 +46,7 @@ corner_radius_bottom_left = 10
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_d7bjb"]
 
-[node name="control_gui" type="Control" unique_id=728106337 node_paths=PackedStringArray("scene_container")]
+[node name="ControlGUI" type="Control" unique_id=728106337 node_paths=PackedStringArray("scene_container")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -54,9 +54,9 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_21f17")
-scene_container = NodePath("main_panel/margin_container/main_vbox_container/panels/scenes_panel/scene_list_container/scenes_list_margins/scene_list")
+scene_container = NodePath("MainPanel/MarginContainer/MainVBoxContainer/Panels/ScenesPanel/SceneListContainer/ScenesListMargins/SceneList")
 
-[node name="main_panel" type="ColorRect" parent="." unique_id=1323407284]
+[node name="MainPanel" type="ColorRect" parent="." unique_id=1323407284]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -69,7 +69,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.592157, 0.592157, 0.592157, 1)
 
-[node name="margin_container" type="MarginContainer" parent="main_panel" unique_id=742625312]
+[node name="MarginContainer" type="MarginContainer" parent="MainPanel" unique_id=742625312]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -82,20 +82,20 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="main_vbox_container" type="VBoxContainer" parent="main_panel/margin_container" unique_id=679077778]
+[node name="MainVBoxContainer" type="VBoxContainer" parent="MainPanel/MarginContainer" unique_id=679077778]
 layout_mode = 2
 
-[node name="panels" type="HBoxContainer" parent="main_panel/margin_container/main_vbox_container" unique_id=1191055955]
+[node name="Panels" type="HBoxContainer" parent="MainPanel/MarginContainer/MainVBoxContainer" unique_id=1191055955]
 custom_minimum_size = Vector2(0, 400)
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 20
 
-[node name="scenes_panel" type="VBoxContainer" parent="main_panel/margin_container/main_vbox_container/panels" unique_id=684349781]
+[node name="ScenesPanel" type="VBoxContainer" parent="MainPanel/MarginContainer/MainVBoxContainer/Panels" unique_id=684349781]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="scenes_label" type="Label" parent="main_panel/margin_container/main_vbox_container/panels/scenes_panel" unique_id=1052754353]
+[node name="ScenesLabel" type="Label" parent="MainPanel/MarginContainer/MainVBoxContainer/Panels/ScenesPanel" unique_id=1052754353]
 custom_minimum_size = Vector2(450, 0)
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_eyqqv")
@@ -103,44 +103,44 @@ text = "Scenes"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="scene_list_container" type="ScrollContainer" parent="main_panel/margin_container/main_vbox_container/panels/scenes_panel" unique_id=264901358]
+[node name="SceneListContainer" type="ScrollContainer" parent="MainPanel/MarginContainer/MainVBoxContainer/Panels/ScenesPanel" unique_id=264901358]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_fo410")
 
-[node name="scenes_list_margins" type="MarginContainer" parent="main_panel/margin_container/main_vbox_container/panels/scenes_panel/scene_list_container" unique_id=1223608435]
+[node name="ScenesListMargins" type="MarginContainer" parent="MainPanel/MarginContainer/MainVBoxContainer/Panels/ScenesPanel/SceneListContainer" unique_id=1223608435]
 layout_mode = 2
 theme_override_constants/margin_left = 50
 theme_override_constants/margin_top = 10
 
-[node name="scene_list" type="GridContainer" parent="main_panel/margin_container/main_vbox_container/panels/scenes_panel/scene_list_container/scenes_list_margins" unique_id=1330843901]
+[node name="SceneList" type="GridContainer" parent="MainPanel/MarginContainer/MainVBoxContainer/Panels/ScenesPanel/SceneListContainer/ScenesListMargins" unique_id=1330843901]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_constants/h_separation = 50
 theme_override_constants/v_separation = 20
 columns = 2
 
-[node name="settings_panel" type="VBoxContainer" parent="main_panel/margin_container/main_vbox_container/panels" unique_id=1194337723]
+[node name="SettingsPannel" type="VBoxContainer" parent="MainPanel/MarginContainer/MainVBoxContainer/Panels" unique_id=1194337723]
 layout_mode = 2
 
-[node name="settings_title" type="Label" parent="main_panel/margin_container/main_vbox_container/panels/settings_panel" unique_id=536903272]
+[node name="SettingsTitle" type="Label" parent="MainPanel/MarginContainer/MainVBoxContainer/Panels/SettingsPannel" unique_id=536903272]
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_21f17")
 text = "Settings"
 horizontal_alignment = 1
 
-[node name="ScrollContainer" type="ScrollContainer" parent="main_panel/margin_container/main_vbox_container/panels/settings_panel" unique_id=1323418675]
+[node name="ScrollContainer" type="ScrollContainer" parent="MainPanel/MarginContainer/MainVBoxContainer/Panels/SettingsPannel" unique_id=1323418675]
 custom_minimum_size = Vector2(320, 0)
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_h5sux")
 
-[node name="settings_list" type="VBoxContainer" parent="main_panel/margin_container/main_vbox_container/panels/settings_panel/ScrollContainer" unique_id=1228794127]
+[node name="SettingList" type="VBoxContainer" parent="MainPanel/MarginContainer/MainVBoxContainer/Panels/SettingsPannel/ScrollContainer" unique_id=1228794127]
 layout_mode = 2
 size_flags_vertical = 3
 script = ExtResource("2_h5sux")
 
-[node name="stop_button" type="Button" parent="main_panel/margin_container/main_vbox_container" unique_id=87039680]
+[node name="StopButton" type="Button" parent="MainPanel/MarginContainer/MainVBoxContainer" unique_id=87039680]
 layout_mode = 2
 theme_override_font_sizes/font_size = 80
 theme_override_styles/normal = SubResource("StyleBoxFlat_gi8mn")
@@ -151,4 +151,4 @@ text = "Stop"
 
 [connection signal="tree_exited" from="." to="." method="_on_tree_exited"]
 [connection signal="tree_exiting" from="." to="." method="_on_tree_exiting"]
-[connection signal="pressed" from="main_panel/margin_container/main_vbox_container/stop_button" to="." method="_on_button_stop_pressed"]
+[connection signal="pressed" from="MainPanel/MarginContainer/MainVBoxContainer/StopButton" to="." method="_on_button_stop_pressed"]

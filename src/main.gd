@@ -5,7 +5,7 @@ extends Node
 # -------------------------------------------------------------------
 
 ## The viewport the 3D scene is rendered in.
-@onready var scene_viewport: SubViewport = get_node("scene_viewport")
+@onready var scene_viewport: SubViewport = get_node("SceneViewport")
 
 ## The different overlays that can be loaded dynamically based on configuration options
 @export var available_overlays: Dictionary[String, PackedScene]
@@ -45,7 +45,7 @@ func unload_scene():
 func _process(_delta):
 	for key in available_overlays:
 		if Config.value_changed("main", key) and Config.get_value(key):
-			$scene_viewport.add_child(available_overlays[key].instantiate())
+			scene_viewport.add_child(available_overlays[key].instantiate())
 	for key in available_devices:
 		if Config.value_changed("main", key) and Config.get_value(key):
 			add_child(available_devices[key].instantiate())

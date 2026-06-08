@@ -5,6 +5,9 @@ extends Node3D
 # Selected side of the wheelchair (left or right)
 @export_enum("left", "right") var side: String
 
+# Nodes
+@export var node_main_overlay :Node
+
 var id_forearm_cluster
 var id_simulator_reference
 var coordinates_wheel_center
@@ -44,7 +47,7 @@ func _process(_delta):
 			
 			# Adjust position relative to the wheel center
 			self.position -= _pos_center_wheel 
-			self.position += $"..".get(position_wheel_key)
+			self.position += node_main_overlay.get(position_wheel_key)
 
 
 # Set IDs, references, and coordinate variables based on the selected side (left or right)

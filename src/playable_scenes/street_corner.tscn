@@ -3,9 +3,9 @@
 [ext_resource type="PackedScene" uid="uid://c6idgkcvhp3vc" path="res://environments/street/street_corner_environment.tscn" id="1_le3hg"]
 [ext_resource type="PackedScene" uid="uid://biluq7vv8ghsm" path="res://player/player.tscn" id="2_2t0dx"]
 
-[node name="street_corner" type="Node3D" unique_id=1083836514]
+[node name="StreetCorner" type="Node3D" unique_id=1083836514]
 
-[node name="street_corner_environment" parent="." unique_id=713554125 instance=ExtResource("1_le3hg")]
+[node name="StreetCornerEnvironment" parent="." unique_id=713554125 instance=ExtResource("1_le3hg")]
 
-[node name="player" parent="." unique_id=946459849 instance=ExtResource("2_2t0dx")]
+[node name="Player" parent="." unique_id=946459849 instance=ExtResource("2_2t0dx")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.62904, 1.43051e-06, 1.83724)

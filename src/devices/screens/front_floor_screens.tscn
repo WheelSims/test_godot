@@ -2,15 +2,15 @@
 
 [ext_resource type="Script" uid="uid://f1btk3rcc1ny" path="res://devices/screens/front_floor_screens.gd" id="1_i34pf"]
 
-[node name="front_floor_screens" type="Node2D" unique_id=1912241462]
+[node name="FrontFloorSceens" type="Node2D" unique_id=1912241462]
 script = ExtResource("1_i34pf")
 
-[node name="front_window" type="Window" parent="." unique_id=512478051]
+[node name="FrontWindow" type="Window" parent="." unique_id=512478051]
 oversampling_override = 1.0
 position = Vector2i(0, 36)
 size = Vector2i(1280, 768)
 
-[node name="texture_rect" type="TextureRect" parent="front_window" unique_id=1108673996]
+[node name="TextureRect" type="TextureRect" parent="FrontWindow" unique_id=1108673996]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -23,18 +23,18 @@ grow_vertical = 2
 expand_mode = 1
 stretch_mode = 3
 
-[node name="overlays" type="Control" parent="front_window" unique_id=1680080888]
+[node name="Overlays" type="Control" parent="FrontWindow" unique_id=1680080888]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="floor_window" type="Window" parent="." unique_id=1527791078]
+[node name="FloorWindow" type="Window" parent="." unique_id=1527791078]
 oversampling_override = 1.0
 position = Vector2i(0, 900)
 size = Vector2i(1280, 768)
 
-[node name="texture_rect" type="TextureRect" parent="floor_window" unique_id=824310858]
+[node name="TextureRect" type="TextureRect" parent="FloorWindow" unique_id=824310858]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -47,7 +47,7 @@ grow_vertical = 2
 expand_mode = 1
 stretch_mode = 3
 
-[node name="overlays" type="Control" parent="floor_window" unique_id=2069145552]
+[node name="Overlays" type="Control" parent="FloorWindow" unique_id=2069145552]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0

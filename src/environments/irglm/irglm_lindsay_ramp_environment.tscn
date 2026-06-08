@@ -16,7 +16,7 @@ ambient_light_color = Color(0.733333, 0.854902, 0.909804, 1)
 ambient_light_sky_contribution = 0.0
 reflected_light_source = 2
 
-[node name="irglm_lindsay_ramp_environment" type="Node3D" unique_id=395705536]
+[node name="IRGLMLindsayRampEnvironment" type="Node3D" unique_id=395705536]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1091570572]
 environment = SubResource("Environment_ut6ru")
@@ -26,4 +26,4 @@ transform = Transform3D(1, 0, 0, 0, -0.728969, 0.684547, 0, -0.684547, -0.728969
 light_energy = 0.825
 shadow_enabled = true
 
-[node name="irglm_lindsay_ramp_terrain" parent="." unique_id=1576522487 instance=ExtResource("2_ukht8")]
+[node name="IRGLMLindsayRampTerrain" parent="." unique_id=1576522487 instance=ExtResource("2_ukht8")]
