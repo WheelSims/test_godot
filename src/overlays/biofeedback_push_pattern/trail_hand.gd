@@ -1,14 +1,26 @@
 extends MultiMeshInstance3D 
 
+# ---------------------------------------------------------------------- #
+# Visualization of hand trajectories using OptiTrack tracking
+# - hand positions are computed from forearm cluster coordinates
+# - positions are transformed to world space with a side-specific offset
+# - a MultiMesh is used to render the motion trail efficiently
+# ---------------------------------------------------------------------- #
+
 # Selected side of the wheelchair (left or right)
 @export_enum("left", "right") var side: String 
 
+# Trail rendering parameters
 var frame_limit = 100
 var trail_size = 0.15
+
+# Variables depending on side
 var offset_trail
 var layer
 var coordinates_hand
 var node_hand_key
+
+# Stored trail positions and transparency values
 var list_pos_hand = []
 var list_alpha = []
 
@@ -62,7 +74,7 @@ func _apply_side():
 		coordinates_hand = "coordinates.right_hand" 
 		node_hand_key = "forearm_cluster_right"
 
-
+# Initialize a MultiMesh instance used to render the trail
 func init_multimesh():
 	
 	# Create and set the multimesh

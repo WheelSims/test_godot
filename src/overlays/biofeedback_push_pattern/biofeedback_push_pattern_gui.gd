@@ -9,16 +9,18 @@ extends Control
 @onready var main: Node = get_tree().get_root().get_node("main")
 
 # UI elements
-@onready var node_aimings_list = $main_panel/margin_container/main_vbox_container/aimings_panel/ScrollContainer/aimings_list
-@onready var node_aiming_button = $main_panel/margin_container/main_vbox_container/aiming_button
+@export var node_aimings_list :Node
+@export var node_aiming_button :Node
 
+# Variables
+var duration_timer = 5 # Delay before recording (seconds)
+var node_optitrack
+
+# Aiming button variables
 var group = ButtonGroup.new() # Button group to allow only one selection at a time
 var selected_key = null # Currently selected coordinate key
 var items = {}
 
-var duration_timer = 5 # Delay before recording (seconds)
-
-var node_optitrack
 
 func _ready():
 	

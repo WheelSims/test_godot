@@ -2,13 +2,13 @@
 
 [ext_resource type="Script" uid="uid://cnjpl135ppqka" path="res://main.gd" id="1_0xm2m"]
 [ext_resource type="PackedScene" uid="uid://dq2eiii6jcj6u" path="res://control_gui/control_gui.tscn" id="1_ig7tw"]
-[ext_resource type="PackedScene" uid="uid://dhu8ts42upvlx" path="res://overlays/speed_indicator.tscn" id="2_efxa6"]
+[ext_resource type="PackedScene" uid="uid://dhu8ts42upvlx" path="res://overlays/speed_indicator/speed_indicator.tscn" id="2_efxa6"]
 [ext_resource type="Script" uid="uid://db602oks11677" path="res://config.gd" id="3_h2yge"]
 [ext_resource type="PackedScene" uid="uid://xwtfx6p27vlm" path="res://devices/motorized_rollers/motorized_rollers.tscn" id="4_5vw27"]
-[ext_resource type="PackedScene" uid="uid://f24s3bar65fp" path="res://overlays/debug.tscn" id="4_272bh"]
-[ext_resource type="PackedScene" uid="uid://bm1b5ewq26kcl" path="res://overlays/biofeedback_optitrack.tscn" id="4_dg77c"]
+[ext_resource type="PackedScene" uid="uid://f24s3bar65fp" path="res://overlays/debug/debug.tscn" id="4_272bh"]
+[ext_resource type="PackedScene" uid="uid://bm1b5ewq26kcl" path="res://overlays/biofeedback_push_pattern/biofeedback_push_pattern.tscn" id="4_dg77c"]
 [ext_resource type="PackedScene" uid="uid://ck2thoxwmsujy" path="res://devices/d_box/d_box.tscn" id="5_5vw27"]
-[ext_resource type="PackedScene" uid="uid://c5tbnk1yth8r8" path="res://overlays/biofeedback_push_frequency.tscn" id="5_ycdy4"]
+[ext_resource type="PackedScene" uid="uid://c5tbnk1yth8r8" path="res://overlays/biofeedback_push_frequency/biofeedback_push_frequency.tscn" id="5_ycdy4"]
 [ext_resource type="PackedScene" uid="uid://utxy2vmv4wo7" path="res://devices/optitrack/optitrack.tscn" id="6_kek77"]
 [ext_resource type="PackedScene" uid="uid://k18bpclv0qnw" path="res://devices/screens/single_screen.tscn" id="8_efxa6"]
 [ext_resource type="PackedScene" uid="uid://bvnocfmlki4nf" path="res://devices/screens/front_floor_screens.tscn" id="9_dg77c"]
@@ -17,8 +17,8 @@
 [node name="main" type="Node" unique_id=502567777]
 script = ExtResource("1_0xm2m")
 available_overlays = Dictionary[String, PackedScene]({
-"overlays.biofeedback_optitrack.enabled": ExtResource("4_dg77c"),
 "overlays.biofeedback_push_frequency.enabled": ExtResource("5_ycdy4"),
+"overlays.biofeedback_push_pattern.enabled": ExtResource("4_dg77c"),
 "overlays.debug.enabled": ExtResource("4_272bh"),
 "overlays.speed_indicator.enabled": ExtResource("2_efxa6")
 })

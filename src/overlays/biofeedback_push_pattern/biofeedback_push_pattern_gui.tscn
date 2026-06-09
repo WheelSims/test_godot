@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dplhvslsrr6oi"]
 
-[ext_resource type="Script" uid="uid://bbwd1obrx2ctc" path="res://overlays/biofeedback_optitrack/biofeedback_optitrack_gui.gd" id="1_tlu87"]
+[ext_resource type="Script" uid="uid://bbwd1obrx2ctc" path="res://overlays/biofeedback_push_pattern/biofeedback_push_pattern_gui.gd" id="1_tlu87"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rspjr"]
 bg_color = Color(0, 0, 0, 1)
@@ -35,7 +35,7 @@ corner_radius_bottom_left = 10
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_t73oe"]
 
-[node name="Control" type="Control" unique_id=299987078]
+[node name="Control" type="Control" unique_id=299987078 node_paths=PackedStringArray("node_aimings_list", "node_aiming_button")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -43,6 +43,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_tlu87")
+node_aimings_list = NodePath("main_panel/margin_container/main_vbox_container/aimings_panel/ScrollContainer/aimings_list")
+node_aiming_button = NodePath("main_panel/margin_container/main_vbox_container/aiming_button")
 
 [node name="main_panel" type="ColorRect" parent="." unique_id=1714153704]
 layout_mode = 1
