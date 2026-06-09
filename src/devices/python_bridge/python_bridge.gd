@@ -45,7 +45,8 @@ func _ready():
 	while _udp_receiver.get_available_packet_count() == 0:
 		await get_tree().create_timer(1.0).timeout
 	_udp_receiver_connected = true
-	SignalBus.python_connected.emit(_udp_receiver_connected, null)
+	if (Config.get_value("devices.data_logging.enabled")==true):
+		SignalBus.python_connected.emit(_udp_receiver_connected, null)
 
 
 func _process(_delta):
