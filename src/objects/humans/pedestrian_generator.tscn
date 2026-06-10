@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://xeue51xacbv4"]
+
+[ext_resource type="Script" uid="uid://j27rsp8bvd80" path="res://objects/humans/pedestrian_generator.gd" id="1_8dpaf"]
+[ext_resource type="PackedScene" uid="uid://baxe87irt488" path="res://objects/humans/bodies/adam/adam.tscn" id="2_rp5s8"]
+
+[node name="PedestrianGenerator" type="Node3D" unique_id=1740765578]
+script = ExtResource("1_8dpaf")
+humans = Array[PackedScene]([ExtResource("2_rp5s8")])

@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://de6g7by7vw7rd"]
+
+[ext_resource type="Script" uid="uid://d32h12n2qkfxo" path="res://objects/humans/pedestrian.gd" id="1_22h6g"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_s7y42"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_22h6g"]
+radius = 2.0
+
+[node name="Pedestrian" type="Node3D" unique_id=998153296]
+script = ExtResource("1_22h6g")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=660828760]
+avoidance_enabled = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=463023942]
+visible = false
+mesh = SubResource("BoxMesh_s7y42")
+skeleton = NodePath("../NavigationAgent3D")
+
+[node name="RayCast3DDown" type="RayCast3D" parent="." unique_id=1887479667]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+target_position = Vector3(0, -5, 0)
+collision_mask = 15
+hit_back_faces = false
+
+[node name="Area3D" type="Area3D" parent="." unique_id=1594256918]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=768523316]
+shape = SubResource("SphereShape3D_22h6g")
+
+[connection signal="body_shape_entered" from="Area3D" to="." method="_on_area_3d_body_shape_entered"]

@@ -8,8 +8,8 @@
 [ext_resource type="PackedScene" uid="uid://ckf2r5kqw6h5r" path="res://objects/street/prefab_scenes/traffic_light_stuff/pedestrian_traffic_light_with_pole.tscn" id="5_iwjyl"]
 [ext_resource type="PackedScene" uid="uid://b7wmf34eitxkr" path="res://objects/street/prefab_scenes/traffic_light_stuff/pedestrian_traffic_light_without_pole.tscn" id="6_341mv"]
 [ext_resource type="PackedScene" uid="uid://b74nqh5tcg66o" path="res://objects/park/trees/tree.tscn" id="6_fcu0f"]
-[ext_resource type="PackedScene" uid="uid://dnejsadnifhhr" path="res://objects/humans/kate/kate.tscn" id="9_vyufj"]
-[ext_resource type="PackedScene" uid="uid://gcvy038757is" path="res://objects/humans/josh/josh.tscn" id="10_qknyg"]
+[ext_resource type="PackedScene" uid="uid://dnejsadnifhhr" path="res://objects/old_humans/kate/kate.tscn" id="9_vyufj"]
+[ext_resource type="PackedScene" uid="uid://gcvy038757is" path="res://objects/old_humans/josh/josh.tscn" id="10_qknyg"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_o8o6p"]
 panorama = ExtResource("3_ynxnr")

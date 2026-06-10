@@ -2,13 +2,19 @@
 
 [ext_resource type="PackedScene" uid="uid://y2xjjvq3l33t" path="res://environments/park/park_environment.tscn" id="1_32pop"]
 [ext_resource type="PackedScene" uid="uid://biluq7vv8ghsm" path="res://player/player.tscn" id="2_sgu1o"]
+[ext_resource type="PackedScene" uid="uid://de6g7by7vw7rd" path="res://objects/humans/pedestrian.tscn" id="3_s7y42"]
+[ext_resource type="PackedScene" uid="uid://xeue51xacbv4" path="res://objects/humans/pedestrian_generator.tscn" id="6_8xwh6"]
 
 [node name="Park" type="Node3D" unique_id=1353311517]
 
-[node name="ParkEnvironment" parent="." unique_id=300991868 instance=ExtResource("1_32pop")]
+[node name="ParkEnvironment" parent="." unique_id=1293663137 instance=ExtResource("1_32pop")]
 
 [node name="Player" parent="." unique_id=1559444869 instance=ExtResource("2_sgu1o")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.117460966, 0)
 max_contacts_reported = 4
+
+[node name="PedestrianGenerator" parent="." unique_id=1740765578 instance=ExtResource("6_8xwh6")]
+n_pedestrians = 200
+pedestrian = ExtResource("3_s7y42")
 
 [connection signal="ready" from="." to="." method="_on_ready"]
