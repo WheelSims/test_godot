@@ -2,7 +2,6 @@
 
 [ext_resource type="Texture2D" uid="uid://wacfloxc8is" path="res://environments/hdr/daytime.hdr" id="1_l80wt"]
 [ext_resource type="PackedScene" uid="uid://b74nqh5tcg66o" path="res://objects/park/trees/tree.tscn" id="3_u6pll"]
-[ext_resource type="PackedScene" uid="uid://gcvy038757is" path="res://objects/old_humans/josh/josh.tscn" id="4_u6pll"]
 [ext_resource type="PackedScene" uid="uid://js24byb0fgrt" path="res://terrain/park/park_terrain.tscn" id="6_t8rdd"]
 [ext_resource type="AudioStream" uid="uid://dtypt0blh485n" path="res://sounds/sounds/ambiance_sounds/Forest-ambiance.wav" id="7_77vn5"]
 
@@ -19,14 +18,6 @@ ambient_light_color = Color(0.733333, 0.854902, 0.909804, 1)
 ambient_light_sky_contribution = 0.0
 reflected_light_source = 2
 ssr_enabled = true
-
-[sub_resource type="Curve3D" id="Curve3D_18346"]
-bake_interval = 0.01
-_data = {
-"points": PackedVector3Array(6, 0, -10, -6, 0, 10, 2.67003, 0, -4.27106, 2, 0, -6, -2, 0, 6, -8.783, 0, 18.522, 0.6, 0, -4.7, -0.6, 0, 4.7, -13.0519, 0, 45.7206, 0.6, 0, -8, -0.6, 0, 8, -14.509, 0, 74.445, 3, 0, -9, -3, 0, 9, -18.228, 0, 93.693, 0, 0, 0, 0, 0, 0, -27.142, 0, 110.709),
-"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0)
-}
-point_count = 6
 
 [sub_resource type="GDScript" id="GDScript_t8rdd"]
 resource_name = "follow_player"
@@ -50,7 +41,7 @@ shadow_enabled = true
 [node name="ParkTerrain" parent="." unique_id=1062440846 instance=ExtResource("6_t8rdd")]
 
 [node name="Trees" type="Node3D" parent="." unique_id=290617483]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 191.36212, -2.5654984, -112.13382)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 191.362, 0, -112.134)
 
 [node name="Tree1" parent="Trees" unique_id=1139469271 instance=ExtResource("3_u6pll")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24.2947, 0, -3.60092)
@@ -478,85 +469,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.7281, 0, -39.4129)
 [node name="Tree70" parent="Trees" unique_id=120078956 instance=ExtResource("3_u6pll")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -29.4903, 0, -22.1564)
 
-[node name="PedestrianPath" type="Path3D" parent="." unique_id=1177187814]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 191.14476, -2.6345205, -160.54929)
-curve = SubResource("Curve3D_18346")
-
-[node name="PathFollow3D" type="PathFollow3D" parent="PedestrianPath" unique_id=1005375449]
-transform = Transform3D(0.8574619, 0, -0.51447475, 0, 0.999975, 0, 0.51447713, 0, 0.85745794, 2.67003, 0, -4.27106)
-rotation_mode = 1
-use_model_front = true
-
-[node name="Josh" parent="PedestrianPath/PathFollow3D" unique_id=2074836625 instance=ExtResource("4_u6pll")]
-transform = Transform3D(1, 0, -2.98023e-08, 0, 1, 0, 2.98023e-08, 0, 1, 0, 0.124346, 0)
-
-[node name="GeneralSkeleton" parent="PedestrianPath/PathFollow3D/Josh/Model/Armature" parent_id_path=PackedInt32Array(2074836625, 337642921) index="0" unique_id=1341740546]
-bones/0/position = Vector3(-0.0012690419, 1.004686, 0.006977584)
-bones/0/rotation = Quaternion(-0.035102088, -0.042045385, -0.022388762, 0.99824786)
-bones/1/rotation = Quaternion(0.024627082, 0.0140475165, 0.02266034, 0.99934113)
-bones/2/rotation = Quaternion(0.009242646, 0.0028228099, 0.014074388, 0.99985427)
-bones/3/rotation = Quaternion(0.008042761, 0.002915322, 0.013718958, 0.99986935)
-bones/4/rotation = Quaternion(0.04341456, -0.0019038143, 0.004863531, 0.9990436)
-bones/5/rotation = Quaternion(-0.06268018, 0.010930117, -0.0022471333, 0.99797136)
-bones/7/rotation = Quaternion(0.45590767, 0.50280976, 0.62613815, -0.3837728)
-bones/8/rotation = Quaternion(0.15418266, 0.8152782, -0.54945487, -0.09822805)
-bones/9/rotation = Quaternion(0.020706484, -0.7062048, -0.0715606, 0.7040776)
-bones/10/rotation = Quaternion(0.01883721, 0.50222534, -0.03753176, 0.8637166)
-bones/11/rotation = Quaternion(-0.12793988, 0.743646, 0.14535165, 0.63991785)
-bones/12/rotation = Quaternion(0.111095116, 0.112212144, -0.12806328, 0.979115)
-bones/13/rotation = Quaternion(-0.054293152, -0.08912923, -0.03467571, 0.9939345)
-bones/15/rotation = Quaternion(0.042484786, 0.005132426, 0.027202995, 0.99871355)
-bones/16/rotation = Quaternion(0.061654117, 0.009051227, -0.017883567, 0.9978964)
-bones/17/rotation = Quaternion(0.042679265, 0.006629139, -0.0070437114, 0.99904203)
-bones/18/rotation = Quaternion(0.134406, 0.0567431, 0.0933, 0.984891)
-bones/19/rotation = Quaternion(0.11992048, 0.0053586625, 0.02792988, 0.9923761)
-bones/20/rotation = Quaternion(0.041904923, 0.004589454, -0.018160757, 0.998946)
-bones/21/rotation = Quaternion(0.17442247, 0.011067492, -0.012564304, 0.9845286)
-bones/22/rotation = Quaternion(0.0934115, 0.0527652, 0.0586325, 0.992498)
-bones/23/rotation = Quaternion(0.14061473, 0.0020276266, 0.038645897, 0.9893079)
-bones/24/rotation = Quaternion(0.08111661, 0.0041698874, -0.019798324, 0.9964993)
-bones/25/rotation = Quaternion(0.26947722, 0.001526215, -0.009852761, 0.9629551)
-bones/26/rotation = Quaternion(0.111556, 0.0523347, 0.00129396, 0.992378)
-bones/27/rotation = Quaternion(0.19961907, 0.0053044846, 0.03334943, 0.97929156)
-bones/28/rotation = Quaternion(0.0629135, 0.0013713256, -0.016619073, 0.99787974)
-bones/29/rotation = Quaternion(0.14010228, 0.00012804585, -0.012674603, 0.9900559)
-bones/30/rotation = Quaternion(0.116979, 0.0529905, 0.0196907, 0.991524)
-bones/31/rotation = Quaternion(0.4777595, -0.47942576, -0.63030607, -0.38027772)
-bones/32/rotation = Quaternion(-0.18529274, 0.84052783, -0.47118148, 0.19278938)
-bones/33/rotation = Quaternion(0.04561667, 0.7066418, 0.046859276, 0.704543)
-bones/34/rotation = Quaternion(0.00019708637, -0.60280085, 0.05208577, 0.7961898)
-bones/35/rotation = Quaternion(-0.14192148, -0.7313323, -0.14670758, 0.6507598)
-bones/36/rotation = Quaternion(0.124159075, -0.11744791, 0.10463604, 0.9797153)
-bones/37/rotation = Quaternion(0.04154979, 0.058187474, 0.16145171, 0.9842872)
-bones/38/scale = Vector3(1.00061, 1.00049, 1.00012)
-bones/39/rotation = Quaternion(0.025901468, -0.0018883386, -0.041329388, 0.998808)
-bones/40/rotation = Quaternion(0.06201707, -0.006889473, 0.009770076, 0.99800354)
-bones/41/rotation = Quaternion(0.09839421, -0.008792548, 0.00083418336, 0.99510837)
-bones/42/rotation = Quaternion(0.0496385, -0.0483708, -0.0927376, 0.993275)
-bones/42/scale = Vector3(1, 1, 1)
-bones/43/rotation = Quaternion(0.100542314, -0.0042218817, -0.02968376, 0.9944809)
-bones/44/rotation = Quaternion(0.05330743, -0.0043313294, 0.0099085495, 0.99851966)
-bones/45/rotation = Quaternion(0.16259533, -0.010682553, 0.005382318, 0.98662037)
-bones/47/rotation = Quaternion(0.12988096, -0.0014003915, -0.046730265, 0.99042684)
-bones/48/rotation = Quaternion(0.069824874, -0.0027717615, 0.010728686, 0.99749774)
-bones/49/rotation = Quaternion(0.2542296, -0.0016151438, 0.0026688466, 0.9671388)
-bones/50/rotation = Quaternion(0.100335, -0.0519918, 0.00647751, 0.993573)
-bones/50/scale = Vector3(0.999999, 1, 1)
-bones/51/rotation = Quaternion(0.23077153, -0.010340253, -0.038272645, 0.9722)
-bones/52/rotation = Quaternion(0.041220807, -0.0006222592, 0.0088790385, 0.9991105)
-bones/53/rotation = Quaternion(0.13303784, -0.00041071617, 0.005092125, 0.99109775)
-bones/54/rotation = Quaternion(0.112011, -0.052477, -0.0128833, 0.992237)
-bones/54/scale = Vector3(1, 1, 1)
-bones/55/rotation = Quaternion(0.12856986, 0.08459894, 0.9873029, -0.039318398)
-bones/56/rotation = Quaternion(-0.038948063, 0.9921352, -0.117288746, 0.019856205)
-bones/57/rotation = Quaternion(-0.019767484, 0.71841586, -0.69481045, 0.026951041)
-bones/58/rotation = Quaternion(-1.3513906e-07, 0.9990973, 0.042482384, 5.2210135e-07)
-bones/60/rotation = Quaternion(-0.09377252, -0.0030853045, 0.994019, -0.05588854)
-bones/61/rotation = Quaternion(0.032317787, 0.99441475, -0.05309731, -0.08529712)
-bones/62/rotation = Quaternion(-0.014954196, 0.6879962, -0.7255541, -0.0029704792)
-bones/63/rotation = Quaternion(1.0542234e-07, 0.99820757, 0.059846573, -8.695492e-07)
-bones/64/rotation = Quaternion(-0.0578342, 0.997641, -0.0351156, 0.0115883)
-
 [node name="ForestSound" type="Node3D" parent="." unique_id=759177341]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 191.36212, -2.5654984, -111.026985)
 script = SubResource("GDScript_t8rdd")
@@ -565,5 +477,3 @@ script = SubResource("GDScript_t8rdd")
 stream = ExtResource("7_77vn5")
 volume_db = 5.0
 autoplay = true
-
-[editable path="PedestrianPath/PathFollow3D/Josh"]

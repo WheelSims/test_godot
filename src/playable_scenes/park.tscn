@@ -13,6 +13,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.117460966, 0)
 max_contacts_reported = 4
 
 [node name="PedestrianGenerator" parent="." unique_id=1740765578 instance=ExtResource("6_8xwh6")]
-n_pedestrians = 500
+n_pedestrians = 200
 
 [connection signal="ready" from="." to="." method="_on_ready"]

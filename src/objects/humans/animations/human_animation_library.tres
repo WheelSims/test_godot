@@ -1,13 +1,13 @@
 [gd_resource type="AnimationLibrary" format=3 uid="uid://dula1x2vbhfqq"]
 
 [ext_resource type="Animation" uid="uid://ijyba7kbe70n" path="res://objects/humans/animations/idle.tres" id="1_ddbds"]
-[ext_resource type="Animation" uid="uid://cwff6pjw8ekrl" path="res://objects/humans/animations/clapping.tres" id="1_s8w4g"]
+[ext_resource type="Animation" uid="uid://cwff6pjw8ekrl" path="res://objects/humans/animations/cheering.tres" id="1_s8w4g"]
 [ext_resource type="Animation" uid="uid://c1p65n58qbx8s" path="res://objects/humans/animations/walking.tres" id="2_3b17b"]
 [ext_resource type="Animation" uid="uid://ds0ges23veamf" path="res://objects/humans/animations/running.tres" id="3_w2vt0"]
 
 [resource]
 _data = {
-&"clapping": ExtResource("1_s8w4g"),
+&"cheering": ExtResource("1_s8w4g"),
 &"idle": ExtResource("1_ddbds"),
 &"running": ExtResource("3_w2vt0"),
 &"walking": ExtResource("2_3b17b")

@@ -12,6 +12,10 @@ extends Node3D
 @export var walking_speed: float = 1.2
 var max_target_distance: float = 20  # meters
 
+## The human to move
+@export var human: PackedScene
+var human_instance: Node3D
+
 @onready var navigation_agent: NavigationAgent3D = get_node("NavigationAgent3D")
 @onready var down_ray = get_node("RayCast3DDown")
 
@@ -68,6 +72,8 @@ func new_back_target():
 
 func _ready() -> void:
 	navigation_agent.velocity_computed.connect(Callable(_on_velocity_computed))
+	human_instance = human.instantiate()
+	add_child(human_instance)
 
 
 func _physics_process(delta):
@@ -105,6 +111,7 @@ func _physics_process(delta):
 
 func _on_velocity_computed(safe_velocity: Vector3) -> void:
 	global_position = global_position.move_toward(global_position + safe_velocity, physics_delta * walking_speed)
+	human_instance.velocity = safe_velocity
 
 
 func _on_area_3d_body_shape_entered(_body_rid: RID, body: Node3D, _body_shape_index: int, _local_shape_index: int) -> void:

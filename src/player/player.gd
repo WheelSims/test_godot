@@ -146,7 +146,7 @@ func read_keyboard_velocities():
 	_keyboard_angular_velocity = angular
 
 
-func _on_obstacle_colliders_body_shape_entered(body_rid: RID, body: Node3D, body_shape_index: int, local_shape_index: int) -> void:
+func _on_obstacle_colliders_body_shape_entered(_body_rid: RID, body: Node3D, _body_shape_index: int, local_shape_index: int) -> void:
 	if body.get_groups().is_empty() and body is not Surface:
 		match local_shape_index:
 			0:
@@ -166,7 +166,7 @@ func _on_obstacle_colliders_body_shape_entered(body_rid: RID, body: Node3D, body
 				is_rear_collision = true
 
 
-func _on_obstacle_colliders_body_shape_exited(body_rid: RID, body: Node3D, body_shape_index: int, local_shape_index: int) -> void:
+func _on_obstacle_colliders_body_shape_exited(_body_rid: RID, body: Node3D, _body_shape_index: int, local_shape_index: int) -> void:
 	if body.get_groups().is_empty() and body is not Surface:
 		match local_shape_index:
 			0:
@@ -192,7 +192,7 @@ func _on_obstacle_colliders_body_shape_exited(body_rid: RID, body: Node3D, body_
 			is_rear_collision = false
 
 
-func _on_player_on_simulator_body_shape_entered(body_rid: RID, body: Node, body_shape_index: int, local_shape_index: int) -> void:
+func _on_player_on_simulator_body_shape_entered(_body_rid: RID, body: Node, _body_shape_index: int, _local_shape_index: int) -> void:
 	if body is Surface:
 		rolling_resistance_coefficient = body.resistance
 

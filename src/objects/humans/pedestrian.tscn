@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://de6g7by7vw7rd"]
 
 [ext_resource type="Script" uid="uid://d32h12n2qkfxo" path="res://objects/humans/pedestrian.gd" id="1_22h6g"]
+[ext_resource type="PackedScene" uid="uid://baxe87irt488" path="res://objects/humans/bodies/adam/adam.tscn" id="2_doerx"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_s7y42"]
 
@@ -9,6 +10,7 @@ radius = 2.0
 
 [node name="Pedestrian" type="Node3D" unique_id=998153296]
 script = ExtResource("1_22h6g")
+human = ExtResource("2_doerx")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=660828760]
 avoidance_enabled = true
