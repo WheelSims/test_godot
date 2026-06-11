@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://cirvlejwfe68"]
+
+[ext_resource type="PackedScene" uid="uid://bdcu7qao66rq5" path="res://objects/humans/bodies/remy/remy.glb" id="1_j0o8d"]
+[ext_resource type="Script" uid="uid://bsaf24ncdnfad" path="res://objects/humans/human_animator.gd" id="2_8ld1e"]
+[ext_resource type="AnimationLibrary" uid="uid://dula1x2vbhfqq" path="res://objects/humans/animations/human_animation_library.tres" id="3_k6hgv"]
+
+[node name="Remy" unique_id=1767155826 instance=ExtResource("1_j0o8d")]
+script = ExtResource("2_8ld1e")
+
+[node name="GeneralSkeleton" parent="Armature" parent_id_path=PackedInt32Array(2124861128) index="0" unique_id=1483201681]
+bones/0/position = Vector3(-0.00041841506, 2.0907955, -0.01416565)
+bones/9/rotation = Quaternion(0.49996546, 0.50003463, 0.4999655, -0.5000344)
+bones/10/rotation = Quaternion(-1.1324881e-06, 1, -6.8545334e-05, 0)
+bones/12/rotation = Quaternion(-1.0290436e-11, 0.70718855, -4.2157144e-08, 0.707025)
+bones/17/rotation = Quaternion(-0.21424958, 0.673857, 0.21417707, 0.67390084)
+bones/33/rotation = Quaternion(0.50003403, -0.49996603, -0.50003415, -0.4999659)
+bones/34/rotation = Quaternion(2.0861629e-07, 1, 6.78897e-05, -2.0861629e-07)
+bones/36/rotation = Quaternion(-6.9761995e-08, -0.7071447, 6.9761995e-08, 0.70706886)
+bones/41/rotation = Quaternion(-0.21421595, -0.67387414, -0.21417962, 0.67389333)
+bones/57/rotation = Quaternion(-7.0075175e-06, 0.007325172, 0.99997324, -7.7140305e-07)
+bones/58/rotation = Quaternion(-1.557404e-06, 0.9998929, -0.014634811, 3.9076393e-05)
+bones/59/rotation = Quaternion(-2.2039572e-05, 0.70191884, -0.712257, -1.9983267e-05)
+bones/62/rotation = Quaternion(4.549074e-06, 0.00513755, 0.9999868, -4.1270934e-07)
+bones/63/rotation = Quaternion(1.1429656e-06, 0.99994767, -0.01023172, -2.8955765e-05)
+bones/64/rotation = Quaternion(1.9897207e-05, 0.7034953, -0.7107, 1.8007511e-05)
+
+[node name="AnimationPlayer" parent="." index="1" unique_id=1906049116]
+libraries/human_animation_library = ExtResource("3_k6hgv")

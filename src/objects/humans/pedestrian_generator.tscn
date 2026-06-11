@@ -2,7 +2,31 @@
 
 [ext_resource type="Script" uid="uid://j27rsp8bvd80" path="res://objects/humans/pedestrian_generator.gd" id="1_8dpaf"]
 [ext_resource type="PackedScene" uid="uid://baxe87irt488" path="res://objects/humans/bodies/adam/adam.tscn" id="2_rp5s8"]
+[ext_resource type="PackedScene" uid="uid://cngr5qgtrbuh" path="res://objects/humans/bodies/alex/alex.tscn" id="3_02qpl"]
+[ext_resource type="PackedScene" uid="uid://de6g7by7vw7rd" path="res://objects/humans/pedestrian.tscn" id="4_i36df"]
+[ext_resource type="PackedScene" uid="uid://d28ix7e82lb7x" path="res://objects/humans/bodies/brian/brian.tscn" id="4_svvbt"]
+[ext_resource type="PackedScene" uid="uid://ci0dxiew3fx78" path="res://objects/humans/bodies/bryce/bryce.tscn" id="5_ps7h7"]
+[ext_resource type="PackedScene" uid="uid://bwb0c2rjswyxi" path="res://objects/humans/bodies/david/david.tscn" id="6_7b861"]
+[ext_resource type="PackedScene" uid="uid://bn8cl21duqc0j" path="res://objects/humans/bodies/elizabeth/elizabeth.tscn" id="7_oy3fw"]
+[ext_resource type="PackedScene" uid="uid://d4f3rawegkdci" path="res://objects/humans/bodies/james/james.tscn" id="8_y7j88"]
+[ext_resource type="PackedScene" uid="uid://dve6cl3muacew" path="res://objects/humans/bodies/jody/jody.tscn" id="9_3jjgp"]
+[ext_resource type="PackedScene" uid="uid://de1m4rxbeuaow" path="res://objects/humans/bodies/joe/joe.tscn" id="10_j5osp"]
+[ext_resource type="PackedScene" uid="uid://bltk0hvb218q6" path="res://objects/humans/bodies/josh/josh.tscn" id="11_12jtp"]
+[ext_resource type="PackedScene" uid="uid://caktcy6bwsoug" path="res://objects/humans/bodies/kate/kate.tscn" id="12_fr5wr"]
+[ext_resource type="PackedScene" uid="uid://u0jd4axxxtu0" path="res://objects/humans/bodies/leonard/leonard.tscn" id="13_fr5wr"]
+[ext_resource type="PackedScene" uid="uid://c477yay81da1a" path="res://objects/humans/bodies/lewis/lewis.tscn" id="14_quy53"]
+[ext_resource type="PackedScene" uid="uid://tm3erkree758" path="res://objects/humans/bodies/lola/lola.tscn" id="15_e2tmt"]
+[ext_resource type="PackedScene" uid="uid://1qxwohbgn4wp" path="res://objects/humans/bodies/louise/louise.tscn" id="16_ow2mw"]
+[ext_resource type="PackedScene" uid="uid://byuhasn2le462" path="res://objects/humans/bodies/martha/martha.tscn" id="17_e1lqf"]
+[ext_resource type="PackedScene" uid="uid://d0ytgj4pqk7v0" path="res://objects/humans/bodies/megan/megan.tscn" id="18_p4x6p"]
+[ext_resource type="PackedScene" uid="uid://svuqbms8wq3n" path="res://objects/humans/bodies/pete/pete.tscn" id="19_4673f"]
+[ext_resource type="PackedScene" uid="uid://cirvlejwfe68" path="res://objects/humans/bodies/remy/remy.tscn" id="20_2du6a"]
+[ext_resource type="PackedScene" uid="uid://bwsid2e2k5xuu" path="res://objects/humans/bodies/roth/roth.tscn" id="21_pxvkt"]
+[ext_resource type="PackedScene" uid="uid://colwkg1ib63j0" path="res://objects/humans/bodies/shanon/shanon.tscn" id="22_n7m2u"]
+[ext_resource type="PackedScene" uid="uid://c0ntncao4r5fd" path="res://objects/humans/bodies/sophie/sophie.tscn" id="23_tqi82"]
+[ext_resource type="PackedScene" uid="uid://dmihy1r7pkdxu" path="res://objects/humans/bodies/suzy/suzy.tscn" id="24_t2gx5"]
 
 [node name="PedestrianGenerator" type="Node3D" unique_id=1740765578]
 script = ExtResource("1_8dpaf")
-humans = Array[PackedScene]([ExtResource("2_rp5s8")])
+humans = Array[PackedScene]([ExtResource("2_rp5s8"), ExtResource("3_02qpl"), ExtResource("4_svvbt"), ExtResource("5_ps7h7"), ExtResource("6_7b861"), ExtResource("7_oy3fw"), ExtResource("8_y7j88"), ExtResource("9_3jjgp"), ExtResource("10_j5osp"), ExtResource("11_12jtp"), ExtResource("12_fr5wr"), ExtResource("13_fr5wr"), ExtResource("14_quy53"), ExtResource("15_e2tmt"), ExtResource("16_ow2mw"), ExtResource("17_e1lqf"), ExtResource("18_p4x6p"), ExtResource("19_4673f"), ExtResource("20_2du6a"), ExtResource("21_pxvkt"), ExtResource("22_n7m2u"), ExtResource("23_tqi82"), ExtResource("24_t2gx5")])
+pedestrian = ExtResource("4_i36df")

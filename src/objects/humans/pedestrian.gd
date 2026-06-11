@@ -10,7 +10,7 @@ extends Node3D
 ## the navigation, and its Human children controls its appearance, including the animation.
 
 @export var walking_speed: float = 1.2
-var max_target_distance: float = 50  # meters
+var max_target_distance: float = 20  # meters
 
 @onready var navigation_agent: NavigationAgent3D = get_node("NavigationAgent3D")
 @onready var down_ray = get_node("RayCast3DDown")
@@ -96,10 +96,6 @@ func _physics_process(delta):
 
 	var next_path_position: Vector3 = navigation_agent.get_next_path_position()
 
-	# Look in direction of the next path position
-	# (didn't use look_at because the pedestrian should stay upright).
-	rotation.y = atan2(next_path_position.x - global_position.x, next_path_position.z - global_position.z)
-
 	var new_velocity: Vector3 = global_position.direction_to(next_path_position) * walking_speed
 	if navigation_agent.avoidance_enabled:
 		navigation_agent.set_velocity(new_velocity)
@@ -112,5 +108,6 @@ func _on_velocity_computed(safe_velocity: Vector3) -> void:
 
 
 func _on_area_3d_body_shape_entered(_body_rid: RID, body: Node3D, _body_shape_index: int, _local_shape_index: int) -> void:
-	if body is not Surface:
-		new_back_target()
+	pass
+	#if body is not Surface:
+		#new_back_target()
