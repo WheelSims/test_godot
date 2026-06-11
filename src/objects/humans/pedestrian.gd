@@ -112,7 +112,7 @@ func _physics_process(delta):
 
 func _on_velocity_computed(safe_velocity: Vector3) -> void:
 	global_position = global_position.move_toward(global_position + safe_velocity, physics_delta * walking_speed)
-	human_instance.velocity = safe_velocity
+	human_instance.current_velocity = safe_velocity
 
 
 func _on_area_3d_body_shape_entered(_body_rid: RID, body: Node3D, _body_shape_index: int, _local_shape_index: int) -> void:

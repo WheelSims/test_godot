@@ -14,14 +14,14 @@ extends Node3D
 @export var look_at_player: bool = false
 
 ## Velocity of the human, to set the orientation and walking/running animation speed
-@export var velocity: Vector3 = Vector3(0, 0, 0)
+@export var current_velocity: Vector3 = Vector3(0, 0, 0)
 
 ## Distance from player at which the human start cheering
 @export var cheer_distance: float = 0.0
 
 
 func _process(delta):
-	var current_speed = velocity.length()
+	var current_speed = sqrt(current_velocity.x ** 2 + current_velocity.z ** 2)
 
 	var player_position: Vector3 = Vector3.ZERO
 	if (not Engine.is_editor_hint()) and Globals.player:
@@ -38,7 +38,7 @@ func _process(delta):
 		do_orient = true
 
 	elif current_speed > 0.1:
-		target_rotation_y = atan2(velocity.x, velocity.z)
+		target_rotation_y = atan2(current_velocity.x, current_velocity.z)
 		do_orient = true
 
 	if do_orient:

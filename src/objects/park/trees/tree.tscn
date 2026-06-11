@@ -10,8 +10,13 @@ radius = 1.0068359
 
 [node name="tree" parent="." unique_id=1524648642 instance=ExtResource("1_6ndoc")]
 
-[node name="StaticBody3D" type="StaticBody3D" parent="tree" unique_id=716796469]
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=716796469]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="tree/StaticBody3D" unique_id=1924423997]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=1924423997]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1713976, 1.563669, -0.13116741)
 shape = SubResource("CylinderShape3D_1ilih")
+
+[node name="NavigationObstacle3D" type="NavigationObstacle3D" parent="." unique_id=1052539923]
+radius = 1.8
+affect_navigation_mesh = true
+carve_navigation_mesh = true
