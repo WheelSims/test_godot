@@ -17,7 +17,7 @@ func _ready() -> void:
 	for i in range(n_pedestrians):
 		var one_pedestrian = pedestrian.instantiate()
 		one_pedestrian.spawn_on_random_point = true
-		one_pedestrian.walking_speed = randf_range(0.8, 3.5)
+		one_pedestrian.walking_speed = randf_range(0.8, 3.2)
 		one_pedestrian.human = humans[randi_range(0, len(humans)-1)]
 
 		add_child(one_pedestrian)

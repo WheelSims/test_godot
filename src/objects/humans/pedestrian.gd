@@ -10,7 +10,7 @@ extends Node3D
 ## the navigation, and its Human children controls its appearance, including the animation.
 
 @export var walking_speed: float = 1.2
-var max_target_distance: float = 20  # meters
+var max_target_distance: float = 50  # meters
 
 ## The human to move
 @export var human: PackedScene
@@ -72,6 +72,7 @@ func new_back_target():
 
 func _ready() -> void:
 	navigation_agent.velocity_computed.connect(Callable(_on_velocity_computed))
+	navigation_agent.max_speed = walking_speed  # Slow down if needed but don't accelerate
 	human_instance = human.instantiate()
 	add_child(human_instance)
 
