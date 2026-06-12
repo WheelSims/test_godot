@@ -36,7 +36,7 @@ func _ready() -> void:
 	_udp_receiver.bind(UDP_RECEIVE_PORT)
 	_udp_sender.connect_to_host(UDP_SEND_IP, UDP_SEND_PORT)
 	send_data(0, hardware_enabled, 0.0, 0.0)
-	get_tree().set_auto_accept_quit(false) # to send hw_enable false on quit
+	get_tree().set_auto_accept_quit(false)  # to send hw_enable false on quit
 
 
 func _process(_delta: float) -> void:
@@ -99,7 +99,7 @@ func _update_friction():
 
 
 func receive() -> void:
-	if _udp_receiver.get_available_packet_count() > 0: # We received something
+	if _udp_receiver.get_available_packet_count() > 0:  # We received something
 		_udp_receiver_connected = true
 		var array_bytes = _udp_receiver.get_packet()
 

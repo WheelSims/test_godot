@@ -55,22 +55,25 @@ func _process(_delta) -> void:
 			var data = main.get_node("python_bridge").receive("biofeedback_push_frequency")
 			_update_slider(data)
 
-
 	# Should we quit
-	if not Config.get_value("overlays.biofeedback_push_frequency.enabled"): 
+	if not Config.get_value("overlays.biofeedback_push_frequency.enabled"):
 		# Stop the biofeedback from python bridge if this overlays is shut down
-		if main.has_node("python_bridge") and connected and not Config.get_value("overlays.biofeedback_optitrack.enabled"):
+		if (
+			main.has_node("python_bridge")
+			and connected
+			and not Config.get_value("overlays.biofeedback_optitrack.enabled")
+		):
 			# Tell the python bridge to stop the repeating update process
-			main.get_node("python_bridge").send("biofeedback_update", { }, "stop")
+			main.get_node("python_bridge").send("biofeedback_update", {}, "stop")
 			# Send a final request to reset the biofeedback script data
 			_update_arg()
 			main.get_node("python_bridge").send("biofeedback_stop", arg, "once")
 		# Remove the overlay node from the scene tree
 		queue_free()
 
+
 # Update the slider with slider parameters and the received mean push frequency
 func _update_slider(data):
-	
 	if data is Dictionary and data.has("data") and data["data"].size() > 0:
 		if data["command"] == "biofeedback_update":
 			var side = data["data"].keys()[0]
@@ -81,23 +84,32 @@ func _update_slider(data):
 	node_max_value.text = str(max_value)
 	node_value.text = str(snappedf(value, 0.1))
 
-	node_slider.position.y = node_slider_zone.size.y - (value - min_value) * node_slider_zone.size.y / (max_value-min_value)
+	node_slider.position.y = (
+		node_slider_zone.size.y
+		- (value - min_value) * node_slider_zone.size.y / (max_value - min_value)
+	)
 	node_slider.size.x = node_slider_zone.size.x
-	
-	node_target_zone.position.y = node_slider_zone.size.y - (min_target_value - min_value) * node_slider_zone.size.y / (max_value-min_value)
-	node_green_zone.size.y = node_slider_zone.size.y * (max_target_value - min_target_value) / (max_value - min_value)
+
+	node_target_zone.position.y = (
+		node_slider_zone.size.y
+		- (min_target_value - min_value) * node_slider_zone.size.y / (max_value - min_value)
+	)
+	node_green_zone.size.y = (
+		node_slider_zone.size.y * (max_target_value - min_target_value) / (max_value - min_value)
+	)
 
 	node_min_target_value.text = str(min_target_value)
 	node_max_target_value.text = str(max_target_value)
-	
+
 	node_max_target_value.position.y = node_green_zone.size.y
+
 
 # Update the arguments to send the requests to the python bridge
 func _update_arg():
 	arg = {
-	"coordinates_left_wheel_center": Config.get_value("coordinates.left_wheel_center"),
-	"coordinates_right_wheel_center": Config.get_value("coordinates.right_wheel_center"),
-	"coordinates_left_hand": Config.get_value("coordinates.left_hand"),
-	"coordinates_right_hand": Config.get_value("coordinates.right_hand"),
-	"wheel_diameter": Config.get_value("player.pushrim_diameter"),
-			}
+		"coordinates_left_wheel_center": Config.get_value("coordinates.left_wheel_center"),
+		"coordinates_right_wheel_center": Config.get_value("coordinates.right_wheel_center"),
+		"coordinates_left_hand": Config.get_value("coordinates.left_hand"),
+		"coordinates_right_hand": Config.get_value("coordinates.right_hand"),
+		"wheel_diameter": Config.get_value("player.pushrim_diameter"),
+	}

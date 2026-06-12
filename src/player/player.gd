@@ -26,11 +26,10 @@ class_name Player
 # Editable constants
 # ------------------
 @export_group("Keyboard Control")
-@export var KB_LINEAR_SPEED: float = 2 # m/s
-@export var KB_ANGULAR_SPEED: float = 1 # rad/s
-@export var LINEAR_SPEED_DEADZONE: float = 0.04 # m/s
-@export var ANGULAR_SPEED_DEADZONE: float = 0.04 # rad/s
-
+@export var KB_LINEAR_SPEED: float = 2  # m/s
+@export var KB_ANGULAR_SPEED: float = 1  # rad/s
+@export var LINEAR_SPEED_DEADZONE: float = 0.04  # m/s
+@export var ANGULAR_SPEED_DEADZONE: float = 0.04  # rad/s
 
 # -----------------------
 # Current velocity
@@ -56,7 +55,7 @@ var _n_foot_obstacle = 0
 # -----------------------
 # Config related
 # -----------------------
-var _config_update_required: bool = true # Update to match config
+var _config_update_required: bool = true  # Update to match config
 var _camera_rotation_x_offset: float = 0.0
 
 
@@ -146,7 +145,9 @@ func read_keyboard_velocities():
 	_keyboard_angular_velocity = angular
 
 
-func _on_obstacle_colliders_body_shape_entered(body_rid: RID, body: Node3D, body_shape_index: int, local_shape_index: int) -> void:
+func _on_obstacle_colliders_body_shape_entered(
+	body_rid: RID, body: Node3D, body_shape_index: int, local_shape_index: int
+) -> void:
 	if body.get_groups().is_empty() and body is not Surface:
 		match local_shape_index:
 			0:
@@ -166,7 +167,9 @@ func _on_obstacle_colliders_body_shape_entered(body_rid: RID, body: Node3D, body
 				is_rear_collision = true
 
 
-func _on_obstacle_colliders_body_shape_exited(body_rid: RID, body: Node3D, body_shape_index: int, local_shape_index: int) -> void:
+func _on_obstacle_colliders_body_shape_exited(
+	body_rid: RID, body: Node3D, body_shape_index: int, local_shape_index: int
+) -> void:
 	if body.get_groups().is_empty() and body is not Surface:
 		match local_shape_index:
 			0:
@@ -179,20 +182,15 @@ func _on_obstacle_colliders_body_shape_exited(body_rid: RID, body: Node3D, body_
 				_n_lr_obstacle -= 1
 			4:
 				_n_rr_obstacle -= 1
-		if (
-			(_n_foot_obstacle == 0)
-			and (_n_rf_obstacle == 0)
-			and (_n_lf_obstacle == 0)
-		):
+		if (_n_foot_obstacle == 0) and (_n_rf_obstacle == 0) and (_n_lf_obstacle == 0):
 			is_front_collision = false
-		if (
-			(_n_rr_obstacle == 0)
-			and (_n_lr_obstacle == 0)
-		):
+		if (_n_rr_obstacle == 0) and (_n_lr_obstacle == 0):
 			is_rear_collision = false
 
 
-func _on_player_on_simulator_body_shape_entered(body_rid: RID, body: Node, body_shape_index: int, local_shape_index: int) -> void:
+func _on_player_on_simulator_body_shape_entered(
+	body_rid: RID, body: Node, body_shape_index: int, local_shape_index: int
+) -> void:
 	if body is Surface:
 		rolling_resistance_coefficient = body.resistance
 

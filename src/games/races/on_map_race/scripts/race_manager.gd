@@ -23,13 +23,13 @@ enum RaceType { TIME_TRIAL, DISTANCE_CHALLENGE, NONE }
 
 #Music & SFX
 @onready var SFX_player: AudioStreamPlayer = $UI/SFXPlayer
-@export var click_tone : AudioStream
-@export var click_error : AudioStream
-@export var victory_sound : AudioStream
+@export var click_tone: AudioStream
+@export var click_error: AudioStream
+@export var victory_sound: AudioStream
 
 @onready var music_player: AudioStreamPlayer = $MusicPlayer
-@export var music_intro : AudioStream
-@export var music_loop : AudioStream
+@export var music_intro: AudioStream
+@export var music_loop: AudioStream
 
 # Runtime Variables
 var _instantiatedArrows: Array[Node3D] = []
@@ -42,6 +42,7 @@ var distanceInput: float = 0
 var timerInput: float = 0
 var _totalRaceLength: float = 0
 
+
 func _ready() -> void:
 	if Config.get_value("game.racing.type") == 0:
 		_currentRaceType = RaceType.TIME_TRIAL
@@ -49,15 +50,15 @@ func _ready() -> void:
 		_currentRaceType = RaceType.DISTANCE_CHALLENGE
 	else:
 		_currentRaceType = RaceType.NONE
-		
+
 	distanceInput = Config.get_value("game.racing.distance")
 	timerInput = Config.get_value("game.racing.time")
-	
-	if (path):
+
+	if path:
 		_totalRaceLength = path.curve.get_baked_length()
-		
+
 	_place_final_arch(distanceInput)
-	
+
 
 func _process(delta: float) -> void:
 	if _currentRaceMode and _on_race:
@@ -79,32 +80,32 @@ func _start_race() -> void:
 			raceLength = distanceInput
 		RaceType.DISTANCE_CHALLENGE:
 			_currentRaceMode = DistanceChallenge.new(timerInput, Globals.player)
-			if (_finalArch != null):
+			if _finalArch != null:
 				_finalArch.queue_free()
 		_:
 			return
-	
-	
+
 	SFX_player.play()
 	countdown_ui.start_countdown()
-	
+
 	# Wait for signal before starting race
 	await countdown_ui.countdown_finished
-	
+
 	_on_race = true
 	_play_music()
 	raceHUD.show()
 	_racePaused = false
 	_spawn_arrows(distanceBetweenArrows, raceLength)
-	
+
 
 func _finish_race() -> void:
 	music_player.stream = victory_sound
 	music_player.play()
 	_currentRaceMode = null
 	_on_race = false
-	_currentRaceType = RaceType.NONE	
+	_currentRaceType = RaceType.NONE
 	_clear_arrows()
+
 
 func _place_final_arch(distance: float) -> void:
 	distance = fmod(distance, _totalRaceLength)
@@ -120,16 +121,17 @@ func _place_final_arch(distance: float) -> void:
 		if end_arch_right_crowd:
 			var right_crowd = _finalArch.get_node("RightCrowd")
 			right_crowd.visible = true
-			right_crowd.race_manager = self	
+			right_crowd.race_manager = self
 
 	_finalArch.transform = archTransform
+
 
 func _spawn_arrows(spacing: float, length: float) -> void:
 	var offset: float = 0.0
 
 	while offset < length:
 		var arrow: Node3D = arrowScene.instantiate()
-		var arrow_transform  = path.curve.sample_baked_with_rotation(offset)
+		var arrow_transform = path.curve.sample_baked_with_rotation(offset)
 		path.add_child(arrow)
 		arrow.transform = arrow_transform
 		arrow.rotation.y += PI / 2
@@ -137,11 +139,13 @@ func _spawn_arrows(spacing: float, length: float) -> void:
 		_instantiatedArrows.append(arrow)
 		offset += spacing
 
+
 func _clear_arrows() -> void:
 	for arrow in _instantiatedArrows:
 		arrow.queue_free()
 	_instantiatedArrows.clear()
-	
+
+
 func _update_hud(distance: float, timer: float) -> void:
 	match _currentRaceType:
 		RaceType.TIME_TRIAL:
@@ -151,15 +155,17 @@ func _update_hud(distance: float, timer: float) -> void:
 			timerLabel.text = "Time Left: %.1f s" % abs(timerInput - timer)
 			distanceLabel.text = "Distance: %.1f m" % distance
 
+
 func _play_music() -> void:
 	music_player.stream = music_intro
 	music_player.play()
-	
+
 	await music_player.finished
-	
-	if (_on_race):
+
+	if _on_race:
 		music_player.stream = music_loop
 		music_player.play()
+
 
 func _on_trigger_area_entered(area: Area3D) -> void:
 	if area.is_in_group("Player"):

@@ -6,6 +6,7 @@ extends Node3D
 
 var id_node = []
 
+
 func _process(_delta: float) -> void:
 	var optitrack = get_node_or_null("optitrack")
 	if optitrack:
@@ -15,7 +16,7 @@ func _process(_delta: float) -> void:
 				var scene: PackedScene = available_models[child.name]
 				var instance = scene.instantiate()
 				child.add_child(instance)
-			# Display a default cube when no CAD model is associated with the ID 
+			# Display a default cube when no CAD model is associated with the ID
 			elif child.name not in available_models and len(child.get_children()) == 0:
 				var mesh_instance = MeshInstance3D.new()
 				var box = BoxMesh.new()

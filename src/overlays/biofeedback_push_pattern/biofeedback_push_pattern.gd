@@ -12,22 +12,22 @@ extends Node2D
 @onready var main: Node = get_tree().get_root().get_node("main")
 
 # Nodes
-@export var node_wheel_left :Node
-@export var node_wheel_right :Node
-@export var node_angle_start_contact_left :Node
-@export var node_angle_start_contact_right :Node
-@export var node_angle_end_contact_left :Node
-@export var node_angle_end_contact_right :Node
-@export var node_handrim_left :Node
-@export var node_handrim_right :Node
-@export var current_scene_3D :Node
-@export var view_left_1 :Node
-@export var view_left_2 :Node
-@export var view_right_1 :Node
-@export var view_right_2 :Node
+@export var node_wheel_left: Node
+@export var node_wheel_right: Node
+@export var node_angle_start_contact_left: Node
+@export var node_angle_start_contact_right: Node
+@export var node_angle_end_contact_left: Node
+@export var node_angle_end_contact_right: Node
+@export var node_handrim_left: Node
+@export var node_handrim_right: Node
+@export var current_scene_3D: Node
+@export var view_left_1: Node
+@export var view_left_2: Node
+@export var view_right_1: Node
+@export var view_right_2: Node
 
 # Scenes
-@export var gui_scene :PackedScene
+@export var gui_scene: PackedScene
 
 # Wheelchair variables
 @export_group("Wheels")
@@ -57,7 +57,7 @@ func _ready() -> void:
 	# Create an isolated World3D so this SubViewport scene is not rendered in the main viewport
 	var world = World3D.new()
 	current_scene_3D.world_3d = world
-	
+
 	# Share the same World3D across all SubViewports so it is only rendered through UI overlays
 	view_left_1.world_3d = current_scene_3D.find_world_3d()
 	view_left_2.world_3d = current_scene_3D.find_world_3d()
@@ -74,39 +74,57 @@ func _ready() -> void:
 
 func _process(_delta):
 	update_wheelchair()
-	
+
 	if not Config.get_value("overlays.biofeedback_push_pattern.enabled"):
 		queue_free()
 
 
 # Update wheelchair model based on configuration and tracking data
 func update_wheelchair():
-	
 	# Set wheel radius from configuration
 	radius_wheel = Config.get_value("player.pushrim_diameter")
-	
+
 	# Compute distances between left and right wheel centers
-	anteroposterior_length = abs(Config.get_value("coordinates.left_wheel_center")[0] - Config.get_value("coordinates.right_wheel_center")[0])
-	vertical_distance_wheel = abs(Config.get_value("coordinates.left_wheel_center")[1] - Config.get_value("coordinates.right_wheel_center")[1])
-	mediolateral_distance_wheel = abs(Config.get_value("coordinates.left_wheel_center")[2] - Config.get_value("coordinates.right_wheel_center")[2])
-	
+	anteroposterior_length = abs(
+		(
+			Config.get_value("coordinates.left_wheel_center")[0]
+			- Config.get_value("coordinates.right_wheel_center")[0]
+		)
+	)
+	vertical_distance_wheel = abs(
+		(
+			Config.get_value("coordinates.left_wheel_center")[1]
+			- Config.get_value("coordinates.right_wheel_center")[1]
+		)
+	)
+	mediolateral_distance_wheel = abs(
+		(
+			Config.get_value("coordinates.left_wheel_center")[2]
+			- Config.get_value("coordinates.right_wheel_center")[2]
+		)
+	)
+
 	# Update left wheel scale, position and visibility
-	node_wheel_left.scale = Vector3(-1/radius_wheel*0.2+1, radius_wheel, radius_wheel)
-	position_wheel_l = Vector3(anteroposterior_length/2, vertical_distance_wheel/2, -mediolateral_distance_wheel/2)
+	node_wheel_left.scale = Vector3(-1 / radius_wheel * 0.2 + 1, radius_wheel, radius_wheel)
+	position_wheel_l = Vector3(
+		anteroposterior_length / 2, vertical_distance_wheel / 2, -mediolateral_distance_wheel / 2
+	)
 	node_wheel_left.position = position_wheel_l
 	node_wheel_left.visible = visibled_wheel_l
-	
+
 	# Update left wheel sub-elements visibility
 	node_angle_start_contact_left.visible = visibled_angle_contact_l
 	node_angle_end_contact_left.visible = visibled_angle_contact_l
 	node_handrim_left.visible = visibled_handrim_l
 
 	# Update right wheel scale, position and visibility
-	node_wheel_right.scale = Vector3(-1/radius_wheel*0.2+1, radius_wheel, radius_wheel)
-	position_wheel_r = Vector3(anteroposterior_length/2, vertical_distance_wheel/2, mediolateral_distance_wheel/2)
+	node_wheel_right.scale = Vector3(-1 / radius_wheel * 0.2 + 1, radius_wheel, radius_wheel)
+	position_wheel_r = Vector3(
+		anteroposterior_length / 2, vertical_distance_wheel / 2, mediolateral_distance_wheel / 2
+	)
 	node_wheel_right.position = position_wheel_r
 	node_wheel_right.visible = visibled_wheel_r
-	
+
 	# Update right wheel sub-elements visibility
 	node_angle_start_contact_right.visible = visibled_angle_contact_r
 	node_angle_end_contact_right.visible = visibled_angle_contact_r

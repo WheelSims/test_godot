@@ -14,7 +14,7 @@ extends Node
 
 var _udp_receiver = PacketPeerUDP.new()
 var _udp_receiver_connected = false
-var data # Payload of the UDP packet
+var data  # Payload of the UDP packet
 
 # General UDP packet information
 var message_id
@@ -24,7 +24,7 @@ var marker_set_count
 var unlabeled_markers_count
 var rigid_body_count
 
-var id_rigidbodies = [] # List of rigidbody IDs seen
+var id_rigidbodies = []  # List of rigidbody IDs seen
 
 
 func _ready():
@@ -32,7 +32,7 @@ func _ready():
 
 
 func _process(_delta):
-	if _udp_receiver.get_available_packet_count() > 0: # We received something
+	if _udp_receiver.get_available_packet_count() > 0:  # We received something
 		if not _udp_receiver_connected:
 			_udp_receiver_connected = true
 		data = _udp_receiver.get_packet()
@@ -55,8 +55,8 @@ func _process(_delta):
 
 			# Positions and rotations
 			var id_num = result[0]
-			var pos = result[1] # Vector3 positions (x,y,z) of the centroid
-			var rot = result[2] # Quaternion (x,y,z,w)
+			var pos = result[1]  # Vector3 positions (x,y,z) of the centroid
+			var rot = result[2]  # Quaternion (x,y,z,w)
 
 			# Mean position error
 			var _mean_error = result[3]

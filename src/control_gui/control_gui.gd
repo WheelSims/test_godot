@@ -10,20 +10,20 @@ var PLAYABLE_SCENES_FOLDER_PATH = "res://playable_scenes"
 # -------------------------------------------------------------------
 @onready var main: Node = get_tree().get_root().get_node("main")
 
-
 # --- Scene Buttons ---
 var scene_button := preload("scene_button.tscn")
 @export var scene_container: GridContainer
 
 
-func _ready() -> void:	
+func _ready() -> void:
 	_create_scene_buttons()
+
 
 # -------------------------------------------------------------------
 # Load scenes
 # -------------------------------------------------------------------
 ## Create all the scene buttons with their thumbnail if they exist.
-func _create_scene_buttons()->void:
+func _create_scene_buttons() -> void:
 	var dir := DirAccess.open(PLAYABLE_SCENES_FOLDER_PATH)
 	if dir:
 		dir.list_dir_begin()
@@ -31,24 +31,24 @@ func _create_scene_buttons()->void:
 		while file_name != "":
 			if not dir.current_is_dir() and file_name.ends_with(".tscn"):
 				var scene_path = PLAYABLE_SCENES_FOLDER_PATH + "/" + file_name
-				
-				var _scene_button_instance := scene_button.instantiate()				
+
+				var _scene_button_instance := scene_button.instantiate()
 				_scene_button_instance.set_meta("scene_path", scene_path)
-				
+
 				#Label of the button
 				var label: Label = _scene_button_instance.get_node_or_null("Label")
 				var name_without_ext = file_name.trim_suffix(".tscn")
 				var display_name = name_without_ext.capitalize()
 				if label:
 					label.text = display_name
-					
+
 				#Thumbnail of the button
 				var image_path = PLAYABLE_SCENES_FOLDER_PATH + "/" + name_without_ext + ".png"
 				var image := load(image_path)
 				var thumbail: TextureRect = _scene_button_instance.get_node_or_null("Thumbnail")
 				if thumbail:
 					thumbail.texture = image
-				
+
 				#Button connection to scene instantiation
 				_scene_button_instance.pressed.connect(
 					func():
@@ -56,12 +56,11 @@ func _create_scene_buttons()->void:
 						main.load_scene(path)
 				)
 				scene_container.add_child(_scene_button_instance)
-				
+
 			file_name = dir.get_next()
 		dir.list_dir_end()
 	else:
 		push_error("Error while opening PlayableScenes folder")
-
 
 
 ## Set a window full screen on the selected screen.
@@ -71,6 +70,7 @@ func _set_window_full_screen(win: Window, screen_index: int) -> void:
 	_fit_subviewport_to_window(win)
 	if not win.is_connected("size_changed", Callable(self, "_on_display_window_resized")):
 		win.size_changed.connect(_on_display_window_resized.bind(win))
+
 
 func _fit_subviewport_to_window(win: Window) -> void:
 	var container := win.get_node_or_null("SubViewportContainer") as SubViewportContainer
@@ -88,6 +88,7 @@ func _fit_subviewport_to_window(win: Window) -> void:
 		sv.render_target_update_mode = SubViewport.UPDATE_ALWAYS
 		sv.disable_3d = false
 		sv.own_world_3d = false
+
 
 func _on_display_window_resized(win: Window) -> void:
 	var sv := win.get_node_or_null("SubViewportContainer/SubViewport") as SubViewport
