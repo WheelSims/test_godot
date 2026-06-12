@@ -50,13 +50,13 @@ albedo_texture = ExtResource("1_kt6eb")
 [sub_resource type="BoxShape3D" id="BoxShape3D_4thuq"]
 size = Vector3(0.21081543, 0.25634766, 0.032196045)
 
-[node name="wind_turbine" type="Node3D" unique_id=578740055 node_paths=PackedStringArray("visual_instance", "collision_shape", "area3D")]
+[node name="wind_turbine" type="Node3D" unique_id=578740055 node_paths=PackedStringArray("visual_instance", "collision_shape", "area3d")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.063440114, 0)
 script = ExtResource("1_llswu")
 visual_instance = NodePath("wind_turbine")
 collision_shape = NodePath("wind_turbine/StaticBody3D/CollisionShape3D")
 object_type = 2
-area3D = NodePath("wind_turbine/Area3D")
+area3d = NodePath("wind_turbine/Area3D")
 
 [node name="wind_turbine" type="MeshInstance3D" parent="." unique_id=1609298925]
 transform = Transform3D(5, 0, 0, 0, -2.0684229e-07, 148.454, 0, -4.732, -6.48913e-06, -0.31001985, 1.5501404, 0.123436905)

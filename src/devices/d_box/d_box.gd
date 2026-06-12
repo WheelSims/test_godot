@@ -1,15 +1,25 @@
-## This script manages the D-Box platform through the compiled C++ app dbox_driver_app.exe.
+## This script manages the D-Box platform through the compiled C++ app DBOX_DRIVER_APP.exe.
 ## There is no direct communication between this script and the D-Box binaries. Instead, the
-## dbox_driver_app application instantiates a USB connection with the D-Box system, and starts
+## DBOX_DRIVER_APP application instantiates a USB connection with the D-Box system, and starts
 ## listening for UDP packets sent by Godot.
 ##
 ## The UDP protocol from Godot to the driver app is given here, along with the driver source:
-## https://github.com/LabMOSA/wheelsims_dbox_driver_app
+## https://github.com/LabMOSA/wheelsims_DBOX_DRIVER_APP
 ##
 ## The script launches the driver app and the D-Box initiatialization when it is first enabled, and
 ## only if the driver app is not already running. By doing this, we don't have to wait for the whole
 ## D-Box startup procedure (including self-calibration) each time the project is run.
 extends Node3D
+
+enum CurrentMode {
+	ONBOARDING = 0,
+	PLAYING = 1,
+	PAUSE = 2,
+	OFFBOARDING = 3,
+}
+
+const DBOX_DRIVER_PATH = "devices/d_box/dbox_driver/"
+const DBOX_DRIVER_APP = "dbox_driver_app.exe"
 
 # ------------------------------------
 # Simulator geometry
@@ -35,30 +45,22 @@ var max_roll_angle = atan(actuator_length / simulator_width)
 var max_height = actuator_length / 2.0
 var max_simulated_height = max_height_amplitude / 2.0
 
+## Old state (to calculate speed and to get back gratually to ONBOARDING when the player unloads)
+var old_position: Vector3
+var old_rotation: Vector3
+
 # ------------------------------------
 # D-Box driver helper
 # ------------------------------------
-const dbox_driver_path = "devices/d_box/dbox_driver/"
-const dbox_driver_app = "dbox_driver_app.exe"
 var udp_send_ip: String = "127.0.0.1"
 var udp_send_port: int = 25200
 var _udp_sender = PacketPeerUDP.new()
-var _d_box_initialized = true # reverted to false if driver process not running
+var _d_box_initialized = true  # reverted to false if driver process not running
 
 # -----------------------
 # Current mode
 # -----------------------
-enum CurrentMode {
-	ONBOARDING = 0,
-	PLAYING = 1,
-	PAUSE = 2,
-	OFFBOARDING = 3,
-}
 @onready var current_mode = CurrentMode.ONBOARDING
-
-## Old state (to calculate speed and to get back gratually to ONBOARDING when the player unloads)
-var old_position: Vector3
-var old_rotation: Vector3
 
 ## Current height (total) of the platform
 @onready var current_dbox_normalized_height: float = 0.0
@@ -74,15 +76,14 @@ var old_rotation: Vector3
 func get_debug_text() -> String:
 	if current_mode == CurrentMode.ONBOARDING:
 		return "Onboarding"
-	elif current_mode == CurrentMode.PLAYING:
+	if current_mode == CurrentMode.PLAYING:
 		return "Playing"
-	else:
-		return ""
+	return ""
 
 
 func _notification(what):
 	if what == NOTIFICATION_WM_CLOSE_REQUEST:
-		send(6, 0, 0, 0) # DBox Stop
+		send(6, 0, 0, 0)  # DBox Stop
 		get_tree().quit()
 
 
@@ -93,15 +94,17 @@ func send(command: int, arg0: float, arg1: float, arg2: float) -> void:
 		_d_box_initialized = true
 		# DBox init
 		send_print_string("Receiving packets from Godot.\n")
-		send(1, 0, 0, 0) # Init
-		send(2, 0, 0, 0) # Open
-		send(3, 0, 0, 0) # ResetState
-		send(4, 0, 0, 0) # Config
-		send(7, 0, 0, 0) # Center
-		send(5, 0, 0, 0) # Start
+		send(1, 0, 0, 0)  # Init
+		send(2, 0, 0, 0)  # Open
+		send(3, 0, 0, 0)  # ResetState
+		send(4, 0, 0, 0)  # Config
+		send(7, 0, 0, 0)  # Center
+		send(5, 0, 0, 0)  # Start
 		send_print_string("Init done, ready to move.\n")
 		send_print_string("WARNING: CLOSING THIS WINDOW WILL RAISE THE PLATFORM.\n")
-		send_print_string("Do not close this window until the participant completely left the simulator.\n")
+		send_print_string(
+			"Do not close this window until the participant completely left the simulator.\n"
+		)
 
 	bytes.resize(28)
 	bytes.encode_s32(0, command)
@@ -118,20 +121,20 @@ func send_print_string(text: String) -> void:
 
 func pause_process(pause_time):
 	set_process(false)
-	await get_tree().create_timer(pause_time).timeout # create a timer and wait for it to time out
+	await get_tree().create_timer(pause_time).timeout  # create a timer and wait for it to time out
 	set_process(true)
 
 
 func _ready() -> void:
-	get_tree().set_auto_accept_quit(false) # pour pouvoir envoyer Stop
+	get_tree().set_auto_accept_quit(false)  # pour pouvoir envoyer Stop
 
 	var output = []
-	var _exit_code = OS.execute("tasklist.exe", [], output)
-	if dbox_driver_app not in output[0]:
+	OS.execute("tasklist.exe", [], output)
+	if DBOX_DRIVER_APP not in output[0]:
 		print("Starting D-Box driver app")
 		# Execute non-blocking
-		OS.create_process(dbox_driver_path + dbox_driver_app, [], true)
-		pause_process(2.0) # Wait for the driver app to come alive
+		OS.create_process(DBOX_DRIVER_PATH + DBOX_DRIVER_APP, [], true)
+		pause_process(2.0)  # Wait for the driver app to come alive
 		_d_box_initialized = false
 
 	_udp_sender.connect_to_host(udp_send_ip, udp_send_port)
@@ -170,15 +173,21 @@ func _process(delta: float) -> void:
 
 	# Noise (feeling)
 	var height_noise_delta: float = randf_range(-vibration_level, vibration_level)
-	var height_noise: float = old_height_noise + delta * height_noise_delta - (50.0 * delta) * old_height_noise
+	var height_noise: float = (
+		old_height_noise + delta * height_noise_delta - (50.0 * delta) * old_height_noise
+	)
 	old_height_noise = height_noise
 
 	var pitch_noise_delta: float = randf_range(-vibration_level, vibration_level)
-	var pitch_noise: float = old_pitch_noise + delta * pitch_noise_delta - (50.0 * delta) * old_pitch_noise
+	var pitch_noise: float = (
+		old_pitch_noise + delta * pitch_noise_delta - (50.0 * delta) * old_pitch_noise
+	)
 	old_pitch_noise = pitch_noise
 
 	var roll_noise_delta: float = randf_range(-vibration_level, vibration_level)
-	var roll_noise: float = old_roll_noise + delta * roll_noise_delta - (50.0 * delta) * old_roll_noise
+	var roll_noise: float = (
+		old_roll_noise + delta * roll_noise_delta - (50.0 * delta) * old_roll_noise
+	)
 	old_roll_noise = roll_noise
 
 	# Adjust current_pause_play_status
@@ -196,7 +205,11 @@ func _process(delta: float) -> void:
 
 	send(
 		7,
-		(new_dbox_normalized_height + (height_noise * speed)) * current_pause_play_status - 1.0 + current_pause_play_status,
+		(
+			(new_dbox_normalized_height + (height_noise * speed)) * current_pause_play_status
+			- 1.0
+			+ current_pause_play_status
+		),
 		(-player_rotation.x / max_pitch_angle + (pitch_noise * speed)) * current_pause_play_status,
 		(player_rotation.z / max_roll_angle + (roll_noise * speed)) * current_pause_play_status,
 	)

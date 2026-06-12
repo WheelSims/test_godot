@@ -609,13 +609,13 @@ albedo_texture = ExtResource("9_hx1vd")
 [sub_resource type="BoxShape3D" id="BoxShape3D_ox386"]
 size = Vector3(0.020935059, 0.020019531, 0.9232788)
 
-[node name="saloon" type="Node3D" unique_id=118379082 node_paths=PackedStringArray("visual_instance", "collision_shape", "area3D")]
+[node name="saloon" type="Node3D" unique_id=118379082 node_paths=PackedStringArray("visual_instance", "collision_shape", "area3d")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
 script = ExtResource("1_fqtab")
 visual_instance = NodePath("saloon")
 collision_shape = NodePath("saloon/StaticBody3D/CollisionShape3D")
 object_type = 2
-area3D = NodePath("saloon/Area3D")
+area3d = NodePath("saloon/Area3D")
 
 [node name="saloon" type="MeshInstance3D" parent="." unique_id=107843881]
 transform = Transform3D(-8.742278e-06, -326.461, -1.4726366e-07, 0, -1.4270064e-05, 3.369, -200, 1.4270064e-05, 6.4370993e-15, 0, 0, 0)

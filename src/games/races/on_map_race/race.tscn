@@ -2,9 +2,7 @@
 
 [ext_resource type="Script" uid="uid://756ao1ivufpd" path="res://games/races/on_map_race/scripts/race_manager.gd" id="1_dv7no"]
 [ext_resource type="Script" uid="uid://ky26bjjr4xpn" path="res://games/races/on_map_race/scripts/countdown.gd" id="2_7p264"]
-[ext_resource type="PackedScene" uid="uid://83fy70dgr8u8" path="res://games/races/on_map_race/arrow/arrow.tscn" id="2_13pu7"]
 [ext_resource type="PackedScene" uid="uid://d4dm6lh1tu5fw" path="res://games/races/common_objects/crowd/crowd.tscn" id="2_usaem"]
-[ext_resource type="PackedScene" uid="uid://c4jen6mmu7mgu" path="res://games/races/common_objects/arch/finish_line.tscn" id="3_4ad36"]
 [ext_resource type="AudioStream" uid="uid://bkv2spkxm5euk" path="res://sounds/sounds/sound_effects/UI/Click_error.wav" id="3_8ermj"]
 [ext_resource type="PackedScene" uid="uid://bqcqt6d3sec64" path="res://games/races/common_objects/arch/start_line.glb" id="3_ewi6o"]
 [ext_resource type="AudioStream" uid="uid://cqvdgldce0xfc" path="res://sounds/sounds/sound_effects/UI/Click_tone.wav" id="3_jgags"]
@@ -36,13 +34,8 @@ corner_radius_bottom_left = 10
 [sub_resource type="BoxShape3D" id="BoxShape3D_cy171"]
 size = Vector3(1, 0.796936, 5.55579)
 
-[node name="Race" type="Node3D" unique_id=1426933983 node_paths=PackedStringArray("timerLabel", "distanceLabel", "countdown_ui")]
+[node name="Race" type="Node3D" unique_id=1426933983]
 script = ExtResource("1_dv7no")
-timerLabel = NodePath("UI/RaceHUD/HBoxContainer/Timer")
-distanceLabel = NodePath("UI/RaceHUD/HBoxContainer/Distance")
-countdown_ui = NodePath("UI/Countdown")
-arrowScene = ExtResource("2_13pu7")
-finalArchScene = ExtResource("3_4ad36")
 click_tone = ExtResource("3_jgags")
 click_error = ExtResource("3_8ermj")
 victory_sound = ExtResource("4_sjx3w")
@@ -52,6 +45,7 @@ music_loop = ExtResource("6_4ad36")
 [node name="UI" type="CanvasLayer" parent="." unique_id=1768935298]
 
 [node name="RaceHUD" type="MarginContainer" parent="UI" unique_id=338625931]
+unique_name_in_owner = true
 visible = false
 anchors_preset = 12
 anchor_top = 1.0
@@ -66,6 +60,7 @@ layout_mode = 2
 size_flags_vertical = 8
 
 [node name="Timer" type="Label" parent="UI/RaceHUD/HBoxContainer" unique_id=131058182]
+unique_name_in_owner = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 theme_override_styles/normal = SubResource("StyleBoxFlat_vuu4i")
@@ -73,6 +68,7 @@ text = "Timer"
 label_settings = ExtResource("4_ewemm")
 
 [node name="Distance" type="Label" parent="UI/RaceHUD/HBoxContainer" unique_id=1324866177]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 10
 theme_override_font_sizes/font_size = 50
@@ -82,6 +78,7 @@ label_settings = ExtResource("4_ewemm")
 horizontal_alignment = 2
 
 [node name="Countdown" type="Control" parent="UI" unique_id=1878809902]
+unique_name_in_owner = true
 visible = false
 layout_mode = 3
 anchors_preset = 15

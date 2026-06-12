@@ -2,6 +2,8 @@
 
 [ext_resource type="PackedScene" uid="uid://y2xjjvq3l33t" path="res://environments/park/park_environment.tscn" id="1_trtnn"]
 [ext_resource type="PackedScene" uid="uid://b2lsq08mbnhw0" path="res://games/races/on_map_race/race.tscn" id="2_g5yr7"]
+[ext_resource type="PackedScene" uid="uid://83fy70dgr8u8" path="res://games/races/on_map_race/arrow/arrow.tscn" id="3_nksrl"]
+[ext_resource type="PackedScene" uid="uid://c4jen6mmu7mgu" path="res://games/races/common_objects/arch/finish_line.tscn" id="4_b2vhn"]
 
 [sub_resource type="Curve3D" id="Curve3D_n6s4s"]
 _data = {
@@ -14,10 +16,11 @@ point_count = 9
 
 [node name="ParkEnvironment" parent="." unique_id=1813439283 instance=ExtResource("1_trtnn")]
 
-[node name="Race" parent="." unique_id=396843458 node_paths=PackedStringArray("raceHUD", "path") instance=ExtResource("2_g5yr7")]
+[node name="Race" parent="." unique_id=396843458 node_paths=PackedStringArray("path") instance=ExtResource("2_g5yr7")]
 transform = Transform3D(-0.0050268373, 0, -0.99998695, 0, 1, 0, 0.99998695, 0, -0.0050268373, 4.62002, 3.61702e-05, -60.0613)
-raceHUD = NodePath("UI/RaceHUD")
 path = NodePath("Path3D")
+arrow_scene = ExtResource("3_nksrl")
+final_arch_scene = ExtResource("4_b2vhn")
 
 [node name="Crowd" parent="Race" index="2" unique_id=1900000271]
 transform = Transform3D(-1, 0, -8.754432e-08, 0, 1, 0, 8.754432e-08, 0, -1, -0.20542908, 4.7683716e-07, 6.373395)

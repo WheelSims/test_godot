@@ -8,14 +8,17 @@ var player: RigidBody3D
 var player_pos: Vector3
 var last_player_pos: Vector3
 
+
 func _init(_player: RigidBody3D):
 	player = _player
 	player_pos = player.global_position
-	
+
+
 func update(delta: float):
 	_calculate_distance()
 	timer += delta
-	
+
+
 func _calculate_distance() -> void:
 	last_player_pos = player_pos
 	player_pos = player.global_position

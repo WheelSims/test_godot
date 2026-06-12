@@ -2,12 +2,13 @@
 ## from the main script.
 extends VBoxContainer
 
+
 func _ready():
 	Config.load_config()
 	for key in Config.get_keys():
 		# Create a new setting areay for this key
 
-		if not Config.get_type(key): # This is a header
+		if not Config.get_type(key):  # This is a header
 			# Add a ruler before
 			add_child(HSeparator.new())
 			var label = Label.new()
@@ -25,10 +26,7 @@ func _ready():
 			# Value
 			var control = LineEdit.new()
 			control.text = Config.get_value(key)
-			control.text_changed.connect(
-				func(value):
-					Config.set_value(key, value)
-			)
+			control.text_changed.connect(func(value): Config.set_value(key, value))
 			control.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 			container.add_child(control)
 			add_child(container)
@@ -57,7 +55,7 @@ func _ready():
 				control.value_changed.connect(
 					func(value):
 						if Config.get_type(key) == "int":
-							value = int(value) # Not float
+							value = int(value)  # Not float
 						value_text.text = str(value)
 						Config.set_value(key, value)
 				)
@@ -81,10 +79,7 @@ func _ready():
 				# Value
 				var control = LineEdit.new()
 				control.text = str(Config.get_value(key))
-				control.text_changed.connect(
-					func(value):
-						Config.set_value(key, float(value))
-				)
+				control.text_changed.connect(func(value): Config.set_value(key, float(value)))
 				container.add_child(control)
 
 				# Unit
@@ -100,10 +95,7 @@ func _ready():
 			# Switch
 			var control = CheckButton.new()
 			control.button_pressed = Config.get_value(key)
-			control.toggled.connect(
-				func(value):
-					Config.set_value(key, value)
-			)
+			control.toggled.connect(func(value): Config.set_value(key, value))
 			container.add_child(control)
 
 			# Label
@@ -124,10 +116,7 @@ func _ready():
 			for item in Config.get_items(key):
 				option_button.add_item(item)
 			option_button.select(Config.get_value(key))
-			option_button.item_selected.connect(
-				func(value):
-					Config.set_value(key, value)
-			)
+			option_button.item_selected.connect(func(value): Config.set_value(key, value))
 			add_child(option_button)
 
 		if Config.get_type(key) == "file":
@@ -150,10 +139,7 @@ func _ready():
 			if control.text == "":
 				control.text = "Click to select a file"
 
-			control.pressed.connect(
-				func():
-					dialog.popup_centered()
-			)
+			control.pressed.connect(func(): dialog.popup_centered())
 
 			dialog.file_selected.connect(
 				func(value):

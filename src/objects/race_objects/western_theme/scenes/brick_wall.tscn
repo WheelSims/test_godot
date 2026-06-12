@@ -3,17 +3,16 @@
 [ext_resource type="Material" uid="uid://0ppdfu4l5b5a" path="res://objects/race_objects/western_theme/models_textures/brick_wall/textures/brick_materials.tres" id="1_2xc2m"]
 [ext_resource type="Script" uid="uid://comdhddtuflvn" path="res://games/races/obstacle_race/generator/scripts/world_scale_calculator.gd" id="1_qew7g"]
 
-
 [sub_resource type="BoxMesh" id="BoxMesh_xlm5y"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_c8tb6"]
 
-[node name="brick_wall" type="Node3D" unique_id=740200867 node_paths=PackedStringArray("visual_instance", "collision_shape", "area3D")]
+[node name="brick_wall" type="Node3D" unique_id=740200867 node_paths=PackedStringArray("visual_instance", "collision_shape", "area3d")]
 script = ExtResource("1_qew7g")
 visual_instance = NodePath("MeshInstance")
 collision_shape = NodePath("MeshInstance/StaticBody3D/CollisionShape3D")
 object_type = 1
-area3D = NodePath("MeshInstance/StaticBody3D/Area3D")
+area3d = NodePath("MeshInstance/StaticBody3D/Area3D")
 
 [node name="MeshInstance" type="MeshInstance3D" parent="." unique_id=1905855510]
 transform = Transform3D(0.254495, 0, 0, 0, 2.26136, 0, 0, 0, 1, 0, 1.12603, 0)

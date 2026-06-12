@@ -7,13 +7,13 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_aduxo"]
 size = Vector3(0.07492676, 0.06352539, 0.05342407)
 
-[node name="stone_desert" unique_id=804213735 node_paths=PackedStringArray("visual_instance", "collision_shape", "area3D") instance=ExtResource("1_aduxo")]
+[node name="stone_desert" unique_id=804213735 node_paths=PackedStringArray("visual_instance", "collision_shape", "area3d") instance=ExtResource("1_aduxo")]
 script = ExtResource("2_m27ek")
 visual_instance = NodePath("DesertStoneLow")
 collision_shape = NodePath("DesertStoneLow/StaticBody3D/CollisionShape3D")
-area3D = NodePath("DesertStoneLow/Area3D")
+area3d = NodePath("DesertStoneLow/Area3D")
 
-[node name="DesertStoneLow" parent="." index="0" unique_id=401836275]
+[node name="DesertStoneLow" parent="." index="0" unique_id=1149451595]
 transform = Transform3D(-1.3113416e-06, -30, -1.3113416e-06, 0, -1.3113416e-06, 30, -30, 1.3113416e-06, 5.732056e-14, 0, -0.39072084, 0)
 surface_material_override/0 = ExtResource("2_igqy6")
 

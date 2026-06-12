@@ -15,84 +15,83 @@
 [ext_resource type="PackedScene" uid="uid://cd4tgqtvjd3ex" path="res://objects/street/fbx/pedestrianPoleSupport.fbx" id="9_c2yiy"]
 [ext_resource type="PackedScene" uid="uid://cglpclsslib6r" path="res://objects/street/fbx/pedestrianPoleConnection.fbx" id="10_xofd2"]
 
-
-[node name="TrafficLight" type="Node3D" node_paths=PackedStringArray("red_light_bulbs", "green_light_bulbs", "yellow_light_bulbs")]
+[node name="TrafficLight" type="Node3D" unique_id=1708031997 node_paths=PackedStringArray("red_light_bulbs", "green_light_bulbs", "yellow_light_bulbs")]
 script = ExtResource("1_xofd2")
 red_light_bulbs = [NodePath("TrafficLight_WithSupport/TrafficLight/trafficLightBulbRed/trafficLightBulb_geo/trafficLightBulb_LOD_2"), NodePath("TrafficLight_WithSupport2/TrafficLight/trafficLightBulbRed/trafficLightBulb_geo/trafficLightBulb_LOD_2"), NodePath("TrafficLight_WithSupport3/TrafficLight/trafficLightBulbRed/trafficLightBulb_geo/trafficLightBulb_LOD_2")]
 green_light_bulbs = [NodePath("TrafficLight_WithSupport/TrafficLight/trafficLightBulbGreen/trafficLightBulb_geo/trafficLightBulb_LOD_2"), NodePath("TrafficLight_WithSupport2/TrafficLight/trafficLightBulbGreen/trafficLightBulb_geo/trafficLightBulb_LOD_2"), NodePath("TrafficLight_WithSupport3/TrafficLight/trafficLightBulbGreen/trafficLightBulb_geo/trafficLightBulb_LOD_2")]
 yellow_light_bulbs = [NodePath("TrafficLight_WithSupport3/TrafficLight/trafficLightBulbYellow/trafficLightBulb_geo/trafficLightBulb_LOD_2"), NodePath("TrafficLight_WithSupport2/TrafficLight/trafficLightBulbYellow/trafficLightBulb_geo/trafficLightBulb_LOD_2"), NodePath("TrafficLight_WithSupport/TrafficLight/trafficLightBulbYellow/trafficLightBulb_geo/trafficLightBulb_LOD_2")]
-_red_light_ON = ExtResource("2_n1yg7")
-_green_light_ON = ExtResource("3_jvafu")
-_yellow_light_ON = ExtResource("4_hah70")
+_red_light_on = ExtResource("2_n1yg7")
+_green_light_on = ExtResource("3_jvafu")
+_yellow_light_on = ExtResource("4_hah70")
 
-[node name="trafficLightPoleSupport_02" parent="." instance=ExtResource("1_yedd8")]
+[node name="trafficLightPoleSupport_02" parent="." unique_id=1173607703 instance=ExtResource("1_yedd8")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 3.95, 0)
 
-[node name="trafficLightMainPole" parent="." instance=ExtResource("2_7xa1c")]
+[node name="trafficLightMainPole" parent="." unique_id=1820912914 instance=ExtResource("2_7xa1c")]
 
-[node name="TrafficLight_WithSupport" type="Node3D" parent="."]
+[node name="TrafficLight_WithSupport" type="Node3D" parent="." unique_id=2140464692]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.016, 4.86, 0)
 
-[node name="TrafficLightConnection" parent="TrafficLight_WithSupport" instance=ExtResource("4_2jtyw")]
+[node name="TrafficLightConnection" parent="TrafficLight_WithSupport" unique_id=1398083852 instance=ExtResource("4_2jtyw")]
 
-[node name="TrafficLightSupport" parent="TrafficLight_WithSupport" instance=ExtResource("5_q5mtj")]
+[node name="TrafficLightSupport" parent="TrafficLight_WithSupport" unique_id=1527126625 instance=ExtResource("5_q5mtj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.153)
 
-[node name="TrafficLight" parent="TrafficLight_WithSupport" instance=ExtResource("3_yghdb")]
+[node name="TrafficLight" parent="TrafficLight_WithSupport" unique_id=1831482030 instance=ExtResource("3_yghdb")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.334)
 
-[node name="trafficLightBulbRed" parent="TrafficLight_WithSupport/TrafficLight" instance=ExtResource("6_yedd8")]
+[node name="trafficLightBulbRed" parent="TrafficLight_WithSupport/TrafficLight" unique_id=1368617584 instance=ExtResource("6_yedd8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.297, 0.106)
 
-[node name="trafficLightBulbYellow" parent="TrafficLight_WithSupport/TrafficLight" instance=ExtResource("7_upwg6")]
+[node name="trafficLightBulbYellow" parent="TrafficLight_WithSupport/TrafficLight" unique_id=657768268 instance=ExtResource("7_upwg6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.106)
 
-[node name="trafficLightBulbGreen" parent="TrafficLight_WithSupport/TrafficLight" instance=ExtResource("8_yedd8")]
+[node name="trafficLightBulbGreen" parent="TrafficLight_WithSupport/TrafficLight" unique_id=619680434 instance=ExtResource("8_yedd8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.297, 0.106)
 
-[node name="TrafficLight_WithSupport2" type="Node3D" parent="."]
+[node name="TrafficLight_WithSupport2" type="Node3D" parent="." unique_id=561811841]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.266, 4.86, 0)
 
-[node name="TrafficLightConnection" parent="TrafficLight_WithSupport2" instance=ExtResource("4_2jtyw")]
+[node name="TrafficLightConnection" parent="TrafficLight_WithSupport2" unique_id=1619099593 instance=ExtResource("4_2jtyw")]
 
-[node name="TrafficLightSupport" parent="TrafficLight_WithSupport2" instance=ExtResource("5_q5mtj")]
+[node name="TrafficLightSupport" parent="TrafficLight_WithSupport2" unique_id=1371772135 instance=ExtResource("5_q5mtj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.153)
 
-[node name="TrafficLight" parent="TrafficLight_WithSupport2" instance=ExtResource("3_yghdb")]
+[node name="TrafficLight" parent="TrafficLight_WithSupport2" unique_id=2003058334 instance=ExtResource("3_yghdb")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.334)
 
-[node name="trafficLightBulbRed" parent="TrafficLight_WithSupport2/TrafficLight" instance=ExtResource("6_yedd8")]
+[node name="trafficLightBulbRed" parent="TrafficLight_WithSupport2/TrafficLight" unique_id=1739642308 instance=ExtResource("6_yedd8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.297, 0.106)
 
-[node name="trafficLightBulbYellow" parent="TrafficLight_WithSupport2/TrafficLight" instance=ExtResource("7_upwg6")]
+[node name="trafficLightBulbYellow" parent="TrafficLight_WithSupport2/TrafficLight" unique_id=997460435 instance=ExtResource("7_upwg6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.106)
 
-[node name="trafficLightBulbGreen" parent="TrafficLight_WithSupport2/TrafficLight" instance=ExtResource("8_yedd8")]
+[node name="trafficLightBulbGreen" parent="TrafficLight_WithSupport2/TrafficLight" unique_id=141667223 instance=ExtResource("8_yedd8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.297, 0.106)
 
-[node name="TrafficLight_WithSupport3" type="Node3D" parent="."]
+[node name="TrafficLight_WithSupport3" type="Node3D" parent="." unique_id=620486528]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.875, 0)
 
-[node name="pedestrianPoleSupport" parent="TrafficLight_WithSupport3" instance=ExtResource("9_c2yiy")]
+[node name="pedestrianPoleSupport" parent="TrafficLight_WithSupport3" unique_id=1566367340 instance=ExtResource("9_c2yiy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.506, -0.1)
 
-[node name="pedestrianPoleSupport2" parent="TrafficLight_WithSupport3" instance=ExtResource("9_c2yiy")]
+[node name="pedestrianPoleSupport2" parent="TrafficLight_WithSupport3" unique_id=132486810 instance=ExtResource("9_c2yiy")]
 transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 0, -0.513, -0.1)
 
-[node name="pedestrianPoleConnection" parent="TrafficLight_WithSupport3" instance=ExtResource("10_xofd2")]
+[node name="pedestrianPoleConnection" parent="TrafficLight_WithSupport3" unique_id=822749903 instance=ExtResource("10_xofd2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.506, 0)
 
-[node name="pedestrianPoleConnection2" parent="TrafficLight_WithSupport3" instance=ExtResource("10_xofd2")]
+[node name="pedestrianPoleConnection2" parent="TrafficLight_WithSupport3" unique_id=819384081 instance=ExtResource("10_xofd2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.513, 0)
 
-[node name="TrafficLight" parent="TrafficLight_WithSupport3" instance=ExtResource("3_yghdb")]
+[node name="TrafficLight" parent="TrafficLight_WithSupport3" unique_id=997713313 instance=ExtResource("3_yghdb")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.323)
 
-[node name="trafficLightBulbRed" parent="TrafficLight_WithSupport3/TrafficLight" instance=ExtResource("6_yedd8")]
+[node name="trafficLightBulbRed" parent="TrafficLight_WithSupport3/TrafficLight" unique_id=1373239218 instance=ExtResource("6_yedd8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.297, 0.106)
 
-[node name="trafficLightBulbYellow" parent="TrafficLight_WithSupport3/TrafficLight" instance=ExtResource("7_upwg6")]
+[node name="trafficLightBulbYellow" parent="TrafficLight_WithSupport3/TrafficLight" unique_id=1334474912 instance=ExtResource("7_upwg6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.106)
 
-[node name="trafficLightBulbGreen" parent="TrafficLight_WithSupport3/TrafficLight" instance=ExtResource("8_yedd8")]
+[node name="trafficLightBulbGreen" parent="TrafficLight_WithSupport3/TrafficLight" unique_id=90393233 instance=ExtResource("8_yedd8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.297, 0.106)
