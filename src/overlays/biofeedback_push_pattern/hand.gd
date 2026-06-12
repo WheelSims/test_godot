@@ -1,5 +1,12 @@
 extends Node3D
 
+# ---------------------------------------------------------------------- #
+# Mapping of OptiTrack forearm cluster into simulator coordinate frame
+# - supports left and right sides via side-specific IDs and offsets
+# - converts forearm pose from simulator reference to world space
+# - applies wheel-centered adjustment using overlay wheel positions
+# ---------------------------------------------------------------------- #
+
 @onready var main: Node = get_tree().get_root().get_node("main")
 
 # Selected side of the wheelchair (left or right)
@@ -8,6 +15,7 @@ extends Node3D
 # Nodes
 @export var node_main_overlay :Node
 
+# Variables
 var id_forearm_cluster
 var id_simulator_reference
 var coordinates_wheel_center

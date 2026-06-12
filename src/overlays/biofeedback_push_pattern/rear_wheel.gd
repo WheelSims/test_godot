@@ -1,5 +1,13 @@
 extends Node3D
 
+# ---------------------------------------------------------------------- #
+# Wheel rotation animation based on wheelchair kinematics
+# - supports left and right wheels
+# - wheel angular velocity is computed using side-specific kinematics
+# - differential-drive equations account for linear and turning motion
+# - the resulting rotation is applied to the wheel model each frame
+# ---------------------------------------------------------------------- #
+
 # Selected side of the wheelchair (left or right)
 @export_enum("left", "right") var side: String
 

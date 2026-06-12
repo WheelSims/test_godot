@@ -11,11 +11,11 @@ extends Control
 # Slider parameters
 var pos_init_slider
 @export_category("Slider parameters")
-@export var min_value = 0.4
+@export var min_value = 0.0
 @export var max_value = 2.5
 
-@export var min_target_value = 1.0
-@export var max_target_value = 2.0
+@export var min_target_value = 0.4
+@export var max_target_value = 1.2
 
 # Push frequency value from python script biofeedback
 var value = 0.0
@@ -38,7 +38,6 @@ var arg
 
 
 func _process(_delta) -> void:
-	
 	# Once start the analysis by sending a request to the python bridge
 	if main.has_node("python_bridge"):
 		if main.get_node("python_bridge")._udp_receiver_connected and not connected:

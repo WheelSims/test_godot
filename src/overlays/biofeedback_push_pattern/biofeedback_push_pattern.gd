@@ -1,5 +1,14 @@
 extends Node2D
 
+# ---------------------------------------------------------------------- #
+# Wheelchair visualization and UI overlay controller
+# - manages 3D scene rendering inside multiple SubViewports (UI overlays
+# - synchronizes wheelchair geometry with tracking/configuration data
+# - controls visibility of wheels, handrims, contact angles, and trails
+# - provides an always-on-top GUI window for aiming calibration
+# - spawns OptiTrack scene when running standalone (outside main scene)
+# ---------------------------------------------------------------------- #
+
 @onready var main: Node = get_tree().get_root().get_node("main")
 
 # Nodes
@@ -17,6 +26,8 @@ extends Node2D
 @export var view_right_1 :Node
 @export var view_right_2 :Node
 
+# Scenes
+@export var gui_scene :PackedScene
 
 # Wheelchair variables
 @export_group("Wheels")
@@ -64,7 +75,7 @@ func _ready() -> void:
 func _process(_delta):
 	update_wheelchair()
 	
-	if not Config.get_value("overlays.biofeedback_optitrack.enabled"):
+	if not Config.get_value("overlays.biofeedback_push_pattern.enabled"):
 		queue_free()
 
 
@@ -110,7 +121,7 @@ func window_user():
 	window.position = Vector2i(10, 50)
 	window.always_on_top = true
 	window.unresizable = true
-	var scene = load("res://overlays/biofeedback_optitrack_gui.tscn").instantiate()
+	var scene = gui_scene.instantiate()
 	window.add_child(scene)
 
 	add_child(window)

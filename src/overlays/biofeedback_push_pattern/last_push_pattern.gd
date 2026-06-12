@@ -1,15 +1,24 @@
 extends MultiMeshInstance3D
 
-@onready var main: Node = get_tree().get_root().get_node("main")
+# ---------------------------------------------------------------------- #
+# Visualization of wheelchair push patterns (biofeedback system)
+# - retrieves push trajectories from a Python bridge over UDP
+# - supports multiple push patterns (last, penultimate, antepenultimate)
+# - side-specific configuration for left and right wheels
+# - transforms raw data into wheel-centered local coordinates
+# - renders trajectories efficiently using a MultiMesh
+# ---------------------------------------------------------------------- #
 
-var trail_size := 0.11
+@onready var main: Node = get_tree().get_root().get_node("main")
 
 # Selected side of the wheelchair (left or right)
 @export_enum("left", "right") var side: String 
 # Selected last push pattern from Python (1 -> last, 2 -> penultimate, 3 -> antepenultimate)
 @export_enum("last_push_pattern_1", "last_push_pattern_2", "last_push_pattern_3") var last_push_pattern: String 
 
+# Variables 
 var positions := []
+var trail_size := 0.11
 
 # Variables depending on side
 var layer
@@ -22,15 +31,13 @@ var connected = false
 var arg
 
 func _ready() -> void:
-	for i in range(101):
-		positions.append(Vector3(0, 0, 0))
 	_apply_side()
 	_init_multimesh()
 	_update_multimesh()
 
 
 func _process(_delta: float) -> void:
-	
+
 	# Once start the analysis by sending a request to the python bridge
 	if main:
 		if main.has_node("python_bridge"):
@@ -42,7 +49,7 @@ func _process(_delta: float) -> void:
 		else:
 			if connected:
 				connected = false
-			
+
 	# Update loop process if the process is connected
 	if connected:
 		visible = true
@@ -60,7 +67,6 @@ func _process(_delta: float) -> void:
 		visible = false
 
 
-	
 	# Should we quit
 	if not Config.get_value("overlays.biofeedback_optitrack.enabled"):
 		# Stop the biofeedback from python bridge if this overlays is shut down
@@ -99,7 +105,11 @@ func _apply_side():
 		virtual_wheel = "../wheel_right"
 
 
+# Initialize a MultiMesh instance used to render the push pattern trail
 func _init_multimesh():
+	
+	for i in range(101):
+		positions.append(Vector3(0, 0, 0))
 	
 	var mm = MultiMesh.new()
 	mm.transform_format = MultiMesh.TRANSFORM_3D
