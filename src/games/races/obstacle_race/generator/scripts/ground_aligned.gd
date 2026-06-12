@@ -1,5 +1,5 @@
-extends Node3D
 class_name GroundAligned
+extends Node3D
 
 @onready var down_ray: RayCast3D = $RayCast3D
 

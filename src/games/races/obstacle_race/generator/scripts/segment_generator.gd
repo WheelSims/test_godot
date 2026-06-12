@@ -1,6 +1,7 @@
 class_name SegmentGenerator
 extends RefCounted
-## SegmentGenerator is used to generate a list of segments to describe a challenge in an obstacle race.
+## SegmentGenerator is used to generate a list of segments to describe a challenge in an obstacle
+## race.
 
 var _obstacle_sizes: Array[int]
 var _opening_range: Array[int]
@@ -17,8 +18,7 @@ func generate_segments(
 ) -> Array[Segment]:
 	if obstacle_sizes.size() == 0:
 		return generate_wall_segments(total_length, wall_min, wall_max, open_min, open_max, rng)
-	else:
-		return _generate_obstacle_segments(total_length, open_min, open_max, rng, obstacle_sizes)
+	return _generate_obstacle_segments(total_length, open_min, open_max, rng, obstacle_sizes)
 
 
 func generate_wall_segments(

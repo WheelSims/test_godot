@@ -3,7 +3,6 @@
 [ext_resource type="Script" uid="uid://comdhddtuflvn" path="res://games/races/obstacle_race/generator/scripts/world_scale_calculator.gd" id="2_3ewrv"]
 [ext_resource type="Material" uid="uid://j1ewfukvkr5t" path="res://objects/race_objects/western_theme/models_textures/hay_bale/hay_bale_mat.tres" id="2_arv4q"]
 
-
 [sub_resource type="ArrayMesh" id="ArrayMesh_bcgwb"]
 _surfaces = [{
 "aabb": AABB(-0.854405, 7.62939e-08, -0.868199, 1.70881, 1.70962, 1.7364),
@@ -41,12 +40,12 @@ shadow_mesh = SubResource("ArrayMesh_bcgwb")
 [sub_resource type="BoxShape3D" id="BoxShape3D_0cweb"]
 size = Vector3(1.66595, 1.71033, 1.69348)
 
-[node name="straw_bale" type="Node3D" unique_id=900396534 node_paths=PackedStringArray("visual_instance", "collision_shape", "area3D")]
+[node name="straw_bale" type="Node3D" unique_id=900396534 node_paths=PackedStringArray("visual_instance", "collision_shape", "area3d")]
 script = ExtResource("2_3ewrv")
 visual_instance = NodePath("StrawBale")
 collision_shape = NodePath("StrawBale/StaticBody3D/CollisionShape3D")
 object_type = 2
-area3D = NodePath("StrawBale/StaticBody3D/Area3D")
+area3d = NodePath("StrawBale/StaticBody3D/Area3D")
 
 [node name="StrawBale" type="MeshInstance3D" parent="." unique_id=1229910942]
 mesh = SubResource("ArrayMesh_bg580")

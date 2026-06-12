@@ -1,8 +1,8 @@
-extends Control
 class_name ScorePopup
-@onready var label: Label = $Label
+extends Control
 @export var win_color: Color
 @export var lose_color: Color
+@onready var label: Label = $Label
 
 
 func show_score(value: int):

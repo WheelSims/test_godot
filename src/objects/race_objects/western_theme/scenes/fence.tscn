@@ -3,7 +3,6 @@
 [ext_resource type="Material" uid="uid://db363ysga8imt" path="res://objects/race_objects/western_theme/models_textures/fence/textures/fence_material.tres" id="2_8gl8h"]
 [ext_resource type="Script" uid="uid://comdhddtuflvn" path="res://games/races/obstacle_race/generator/scripts/world_scale_calculator.gd" id="2_joa5a"]
 
-
 [sub_resource type="ArrayMesh" id="ArrayMesh_utrdp"]
 _surfaces = [{
 "aabb": AABB(-2.30451, -3.74883, -0.205606, 4.59142, 5.0235, 0.484655),
@@ -41,11 +40,11 @@ shadow_mesh = SubResource("ArrayMesh_utrdp")
 [sub_resource type="BoxShape3D" id="BoxShape3D_y8wwd"]
 size = Vector3(4.50698, 5.0174, 0.502869)
 
-[node name="fence" type="Node3D" unique_id=726337448 node_paths=PackedStringArray("visual_instance", "collision_shape", "area3D")]
+[node name="fence" type="Node3D" unique_id=726337448 node_paths=PackedStringArray("visual_instance", "collision_shape", "area3d")]
 script = ExtResource("2_joa5a")
 visual_instance = NodePath("wire fence")
 collision_shape = NodePath("wire fence/StaticBody3D/CollisionShape3D")
-area3D = NodePath("wire fence/StaticBody3D/Area3D")
+area3d = NodePath("wire fence/StaticBody3D/Area3D")
 
 [node name="wire fence" type="MeshInstance3D" parent="." unique_id=1528583590]
 transform = Transform3D(-1.96701e-08, 0, 0.45, 0, 0.45, 0, -0.45, 0, -1.96701e-08, 0, 1.693, 0)

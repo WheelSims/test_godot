@@ -1,9 +1,9 @@
-extends Node3D
 class_name ObstacleRaceGenerator
+extends Node3D
 
-@onready var game_script: ObstacleRaceGame = $game
 ## Distance between levels
 @export var end_offset_to_restart: float = 10
+
 ## List of races and their parameters
 @export var races_data: Array[RaceData]
 @export var obstacle_infos: Array[ObjectInfo]
@@ -14,11 +14,14 @@ class_name ObstacleRaceGenerator
 @export var start_line: PackedScene
 @export var border_info: ObjectInfo
 @export var challenge_area: PackedScene
+
 var current_tiles: Array[Node3D] = []
 
-var _rng = RandomNumberGenerator.new()
 var current_race_data_indice := 0
 var current_race_data: RaceData
+
+var _rng = RandomNumberGenerator.new()
+
 ## A dictionary with object infos as key and their potential sizes as values.
 ## The selected objects are the obstacles used on the current challenge generation.
 var _quanted_race_obst_sizes: Dictionary = {}
@@ -28,6 +31,8 @@ var _x_size_chal: float = 0
 
 ## _current_x_pos progresses as the levels build up (with [method challenge_generation])
 var _current_x_pos: float = 0
+
+@onready var game_script: ObstacleRaceGame = $game
 
 
 func _ready() -> void:
@@ -149,11 +154,11 @@ func _line_border_generation(first_point: Vector3, last_point: Vector3) -> float
 	var distance = direction.length()
 	var cursor = 0.0
 	var cursor_pos = first_point
-	var _rotation = rad_to_deg(Vector3.RIGHT.signed_angle_to(direction, Vector3.UP))
+	var the_rotation = rad_to_deg(Vector3.RIGHT.signed_angle_to(direction, Vector3.UP))
 	while cursor < distance:
 		cursor_pos += direction.normalized() * border_length / 2
-		_spawn_border(cursor_pos.x, cursor_pos.z, border_info.scene, _rotation)  # left border
-		_spawn_border(cursor_pos.x, cursor_pos.z, border_info.scene, _rotation)  # right border
+		_spawn_border(cursor_pos.x, cursor_pos.z, border_info.scene, the_rotation)  # left border
+		_spawn_border(cursor_pos.x, cursor_pos.z, border_info.scene, the_rotation)  # right border
 		cursor += border_length
 		cursor_pos += direction.normalized() * border_length / 2
 	return cursor
@@ -167,12 +172,13 @@ func _spawn_border(x_pos: float, z_pos: float, border_sample: PackedScene, y_rot
 	border.position.z = z_pos
 	border.rotation_degrees.y += 90 + y_rot
 	add_child(border)
-	border.area3D.area_entered.connect(game_script.on_obstacle_collision.bind(border.area3D))
+	border.area3d.area_entered.connect(game_script.on_obstacle_collision.bind(border.area3d))
 
 
 ## A challenge is a line of obstacles or walls.
-## _challenges_generation decides for every challenge if it is a line of transparent walls, opaque walls, or obstacles.
-## In the same time, it executes _challenge_builder that generate one challenge.
+## _challenges_generation decides for every challenge if it is a line of transparent walls, opaque
+## walls, or obstacles. In the same time, it executes _challenge_builder that generate one
+## challenge.
 func _challenges_generation() -> void:
 	current_race_data.challenge_gap = _rng.randf_range(
 		current_race_data.challenge_gap_range.x, current_race_data.challenge_gap_range.y
@@ -205,20 +211,20 @@ func _challenges_generation() -> void:
 
 
 ## A challenge is a line of obstacles or walls.
-## Depending on the object_info, _challenge_builder generates a line of transparent walls, opaque walls, or obstacles.
-## The nature of the quantum depends on the object_info.type.
+## Depending on the object_info, _challenge_builder generates a line of transparent walls, opaque
+## walls, or obstacles. The nature of the quantum depends on the object_info.type.
 ## UnitWall => quantum = object_info.z_size.
 ## ScalableWall and obstacle => the size is always a |n * quantum| number.
 func _challenge_builder(pos_x: float, quantum: float, object_info: ObjectInfo) -> void:
 	var total_length = int(current_race_data.race_width / quantum)
 	var size_range: Vector2 = (
 		current_race_data.obst_size_range
-		if object_info.type == WorldScaleCalculator.ObjectType.Obstacle
+		if object_info.type == WorldScaleCalculator.ObjectType.OBSTACLE
 		else current_race_data.wall_size_range
 	)
 	var gap_range: Vector2 = (
 		current_race_data.obst_gap_range
-		if object_info.type == WorldScaleCalculator.ObjectType.Obstacle
+		if object_info.type == WorldScaleCalculator.ObjectType.OBSTACLE
 		else current_race_data.opening_size_range
 	)
 
@@ -227,12 +233,12 @@ func _challenge_builder(pos_x: float, quantum: float, object_info: ObjectInfo) -
 	var open_min: int = int(gap_range.x / quantum)
 	var open_max: int = int(gap_range.y / quantum)
 
-	if object_info.type == WorldScaleCalculator.ObjectType.UnitWall:
+	if object_info.type == WorldScaleCalculator.ObjectType.UNIT_WALL:
 		wall_min += 1
 		open_min += 1
 
 	var length_obst_list: Array[int] = []
-	if object_info.type == WorldScaleCalculator.ObjectType.Obstacle:
+	if object_info.type == WorldScaleCalculator.ObjectType.OBSTACLE:
 		length_obst_list = _quant_race_obst_sizes(quantum)
 		if length_obst_list.size() > 0:
 			wall_min = length_obst_list.front()
@@ -258,16 +264,17 @@ func _segments_to_objects(
 		scale_z = segments[i].length * quantum
 		cursor_z += scale_z / 2
 		if segments[i].type == Segment.SegmentType.WALL:
-			if object_info.type == WorldScaleCalculator.ObjectType.Obstacle:
+			if object_info.type == WorldScaleCalculator.ObjectType.OBSTACLE:
 				_obstacle_spawn(pos_x, cursor_z, scale_z)
-			elif object_info.type == WorldScaleCalculator.ObjectType.ScalableWall:
+			elif object_info.type == WorldScaleCalculator.ObjectType.SCALABLE_WALL:
 				_scalable_object_spawn(pos_x, cursor_z, scale_z, object_info)
-			elif object_info.type == WorldScaleCalculator.ObjectType.UnitWall:
+			elif object_info.type == WorldScaleCalculator.ObjectType.UNIT_WALL:
 				_unit_object_spawn(pos_x, cursor_z - scale_z / 2, segments[i].length, object_info)
 		cursor_z += scale_z / 2
 
 
-## Obstacle_spawn doesn't need a PackedScene argument because it takes randomly in the _quanted_race_obst_sizes dictionary.
+## Obstacle_spawn doesn't need a PackedScene argument because it takes randomly in the
+## _quanted_race_obst_sizes dictionary.
 func _obstacle_spawn(pos_x: float, pos_z: float, scale_z: float) -> void:
 	var obstacle: ObjectInfo = MathUtils.find_random_key(_quanted_race_obst_sizes, scale_z, _rng)
 	if obstacle == null:
@@ -286,7 +293,7 @@ func _obstacle_spawn(pos_x: float, pos_z: float, scale_z: float) -> void:
 	instance.position.z = pos_z
 	instance.scale_from_real_size(scale_z, original_scale)
 	add_child(instance)
-	instance.area3D.area_entered.connect(game_script.on_obstacle_collision.bind(instance.area3D))
+	instance.area3d.area_entered.connect(game_script.on_obstacle_collision.bind(instance.area3d))
 
 
 func _scalable_object_spawn(
@@ -303,7 +310,7 @@ func _scalable_object_spawn(
 	obstacle.position.z = pos_z
 	obstacle.scale.z = scale_z
 	add_child(obstacle)
-	obstacle.area3D.area_entered.connect(game_script.on_obstacle_collision.bind(obstacle.area3D))
+	obstacle.area3d.area_entered.connect(game_script.on_obstacle_collision.bind(obstacle.area3d))
 
 
 func _unit_object_spawn(
@@ -312,29 +319,30 @@ func _unit_object_spawn(
 	var obst_x_size = object_info.sizes.values()[0].x
 	if obst_x_size > _x_size_chal:
 		_x_size_chal = obst_x_size
-	var _remainder = fmod(current_race_data.race_width, object_info.get_z_sizes().values()[0])  ## _remainder
+	var the_remainder = fmod(current_race_data.race_width, object_info.get_z_sizes().values()[0])
 	for i in range(0, segment_length):
 		var instance: Node3D = object_info.scene.instantiate()
 		instance.position.x = pos_x
 		instance.position.z = (
-			cursor_z + (i + 0.5) * object_info.get_z_sizes().values()[0] + _remainder
+			cursor_z + (i + 0.5) * object_info.get_z_sizes().values()[0] + the_remainder
 		)
 		add_child(instance)
-		instance.area3D.area_entered.connect(
-			game_script.on_obstacle_collision.bind(instance.area3D)
+		instance.area3d.area_entered.connect(
+			game_script.on_obstacle_collision.bind(instance.area3d)
 		)
 
 
 ## Select obstacles in the obstacle_size_range.
-## Make a list of their sizes quotient (1.75 with quantum = 0.25 => 7) with [method MathUtils.clother_xquantum]. Returns the list.
+## Make a list of their sizes quotient (1.75 with quantum = 0.25 => 7) with
+## [method MathUtils.clother_xquantum]. Returns the list.
 ## Also clear and write [member _quanted_race_obst_sizes].
 func _quant_race_obst_sizes(quantum: float) -> Array[int]:
 	_quanted_race_obst_sizes.clear()
 	var list: Array[int] = []
 	for obst_info in obstacle_infos:
-		var _obstacles_sizes = obst_info.get_z_sizes()
+		var obstacles_sizes = obst_info.get_z_sizes()
 		var list_lengths: Array[float] = []
-		for length in _obstacles_sizes.values():
+		for length in obstacles_sizes.values():
 			var n := MathUtils.clother_xquantum(quantum, length)
 			if (
 				n * quantum < current_race_data.obst_size_range.x

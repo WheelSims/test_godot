@@ -1,7 +1,8 @@
-extends Node3D
 class_name PedestrianTrafficLight
+extends Node3D
 
 enum Direction { NS, EW }
+
 @export var direction: Direction
 
 @export var _hand_sprite: Sprite3D
@@ -45,8 +46,7 @@ func reset_light() -> void:
 
 
 func update_counter(value: float) -> void:
-	var _int_value = int(ceil(value))
-	counter_mesh.mesh.text = str(_int_value)
+	counter_mesh.mesh.text = str(ceil(value))
 
 
 func _on_blink() -> void:

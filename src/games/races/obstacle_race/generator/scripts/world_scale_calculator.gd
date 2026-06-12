@@ -3,14 +3,14 @@ class_name WorldScaleCalculator
 extends Node3D
 ## Script used to classify object in types and calculate their size in the race_width axis.
 
-enum ObjectType { UnitWall, ScalableWall, Obstacle }
+enum ObjectType { UNIT_WALL, SCALABLE_WALL, OBSTACLE }
 ##If a node is scaled. It must be this one
 @export var visual_instance: VisualInstance3D
 ##The shape of the collision_shape must be one BoxShape3D.
 @export var collision_shape: CollisionShape3D
 
 @export var object_type: ObjectType
-@export var area3D: Area3D
+@export var area3d: Area3D
 
 
 func _ready() -> void:
@@ -20,7 +20,8 @@ func _ready() -> void:
 		get_precise_size()
 
 
-## Calculate baked_sizes_dict to give size for every rotations. If no argument is filled: it calculates one size for the default rotation.
+## Calculate baked_sizes_dict to give size for every rotations. If no argument is filled: it
+## calculates one size for the default rotation.
 func write_sizes_with_rotation(rotations: Array[float] = []) -> Dictionary:
 	var origin_rot = visual_instance.rotation_degrees.y
 	var baked_sizes_dict: Dictionary = {}

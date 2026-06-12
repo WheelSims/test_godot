@@ -2,13 +2,14 @@ extends Control
 
 signal countdown_finished
 
-@onready var label: Label = $NumberLabel
-@onready var audio_stream: AudioStreamPlayer = $Bips
 @export var low_bip: AudioStream
 @export var high_bip: AudioStream
-var tween: Tween
 
+var tween: Tween
 var countdown_values := ["3", "2", "1", "GO!"]
+
+@onready var label: Label = $NumberLabel
+@onready var audio_stream: AudioStreamPlayer = $Bips
 
 
 func start_countdown():

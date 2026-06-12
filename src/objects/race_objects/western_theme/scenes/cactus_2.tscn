@@ -40,7 +40,7 @@ shadow_mesh = SubResource("ArrayMesh_wm7fg")
 [sub_resource type="BoxShape3D" id="BoxShape3D_1h1g0"]
 size = Vector3(0.8161621, 2.189087, 0.61486816)
 
-[node name="cactus2" type="MeshInstance3D" unique_id=1135662658 node_paths=PackedStringArray("visual_instance", "collision_shape", "area3D")]
+[node name="cactus2" type="MeshInstance3D" unique_id=1135662658 node_paths=PackedStringArray("visual_instance", "collision_shape", "area3d")]
 mesh = SubResource("ArrayMesh_xlaee")
 skeleton = NodePath("")
 surface_material_override/0 = ExtResource("1_ejl0s")
@@ -48,7 +48,7 @@ script = ExtResource("2_lqdeo")
 visual_instance = NodePath(".")
 collision_shape = NodePath("StaticBody3D/CollisionShape3D")
 object_type = 2
-area3D = NodePath("Area3D")
+area3d = NodePath("Area3D")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=1096734320]
 

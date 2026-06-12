@@ -1,91 +1,88 @@
-extends Node3D
 class_name RaceManager
+extends Node3D
 
 enum RaceType { TIME_TRIAL, DISTANCE_CHALLENGE, NONE }
-
-#UI Elements
-@export_group("UI Elements")
-@export var raceHUD: MarginContainer
-@export var timerLabel: Label
-@export var distanceLabel: Label
-@export var countdown_ui: Control
 
 #Game Elements
 @export_group("Game Elements")
 @export var path: Path3D
-@export var distanceBetweenArrows: float = 5.0
+@export var distance_between_arrows: float = 5.0
 @export var end_arch_right_crowd = false
 @export var end_arch_left_crowd = false
 
 # Scenes
-@export var arrowScene: PackedScene
-@export var finalArchScene: PackedScene
+@export var arrow_scene: PackedScene
+@export var final_arch_scene: PackedScene
 
 #Music & SFX
-@onready var SFX_player: AudioStreamPlayer = $UI/SFXPlayer
 @export var click_tone: AudioStream
 @export var click_error: AudioStream
 @export var victory_sound: AudioStream
 
-@onready var music_player: AudioStreamPlayer = $MusicPlayer
 @export var music_intro: AudioStream
 @export var music_loop: AudioStream
 
 # Runtime Variables
-var _instantiatedArrows: Array[Node3D] = []
-var _finalArch: Node3D = null
-var _racePaused: bool = false
+var distance_input: float = 0
+var timer_input: float = 0
+var _instantiated_arrows: Array[Node3D] = []
+var _final_arch: Node3D = null
 var _on_race: bool = false
-var _currentRaceType: RaceType = RaceType.NONE
-var _currentRaceMode: Race = null
-var distanceInput: float = 0
-var timerInput: float = 0
-var _totalRaceLength: float = 0
+var _current_race_type: RaceType = RaceType.NONE
+var _current_race_mode: Race = null
+var _total_race_length: float = 0
+
+# UI Elements
+@onready var race_hud: MarginContainer = %RaceHUD
+@onready var timer_label: Label = %Timer
+@onready var distance_label: Label = %Distance
+@onready var countdown_ui: Control = %Countdown
+@onready var sfx_player: AudioStreamPlayer = $UI/SFXPlayer
+@onready var music_player: AudioStreamPlayer = $MusicPlayer
 
 
 func _ready() -> void:
 	if Config.get_value("game.racing.type") == 0:
-		_currentRaceType = RaceType.TIME_TRIAL
+		_current_race_type = RaceType.TIME_TRIAL
 	elif Config.get_value("game.racing.type") == 1:
-		_currentRaceType = RaceType.DISTANCE_CHALLENGE
+		_current_race_type = RaceType.DISTANCE_CHALLENGE
 	else:
-		_currentRaceType = RaceType.NONE
+		_current_race_type = RaceType.NONE
 
-	distanceInput = Config.get_value("game.racing.distance")
-	timerInput = Config.get_value("game.racing.time")
+	distance_input = Config.get_value("game.racing.distance")
+	timer_input = Config.get_value("game.racing.time")
 
 	if path:
-		_totalRaceLength = path.curve.get_baked_length()
+		_total_race_length = path.curve.get_baked_length()
 
-	_place_final_arch(distanceInput)
+	_place_final_arch(distance_input)
 
 
 func _process(delta: float) -> void:
-	if _currentRaceMode and _on_race:
-		if not _racePaused:
-			_currentRaceMode.update(delta)
-			_update_hud(_currentRaceMode.current_distance, _currentRaceMode.timer)
+	if _current_race_mode and _on_race:
+		_current_race_mode.update(delta)
+		_update_hud(_current_race_mode.current_distance, _current_race_mode.timer)
 
-		if _currentRaceMode.is_finished():
+		if _current_race_mode.is_finished():
 			_finish_race()
 
 
 func _start_race() -> void:
-	var raceLength = _totalRaceLength
+	var race_length = _total_race_length
 
-	match _currentRaceType:
+	match _current_race_type:
 		RaceType.TIME_TRIAL:
-			_currentRaceMode = TimeTrial.new(distanceInput, Globals.player)
-			_place_final_arch(distanceInput)
-			raceLength = distanceInput
+			_current_race_mode = TimeTrial.new(distance_input, Globals.player)
+			_place_final_arch(distance_input)
+			race_length = distance_input
 		RaceType.DISTANCE_CHALLENGE:
-			_currentRaceMode = DistanceChallenge.new(timerInput, Globals.player)
-			if _finalArch != null:
-				_finalArch.queue_free()
+			_current_race_mode = DistanceChallenge.new(timer_input, Globals.player)
+			if _final_arch != null:
+				_final_arch.queue_free()
 		_:
 			return
 
-	SFX_player.play()
+	sfx_player.play()
 	countdown_ui.start_countdown()
 
 	# Wait for signal before starting race
@@ -93,67 +90,66 @@ func _start_race() -> void:
 
 	_on_race = true
 	_play_music()
-	raceHUD.show()
-	_racePaused = false
-	_spawn_arrows(distanceBetweenArrows, raceLength)
+	race_hud.show()
+	_spawn_arrows(distance_between_arrows, race_length)
 
 
 func _finish_race() -> void:
 	music_player.stream = victory_sound
 	music_player.play()
-	_currentRaceMode = null
+	_current_race_mode = null
 	_on_race = false
-	_currentRaceType = RaceType.NONE
+	_current_race_type = RaceType.NONE
 	_clear_arrows()
 
 
 func _place_final_arch(distance: float) -> void:
-	distance = fmod(distance, _totalRaceLength)
-	var archTransform = path.curve.sample_baked_with_rotation(distance)
+	distance = fmod(distance, _total_race_length)
+	var arch_transform = path.curve.sample_baked_with_rotation(distance)
 
-	if _finalArch == null:
-		_finalArch = finalArchScene.instantiate()
-		path.add_child(_finalArch)
+	if _final_arch == null:
+		_final_arch = final_arch_scene.instantiate()
+		path.add_child(_final_arch)
 		if end_arch_left_crowd:
-			var left_crowd = _finalArch.get_node("LeftCrowd")
+			var left_crowd = _final_arch.get_node("LeftCrowd")
 			left_crowd.visible = true
 			left_crowd.race_manager = self
 		if end_arch_right_crowd:
-			var right_crowd = _finalArch.get_node("RightCrowd")
+			var right_crowd = _final_arch.get_node("RightCrowd")
 			right_crowd.visible = true
 			right_crowd.race_manager = self
 
-	_finalArch.transform = archTransform
+	_final_arch.transform = arch_transform
 
 
 func _spawn_arrows(spacing: float, length: float) -> void:
 	var offset: float = 0.0
 
 	while offset < length:
-		var arrow: Node3D = arrowScene.instantiate()
+		var arrow: Node3D = arrow_scene.instantiate()
 		var arrow_transform = path.curve.sample_baked_with_rotation(offset)
 		path.add_child(arrow)
 		arrow.transform = arrow_transform
 		arrow.rotation.y += PI / 2
 		arrow.global_position += Vector3.UP * 0.1
-		_instantiatedArrows.append(arrow)
+		_instantiated_arrows.append(arrow)
 		offset += spacing
 
 
 func _clear_arrows() -> void:
-	for arrow in _instantiatedArrows:
+	for arrow in _instantiated_arrows:
 		arrow.queue_free()
-	_instantiatedArrows.clear()
+	_instantiated_arrows.clear()
 
 
 func _update_hud(distance: float, timer: float) -> void:
-	match _currentRaceType:
+	match _current_race_type:
 		RaceType.TIME_TRIAL:
-			timerLabel.text = "Time: %.1f s" % timer
-			distanceLabel.text = "Distance Left: %.1f m" % abs(distanceInput - distance)
+			timer_label.text = "Time: %.1f s" % timer
+			distance_label.text = "Distance Left: %.1f m" % abs(distance_input - distance)
 		RaceType.DISTANCE_CHALLENGE:
-			timerLabel.text = "Time Left: %.1f s" % abs(timerInput - timer)
-			distanceLabel.text = "Distance: %.1f m" % distance
+			timer_label.text = "Time Left: %.1f s" % abs(timer_input - timer)
+			distance_label.text = "Distance: %.1f m" % distance
 
 
 func _play_music() -> void:

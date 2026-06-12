@@ -1,5 +1,5 @@
-extends Node3D
 class_name ObstacleRaceGame
+extends Node3D
 
 @export var obstacle_collision: bool = false
 @export var on_challenge: bool = false
@@ -12,8 +12,6 @@ class_name ObstacleRaceGame
 @export var challenge_success_sound: AudioStreamWAV
 @export var challenge_fail_sound: AudioStreamWAV
 @export var race_success_sound: AudioStreamWAV
-@onready var sfx_player: AudioStreamPlayer = $sfx_player
-@onready var music_player: AudioStreamPlayer = $music_player
 var races_data: Array[RaceData]
 var current_race_data: RaceData
 var current_race_data_i: int = -1  ## -1 means race didn't started
@@ -21,6 +19,8 @@ var total_score = 0
 var total_timer = 0.0
 var lap_timer = 0.0
 var race_on_pause = true
+@onready var sfx_player: AudioStreamPlayer = $sfx_player
+@onready var music_player: AudioStreamPlayer = $music_player
 
 
 func init(_races_data: Array[RaceData]) -> void:
@@ -59,31 +59,31 @@ func play_sfx(audio: AudioStreamWAV) -> void:
 	sfx_player.play()
 
 
-func on_obstacle_collision(body: Area3D, area3D_emitter: Area3D) -> void:
+func on_obstacle_collision(body: Area3D, area3d_emitter: Area3D) -> void:
 	if body.is_in_group("Player"):
 		add_score(-fail_point_val)
 		play_sfx(challenge_fail_sound)
 		obstacle_collision = true
-		area3D_emitter.set_deferred("process_mode", ProcessMode.PROCESS_MODE_DISABLED)
+		area3d_emitter.set_deferred("process_mode", ProcessMode.PROCESS_MODE_DISABLED)
 
 
-func on_challenge_area_entered(body: Area3D, _area3D_emitter: Area3D) -> void:
+func on_challenge_area_entered(body: Area3D, _area3d_emitter: Area3D) -> void:
 	if body.is_in_group("Player"):
 		on_challenge = true
 		obstacle_collision = false
 
 
-func on_challenge_area_exited(body: Area3D, area3D_emitter: Area3D) -> void:
+func on_challenge_area_exited(body: Area3D, area3d_emitter: Area3D) -> void:
 	if not body.is_in_group("Player"):
 		return
 	on_challenge = false
 	if not obstacle_collision:
 		add_score(success_point_val)
 		play_sfx(challenge_success_sound)
-	area3D_emitter.set_deferred("process_mode", ProcessMode.PROCESS_MODE_DISABLED)
+	area3d_emitter.set_deferred("process_mode", ProcessMode.PROCESS_MODE_DISABLED)
 
 
-func on_race_entered(body: Area3D, area3D_emitter: Area3D) -> void:
+func on_race_entered(body: Area3D, area3d_emitter: Area3D) -> void:
 	if not body.is_in_group("Player"):
 		return
 	race_on_pause = false
@@ -96,10 +96,10 @@ func on_race_entered(body: Area3D, area3D_emitter: Area3D) -> void:
 		set_crowds_visible(current_race_data.final_crowds, true)
 	if current_race_data_i < races_data.size() - 1:
 		set_crowds_visible(races_data[current_race_data_i + 1].start_crowds, true)
-	area3D_emitter.set_deferred("process_mode", ProcessMode.PROCESS_MODE_DISABLED)
+	area3d_emitter.set_deferred("process_mode", ProcessMode.PROCESS_MODE_DISABLED)
 
 
-func on_race_exited(body: Area3D, area3D_emitter: Area3D) -> void:
+func on_race_exited(body: Area3D, area3d_emitter: Area3D) -> void:
 	if not body.get_parent().is_in_group("Player"):
 		return
 	current_race_data.lap_time = lap_timer
@@ -108,7 +108,7 @@ func on_race_exited(body: Area3D, area3D_emitter: Area3D) -> void:
 	set_crowds_visible(races_data[current_race_data_i].start_crowds, false)
 	if current_race_data_i > 0:
 		set_crowds_visible(races_data[current_race_data_i - 1].final_crowds, false)
-	area3D_emitter.set_deferred("process_mode", ProcessMode.PROCESS_MODE_DISABLED)
+	area3d_emitter.set_deferred("process_mode", ProcessMode.PROCESS_MODE_DISABLED)
 
 
 func set_crowds_visible(crowds: Array[Crowd], _enable: bool) -> void:

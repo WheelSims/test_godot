@@ -38,12 +38,12 @@ heightmap_texture = SubResource("CompressedTexture2D_0qd8i")
 [sub_resource type="BoxShape3D" id="BoxShape3D_0qd8i"]
 size = Vector3(0.005430908, 0.001705017, 0.0014941406)
 
-[node name="chariot" type="Node3D" unique_id=1503995864 node_paths=PackedStringArray("visual_instance", "collision_shape", "area3D")]
+[node name="chariot" type="Node3D" unique_id=1503995864 node_paths=PackedStringArray("visual_instance", "collision_shape", "area3d")]
 script = ExtResource("1_0qd8i")
 visual_instance = NodePath("chariot/Wagon_low")
 collision_shape = NodePath("chariot/Wagon_low/StaticBody3D/CollisionShape3D")
 object_type = 2
-area3D = NodePath("chariot/Wagon_low/Area3D")
+area3d = NodePath("chariot/Wagon_low/Area3D")
 
 [node name="chariot" type="Node3D" parent="." unique_id=953030791]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8879746, 0)

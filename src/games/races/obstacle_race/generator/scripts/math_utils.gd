@@ -10,8 +10,7 @@ static func clother_xquantum(quantum: float, number_to_round: float) -> int:
 		< (int(number_to_round / quantum) + 1) * quantum - number_to_round
 	):
 		return int(number_to_round / quantum)
-	else:
-		return int(number_to_round / quantum) + 1
+	return int(number_to_round / quantum) + 1
 
 
 ##Get the clother number from a quanted list

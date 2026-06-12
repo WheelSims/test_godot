@@ -12,8 +12,8 @@ extends Node3D
 @export var car_audio: CarAudio
 @export var car_visuals: CarVisuals
 
-var _triggers_on_curve_offsets: Array[float]
 var y_offset = 1
+var _triggers_on_curve_offsets: Array[float]
 
 ### MOVEMENT ###
 var _current_speed: float = 0
@@ -25,12 +25,12 @@ var _must_stop = false
 var _should_stop = false
 var _should_be_slow = false
 
+@onready var down_ray = $Raycasts/RayCast3DDown
+@onready var up_ray = $Raycasts/RayCast3DUp
+
 ### PATH & CURVE FOLLOWING ###
 @onready var _path_follow: PathFollow3D = get_parent()
 @onready var _path: Path3D = _path_follow.get_parent()
-
-@onready var down_ray = $Raycasts/RayCast3DDown
-@onready var up_ray = $Raycasts/RayCast3DUp
 
 
 # Store the original Z offsets of the triggers before resetting their positions.

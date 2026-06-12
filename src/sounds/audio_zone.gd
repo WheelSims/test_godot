@@ -1,8 +1,8 @@
 extends Area3D
 
 @export var audio_mixer_bus_name: String
-@onready var bus_index = AudioServer.get_bus_index("Environment")
 @export var fade_duration = 5
+@onready var bus_index = AudioServer.get_bus_index("Environment")
 
 
 func _ready() -> void:
