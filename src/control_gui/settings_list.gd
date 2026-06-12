@@ -151,7 +151,7 @@ func _ready():
 			container.add_child(dialog)
 			add_child(container)
 			continue
-			
+
 		if Config.get_type(key) == "folder":
 			# Label
 			var container = HBoxContainer.new()
@@ -172,10 +172,7 @@ func _ready():
 			if control.text == "":
 				control.text = "Click to select a folder"
 
-			control.pressed.connect(
-				func():
-					dialog.popup_centered()
-			)
+			control.pressed.connect(func(): dialog.popup_centered())
 
 			dialog.dir_selected.connect(
 				func(value):
