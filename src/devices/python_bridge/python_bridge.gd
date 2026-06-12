@@ -43,6 +43,8 @@ func _ready():
 	while _udp_receiver.get_available_packet_count() == 0:
 		await get_tree().create_timer(1.0).timeout
 	_udp_receiver_connected = true
+	if (Config.get_value("devices.data_logging.enabled")==true):
+		SignalBus.python_connected.emit(_udp_receiver_connected, null)
 
 
 func _process(_delta):
@@ -119,6 +121,7 @@ func get_debug_text() -> String:
 
 ## Close the python app when the node exits the scene tree
 func _exit_tree():
-	send("close", {}, "once")
+	SignalBus.python_connected.emit(null, true)
+	send("close", { }, "once")
 	# Delay to allow other overlays/devices to shut down before this device
 	await get_tree().create_timer(0.1).timeout

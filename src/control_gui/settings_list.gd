@@ -151,3 +151,39 @@ func _ready():
 			container.add_child(dialog)
 			add_child(container)
 			continue
+			
+		if Config.get_type(key) == "folder":
+			# Label
+			var container = HBoxContainer.new()
+			var label = Label.new()
+			label.text = Config.get_label(key)
+			container.add_child(label)
+
+			# File dialog
+			var dialog = FileDialog.new()
+			dialog.file_mode = FileDialog.FILE_MODE_OPEN_DIR
+			dialog.display_mode = FileDialog.DISPLAY_LIST
+			dialog.access = FileDialog.ACCESS_FILESYSTEM
+			dialog.use_native_dialog = true
+
+			# Selection button
+			var control = Button.new()
+			control.text = Config.get_value(key)
+			if control.text == "":
+				control.text = "Click to select a folder"
+
+			control.pressed.connect(
+				func():
+					dialog.popup_centered()
+			)
+
+			dialog.dir_selected.connect(
+				func(value):
+					Config.set_value(key, value)
+					control.text = value
+			)
+
+			container.add_child(control)
+			container.add_child(dialog)
+			add_child(container)
+			continue

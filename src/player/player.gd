@@ -101,6 +101,11 @@ func _process(_delta):
 	# Only keep camera rotation around y (keep level)
 	$Camera.rotation.x = _camera_rotation_x_offset - rotation.x
 	$Camera.rotation.z = -rotation.z
+	
+	if (Config.get_value("devices.data_logging.enabled")==true
+		and Config.get_value("devices.data_logging.player_trajectory")==true):
+			# Player position and orientation are emitted to the player_trajectory signal
+			SignalBus.player_trajectory.emit(global_position, rotation)
 
 
 func _physics_process(delta: float) -> void:
