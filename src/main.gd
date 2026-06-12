@@ -29,6 +29,9 @@ func load_scene(path: String):
 	# Load the scene
 	_current_scene_node = load(path).instantiate()
 	scene_viewport.add_child(_current_scene_node)	
+	
+	if (Config.get_value("devices.data_logging.enabled"))==true:
+		SignalBus.session_scene.emit(path)
 
 ## Unload scene
 func unload_scene():

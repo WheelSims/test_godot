@@ -3,6 +3,8 @@
 [ext_resource type="Script" uid="uid://cnjpl135ppqka" path="res://main.gd" id="1_0xm2m"]
 [ext_resource type="PackedScene" uid="uid://dq2eiii6jcj6u" path="res://control_gui/control_gui.tscn" id="1_ig7tw"]
 [ext_resource type="PackedScene" uid="uid://dhu8ts42upvlx" path="res://overlays/speed_indicator/speed_indicator.tscn" id="2_efxa6"]
+[ext_resource type="PackedScene" uid="uid://caxylvba3turf" path="res://devices/data_logging/data_logging.tscn" id="2_1bvp3"]
+[ext_resource type="PackedScene" uid="uid://dhu8ts42upvlx" path="res://overlays/speed_indicator.tscn" id="2_efxa6"]
 [ext_resource type="Script" uid="uid://db602oks11677" path="res://config.gd" id="3_h2yge"]
 [ext_resource type="PackedScene" uid="uid://xwtfx6p27vlm" path="res://devices/motorized_rollers/motorized_rollers.tscn" id="4_5vw27"]
 [ext_resource type="PackedScene" uid="uid://f24s3bar65fp" path="res://overlays/debug/debug.tscn" id="4_272bh"]
@@ -24,6 +26,7 @@ available_overlays = Dictionary[String, PackedScene]({
 })
 available_devices = Dictionary[String, PackedScene]({
 "devices.d_box.enabled": ExtResource("5_5vw27"),
+"devices.data_logging.enabled": ExtResource("2_1bvp3"),
 "devices.motorized_rollers.enabled": ExtResource("4_5vw27"),
 "devices.optitrack.enabled": ExtResource("6_kek77"),
 "devices.python_bridge.enabled": ExtResource("10_dg77c"),
