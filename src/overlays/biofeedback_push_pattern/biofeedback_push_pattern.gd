@@ -6,10 +6,8 @@ extends Node2D
 # - synchronizes wheelchair geometry with tracking/configuration data
 # - controls visibility of wheels, handrims, contact angles, and trails
 # - provides an always-on-top GUI window for aiming calibration
-# - spawns OptiTrack scene when running standalone (outside main scene)
+# - spawns OptiTrack scene when running standalone (outside Globals.main scene)
 # ---------------------------------------------------------------------- #
-
-@onready var main: Node = get_tree().get_root().get_node("main")
 
 # Nodes
 @export var node_wheel_left: Node
@@ -20,7 +18,7 @@ extends Node2D
 @export var node_angle_end_contact_right: Node
 @export var node_handrim_left: Node
 @export var node_handrim_right: Node
-@export var current_scene_3D: Node
+@export var current_scene_3d: Node
 @export var view_left_1: Node
 @export var view_left_2: Node
 @export var view_right_1: Node
@@ -29,21 +27,22 @@ extends Node2D
 # Scenes
 @export var gui_scene: PackedScene
 
-# Wheelchair variables
+# Wheelchair variables  !TODO Rename these variables
 @export_group("Wheels")
 @export_subgroup("Wheel Left")
-var position_wheel_l
-var radius_wheel
 @export var visibled_wheel_l = true
 @export var visibled_handrim_l = false
 @export var visibled_angle_contact_l = true
 @export_subgroup("Wheel Right")
-var position_wheel_r
 @export var visibled_wheel_r = true
 @export var visibled_handrim_r = false
 @export var visibled_angle_contact_r = true
 @export_subgroup("Trails")
 @export var trails_visibled = true
+
+var position_wheel_l
+var position_wheel_r
+var radius_wheel
 
 # Distances between left and right wheel centers
 var anteroposterior_length
@@ -54,20 +53,20 @@ var window
 
 
 func _ready() -> void:
-	# Create an isolated World3D so this SubViewport scene is not rendered in the main viewport
+	# Create an isolated World3D so this SubViewport scene is not rendered in the Globals.main viewport
 	var world = World3D.new()
-	current_scene_3D.world_3d = world
+	current_scene_3d.world_3d = world
 
 	# Share the same World3D across all SubViewports so it is only rendered through UI overlays
-	view_left_1.world_3d = current_scene_3D.find_world_3d()
-	view_left_2.world_3d = current_scene_3D.find_world_3d()
-	view_right_1.world_3d = current_scene_3D.find_world_3d()
-	view_right_2.world_3d = current_scene_3D.find_world_3d()
+	view_left_1.world_3d = current_scene_3d.find_world_3d()
+	view_left_2.world_3d = current_scene_3d.find_world_3d()
+	view_right_1.world_3d = current_scene_3d.find_world_3d()
+	view_right_2.world_3d = current_scene_3d.find_world_3d()
 
 	window_user()
 
-	# Ensure OptiTrack is added when this overlay scene runs standalone (outside main)
-	if not main:
+	# Ensure OptiTrack is added when this overlay scene runs standalone (outside Globals.main)
+	if not Globals.main:
 		var instance = preload("res://devices/optitrack/optitrack.tscn").instantiate()
 		add_child(instance)
 

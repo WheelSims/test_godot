@@ -1,5 +1,5 @@
-extends AudioStreamPlayer3D
 class_name CarAudio
+extends AudioStreamPlayer3D
 
 
 func update_audio(current_speed: float, max_speed: float) -> void:

@@ -4,9 +4,9 @@
 ## The communication protocol is described here: https://github.com/LabMOSA/wheelsims_haptics
 extends Node3D
 
-@export var UDP_SEND_IP: String = "192.168.0.200"
-@export var UDP_SEND_PORT: int = 25000
-@export var UDP_RECEIVE_PORT: int = 25100
+@export var udp_send_ip: String = "192.168.0.200"
+@export var udp_send_port: int = 25000
+@export var udp_receive_port: int = 25100
 
 # Public variables (read)
 var index: int = 0
@@ -33,8 +33,8 @@ var _old_is_rear_collision: bool = false
 
 # Functions
 func _ready() -> void:
-	_udp_receiver.bind(UDP_RECEIVE_PORT)
-	_udp_sender.connect_to_host(UDP_SEND_IP, UDP_SEND_PORT)
+	_udp_receiver.bind(udp_receive_port)
+	_udp_sender.connect_to_host(udp_send_ip, udp_send_port)
 	send_data(0, hardware_enabled, 0.0, 0.0)
 	get_tree().set_auto_accept_quit(false)  # to send hw_enable false on quit
 

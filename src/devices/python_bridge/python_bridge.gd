@@ -10,16 +10,14 @@
 ## https://github.com/LabMOSA/wheelsims_analysis
 extends Node3D
 
-@onready var main: Node = get_tree().get_root().get_node("main")
+@export var udp_send_ip: String = "127.0.0.1"  # Python IP
+@export var udp_send_port: int = 4243  # Python port
+@export var udp_receive_port: int = 4242  # Godot port
 
-@export var UDP_SEND_IP: String = "127.0.0.1"  # Python IP
-@export var UDP_SEND_PORT: int = 4243  # Python port
-@export var UDP_RECEIVE_PORT: int = 4242  # Godot port
+var queue_requests_by_id = {}  # Queue storing received request data per id
 var _udp_receiver = PacketPeerUDP.new()
 var _udp_sender = PacketPeerUDP.new()
 var _udp_receiver_connected = false
-
-var queue_requests_by_id = {}  # Queue storing received request data per id
 
 
 func _ready():
@@ -38,8 +36,8 @@ func _ready():
 	OS.create_process(python_app_path, [python_script_path], true)
 
 	# Set UDP receiver and UDP sender
-	_udp_receiver.bind(UDP_RECEIVE_PORT)
-	_udp_sender.connect_to_host(UDP_SEND_IP, UDP_SEND_PORT)
+	_udp_receiver.bind(udp_receive_port)
+	_udp_sender.connect_to_host(udp_send_ip, udp_send_port)
 
 	# Waiting ping request from Python bridge
 	while _udp_receiver.get_available_packet_count() == 0:
@@ -48,7 +46,7 @@ func _ready():
 
 
 func _process(_delta):
-	if main:
+	if Globals.main:
 		if not Config.get_value("devices.python_bridge.enabled"):
 			queue_free()
 	if _udp_receiver_connected:

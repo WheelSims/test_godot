@@ -1,20 +1,21 @@
-extends Node3D
 class_name CarController
+extends Node3D
 
-### PATH & CURVE FOLLOWING ###
-@onready var _path_follow: PathFollow3D = get_parent()
 @export var _triggers_on_curve: Array[Area3D]
-var _triggers_on_curve_offsets: Array[float]
-@onready var _path: Path3D = _path_follow.get_parent()
-@onready var down_ray = $Raycasts/RayCast3DDown
-@onready var up_ray = $Raycasts/RayCast3DUp
-var y_offset = 1
 
-### MOVEMENT ###
 @export var _max_speed: float
 @export var _slow_speed: float
 @export var _acceleration: float
 @export var _decceleration: float
+
+###Nodes###
+@export var car_audio: CarAudio
+@export var car_visuals: CarVisuals
+
+var _triggers_on_curve_offsets: Array[float]
+var y_offset = 1
+
+### MOVEMENT ###
 var _current_speed: float = 0
 var _target_speed: float = 0
 var _nb_close_obstacle: int = 0
@@ -24,9 +25,12 @@ var _must_stop = false
 var _should_stop = false
 var _should_be_slow = false
 
-###Nodes###
-@export var car_audio: CarAudio
-@export var car_visuals: CarVisuals
+### PATH & CURVE FOLLOWING ###
+@onready var _path_follow: PathFollow3D = get_parent()
+@onready var _path: Path3D = _path_follow.get_parent()
+
+@onready var down_ray = $Raycasts/RayCast3DDown
+@onready var up_ray = $Raycasts/RayCast3DUp
 
 
 # Store the original Z offsets of the triggers before resetting their positions.

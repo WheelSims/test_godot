@@ -1,5 +1,5 @@
-extends MeshInstance3D
 class_name CarVisuals
+extends MeshInstance3D
 
 @export var wheels: Array[MeshInstance3D]
 @export var front_pivots: Array[Node3D]

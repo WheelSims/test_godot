@@ -4,9 +4,6 @@ extends Node
 # References
 # -------------------------------------------------------------------
 
-## The viewport the 3D scene is rendered in.
-@onready var scene_viewport: SubViewport = get_node("SceneViewport")
-
 ## The different overlays that can be loaded dynamically based on configuration options
 @export var available_overlays: Dictionary[String, PackedScene]
 
@@ -15,6 +12,9 @@ extends Node
 
 ## (private) Store the current scene.
 var _current_scene_node: Node3D = null
+
+## The viewport the 3D scene is rendered in.
+@onready var scene_viewport: SubViewport = get_node("SceneViewport")
 
 # -------------------------------------------------------------------
 # Scene loading/unloading

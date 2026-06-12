@@ -1,15 +1,25 @@
-## This script manages the D-Box platform through the compiled C++ app dbox_driver_app.exe.
+## This script manages the D-Box platform through the compiled C++ app DBOX_DRIVER_APP.exe.
 ## There is no direct communication between this script and the D-Box binaries. Instead, the
-## dbox_driver_app application instantiates a USB connection with the D-Box system, and starts
+## DBOX_DRIVER_APP application instantiates a USB connection with the D-Box system, and starts
 ## listening for UDP packets sent by Godot.
 ##
 ## The UDP protocol from Godot to the driver app is given here, along with the driver source:
-## https://github.com/LabMOSA/wheelsims_dbox_driver_app
+## https://github.com/LabMOSA/wheelsims_DBOX_DRIVER_APP
 ##
 ## The script launches the driver app and the D-Box initiatialization when it is first enabled, and
 ## only if the driver app is not already running. By doing this, we don't have to wait for the whole
 ## D-Box startup procedure (including self-calibration) each time the project is run.
 extends Node3D
+
+enum CurrentMode {
+	ONBOARDING = 0,
+	PLAYING = 1,
+	PAUSE = 2,
+	OFFBOARDING = 3,
+}
+
+const DBOX_DRIVER_PATH = "devices/d_box/dbox_driver/"
+const DBOX_DRIVER_APP = "dbox_driver_app.exe"
 
 # ------------------------------------
 # Simulator geometry
@@ -35,11 +45,13 @@ var max_roll_angle = atan(actuator_length / simulator_width)
 var max_height = actuator_length / 2.0
 var max_simulated_height = max_height_amplitude / 2.0
 
+## Old state (to calculate speed and to get back gratually to ONBOARDING when the player unloads)
+var old_position: Vector3
+var old_rotation: Vector3
+
 # ------------------------------------
 # D-Box driver helper
 # ------------------------------------
-const dbox_driver_path = "devices/d_box/dbox_driver/"
-const dbox_driver_app = "dbox_driver_app.exe"
 var udp_send_ip: String = "127.0.0.1"
 var udp_send_port: int = 25200
 var _udp_sender = PacketPeerUDP.new()
@@ -48,17 +60,7 @@ var _d_box_initialized = true  # reverted to false if driver process not running
 # -----------------------
 # Current mode
 # -----------------------
-enum CurrentMode {
-	ONBOARDING = 0,
-	PLAYING = 1,
-	PAUSE = 2,
-	OFFBOARDING = 3,
-}
 @onready var current_mode = CurrentMode.ONBOARDING
-
-## Old state (to calculate speed and to get back gratually to ONBOARDING when the player unloads)
-var old_position: Vector3
-var old_rotation: Vector3
 
 ## Current height (total) of the platform
 @onready var current_dbox_normalized_height: float = 0.0
@@ -74,10 +76,9 @@ var old_rotation: Vector3
 func get_debug_text() -> String:
 	if current_mode == CurrentMode.ONBOARDING:
 		return "Onboarding"
-	elif current_mode == CurrentMode.PLAYING:
+	if current_mode == CurrentMode.PLAYING:
 		return "Playing"
-	else:
-		return ""
+	return ""
 
 
 func _notification(what):
@@ -128,11 +129,11 @@ func _ready() -> void:
 	get_tree().set_auto_accept_quit(false)  # pour pouvoir envoyer Stop
 
 	var output = []
-	var _exit_code = OS.execute("tasklist.exe", [], output)
-	if dbox_driver_app not in output[0]:
+	OS.execute("tasklist.exe", [], output)
+	if DBOX_DRIVER_APP not in output[0]:
 		print("Starting D-Box driver app")
 		# Execute non-blocking
-		OS.create_process(dbox_driver_path + dbox_driver_app, [], true)
+		OS.create_process(DBOX_DRIVER_PATH + DBOX_DRIVER_APP, [], true)
 		pause_process(2.0)  # Wait for the driver app to come alive
 		_d_box_initialized = false
 

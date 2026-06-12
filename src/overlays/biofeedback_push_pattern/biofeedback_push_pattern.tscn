@@ -39,7 +39,7 @@ viewport_path = NodePath("view_right_1")
 [sub_resource type="ViewportTexture" id="ViewportTexture_ilqvj"]
 viewport_path = NodePath("view_right_2")
 
-[node name="biofeedback_push_pattern" type="Node2D" unique_id=2135710720 node_paths=PackedStringArray("node_wheel_left", "node_wheel_right", "node_angle_start_contact_left", "node_angle_start_contact_right", "node_angle_end_contact_left", "node_angle_end_contact_right", "node_handrim_left", "node_handrim_right", "current_scene_3D", "view_left_1", "view_left_2", "view_right_1", "view_right_2")]
+[node name="biofeedback_push_pattern" type="Node2D" unique_id=2135710720 node_paths=PackedStringArray("node_wheel_left", "node_wheel_right", "node_angle_start_contact_left", "node_angle_start_contact_right", "node_angle_end_contact_left", "node_angle_end_contact_right", "node_handrim_left", "node_handrim_right", "view_left_1", "view_left_2", "view_right_1", "view_right_2")]
 script = ExtResource("1_j7inm")
 node_wheel_left = NodePath("current_scene_3D/wheel_left")
 node_wheel_right = NodePath("current_scene_3D/wheel_right")
@@ -49,7 +49,6 @@ node_angle_end_contact_left = NodePath("current_scene_3D/wheel_left/contact_angl
 node_angle_end_contact_right = NodePath("current_scene_3D/wheel_right/contact_angle_end_right")
 node_handrim_left = NodePath("current_scene_3D/wheel_left/handrim_left")
 node_handrim_right = NodePath("current_scene_3D/wheel_right/handrim_right")
-current_scene_3D = NodePath("current_scene_3D")
 view_left_1 = NodePath("view_left_1")
 view_left_2 = NodePath("view_left_2")
 view_right_1 = NodePath("view_right_1")

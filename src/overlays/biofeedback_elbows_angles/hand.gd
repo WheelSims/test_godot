@@ -1,7 +1,5 @@
 extends Node3D
 
-@onready var main: Node = get_tree().get_root().get_node("main")
-
 # Selected side of the wheelchair (left or right)
 @export_enum("left", "right") var side: String
 # Selected cluster of the wheelchair (forearm or arm)
@@ -18,9 +16,11 @@ func _ready() -> void:
 func _process(_delta):
 	if Config.get_value("devices.optitrack.enabled"):
 		# Get forearm cluster and simulator reference nodes from OptiTrack by their IDs
-		if main:
-			node_forearm_cluster = main.get_node("optitrack").get_node_by_id(id_forearm_cluster)
-		else:  # If overlay scene runs standalone (outside main)
+		if Globals.main:
+			node_forearm_cluster = Globals.main.get_node("optitrack").get_node_by_id(
+				id_forearm_cluster
+			)
+		else:  # If overlay scene runs standalone (outside Globals.main)
 			node_forearm_cluster = get_tree().current_scene.get_node("optitrack").get_node_by_id(
 				id_forearm_cluster
 			)

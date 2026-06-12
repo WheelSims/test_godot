@@ -6,8 +6,6 @@ extends Control
 # - hands are recorded in the forearm cluster reference frame
 # ---------------------------------------------------------------------- #
 
-@onready var main: Node = get_tree().get_root().get_node("main")
-
 # UI elements
 @export var node_aimings_list: Node
 @export var node_aiming_button: Node
@@ -120,34 +118,34 @@ func _on_button_pressed():
 	var coordinates = selected_key
 
 	# IDs of tracked objects
-	var ID_frame_reference
-	var ID_probe = 999
+	var reference_frame_id
+	var probe_id = 999
 
 	# Set reference frame ID based on the selected coordinate
 	if (
 		coordinates == "coordinates.left_wheel_center"
 		or coordinates == "coordinates.right_wheel_center"
 	):
-		ID_frame_reference = 102
+		reference_frame_id = 102
 	elif coordinates == "coordinates.left_hand":
-		ID_frame_reference = 201
+		reference_frame_id = 201
 	elif coordinates == "coordinates.right_hand":
-		ID_frame_reference = 202
+		reference_frame_id = 202
 
-	if main:
-		node_optitrack = main.get_node("optitrack")
-	else:  # If overlay scene runs standalone (outside main)
+	if Globals.main:
+		node_optitrack = Globals.main.get_node("optitrack")
+	else:  # If overlay scene runs standalone (outside Globals.main)
 		node_optitrack = get_tree().current_scene.get_node("optitrack")
 
-	if node_optitrack.get_node(str(ID_probe)) and node_optitrack.get_node(str(ID_frame_reference)):
-		var node_probe = node_optitrack.get_node(str(ID_probe))
-		var node_frame_reference = node_optitrack.get_node(str(ID_frame_reference))
+	if node_optitrack.get_node(str(probe_id)) and node_optitrack.get_node(str(reference_frame_id)):
+		var node_probe = node_optitrack.get_node(str(probe_id))
+		var node_frame_reference = node_optitrack.get_node(str(reference_frame_id))
 
 		# Get the inverse global transform of the frame reference
-		var T0S = node_frame_reference.global_transform.affine_inverse()
+		var inv_trans = node_frame_reference.global_transform.affine_inverse()
 
 		# Transform probe position into the reference frame coordinate system
-		pos = T0S.origin + T0S.basis * node_probe.position
+		pos = inv_trans.origin + inv_trans.basis * node_probe.position
 
 	# Save captured coordinates to configuration
 	Config.set_value(coordinates, [pos.x, pos.y, pos.z])

@@ -1,22 +1,20 @@
 extends Node3D
 
-@onready var main: Node = get_tree().get_root().get_node("main")
-
 var window
 
 
 func _ready() -> void:
 	window_user()
 
-	# Ensure OptiTrack is added when this overlay scene runs standalone (outside main)
-	if not main:
+	# Ensure OptiTrack is added when this overlay scene runs standalone (outside Globals.main)
+	if not Globals.main:
 		var instance = preload("res://devices/optitrack/optitrack.tscn").instantiate()
 		add_child(instance)
 
 
 #func _process(_delta):
 
-#if main:
+#if Globals.main:
 #if not Config.get_value("overlays.biofeedback_optitrack.enabled"):
 #queue_free()
 

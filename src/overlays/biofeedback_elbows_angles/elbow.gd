@@ -1,5 +1,17 @@
 extends Node3D
 
+var coordinates_lateral_epicondyl = "coordinates.lateral_epicondyl_right"
+var coordinates_medial_epicondyl = "coordinates.medial_epicondyl_right"
+var coordinates_radial_styloid = "coordinates.radial_styloid_right"
+var coordinates_ulnar_styloid = "coordinates.ulnar_styloid_right"
+var coordinates_acromion = "coordinates.acromion_right"
+
+var list  #!TODO Change name
+
+var beta = 0
+var alpha = 0
+var gamma = 0
+
 @onready var node_acromion = $acromion
 @onready var node_lateral_epicondyl = $lateral_epicondyl
 @onready var node_medial_epicondyl = $medial_epicondyl
@@ -11,21 +23,6 @@ extends Node3D
 
 @onready var node_forearm_cluster = $"../forearm_cluster_right"
 @onready var node_arm_cluster = $"../arm_cluster_right"
-
-var coordinates_lateral_epicondyl = "coordinates.lateral_epicondyl_right"
-var coordinates_medial_epicondyl = "coordinates.medial_epicondyl_right"
-var coordinates_radial_styloid = "coordinates.radial_styloid_right"
-var coordinates_ulnar_styloid = "coordinates.ulnar_styloid_right"
-var coordinates_acromion = "coordinates.acromion_right"
-
-var list
-
-var flexion_GPT = 0
-var flexion_euler = 0
-
-var beta = 0
-var alpha = 0
-var gamma = 0
 
 
 # Called when the node enters the scene tree for the first time.
@@ -58,28 +55,23 @@ func _ready() -> void:
 		},
 	]
 
-	pass  # Replace with function body.
-
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
-
-	#
+func _process(_delta: float) -> void:
 	for i in list:
 		var coordinates = i["coordinates"]
 		var node = i["node"]
 		var node_frame = i["node_frame"]
 
 		# Get object coordinates relative to cluster
-		var _pos = Vector3(
+		var local_pos = Vector3(
 			Config.get_value(coordinates)[0],
 			Config.get_value(coordinates)[1],
 			Config.get_value(coordinates)[2]
 		)
 
 		# Transform object position to world space
-		var pos = node_frame.position + node_frame.global_transform.basis * _pos
+		var pos = node_frame.position + node_frame.global_transform.basis * local_pos
 		node.position = pos
 
 	## Create local coordinate systems
@@ -143,13 +135,13 @@ func _process(delta: float) -> void:
 	)
 
 	## Get biomechanics angles
-	var R = forearm_in_arm.basis
+	var forearm_rotation = forearm_in_arm.basis
 
-	var r01 = R.y.x
-	var r11 = R.y.y
-	var r20 = R.x.z
-	var r21 = R.y.z
-	var r22 = R.z.z
+	var r01 = forearm_rotation.y.x
+	var r11 = forearm_rotation.y.y
+	var r20 = forearm_rotation.x.z
+	var r21 = forearm_rotation.y.z
+	var r22 = forearm_rotation.z.z
 
 	# ZXY
 	beta = asin(r21)

@@ -18,18 +18,29 @@
 ## its linear/angular velocity using its public `get_linear_speed()`,
 ## `get_angular_speed()`, `set_linear_speed()` and `get_linear_speed()`
 ## functions.
-extends RigidBody3D
-
 class_name Player
+extends RigidBody3D
 
 # ------------------
 # Editable constants
 # ------------------
 @export_group("Keyboard Control")
-@export var KB_LINEAR_SPEED: float = 2  # m/s
-@export var KB_ANGULAR_SPEED: float = 1  # rad/s
-@export var LINEAR_SPEED_DEADZONE: float = 0.04  # m/s
-@export var ANGULAR_SPEED_DEADZONE: float = 0.04  # rad/s
+@export var kb_linear_speed: float = 2  # m/s
+@export var kb_angular_speed: float = 1  # rad/s
+@export var linear_speed_deadzone: float = 0.04  # m/s
+@export var angular_speed_deadzone: float = 0.04  # rad/s
+
+# -----------------------
+# Dynamics/collisions
+# -----------------------
+var is_front_collision: bool = false
+var is_rear_collision: bool = false
+var _default_rolling_resistance_coefficient: float = 0.01325
+var _n_rr_obstacle = 0
+var _n_lr_obstacle = 0
+var _n_rf_obstacle = 0
+var _n_lf_obstacle = 0
+var _n_foot_obstacle = 0
 
 # -----------------------
 # Current velocity
@@ -40,23 +51,12 @@ var _keyboard_linear_velocity: float = 0.0
 var _keyboard_angular_velocity: float = 0.0
 
 # -----------------------
-# Dynamics/collisions
-# -----------------------
-var is_front_collision: bool = false
-var is_rear_collision: bool = false
-var _default_rolling_resistance_coefficient: float = 0.01325
-var rolling_resistance_coefficient: float = _default_rolling_resistance_coefficient
-var _n_rr_obstacle = 0
-var _n_lr_obstacle = 0
-var _n_rf_obstacle = 0
-var _n_lf_obstacle = 0
-var _n_foot_obstacle = 0
-
-# -----------------------
 # Config related
 # -----------------------
 var _config_update_required: bool = true  # Update to match config
 var _camera_rotation_x_offset: float = 0.0
+
+@onready var rolling_resistance_coefficient: float = _default_rolling_resistance_coefficient
 
 
 # -----------------------
@@ -112,9 +112,9 @@ func _physics_process(delta: float) -> void:
 	desired_linear_velocity += _keyboard_linear_velocity
 	desired_angular_velocity += _keyboard_angular_velocity
 
-	if abs(desired_linear_velocity) < LINEAR_SPEED_DEADZONE:
+	if abs(desired_linear_velocity) < linear_speed_deadzone:
 		desired_linear_velocity = 0
-	if abs(desired_angular_velocity) < ANGULAR_SPEED_DEADZONE:
+	if abs(desired_angular_velocity) < angular_speed_deadzone:
 		desired_angular_velocity = 0
 
 	if (
@@ -133,20 +133,20 @@ func read_keyboard_velocities():
 	var angular := 0.0
 
 	if Input.is_action_pressed("ui_up"):
-		linear += KB_LINEAR_SPEED
+		linear += kb_linear_speed
 	if Input.is_action_pressed("ui_down"):
-		linear -= KB_LINEAR_SPEED
+		linear -= kb_linear_speed
 	if Input.is_action_pressed("ui_left"):
-		angular += KB_ANGULAR_SPEED
+		angular += kb_angular_speed
 	if Input.is_action_pressed("ui_right"):
-		angular -= KB_ANGULAR_SPEED
+		angular -= kb_angular_speed
 
 	_keyboard_linear_velocity = linear
 	_keyboard_angular_velocity = angular
 
 
 func _on_obstacle_colliders_body_shape_entered(
-	body_rid: RID, body: Node3D, body_shape_index: int, local_shape_index: int
+	_body_rid: RID, body: Node3D, _body_shape_index: int, local_shape_index: int
 ) -> void:
 	if body.get_groups().is_empty() and body is not Surface:
 		match local_shape_index:
@@ -168,7 +168,7 @@ func _on_obstacle_colliders_body_shape_entered(
 
 
 func _on_obstacle_colliders_body_shape_exited(
-	body_rid: RID, body: Node3D, body_shape_index: int, local_shape_index: int
+	_body_rid: RID, body: Node3D, _body_shape_index: int, local_shape_index: int
 ) -> void:
 	if body.get_groups().is_empty() and body is not Surface:
 		match local_shape_index:
@@ -189,7 +189,7 @@ func _on_obstacle_colliders_body_shape_exited(
 
 
 func _on_player_on_simulator_body_shape_entered(
-	body_rid: RID, body: Node, body_shape_index: int, local_shape_index: int
+	_body_rid: RID, body: Node, _body_shape_index: int, _local_shape_index: int
 ) -> void:
 	if body is Surface:
 		rolling_resistance_coefficient = body.resistance

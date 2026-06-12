@@ -14,7 +14,7 @@ extends Node
 # -------------------------------------------------------------------
 # Private variables and functions
 # -------------------------------------------------------------------
-var _CONFIG_FILENAME = "user://config.json"
+const _CONFIG_FILENAME = "user://config.json"
 
 ## Defaults (use default=null for headers)
 var _defaults: Dictionary[String, Dictionary] = {
@@ -273,58 +273,51 @@ func get_label(key: String):
 func get_unit(key: String):
 	if "unit" in _defaults[key]:
 		return _defaults[key]["unit"]
-	else:
-		return ""
+	return ""
 
 
 ## Get config type
 func get_type(key: String):
 	if "type" in _defaults[key]:
 		return _defaults[key]["type"]
-	else:
-		return null
+	return null
 
 
 ## Get config value
 func get_value(key: String):
 	if key in _contents:
 		return _contents[key]
-	elif (key in _defaults) and ("default" in _defaults[key]):
+	if (key in _defaults) and ("default" in _defaults[key]):
 		return _defaults[key]["default"]
-	else:
-		return null
+	return null
 
 
 ## Get config min value or null if not existing
 func get_min_value(key: String):
 	if key in _defaults and "min" in _defaults[key]:
 		return _defaults[key]["min"]
-	else:
-		return null
+	return null
 
 
 ## Get config max value or null if not existing
 func get_max_value(key: String):
 	if key in _defaults and "max" in _defaults[key]:
 		return _defaults[key]["max"]
-	else:
-		return null
+	return null
 
 
 ## Get config step value or 1.0 if not existing
 func get_step_value(key: String):
 	if key in _defaults and "step" in _defaults[key]:
 		return _defaults[key]["step"]
-	else:
-		return 1.0
+	return 1.0
 
 
 ## Get items or null if not existing
 func get_items(key: String):
 	if key in _defaults and "items" in _defaults[key]:
 		return _defaults[key]["items"]
-	else:
-		return null
+	return null
 
 
 ## Set config value

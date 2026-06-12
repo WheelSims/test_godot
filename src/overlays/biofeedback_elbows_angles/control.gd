@@ -10,8 +10,7 @@ func _ready() -> void:
 	pos_init_slider = $VBoxContainer/ColorRect/HBoxContainer.position
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	var flexion = $"../elbow_right".alpha
 	$VBoxContainer/ColorRect/HBoxContainer/value.text = str(snappedi(flexion, 1))
 	$VBoxContainer/ColorRect/HBoxContainer.position = (

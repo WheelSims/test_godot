@@ -89,6 +89,7 @@ size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_2evn0")
 
 [node name="aimings_list" type="VBoxContainer" parent="main_panel/margin_container/main_vbox_container/aimings_panel/ScrollContainer" unique_id=1210132875]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -99,6 +100,7 @@ layout_mode = 2
 color = Color(0, 0, 0, 1)
 
 [node name="aiming_button" type="Button" parent="main_panel/margin_container/main_vbox_container" unique_id=1551293450]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 10
 theme_override_font_sizes/font_size = 40

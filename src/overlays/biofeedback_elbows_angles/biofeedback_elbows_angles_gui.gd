@@ -6,13 +6,6 @@ extends Control
 # - hands are recorded in the forearm cluster reference frame
 # ---------------------------------------------------------------------- #
 
-@onready var main: Node = get_tree().get_root().get_node("main")
-
-# UI elements
-@onready
-var node_aimings_list = $main_panel/margin_container/main_vbox_container/aimings_panel/ScrollContainer/aimings_list
-@onready var node_aiming_button = $main_panel/margin_container/main_vbox_container/aiming_button
-
 var group = ButtonGroup.new()  # Button group to allow only one selection at a time
 var selected_key = null  # Currently selected coordinate key
 var items = {}
@@ -20,6 +13,10 @@ var items = {}
 var duration_timer = 5  # Delay before recording (seconds)
 
 var node_optitrack
+
+# UI elements
+@onready var node_aimings_list = %aimings_list
+@onready var node_aiming_button = %aiming_button
 
 
 func _ready():
@@ -122,8 +119,8 @@ func _on_button_pressed():
 	var coordinates = selected_key
 
 	# IDs of tracked objects
-	var ID_frame_reference
-	var ID_probe = 999
+	var reference_frame_id
+	var probe_id = 999
 
 	# Set reference frame ID based on the selected coordinate
 	if (
@@ -131,27 +128,27 @@ func _on_button_pressed():
 		or coordinates == "coordinates.lateral_epicondyl_right"
 		or coordinates == "coordinates.medial_epicondyl_right"
 	):
-		ID_frame_reference = 302
+		reference_frame_id = 302
 	elif (
 		coordinates == "coordinates.radial_styloid_right"
 		or coordinates == "coordinates.ulnar_styloid_right"
 	):
-		ID_frame_reference = 202
+		reference_frame_id = 202
 
-	if main:
-		node_optitrack = main.get_node("optitrack")
-	else:  # If overlay scene runs standalone (outside main)
+	if Globals.main:
+		node_optitrack = Globals.main.get_node("optitrack")
+	else:  # If overlay scene runs standalone (outside Globals.main)
 		node_optitrack = get_tree().current_scene.get_node("optitrack")
 
-	if node_optitrack.get_node(str(ID_probe)) and node_optitrack.get_node(str(ID_frame_reference)):
-		var node_probe = node_optitrack.get_node(str(ID_probe))
-		var node_frame_reference = node_optitrack.get_node(str(ID_frame_reference))
+	if node_optitrack.get_node(str(probe_id)) and node_optitrack.get_node(str(reference_frame_id)):
+		var node_probe = node_optitrack.get_node(str(probe_id))
+		var node_frame_reference = node_optitrack.get_node(str(reference_frame_id))
 
 		# Get the inverse global transform of the frame reference
-		var T0S = node_frame_reference.global_transform.affine_inverse()
+		var inv_transform = node_frame_reference.global_transform.affine_inverse()
 
 		# Transform probe position into the reference frame coordinate system
-		pos = T0S.origin + T0S.basis * node_probe.position
+		pos = inv_transform.origin + inv_transform.basis * node_probe.position
 
 	# Save captured coordinates to configuration
 	Config.set_value(coordinates, [pos.x, pos.y, pos.z])

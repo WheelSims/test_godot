@@ -37,11 +37,12 @@ func _ready() -> void:
 
 
 func _process(_delta):
-	# Compute hand position for trail: hand coordinates in cluster space transformed to world space with offset
-	var _pos_hand = Vector3.ZERO
+	# Compute hand position for trail: hand coordinates in cluster space transformed to world
+	# space with offset.
+	var local_pos_hand = Vector3.ZERO
 	if Config.get_value("devices.optitrack.enabled"):
 		# Get hand coordinates relative to cluster
-		_pos_hand = Vector3(
+		local_pos_hand = Vector3(
 			Config.get_value(coordinates_hand)[0],
 			Config.get_value(coordinates_hand)[1],
 			Config.get_value(coordinates_hand)[2]
@@ -50,7 +51,7 @@ func _process(_delta):
 		# Transform hand position to world space and apply trail offset
 		var hand_node = $"..".get_node(node_hand_key)
 		var pos_hand = (
-			hand_node.position + hand_node.global_transform.basis * _pos_hand + offset_trail
+			hand_node.position + hand_node.global_transform.basis * local_pos_hand + offset_trail
 		)
 
 		# Update hand positions list to maintain trail over time
