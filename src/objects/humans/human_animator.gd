@@ -4,10 +4,6 @@
 ## based on its global speed.
 extends Node3D
 
-#@onready var footstep_player = $AudioStreamPlayer3D
-@onready var anim_player = $AnimationPlayer
-@onready var old_position: Vector3 = Vector3(0, 0, 0)
-
 ## Configuration options
 
 ## True to keep the human oriented toward the player.
@@ -18,6 +14,10 @@ extends Node3D
 
 ## Distance from player at which the human start cheering
 @export var cheer_distance: float = 0.0
+
+#@onready var footstep_player = $AudioStreamPlayer3D
+@onready var anim_player = $AnimationPlayer
+@onready var old_position: Vector3 = Vector3(0, 0, 0)
 
 
 func _process(delta):
@@ -46,7 +46,9 @@ func _process(delta):
 			target_rotation_y -= 2 * PI
 		elif target_rotation_y - global_rotation.y < -PI:
 			target_rotation_y += 2 * PI
-		global_rotation.y = lerp(global_rotation.y, target_rotation_y, delta * 4) # Magical 4 that works well visually
+
+		# Magical 4 constant that works well visually
+		global_rotation.y = lerp(global_rotation.y, target_rotation_y, delta * 4)
 
 	# Set the correct animation
 	if (player_position - global_position).length() < cheer_distance:

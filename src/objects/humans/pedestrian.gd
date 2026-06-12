@@ -10,22 +10,21 @@ extends Node3D
 ## the navigation, and its Human children controls its appearance, including the animation.
 
 @export var walking_speed: float = 1.2
-var max_target_distance: float = 50  # meters
 
 ## The human to move
 @export var human: PackedScene
-var human_instance: Node3D
-
-@onready var navigation_agent: NavigationAgent3D = get_node("NavigationAgent3D")
-@onready var down_ray = get_node("RayCast3DDown")
 
 ## True to spawn on a random point when the map is ready
 @export var spawn_on_random_point: bool = false
 
+var human_instance: Node3D
+var max_target_distance: float = 50  # meters
+var physics_delta: float
+
 @onready var is_spawn_point_set: bool = false
 @onready var is_target_point_set: bool = false
-
-var physics_delta: float
+@onready var navigation_agent: NavigationAgent3D = get_node("NavigationAgent3D")
+@onready var down_ray = get_node("RayCast3DDown")
 
 
 ## Find a random point in the walkable environment
@@ -33,7 +32,11 @@ func find_random_point(distance: float) -> Vector3:
 	var map = navigation_agent.get_navigation_map()
 	#var random_point = NavigationServer3D.map_get_random_point(map, 1, true)
 	var random_point = NavigationServer3D.map_get_closest_point(
-		map, global_position + Vector3(randf_range(-distance, distance),0,randf_range(-distance,distance))
+		map,
+		(
+			global_position
+			+ Vector3(randf_range(-distance, distance), 0, randf_range(-distance, distance))
+		)
 	)
 	return random_point
 
@@ -66,7 +69,7 @@ func new_back_target():
 	var map = navigation_agent.get_navigation_map()
 	navigation_agent.set_target_position(NavigationServer3D.map_get_random_point(map, 1, true))
 	var forward = global_transform.basis.z.normalized()
-	var target = global_position + forward * -1.5 # Back by 1.5 meter
+	var target = global_position + forward * -1.5  # Back by 1.5 meter
 	navigation_agent.set_target_position(NavigationServer3D.map_get_closest_point(map, target))
 
 
@@ -80,14 +83,13 @@ func _ready() -> void:
 func _physics_process(delta):
 	# Save the delta for use in _on_velocity_computed.
 	physics_delta = delta
-	
+
 	if spawn_on_random_point and (not is_spawn_point_set):
 		move_to_random_point()
 		return
 	if not is_target_point_set:
 		target_new_random_point()
 		return
-
 
 	# Don't do anything when the map has never synchronized and is empty.
 	if NavigationServer3D.map_get_iteration_id(navigation_agent.get_navigation_map()) == 0:
@@ -96,7 +98,7 @@ func _physics_process(delta):
 	# Always be at ground level
 	if down_ray.is_colliding():
 		global_position.y = down_ray.get_collision_point().y
-	
+
 	if navigation_agent.is_navigation_finished():
 		target_new_random_point()
 		return
@@ -111,11 +113,15 @@ func _physics_process(delta):
 
 
 func _on_velocity_computed(safe_velocity: Vector3) -> void:
-	global_position = global_position.move_toward(global_position + safe_velocity, physics_delta * walking_speed)
+	global_position = global_position.move_toward(
+		global_position + safe_velocity, physics_delta * walking_speed
+	)
 	human_instance.current_velocity = safe_velocity
 
 
-func _on_area_3d_body_shape_entered(_body_rid: RID, body: Node3D, _body_shape_index: int, _local_shape_index: int) -> void:
+func _on_area_3d_body_shape_entered(
+	_body_rid: RID, _body: Node3D, _body_shape_index: int, _local_shape_index: int
+) -> void:
 	pass
 	#if body is not Surface:
-		#new_back_target()
+	#new_back_target()
