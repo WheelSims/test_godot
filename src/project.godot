@@ -42,10 +42,6 @@ window/dpi/allow_hidpi=false
 
 naming/script_name_casing=2
 
-[editor_plugins]
-
-enabled=PackedStringArray("res://addons/gdquest_gdscript_formatter/plugin.cfg")
-
 [global_group]
 
 NPC=""
