@@ -37,20 +37,20 @@ func _process(_delta):
 
 		# Get forearm cluster and simulator reference nodes from OptiTrack by their IDs
 		if Globals.main:
-			node_forearm_cluster = Globals.main.get_node("optitrack").get_node_by_id(
+			node_forearm_cluster = Globals.main.get_node("Optitrack").get_node_by_id(
 				id_forearm_cluster
 			)
-			node_simulator_reference = Globals.main.get_node("optitrack").get_node_by_id(
+			node_simulator_reference = Globals.main.get_node("Optitrack").get_node_by_id(
 				id_simulator_reference
 			)
 		else:  # If overlay scene runs standalone (outside Globals.main)
-			node_forearm_cluster = get_tree().current_scene.get_node("optitrack").get_node_by_id(
+			node_forearm_cluster = get_tree().current_scene.get_node("Optitrack").get_node_by_id(
 				id_forearm_cluster
 			)
 			node_simulator_reference = (
 				get_tree()
 				. current_scene
-				. get_node("optitrack")
+				. get_node("Optitrack")
 				. get_node_by_id(id_simulator_reference)
 			)
 

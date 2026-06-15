@@ -55,6 +55,7 @@ var window
 func _ready() -> void:
 	# Create an isolated World3D so this SubViewport scene is not rendered in the Globals.main viewport
 	var world = World3D.new()
+	current_scene_3d = $current_scene_3D
 	current_scene_3d.world_3d = world
 
 	# Share the same World3D across all SubViewports so it is only rendered through UI overlays
