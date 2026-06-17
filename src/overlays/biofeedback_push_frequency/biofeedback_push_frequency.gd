@@ -40,7 +40,9 @@ func _process(_delta) -> void:
 		if Globals.main.get_node("PythonBridge")._udp_receiver_connected and not connected:
 			connected = true
 			_update_arg()
-			Globals.main.get_node("PythonBridge").send("biofeedback_update", biofeedback_args, "start")
+			Globals.main.get_node("PythonBridge").send(
+				"biofeedback_update", biofeedback_args, "start"
+			)
 	# Reset the connected flag if the python bridge is disconnected
 	else:
 		if connected:

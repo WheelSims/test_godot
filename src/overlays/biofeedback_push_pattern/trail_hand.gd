@@ -11,7 +11,7 @@ extends MultiMeshInstance3D
 @export_enum("left", "right") var side: String
 
 # Nodes
-@export var  node_forearm_cluster_left: Node
+@export var node_forearm_cluster_left: Node
 @export var node_forearm_cluster_right: Node
 
 # Trail rendering parameters

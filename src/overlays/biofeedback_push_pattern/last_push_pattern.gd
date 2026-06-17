@@ -57,9 +57,7 @@ func _process(_delta: float) -> void:
 	if connected:
 		visible = true
 		if Globals.main.has_node("PythonBridge"):
-			var data = Globals.main.get_node("PythonBridge").receive(
-				last_push_pattern + "_" + side
-			)
+			var data = Globals.main.get_node("PythonBridge").receive(last_push_pattern + "_" + side)
 
 			if data is Dictionary and data.has("data") and data["data"].size() > 0:
 				if data["command"] == "biofeedback_update":
