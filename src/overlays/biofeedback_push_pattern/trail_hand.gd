@@ -10,6 +10,10 @@ extends MultiMeshInstance3D
 # Selected side of the wheelchair (left or right)
 @export_enum("left", "right") var side: String
 
+# Nodes
+@export var  node_forearm_cluster_left: Node
+@export var node_forearm_cluster_right: Node
+
 # Trail rendering parameters
 var frame_limit = 100
 var trail_size = 0.15
@@ -49,7 +53,7 @@ func _process(_delta):
 		)
 
 		# Transform hand position to world space and apply trail offset
-		var hand_node = $"..".get_node(node_hand_key)
+		var hand_node = node_hand_key
 		var pos_hand = (
 			hand_node.position + hand_node.global_transform.basis * local_pos_hand + offset_trail
 		)
@@ -76,12 +80,12 @@ func _apply_side():
 		offset_trail = Vector3(0, 0, -0.05)
 		layer = 1 << 5
 		coordinates_hand = "coordinates.left_hand"
-		node_hand_key = "forearm_cluster_left"
+		node_hand_key = node_forearm_cluster_left
 	elif side == "right":
 		offset_trail = Vector3(0, 0, 0.05)
 		layer = 1 << 6
 		coordinates_hand = "coordinates.right_hand"
-		node_hand_key = "forearm_cluster_right"
+		node_hand_key = node_forearm_cluster_right
 
 
 # Initialize a MultiMesh instance used to render the trail

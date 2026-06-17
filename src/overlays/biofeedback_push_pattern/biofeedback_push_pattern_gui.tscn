@@ -35,7 +35,7 @@ corner_radius_bottom_left = 10
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_t73oe"]
 
-[node name="Control" type="Control" unique_id=299987078 node_paths=PackedStringArray("node_aimings_list", "node_aiming_button")]
+[node name="BiofeedbackPushPatternGUI" type="Control" unique_id=299987078 node_paths=PackedStringArray("node_aimings_list", "node_aiming_button")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -43,10 +43,10 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_tlu87")
-node_aimings_list = NodePath("main_panel/margin_container/main_vbox_container/aimings_panel/ScrollContainer/aimings_list")
-node_aiming_button = NodePath("main_panel/margin_container/main_vbox_container/aiming_button")
+node_aimings_list = NodePath("MainPanel/MarginContainer/MainVboxContainer/AaimingsPanel/ScrollContainer/AimingsList")
+node_aiming_button = NodePath("MainPanel/MarginContainer/MainVboxContainer/AimingButton")
 
-[node name="main_panel" type="ColorRect" parent="." unique_id=1714153704]
+[node name="MainPanel" type="ColorRect" parent="." unique_id=1714153704]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -59,7 +59,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.592157, 0.592157, 0.592157, 1)
 
-[node name="margin_container" type="MarginContainer" parent="main_panel" unique_id=1722728904]
+[node name="MarginContainer" type="MarginContainer" parent="MainPanel" unique_id=1722728904]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -72,35 +72,35 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="main_vbox_container" type="VBoxContainer" parent="main_panel/margin_container" unique_id=1206753184]
+[node name="MainVboxContainer" type="VBoxContainer" parent="MainPanel/MarginContainer" unique_id=1206753184]
 layout_mode = 2
 
-[node name="aimings_panel" type="VBoxContainer" parent="main_panel/margin_container/main_vbox_container" unique_id=1527992556]
+[node name="AaimingsPanel" type="VBoxContainer" parent="MainPanel/MarginContainer/MainVboxContainer" unique_id=1527992556]
 layout_mode = 2
 
-[node name="aimings_title" type="Label" parent="main_panel/margin_container/main_vbox_container/aimings_panel" unique_id=192357864]
+[node name="AimingsTitle" type="Label" parent="MainPanel/MarginContainer/MainVboxContainer/AaimingsPanel" unique_id=192357864]
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_rspjr")
 text = "Settings"
 horizontal_alignment = 1
 
-[node name="ScrollContainer" type="ScrollContainer" parent="main_panel/margin_container/main_vbox_container/aimings_panel" unique_id=1479382086]
+[node name="ScrollContainer" type="ScrollContainer" parent="MainPanel/MarginContainer/MainVboxContainer/AaimingsPanel" unique_id=1479382086]
 custom_minimum_size = Vector2(250, 500)
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_2evn0")
 
-[node name="aimings_list" type="VBoxContainer" parent="main_panel/margin_container/main_vbox_container/aimings_panel/ScrollContainer" unique_id=1288809257]
+[node name="AimingsList" type="VBoxContainer" parent="MainPanel/MarginContainer/MainVboxContainer/AaimingsPanel/ScrollContainer" unique_id=1288809257]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="ColorRect" type="ColorRect" parent="main_panel/margin_container/main_vbox_container" unique_id=457011860]
+[node name="ColorRect" type="ColorRect" parent="MainPanel/MarginContainer/MainVboxContainer" unique_id=457011860]
 custom_minimum_size = Vector2(0, 5)
 layout_mode = 2
 color = Color(0, 0, 0, 1)
 
-[node name="aiming_button" type="Button" parent="main_panel/margin_container/main_vbox_container" unique_id=509315680]
+[node name="AimingButton" type="Button" parent="MainPanel/MarginContainer/MainVboxContainer" unique_id=509315680]
 layout_mode = 2
 size_flags_vertical = 10
 theme_override_font_sizes/font_size = 40
