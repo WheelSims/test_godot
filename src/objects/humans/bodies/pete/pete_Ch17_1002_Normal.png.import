@@ -2,15 +2,12 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://decneadotgdog"
+uid="uid://cyuxhf6b5su1o"
 path.s3tc="res://.godot/imported/pete_Ch17_1002_Normal.png-9c8df371717f2af2000a7c79bcd125d5.s3tc.ctex"
 path.etc2="res://.godot/imported/pete_Ch17_1002_Normal.png-9c8df371717f2af2000a7c79bcd125d5.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
-}
-generator_parameters={
-"md5": "092df458b8028c81c58a3b21962d5f5b"
 }
 
 [deps]
