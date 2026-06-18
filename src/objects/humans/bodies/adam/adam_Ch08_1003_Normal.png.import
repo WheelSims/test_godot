@@ -2,15 +2,12 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://br0useee6r7tl"
+uid="uid://ig8bsowe7rft"
 path.s3tc="res://.godot/imported/adam_Ch08_1003_Normal.png-9137bd9350ce297b11f95f4c3a2840ee.s3tc.ctex"
 path.etc2="res://.godot/imported/adam_Ch08_1003_Normal.png-9137bd9350ce297b11f95f4c3a2840ee.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
-}
-generator_parameters={
-"md5": "de149df154be791a994130edb102549f"
 }
 
 [deps]
@@ -30,8 +27,8 @@ compress/normal_map=1
 compress/channel_pack=0
 mipmaps/generate=true
 mipmaps/limit=-1
-roughness/mode=1
-roughness/src_normal="res://objects/humans/bodies/adam/adam_Ch08_1003_Normal.png"
+roughness/mode=0
+roughness/src_normal=""
 process/channel_remap/red=0
 process/channel_remap/green=1
 process/channel_remap/blue=2
