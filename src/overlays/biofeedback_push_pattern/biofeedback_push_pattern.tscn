@@ -39,7 +39,7 @@ viewport_path = NodePath("ViewRight1")
 [sub_resource type="ViewportTexture" id="ViewportTexture_ilqvj"]
 viewport_path = NodePath("ViewRight2")
 
-[node name="BiofeedbackPushPattern" type="Node2D" unique_id=2135710720 node_paths=PackedStringArray("node_wheel_left", "node_wheel_right", "node_angle_start_contact_left", "node_angle_start_contact_right", "node_angle_end_contact_left", "node_angle_end_contact_right", "node_handrim_left", "node_handrim_right", "current_scene_3d", "view_left_1", "view_left_2", "view_right_1", "view_right_2")]
+[node name="BiofeedbackPushPattern" type="Node2D" unique_id=2135710720 node_paths=PackedStringArray("node_wheel_left", "node_wheel_right", "node_angle_start_contact_left", "node_angle_start_contact_right", "node_angle_end_contact_left", "node_angle_end_contact_right", "node_handrim_left", "node_handrim_right", "current_scene_3d", "view_left_1", "view_left_2", "view_right_1", "view_right_2", "node_push_pattern_label")]
 script = ExtResource("1_j7inm")
 node_wheel_left = NodePath("CurrentScene3D/WheelLeft")
 node_wheel_right = NodePath("CurrentScene3D/WheelRight")
@@ -54,7 +54,21 @@ view_left_1 = NodePath("ViewLeft1")
 view_left_2 = NodePath("ViewLeft2")
 view_right_1 = NodePath("ViewRight1")
 view_right_2 = NodePath("ViewRight2")
+node_push_pattern_label = NodePath("LabelPushPattern")
 gui_scene = ExtResource("2_jxkd3")
+
+[node name="LabelPushPattern" type="Label" parent="." unique_id=1078882913]
+offset_left = 348.0
+offset_top = 487.0
+offset_right = 817.0
+offset_bottom = 515.0
+pivot_offset_ratio = Vector2(0.5, 0.5)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 20
+text = "Push Pattern"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="OverlayFrame" type="PanelContainer" parent="." unique_id=1522539722]
 offset_left = 320.0

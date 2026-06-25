@@ -7,6 +7,7 @@ extends Node2D
 # - controls visibility of wheels, handrims, contact angles, and trails
 # - provides an always-on-top GUI window for aiming calibration
 # - spawns OptiTrack scene when running standalone (outside Globals.main scene)
+# - updates the push pattern label based on propulsive cycle detection from the Python biofeedback script
 # ---------------------------------------------------------------------- #
 
 # Nodes
@@ -23,6 +24,7 @@ extends Node2D
 @export var view_left_2: Node
 @export var view_right_1: Node
 @export var view_right_2: Node
+@export var node_push_pattern_label: Node
 
 # Scenes
 @export var gui_scene: PackedScene
@@ -43,6 +45,9 @@ extends Node2D
 var position_wheel_l
 var position_wheel_r
 var radius_wheel
+
+# Tweens
+var push_pattern_tween: Tween
 
 # Distances between left and right wheel centers
 var anteroposterior_length
@@ -73,6 +78,7 @@ func _ready() -> void:
 
 func _process(_delta):
 	update_wheelchair()
+	update_push_pattern_label()
 
 	if not Config.get_value("overlays.biofeedback_push_pattern.enabled"):
 		queue_free()
@@ -142,6 +148,27 @@ func window_user():
 	window.add_child(scene)
 
 	add_child(window)
+
+# Update the push pattern label when the Python biofeedback script detects a propulsive cycle
+func update_push_pattern_label():
+	if Globals.main.has_node("PythonBridge"):
+		var data = Globals.main.get_node("PythonBridge").receive("push_pattern_label")
+		
+		if data is Dictionary and data.has("data") and data["data"].size() > 0:
+			if data["command"] == "biofeedback_update":
+				var side = data["data"].keys()[0]
+				if data["data"][side].has("label_push_pattern") and side == "right":
+
+					node_push_pattern_label.text = data["data"][side]["label_push_pattern"]
+					
+					if push_pattern_tween:
+						push_pattern_tween.kill()
+					node_push_pattern_label.scale = Vector2.ZERO
+
+					push_pattern_tween = create_tween()
+					push_pattern_tween.tween_property(node_push_pattern_label, "scale", Vector2.ONE, 0.1)
+	else:
+		node_push_pattern_label.text = ""
 
 
 # Close the window gui when the node exits the scene tree
