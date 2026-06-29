@@ -2,9 +2,9 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://wacfloxc8is"
-path.bptc="res://.godot/imported/daytime.hdr-da89829a91af62a52399e6fcd7627c0e.bptc.ctex"
-path.astc="res://.godot/imported/daytime.hdr-da89829a91af62a52399e6fcd7627c0e.astc.ctex"
+uid="uid://bin0r5ay2ix4g"
+path.bptc="res://.godot/imported/desert_sunset.hdr-addb7491bc740ac32d3365a681352f6f.bptc.ctex"
+path.astc="res://.godot/imported/desert_sunset.hdr-addb7491bc740ac32d3365a681352f6f.astc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -12,8 +12,8 @@ metadata={
 
 [deps]
 
-source_file="res://hdr/daytime.hdr"
-dest_files=["res://.godot/imported/daytime.hdr-da89829a91af62a52399e6fcd7627c0e.bptc.ctex", "res://.godot/imported/daytime.hdr-da89829a91af62a52399e6fcd7627c0e.astc.ctex"]
+source_file="res://environments/desert_sunset.hdr"
+dest_files=["res://.godot/imported/desert_sunset.hdr-addb7491bc740ac32d3365a681352f6f.bptc.ctex", "res://.godot/imported/desert_sunset.hdr-addb7491bc740ac32d3365a681352f6f.astc.ctex"]
 
 [params]
 

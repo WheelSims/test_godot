@@ -1,25 +1,11 @@
 [gd_scene format=3 uid="uid://y2xjjvq3l33t"]
 
-[ext_resource type="Texture2D" uid="uid://wacfloxc8is" path="res://hdr/daytime.hdr" id="1_ulqxt"]
+[ext_resource type="Environment" uid="uid://c680007dvsdyh" path="res://environments/park_environment.tres" id="1_y2rn1"]
 [ext_resource type="AudioStream" uid="uid://dtypt0blh485n" path="res://sounds/sounds/ambiance_sounds/Forest-ambiance.wav" id="2_y2rn1"]
 [ext_resource type="PackedScene" uid="uid://cbbeubx8d0is6" path="res://maps/park/fbx/park_terrain.fbx" id="3_k13oj"]
 [ext_resource type="Script" uid="uid://2hkv7n6et5rm" path="res://maps/surface.gd" id="4_drxe4"]
 [ext_resource type="Material" uid="uid://dsb486mw6ekc4" path="res://maps/park/textures/lake_material.tres" id="4_y2rn1"]
 [ext_resource type="PackedScene" uid="uid://b74nqh5tcg66o" path="res://objects/park/trees/tree.tscn" id="5_gp6ms"]
-
-[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_u6pll"]
-panorama = ExtResource("1_ulqxt")
-
-[sub_resource type="Sky" id="Sky_jka67"]
-sky_material = SubResource("PanoramaSkyMaterial_u6pll")
-
-[sub_resource type="Environment" id="Environment_18346"]
-background_mode = 2
-sky = SubResource("Sky_jka67")
-ambient_light_color = Color(0.733333, 0.854902, 0.909804, 1)
-ambient_light_sky_contribution = 0.0
-reflected_light_source = 2
-ssr_enabled = true
 
 [sub_resource type="GDScript" id="GDScript_t8rdd"]
 resource_name = "follow_player"
@@ -54,8 +40,8 @@ data = PackedVector3Array(148.204, 0, 2.0421, 149.9567, 0, -1.9944999, 152.0388,
 
 [node name="Park" type="Node3D" unique_id=1293663137]
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1678307867]
-environment = SubResource("Environment_18346")
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=604444173]
+environment = ExtResource("1_y2rn1")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=805047679]
 transform = Transform3D(1, 0, 0, 0, -0.728969, 0.684547, 0, -0.684547, -0.728969, 0, -2.50862, 0)
