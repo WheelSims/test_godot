@@ -427,6 +427,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 4.65661e-10, 1, 0, 0.00484802, 1.38
 
 [node name="CloseTrigger" type="Area3D" parent="Triggers" unique_id=79867854]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 6.98492e-10, 1, 0, 0.526809, 3.77667)
+collision_mask = 3
 monitorable = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Triggers/CloseTrigger" unique_id=687805232]
@@ -435,6 +436,7 @@ shape = SubResource("CapsuleShape3D_asns1")
 
 [node name="FrontTrigger" type="Area3D" parent="Triggers" unique_id=793818730]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 4.65661e-10, 1, 0, 0.00334207, 5.64893)
+collision_mask = 3
 monitorable = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Triggers/FrontTrigger" unique_id=1191299600]
@@ -442,6 +444,7 @@ shape = SubResource("SphereShape3D_slanq")
 
 [node name="FarTrigger" type="Area3D" parent="Triggers" unique_id=576784727]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 9.31323e-10, 1, 0, 0.632592, 9.1886)
+collision_mask = 3
 monitorable = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Triggers/FarTrigger" unique_id=1214140440]
@@ -470,6 +473,14 @@ hit_back_faces = false
 
 [node name="RayCast3DUp" type="RayCast3D" parent="Raycasts" unique_id=156909765]
 target_position = Vector3(0, 3, 0)
+
+[node name="NavigationObstacle3DRear" type="NavigationObstacle3D" parent="." unique_id=1259647371]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+radius = 2.0
+
+[node name="NavigationObstacle3DFront" type="NavigationObstacle3D" parent="." unique_id=1531231757]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 4.656613e-10, 1, 0, 0.6, 2.838)
+radius = 2.0
 
 [connection signal="ready" from="." to="." method="_on_ready"]
 [connection signal="area_entered" from="Triggers/CloseTrigger" to="." method="_on_close_trigger_area_entered"]
