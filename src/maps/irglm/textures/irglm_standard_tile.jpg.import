@@ -2,9 +2,9 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dwttok4umlesq"
-path.s3tc="res://.godot/imported/irglm_speckle_floor.jpg-78e427e6eaa45eb28d11881bb92f575d.s3tc.ctex"
-path.etc2="res://.godot/imported/irglm_speckle_floor.jpg-78e427e6eaa45eb28d11881bb92f575d.etc2.ctex"
+uid="uid://chu3chwrk3t6i"
+path.s3tc="res://.godot/imported/irglm_standard_tile.jpg-968910b422f934c928d34c5b8618e0d7.s3tc.ctex"
+path.etc2="res://.godot/imported/irglm_standard_tile.jpg-968910b422f934c928d34c5b8618e0d7.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -12,8 +12,8 @@ metadata={
 
 [deps]
 
-source_file="res://terrain/irglm/textures/irglm_speckle_floor.jpg"
-dest_files=["res://.godot/imported/irglm_speckle_floor.jpg-78e427e6eaa45eb28d11881bb92f575d.s3tc.ctex", "res://.godot/imported/irglm_speckle_floor.jpg-78e427e6eaa45eb28d11881bb92f575d.etc2.ctex"]
+source_file="res://maps/irglm/textures/irglm_standard_tile.jpg"
+dest_files=["res://.godot/imported/irglm_standard_tile.jpg-968910b422f934c928d34c5b8618e0d7.s3tc.ctex", "res://.godot/imported/irglm_standard_tile.jpg-968910b422f934c928d34c5b8618e0d7.etc2.ctex"]
 
 [params]
 

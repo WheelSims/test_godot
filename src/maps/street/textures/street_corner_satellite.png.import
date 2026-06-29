@@ -2,9 +2,9 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://sxyin17738f3"
-path.s3tc="res://.godot/imported/irglm_blue_tile.jpg-062f26c874d6ee66c332d03e4f5a2aef.s3tc.ctex"
-path.etc2="res://.godot/imported/irglm_blue_tile.jpg-062f26c874d6ee66c332d03e4f5a2aef.etc2.ctex"
+uid="uid://bv8rrhmdm7ex3"
+path.s3tc="res://.godot/imported/street_corner_satellite.png-590cfba06eb0ec6e432200a3cb37fdc7.s3tc.ctex"
+path.etc2="res://.godot/imported/street_corner_satellite.png-590cfba06eb0ec6e432200a3cb37fdc7.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -12,8 +12,8 @@ metadata={
 
 [deps]
 
-source_file="res://terrain/irglm/textures/irglm_blue_tile.jpg"
-dest_files=["res://.godot/imported/irglm_blue_tile.jpg-062f26c874d6ee66c332d03e4f5a2aef.s3tc.ctex", "res://.godot/imported/irglm_blue_tile.jpg-062f26c874d6ee66c332d03e4f5a2aef.etc2.ctex"]
+source_file="res://maps/street/textures/street_corner_satellite.png"
+dest_files=["res://.godot/imported/street_corner_satellite.png-590cfba06eb0ec6e432200a3cb37fdc7.s3tc.ctex", "res://.godot/imported/street_corner_satellite.png-590cfba06eb0ec6e432200a3cb37fdc7.etc2.ctex"]
 
 [params]
 

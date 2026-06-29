@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://1716xjs4fnvc"
-path="res://.godot/imported/irglm_4th_floor_terrain.fbx-d88e0b76ef59746eda74792f42d37314.scn"
+uid="uid://bssijdqwp20uf"
+path="res://.godot/imported/street_corner.fbx-2fc0c7ebd99f2875b045388045b1fb45.scn"
 
 [deps]
 
-source_file="res://terrain/irglm/fbx/irglm_4th_floor_terrain.fbx"
-dest_files=["res://.godot/imported/irglm_4th_floor_terrain.fbx-d88e0b76ef59746eda74792f42d37314.scn"]
+source_file="res://maps/street/fbx/street_corner.fbx"
+dest_files=["res://.godot/imported/street_corner.fbx-2fc0c7ebd99f2875b045388045b1fb45.scn"]
 
 [params]
 

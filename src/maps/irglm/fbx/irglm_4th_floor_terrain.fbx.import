@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://cu75jpvltwdam"
-path="res://.godot/imported/irglm_lindsay_ramp_terrain.fbx-4c27f6eb7676e3066271370f46f46396.scn"
+uid="uid://1716xjs4fnvc"
+path="res://.godot/imported/irglm_4th_floor_terrain.fbx-1dbffe477296e9cbcdb1598ebf407cde.scn"
 
 [deps]
 
-source_file="res://terrain/irglm/fbx/irglm_lindsay_ramp_terrain.fbx"
-dest_files=["res://.godot/imported/irglm_lindsay_ramp_terrain.fbx-4c27f6eb7676e3066271370f46f46396.scn"]
+source_file="res://maps/irglm/fbx/irglm_4th_floor_terrain.fbx"
+dest_files=["res://.godot/imported/irglm_4th_floor_terrain.fbx-1dbffe477296e9cbcdb1598ebf407cde.scn"]
 
 [params]
 

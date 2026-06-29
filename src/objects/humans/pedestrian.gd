@@ -123,4 +123,5 @@ func _on_velocity_computed(safe_velocity: Vector3) -> void:
 
 
 func _on_area_3d_body_shape_entered(body_rid: RID, body: Node3D, body_shape_index: int, local_shape_index: int) -> void:
-	target_new_random_point()
+	pass
+	#target_new_random_point()

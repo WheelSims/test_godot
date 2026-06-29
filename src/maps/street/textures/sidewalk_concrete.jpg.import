@@ -2,9 +2,9 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bv8rrhmdm7ex3"
-path.s3tc="res://.godot/imported/street_corner_satellite.png-ea56b830b77ba42de3e81e3a163c064c.s3tc.ctex"
-path.etc2="res://.godot/imported/street_corner_satellite.png-ea56b830b77ba42de3e81e3a163c064c.etc2.ctex"
+uid="uid://756tjh6q7kl4"
+path.s3tc="res://.godot/imported/sidewalk_concrete.jpg-d8482d24b5e703723877a8a85f0af0df.s3tc.ctex"
+path.etc2="res://.godot/imported/sidewalk_concrete.jpg-d8482d24b5e703723877a8a85f0af0df.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -12,8 +12,8 @@ metadata={
 
 [deps]
 
-source_file="res://terrain/street_corner/textures/street_corner_satellite.png"
-dest_files=["res://.godot/imported/street_corner_satellite.png-ea56b830b77ba42de3e81e3a163c064c.s3tc.ctex", "res://.godot/imported/street_corner_satellite.png-ea56b830b77ba42de3e81e3a163c064c.etc2.ctex"]
+source_file="res://maps/street/textures/sidewalk_concrete.jpg"
+dest_files=["res://.godot/imported/sidewalk_concrete.jpg-d8482d24b5e703723877a8a85f0af0df.s3tc.ctex", "res://.godot/imported/sidewalk_concrete.jpg-d8482d24b5e703723877a8a85f0af0df.etc2.ctex"]
 
 [params]
 
