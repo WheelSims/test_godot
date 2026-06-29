@@ -2,9 +2,9 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://wacfloxc8is"
-path.bptc="res://.godot/imported/daytime.hdr-75d3cdf099b4fc6682f13894609955da.bptc.ctex"
-path.astc="res://.godot/imported/daytime.hdr-75d3cdf099b4fc6682f13894609955da.astc.ctex"
+uid="uid://b065s0d5i4spf"
+path.s3tc="res://.godot/imported/grass.jpg-9fd4ccc80b131d2811e3f7285a6d5c41.s3tc.ctex"
+path.etc2="res://.godot/imported/grass.jpg-9fd4ccc80b131d2811e3f7285a6d5c41.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -12,8 +12,8 @@ metadata={
 
 [deps]
 
-source_file="res://environments/hdr/daytime.hdr"
-dest_files=["res://.godot/imported/daytime.hdr-75d3cdf099b4fc6682f13894609955da.bptc.ctex", "res://.godot/imported/daytime.hdr-75d3cdf099b4fc6682f13894609955da.astc.ctex"]
+source_file="res://maps/park/textures/grass.jpg"
+dest_files=["res://.godot/imported/grass.jpg-9fd4ccc80b131d2811e3f7285a6d5c41.s3tc.ctex", "res://.godot/imported/grass.jpg-9fd4ccc80b131d2811e3f7285a6d5c41.etc2.ctex"]
 
 [params]
 

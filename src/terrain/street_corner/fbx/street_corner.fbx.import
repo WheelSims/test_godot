@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://bssijdqwp20uf"
-path="res://.godot/imported/street_corner_terrain.fbx-5138ccb298b047f8b37312574812f05b.scn"
+path="res://.godot/imported/street_corner.fbx-cf0bcde4c76a44d7b4e208e447054b04.scn"
 
 [deps]
 
-source_file="res://terrain/street_corner/fbx/street_corner_terrain.fbx"
-dest_files=["res://.godot/imported/street_corner_terrain.fbx-5138ccb298b047f8b37312574812f05b.scn"]
+source_file="res://terrain/street_corner/fbx/street_corner.fbx"
+dest_files=["res://.godot/imported/street_corner.fbx-cf0bcde4c76a44d7b4e208e447054b04.scn"]
 
 [params]
 

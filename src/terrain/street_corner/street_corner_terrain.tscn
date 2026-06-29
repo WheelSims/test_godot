@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bj7d4aocvbm0e"]
 
-[ext_resource type="PackedScene" uid="uid://bssijdqwp20uf" path="res://terrain/street_corner/fbx/street_corner_terrain.fbx" id="1_6tlvq"]
+[ext_resource type="PackedScene" uid="uid://bssijdqwp20uf" path="res://terrain/street_corner/fbx/street_corner.fbx" id="1_6tlvq"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_b8aw5"]
 vertices = PackedVector3Array(-0.01, 0.01, -0.00038751672, 0.01, 0.01, -0.00011045618, 0.01, -0.01, -0.00025443186, -0.01, -0.01, -0.00070728036)

@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bc8dr0hobakjf"]
 
-[ext_resource type="Texture2D" uid="uid://wacfloxc8is" path="res://environments/hdr/daytime.hdr" id="1_knb7q"]
+[ext_resource type="Texture2D" uid="uid://wacfloxc8is" path="res://hdr/daytime.hdr" id="1_knb7q"]
 [ext_resource type="PackedScene" uid="uid://c5v6smulookil" path="res://terrain/irglm/irglm_lindsay_ramp_terrain.tscn" id="2_ukht8"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_ty60g"]

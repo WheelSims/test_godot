@@ -2,9 +2,9 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b065s0d5i4spf"
-path.s3tc="res://.godot/imported/grass.jpg-67df6f2757baa9084b5b725dd292f00c.s3tc.ctex"
-path.etc2="res://.godot/imported/grass.jpg-67df6f2757baa9084b5b725dd292f00c.etc2.ctex"
+uid="uid://bin0r5ay2ix4g"
+path.bptc="res://.godot/imported/desert_sunset.hdr-97cce7e86bd7455a62d2d1197fd9bde4.bptc.ctex"
+path.astc="res://.godot/imported/desert_sunset.hdr-97cce7e86bd7455a62d2d1197fd9bde4.astc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -12,8 +12,8 @@ metadata={
 
 [deps]
 
-source_file="res://terrain/park/textures/grass.jpg"
-dest_files=["res://.godot/imported/grass.jpg-67df6f2757baa9084b5b725dd292f00c.s3tc.ctex", "res://.godot/imported/grass.jpg-67df6f2757baa9084b5b725dd292f00c.etc2.ctex"]
+source_file="res://hdr/desert_sunset.hdr"
+dest_files=["res://.godot/imported/desert_sunset.hdr-97cce7e86bd7455a62d2d1197fd9bde4.bptc.ctex", "res://.godot/imported/desert_sunset.hdr-97cce7e86bd7455a62d2d1197fd9bde4.astc.ctex"]
 
 [params]
 
