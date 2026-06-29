@@ -13,6 +13,7 @@ script = ExtResource("1_22h6g")
 human = ExtResource("2_doerx")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=660828760]
+path_max_distance = 3.01
 avoidance_enabled = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=463023942]
@@ -22,11 +23,11 @@ skeleton = NodePath("../NavigationAgent3D")
 
 [node name="RayCast3DDown" type="RayCast3D" parent="." unique_id=1887479667]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
-target_position = Vector3(0, -5, 0)
-collision_mask = 15
+target_position = Vector3(0, -10, 0)
 hit_back_faces = false
 
 [node name="Area3D" type="Area3D" parent="." unique_id=1594256918]
+collision_layer = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=768523316]
 shape = SubResource("SphereShape3D_22h6g")

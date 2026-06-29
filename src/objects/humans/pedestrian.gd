@@ -9,6 +9,8 @@ extends Node3D
 ## (e.g., brian.tscn, kate.tscn) as a children of the Pedestrian node. The Pedestrian node controls
 ## the navigation, and its Human children controls its appearance, including the animation.
 
+const NAVIGATION_MESH_MERGE_DISTANCE = 1.5
+
 @export var walking_speed: float = 1.2
 
 ## The human to move
@@ -30,6 +32,7 @@ var physics_delta: float
 ## Find a random point in the walkable environment
 func find_random_point(distance: float) -> Vector3:
 	var map = navigation_agent.get_navigation_map()
+	NavigationServer3D.map_set_edge_connection_margin(map, NAVIGATION_MESH_MERGE_DISTANCE)
 	#var random_point = NavigationServer3D.map_get_random_point(map, 1, true)
 	var random_point = NavigationServer3D.map_get_closest_point(
 		map,
@@ -97,7 +100,7 @@ func _physics_process(delta):
 
 	# Always be at ground level
 	if down_ray.is_colliding():
-		global_position.y = down_ray.get_collision_point().y
+		global_position.y += 0.1 * (down_ray.get_collision_point().y - global_position.y)
 
 	if navigation_agent.is_navigation_finished():
 		target_new_random_point()
@@ -119,9 +122,5 @@ func _on_velocity_computed(safe_velocity: Vector3) -> void:
 	human_instance.current_velocity = safe_velocity
 
 
-func _on_area_3d_body_shape_entered(
-	_body_rid: RID, _body: Node3D, _body_shape_index: int, _local_shape_index: int
-) -> void:
-	pass
-	#if body is not Surface:
-	#new_back_target()
+func _on_area_3d_body_shape_entered(body_rid: RID, body: Node3D, body_shape_index: int, local_shape_index: int) -> void:
+	target_new_random_point()
