@@ -120,8 +120,3 @@ func _on_velocity_computed(safe_velocity: Vector3) -> void:
 		global_position + safe_velocity, physics_delta * walking_speed
 	)
 	human_instance.current_velocity = safe_velocity
-
-
-func _on_area_3d_body_shape_entered(body_rid: RID, body: Node3D, body_shape_index: int, local_shape_index: int) -> void:
-	pass
-	#target_new_random_point()
