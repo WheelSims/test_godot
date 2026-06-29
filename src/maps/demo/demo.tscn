@@ -4,8 +4,6 @@
 [ext_resource type="Environment" uid="uid://c680007dvsdyh" path="res://environments/park_environment.tres" id="1_xf3il"]
 [ext_resource type="Script" uid="uid://2hkv7n6et5rm" path="res://maps/surface.gd" id="3_s6mpr"]
 [ext_resource type="PackedScene" uid="uid://b74nqh5tcg66o" path="res://objects/park/trees/tree.tscn" id="4_s6mpr"]
-[ext_resource type="PackedScene" uid="uid://biluq7vv8ghsm" path="res://player/player.tscn" id="5_0fd6h"]
-[ext_resource type="PackedScene" uid="uid://xeue51xacbv4" path="res://objects/humans/pedestrian_generator.tscn" id="6_tcg83"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_bmmoc"]
 vertices = PackedVector3Array(2.0552893, 1.3338891, -12.379997, 2.5552893, 1.5838891, -12.379997, 2.5552893, 1.3338891, -13.129997, 2.0552893, 0.8338891, -25.629997, 6.8052893, 1.5838891, -13.129997, 6.8052893, 1.5838891, -12.379997, 9.305289, 1.5838891, -12.379997, 5.5552893, 1.5838891, -14.379997, 9.305289, 0.8338891, -25.629997, 3.5552893, 1.3338891, -14.379997, 2.5552893, 1.5838891, -11.379997, 2.0552893, 0.8338891, 9.370003, 2.0552893, 1.5838891, -5.1299973, 6.5552893, 1.5838891, -11.129997, 5.8052893, 1.5838891, -10.379997, 9.305289, 0.8338891, 9.370003, 7.0552893, 1.5838891, -3.3264256, 4.0552893, 1.5838891, -10.129997, 3.3410034, 1.5838891, -3.1657104)
@@ -94,8 +92,3 @@ script = ExtResource("3_s6mpr")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="OtherStaticBodies/StaticBodyGrassForbidden" unique_id=1429667987]
 shape = SubResource("ConcavePolygonShape3D_841u7")
-
-[node name="Player" parent="." unique_id=993534235 instance=ExtResource("5_0fd6h")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 1.2854179, -1)
-
-[node name="PedestrianGenerator" parent="." unique_id=1740765578 instance=ExtResource("6_tcg83")]
