@@ -46,7 +46,7 @@ func reset_light() -> void:
 
 
 func update_counter(value: float) -> void:
-	counter_mesh.mesh.text = str(ceil(value))
+	counter_mesh.mesh.text = str(int(value))
 
 
 func _on_blink() -> void:
