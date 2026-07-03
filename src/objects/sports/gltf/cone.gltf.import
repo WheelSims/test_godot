@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://b0fljfcapyrp3"
-path="res://.godot/imported/demo_terrain.fbx-42f63b47ffa008b0e1eff7bf5ff515e3.scn"
+uid="uid://bqtkjcxhyhb24"
+path="res://.godot/imported/cone.gltf-ba90aa1a849ab019d99527c3f6f89fe2.scn"
 
 [deps]
 
-source_file="res://maps/demo/demo_terrain.fbx"
-dest_files=["res://.godot/imported/demo_terrain.fbx-42f63b47ffa008b0e1eff7bf5ff515e3.scn"]
+source_file="res://objects/sports/gltf/cone.gltf"
+dest_files=["res://.godot/imported/cone.gltf-ba90aa1a849ab019d99527c3f6f89fe2.scn"]
 
 [params]
 
@@ -30,7 +30,7 @@ meshes/force_disable_compression=false
 skins/use_named_skins=true
 animation/import=true
 animation/fps=30
-animation/trimming=true
+animation/trimming=false
 animation/remove_immutable_tracks=true
 animation/import_rest_as_RESET=false
 import_script/path=""
@@ -38,7 +38,5 @@ materials/extract=0
 materials/extract_format=0
 materials/extract_path=""
 _subresources={}
-fbx/importer=0
-fbx/allow_geometry_helper_nodes=false
-fbx/embedded_image_handling=1
-fbx/naming_version=2
+gltf/naming_version=2
+gltf/embedded_image_handling=1

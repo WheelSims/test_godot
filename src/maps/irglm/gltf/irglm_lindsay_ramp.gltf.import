@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://bssijdqwp20uf"
-path="res://.godot/imported/street_corner.fbx-2fc0c7ebd99f2875b045388045b1fb45.scn"
+uid="uid://dg5qtcy3yaok3"
+path="res://.godot/imported/irglm_lindsay_ramp.gltf-abffb731e8768bdce079e31f91138742.scn"
 
 [deps]
 
-source_file="res://maps/street/fbx/street_corner.fbx"
-dest_files=["res://.godot/imported/street_corner.fbx-2fc0c7ebd99f2875b045388045b1fb45.scn"]
+source_file="res://maps/irglm/gltf/irglm_lindsay_ramp.gltf"
+dest_files=["res://.godot/imported/irglm_lindsay_ramp.gltf-abffb731e8768bdce079e31f91138742.scn"]
 
 [params]
 
@@ -30,7 +30,7 @@ meshes/force_disable_compression=false
 skins/use_named_skins=true
 animation/import=true
 animation/fps=30
-animation/trimming=true
+animation/trimming=false
 animation/remove_immutable_tracks=true
 animation/import_rest_as_RESET=false
 import_script/path=""
@@ -38,7 +38,5 @@ materials/extract=0
 materials/extract_format=0
 materials/extract_path=""
 _subresources={}
-fbx/importer=0
-fbx/allow_geometry_helper_nodes=false
-fbx/embedded_image_handling=1
-fbx/naming_version=2
+gltf/naming_version=2
+gltf/embedded_image_handling=1

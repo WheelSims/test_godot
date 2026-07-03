@@ -2,9 +2,9 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://sxyin17738f3"
-path.s3tc="res://.godot/imported/irglm_blue_tile.jpg-7d584bf830c6a639f25273794238fbcf.s3tc.ctex"
-path.etc2="res://.godot/imported/irglm_blue_tile.jpg-7d584bf830c6a639f25273794238fbcf.etc2.ctex"
+uid="uid://can3j561xhq54"
+path.s3tc="res://.godot/imported/irglm_blue_tile.jpg-d9b1eb8a2955fb5d1f952a6890fad693.s3tc.ctex"
+path.etc2="res://.godot/imported/irglm_blue_tile.jpg-d9b1eb8a2955fb5d1f952a6890fad693.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -12,8 +12,8 @@ metadata={
 
 [deps]
 
-source_file="res://maps/irglm/textures/irglm_blue_tile.jpg"
-dest_files=["res://.godot/imported/irglm_blue_tile.jpg-7d584bf830c6a639f25273794238fbcf.s3tc.ctex", "res://.godot/imported/irglm_blue_tile.jpg-7d584bf830c6a639f25273794238fbcf.etc2.ctex"]
+source_file="res://maps/irglm/gltf/textures/irglm_blue_tile.jpg"
+dest_files=["res://.godot/imported/irglm_blue_tile.jpg-d9b1eb8a2955fb5d1f952a6890fad693.s3tc.ctex", "res://.godot/imported/irglm_blue_tile.jpg-d9b1eb8a2955fb5d1f952a6890fad693.etc2.ctex"]
 
 [params]
 

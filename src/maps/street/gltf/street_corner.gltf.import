@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://1pdh22u1yfs4"
-path="res://.godot/imported/cone.fbx-652b6f7763f0e185846982fd742da0bf.scn"
+uid="uid://prwdrd13qtbv"
+path="res://.godot/imported/street_corner.gltf-3f8755d887e312356ab2002b9981f660.scn"
 
 [deps]
 
-source_file="res://objects/sports/fbx/cone.fbx"
-dest_files=["res://.godot/imported/cone.fbx-652b6f7763f0e185846982fd742da0bf.scn"]
+source_file="res://maps/street/gltf/street_corner.gltf"
+dest_files=["res://.godot/imported/street_corner.gltf-3f8755d887e312356ab2002b9981f660.scn"]
 
 [params]
 
@@ -30,7 +30,7 @@ meshes/force_disable_compression=false
 skins/use_named_skins=true
 animation/import=true
 animation/fps=30
-animation/trimming=true
+animation/trimming=false
 animation/remove_immutable_tracks=true
 animation/import_rest_as_RESET=false
 import_script/path=""
@@ -38,7 +38,5 @@ materials/extract=0
 materials/extract_format=0
 materials/extract_path=""
 _subresources={}
-fbx/importer=0
-fbx/allow_geometry_helper_nodes=false
-fbx/embedded_image_handling=1
-fbx/naming_version=2
+gltf/naming_version=2
+gltf/embedded_image_handling=1

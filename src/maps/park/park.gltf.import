@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://1716xjs4fnvc"
-path="res://.godot/imported/irglm_4th_floor_terrain.fbx-1dbffe477296e9cbcdb1598ebf407cde.scn"
+uid="uid://bkekqxvde88fi"
+path="res://.godot/imported/park.gltf-ad764fb285927ea15b6c964291af4355.scn"
 
 [deps]
 
-source_file="res://maps/irglm/fbx/irglm_4th_floor_terrain.fbx"
-dest_files=["res://.godot/imported/irglm_4th_floor_terrain.fbx-1dbffe477296e9cbcdb1598ebf407cde.scn"]
+source_file="res://maps/park/park.gltf"
+dest_files=["res://.godot/imported/park.gltf-ad764fb285927ea15b6c964291af4355.scn"]
 
 [params]
 
@@ -30,7 +30,7 @@ meshes/force_disable_compression=false
 skins/use_named_skins=true
 animation/import=true
 animation/fps=30
-animation/trimming=true
+animation/trimming=false
 animation/remove_immutable_tracks=true
 animation/import_rest_as_RESET=false
 import_script/path=""
@@ -38,7 +38,5 @@ materials/extract=0
 materials/extract_format=0
 materials/extract_path=""
 _subresources={}
-fbx/importer=0
-fbx/allow_geometry_helper_nodes=false
-fbx/embedded_image_handling=1
-fbx/naming_version=2
+gltf/naming_version=2
+gltf/embedded_image_handling=1

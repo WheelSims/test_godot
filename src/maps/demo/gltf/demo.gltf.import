@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://cu75jpvltwdam"
-path="res://.godot/imported/irglm_lindsay_ramp_terrain.fbx-8df6ee4ae8b260fd9d68a8d91cf5f391.scn"
+uid="uid://dwgdohib3oklb"
+path="res://.godot/imported/demo.gltf-ca1d5ac70981eb1fae9d5736a8e6d48b.scn"
 
 [deps]
 
-source_file="res://maps/irglm/fbx/irglm_lindsay_ramp_terrain.fbx"
-dest_files=["res://.godot/imported/irglm_lindsay_ramp_terrain.fbx-8df6ee4ae8b260fd9d68a8d91cf5f391.scn"]
+source_file="res://maps/demo/gltf/demo.gltf"
+dest_files=["res://.godot/imported/demo.gltf-ca1d5ac70981eb1fae9d5736a8e6d48b.scn"]
 
 [params]
 
@@ -30,7 +30,7 @@ meshes/force_disable_compression=false
 skins/use_named_skins=true
 animation/import=true
 animation/fps=30
-animation/trimming=true
+animation/trimming=false
 animation/remove_immutable_tracks=true
 animation/import_rest_as_RESET=false
 import_script/path=""
@@ -38,7 +38,5 @@ materials/extract=0
 materials/extract_format=0
 materials/extract_path=""
 _subresources={}
-fbx/importer=0
-fbx/allow_geometry_helper_nodes=false
-fbx/embedded_image_handling=1
-fbx/naming_version=2
+gltf/naming_version=2
+gltf/embedded_image_handling=1

@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://y2xjjvq3l33t"]
 
 [ext_resource type="Environment" uid="uid://c680007dvsdyh" path="res://environments/park_environment.tres" id="1_y2rn1"]
+[ext_resource type="PackedScene" uid="uid://bkekqxvde88fi" path="res://maps/park/park.gltf" id="2_k13oj"]
 [ext_resource type="AudioStream" uid="uid://dtypt0blh485n" path="res://sounds/sounds/ambiance_sounds/Forest-ambiance.wav" id="2_y2rn1"]
-[ext_resource type="PackedScene" uid="uid://cbbeubx8d0is6" path="res://maps/park/fbx/park_terrain.fbx" id="3_k13oj"]
 [ext_resource type="Script" uid="uid://2hkv7n6et5rm" path="res://maps/surface.gd" id="4_drxe4"]
 [ext_resource type="Material" uid="uid://dsb486mw6ekc4" path="res://maps/park/textures/lake_material.tres" id="4_y2rn1"]
 [ext_resource type="PackedScene" uid="uid://b74nqh5tcg66o" path="res://objects/park/trees/tree.tscn" id="5_gp6ms"]
@@ -43,6 +43,11 @@ data = PackedVector3Array(148.204, 0, 2.0421, 149.9567, 0, -1.9944999, 152.0388,
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=604444173]
 environment = ExtResource("1_y2rn1")
 
+[node name="park" parent="." unique_id=1578215418 instance=ExtResource("2_k13oj")]
+
+[node name="lake" parent="park" index="0" unique_id=1072618102]
+surface_material_override/0 = ExtResource("4_y2rn1")
+
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=805047679]
 transform = Transform3D(1, 0, 0, 0, -0.728969, 0.684547, 0, -0.684547, -0.728969, 0, -2.50862, 0)
 light_energy = 0.825
@@ -56,11 +61,6 @@ script = SubResource("GDScript_t8rdd")
 stream = ExtResource("2_y2rn1")
 volume_db = 5.0
 autoplay = true
-
-[node name="park_terrain" parent="." unique_id=1769255478 instance=ExtResource("3_k13oj")]
-
-[node name="lake" parent="park_terrain" index="4" unique_id=147748946]
-material_override = ExtResource("4_y2rn1")
 
 [node name="StaticBody3DHill" type="StaticBody3D" parent="." unique_id=488911580]
 script = ExtResource("4_drxe4")
@@ -523,4 +523,4 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.7281, 0, -39.4129)
 [node name="Tree70" parent="NavigationRegion3DGrass/Trees" unique_id=317617531 instance=ExtResource("5_gp6ms")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -29.4903, 0, -22.1564)
 
-[editable path="park_terrain"]
+[editable path="park"]
