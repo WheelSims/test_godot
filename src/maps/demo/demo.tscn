@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://d0hea1gtjdxik"]
 
-[ext_resource type="PackedScene" uid="uid://b0fljfcapyrp3" path="res://maps/demo/demo_terrain.fbx" id="1_p1psw"]
 [ext_resource type="Environment" uid="uid://c680007dvsdyh" path="res://environments/park_environment.tres" id="1_xf3il"]
+[ext_resource type="PackedScene" uid="uid://dwgdohib3oklb" path="res://maps/demo/gltf/demo.gltf" id="2_s6mpr"]
 [ext_resource type="Script" uid="uid://2hkv7n6et5rm" path="res://maps/surface.gd" id="3_s6mpr"]
 [ext_resource type="PackedScene" uid="uid://b74nqh5tcg66o" path="res://objects/park/trees/tree.tscn" id="4_s6mpr"]
 
@@ -43,7 +43,7 @@ environment = ExtResource("1_xf3il")
 transform = Transform3D(0.57928115, 0.6611207, 0.4768152, 0, -0.5849576, 0.8110639, 0.8151278, -0.46983403, -0.3388549, 0, 0, 0)
 shadow_enabled = true
 
-[node name="demo_terrain" parent="." unique_id=947832073 instance=ExtResource("1_p1psw")]
+[node name="demo" parent="." unique_id=1634302861 instance=ExtResource("2_s6mpr")]
 
 [node name="NavigationRegion3DGrassAllowed" type="NavigationRegion3D" parent="." unique_id=1832902192]
 navigation_mesh = SubResource("NavigationMesh_bmmoc")

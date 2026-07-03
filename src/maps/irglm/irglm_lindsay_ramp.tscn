@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://bc8dr0hobakjf"]
 
 [ext_resource type="Texture2D" uid="uid://wacfloxc8is" path="res://environments/daytime.hdr" id="1_knb7q"]
-[ext_resource type="PackedScene" uid="uid://cu75jpvltwdam" path="res://maps/irglm/fbx/irglm_lindsay_ramp_terrain.fbx" id="2_dwvfp"]
 [ext_resource type="Script" uid="uid://2hkv7n6et5rm" path="res://maps/surface.gd" id="3_4sc5p"]
+[ext_resource type="PackedScene" uid="uid://dg5qtcy3yaok3" path="res://maps/irglm/gltf/irglm_lindsay_ramp.gltf" id="3_44g14"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_ty60g"]
 panorama = ExtResource("1_knb7q")
@@ -39,8 +39,6 @@ transform = Transform3D(1, 0, 0, 0, -0.728969, 0.684547, 0, -0.684547, -0.728969
 light_energy = 0.825
 shadow_enabled = true
 
-[node name="irglm_lindsay_ramp_terrain" parent="." unique_id=91151870 instance=ExtResource("2_dwvfp")]
-
 [node name="StaticBodies" type="Node3D" parent="." unique_id=378971016]
 
 [node name="StaticBody3DFloor" type="StaticBody3D" parent="StaticBodies" unique_id=1469614616]
@@ -64,3 +62,5 @@ shape = SubResource("ConcavePolygonShape3D_31mx8")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBodies/StaticBody3DRedWalls" unique_id=232834503]
 shape = SubResource("ConcavePolygonShape3D_wsm5f")
+
+[node name="irglm_lindsay_ramp" parent="." unique_id=1560214050 instance=ExtResource("3_44g14")]
