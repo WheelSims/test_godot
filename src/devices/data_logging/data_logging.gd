@@ -27,7 +27,7 @@ func _scene_signal_received(scene_name):
 		# If a trial was in progress (i.e. previous scene is not blank), end it
 		if scenes["current"] != "":
 			if logging["current"] == true:
-				Globals.main.get_node("PythonBridge").send("end_logging", data, "once")
+				Globals.main.get_node("PythonBridge").send("end_trial", data, "once")
 			player_trajectory["position"] = NAN
 			player_trajectory["rotation"] = NAN
 
@@ -112,7 +112,7 @@ func _process(_delta: float) -> void:
 
 		# Otherwise, if logging is not currently on but was in the previous frame, end the process
 		elif logging["past"] == true:
-			Globals.main.get_node("PythonBridge").send("end_logging", data, "once")
+			Globals.main.get_node("PythonBridge").send("end_trial", data, "once")
 			player_trajectory["position"] = NAN
 			player_trajectory["rotation"] = NAN
 
