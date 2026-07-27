@@ -12,6 +12,7 @@ extends Node
 
 ## (private) Store the current scene.
 var _current_scene_node: Node3D = null
+var _current_scene_path = null
 
 ## The viewport the 3D scene is rendered in.
 @onready var scene_viewport: SubViewport = get_node("SceneViewport")
@@ -28,22 +29,27 @@ func load_scene(path: String):
 	# Load the scene
 	_current_scene_node = load(path).instantiate()
 	scene_viewport.add_child(_current_scene_node)
-
+	_current_scene_path = path
+	
 	if (Config.get_value("devices.data_logging.enabled")) == true:
-		SignalBus.session_scene.emit(path)
-
+		SignalBus.session_scene.emit(_current_scene_path)
 
 ## Unload scene
 func unload_scene():
 	if _current_scene_node:
 		_current_scene_node.queue_free()
 
+func _current_scene(connection):
+	if _current_scene_path != null:
+		SignalBus.session_scene.emit(_current_scene_path)
 
 # -------------------------------------------------------------------
 # Updated config value
 # -------------------------------------------------------------------
 
-
+func _ready():
+	SignalBus.current_scene.connect(_current_scene)
+	
 ## Called by config when modified, mainly to instanciate new modules.
 func _process(_delta):
 	for key in available_overlays:

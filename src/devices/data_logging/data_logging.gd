@@ -17,23 +17,21 @@ var data = {}
 var connected = false
 var connection_command = NAN
 
-
 # called everytime a signal is received from main.gd to save it
 func _scene_signal_received(scene_name):
 	scenes["new"] = scene_name.get_file().split(".")[0].replace("_", "")
-
-	# When logging in on, initiate a new file (trial) and update current scene if the scene is new
-	if scenes["current"] != scenes["new"] and Globals.main.has_node("PythonBridge"):
+	# When logging in on, initiate a new file (trial) and update current scene if new
+	if scenes["current"] != scenes["new"]:
 		# If a trial was in progress (i.e. previous scene is not blank), end it
 		if scenes["current"] != "":
-			if logging["current"] == true:
+			if logging["current"] == true and Globals.main.has_node("PythonBridge"):
 				Globals.main.get_node("PythonBridge").send("end_trial", data, "once")
 			player_trajectory["position"] = NAN
 			player_trajectory["rotation"] = NAN
 
 		scenes["current"] = scenes["new"]
 		update_data()
-		if logging["current"] == true:
+		if logging["current"] == true and Globals.main.has_node("PythonBridge"):
 			Globals.main.get_node("PythonBridge").send("create_trial", data, "once")
 
 
@@ -44,18 +42,18 @@ func _player_signal_received(pos, rot):
 
 
 # called when a signal is received from python_bridge.gd
-func _python_signal_received(connection, closing):
-	if connection != null:
+func _python_signal_received(connection):
+	if connected != connection:
 		connected = connection
-		connection_command = "start_logging"
+		if connection != null:
+			connection_command = "start_logging"
 
-	elif closing != null:
-		connection_command = "end_logging"
-
-	if Config.get_value("devices.data_logging.enabled"):
-		update_logging()
-		Globals.main.get_node("PythonBridge").send(connection_command, data, "once")
-
+		elif connection == null:
+			connection_command = "end_logging"
+			
+		if Config.get_value("devices.data_logging.enabled"):
+			update_logging()
+			Globals.main.get_node("PythonBridge").send(connection_command, data, "once")
 
 # Update logging on/off variables
 func update_logging():
@@ -81,10 +79,13 @@ func _ready() -> void:
 	update_logging()
 	if SignalBus.python_connected.is_connected(_python_signal_received) == false:
 		SignalBus.python_connected.connect(_python_signal_received)
-		SignalBus.session_scene.connect(_scene_signal_received)
 		if Config.get_value("devices.data_logging.player_trajectory") == true:
 			SignalBus.player_trajectory.connect(_player_signal_received)
-
+			
+	if SignalBus.session_scene.is_connected(_scene_signal_received) == false:
+		SignalBus.session_scene.connect(_scene_signal_received)
+		# connect to main.gd and see if a scene is already on
+		SignalBus.current_scene.emit(true)
 
 func _process(_delta: float) -> void:
 	if SignalBus.session_scene.is_connected(_scene_signal_received) == false:
@@ -107,7 +108,7 @@ func _process(_delta: float) -> void:
 					Globals.main.get_node("PythonBridge").send("create_trial", data, "once")
 
 			# If any scene is running, send player data at each frame
-			elif scenes["current"] != "":
+			if scenes["current"] != "":
 				Globals.main.get_node("PythonBridge").send("data_logging", data, "once")
 
 		# Otherwise, if logging is not currently on but was in the previous frame, end the process
