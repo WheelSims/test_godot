@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://e87nsaoodfg2"]
+
+[ext_resource type="PackedScene" uid="uid://d0hea1gtjdxik" path="res://maps/demo/demo.tscn" id="1_7dlb2"]
+[ext_resource type="PackedScene" uid="uid://biluq7vv8ghsm" path="res://player/player.tscn" id="2_mu60u"]
+[ext_resource type="PackedScene" uid="uid://xeue51xacbv4" path="res://objects/humans/pedestrian_generator.tscn" id="3_hmw2a"]
+
+[node name="Demo" type="Node3D" unique_id=881333819]
+
+[node name="Demo" parent="." unique_id=939709358 instance=ExtResource("1_7dlb2")]
+
+[node name="Player" parent="." unique_id=993534235 instance=ExtResource("2_mu60u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6764951, 0.92097306, 0)
+
+[node name="PedestrianGenerator" parent="." unique_id=1740765578 instance=ExtResource("3_hmw2a")]
+n_pedestrians = 10
