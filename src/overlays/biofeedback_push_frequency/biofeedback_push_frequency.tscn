@@ -1,16 +1,15 @@
-[gd_scene format=3 uid="uid://c5tbnk1yth8r8"]
+[gd_scene format=3 uid="uid://dusan4n66fnmd"]
 
-[ext_resource type="Script" uid="uid://dshp4p67kpaqf" path="res://overlays/biofeedback_push_frequency/biofeedback_push_frequency.gd" id="1_1j4x4"]
+[ext_resource type="Script" uid="uid://fsj5olfoo07q" path="res://overlays/biofeedback_push_frequency/biofeedback_push_frequency.gd" id="1_htwnh"]
 
 [sub_resource type="Theme" id="Theme_lgowx"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1j4x4"]
-bg_color = Color(0, 0, 0, 0.392157)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0t0hq"]
+bg_color = Color(0, 0, 0, 0.4)
 border_width_left = 4
 border_width_top = 4
 border_width_right = 4
 border_width_bottom = 4
-border_color = Color(1, 1, 1, 0.392157)
 corner_radius_top_left = 10
 corner_radius_top_right = 10
 corner_radius_bottom_right = 10
@@ -19,127 +18,323 @@ corner_radius_bottom_left = 10
 [sub_resource type="LabelSettings" id="LabelSettings_pa624"]
 font_size = 10
 
-[sub_resource type="LabelSettings" id="LabelSettings_1j4x4"]
-font_size = 10
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j17sm"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.83, 0, 0, 1)
 
-[sub_resource type="LabelSettings" id="LabelSettings_7yiij"]
-font_size = 10
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l4rqa"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.20681995, 0.5295531, 4.813075e-07, 1)
 
-[node name="BiofeedbackPushFrequency" type="Control" unique_id=1961947020 node_paths=PackedStringArray("node_min_value", "node_max_value", "node_min_target_value", "node_max_target_value", "node_value", "node_slider_zone", "node_slider", "node_target_zone", "node_green_zone")]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qh5xg"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.46, 0.46, 0.46, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1j4x4"]
+bg_color = Color(0.60038817, 0.60038817, 0.60038817, 0)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_htwnh"]
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.18039216, 0.18039216, 0.18039216, 1)
+border_width_left = 9
+border_width_top = 17
+border_width_right = 8
+border_width_bottom = 16
+corner_radius_top_left = 75
+corner_radius_bottom_left = 75
+corner_detail = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ft802"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.18039216, 0.18039216, 0.18039216, 1)
+border_width_top = 8
+border_width_right = 8
+border_width_bottom = 8
+corner_detail = 1
+
+[node name="BiofeedbackPushFrequency" type="Control" unique_id=1961947020 node_paths=PackedStringArray("node_max_value", "node_max_target_value", "node_current_value", "node_red_zone_left", "node_green_zone_left", "node_red_zone_right", "node_green_zone_right", "node_frame_overlay", "node_all_overlay", "node_arrows", "node_head_arrow", "node_line_arrow", "node_arrow_left", "node_arrow_right")]
 layout_mode = 3
 anchors_preset = 0
-script = ExtResource("1_1j4x4")
-node_min_value = NodePath("OverlayPanel/OverlayVboxContainer/MinValue")
-node_max_value = NodePath("OverlayPanel/OverlayVboxContainer/MaxValue")
-node_min_target_value = NodePath("OverlayPanel/OverlayVboxContainer/SliderZone/TargetZone/GreenZone/MinTargetValue")
-node_max_target_value = NodePath("OverlayPanel/OverlayVboxContainer/SliderZone/TargetZone/GreenZone/MaxTargetValue")
-node_value = NodePath("OverlayPanel/OverlayVboxContainer/SliderZone/Slider/HboxContainer/CurrentValue")
-node_slider_zone = NodePath("OverlayPanel/OverlayVboxContainer/SliderZone")
-node_slider = NodePath("OverlayPanel/OverlayVboxContainer/SliderZone/Slider")
-node_target_zone = NodePath("OverlayPanel/OverlayVboxContainer/SliderZone/TargetZone")
-node_green_zone = NodePath("OverlayPanel/OverlayVboxContainer/SliderZone/TargetZone/GreenZone")
+offset_left = 1.0
+offset_top = 1.0
+offset_right = 1.0
+offset_bottom = 1.0
+script = ExtResource("1_htwnh")
+node_max_value = NodePath("OverlayFrame/Slider/MaxValue")
+node_max_target_value = NodePath("OverlayFrame/Slider/MaxTargetValue")
+node_current_value = NodePath("OverlayFrame/Slider/CurrentValue")
+node_red_zone_left = NodePath("OverlayFrame/Slider/RedZoneLeft")
+node_green_zone_left = NodePath("OverlayFrame/Slider/GreenZoneLeft")
+node_red_zone_right = NodePath("OverlayFrame/Slider/RedZoneRight")
+node_green_zone_right = NodePath("OverlayFrame/Slider/GreenZoneRight")
+node_frame_overlay = NodePath("OverlayFrame/Slider/SliderPanel")
+node_all_overlay = NodePath("OverlayFrame")
+node_arrows = NodePath("OverlayFrame/Slider/Arrows")
+node_head_arrow = NodePath("OverlayFrame/Slider/Arrows/ArrowRight/HeadArrow")
+node_line_arrow = NodePath("OverlayFrame/Slider/Arrows/ArrowRight/LineArrow")
+node_arrow_left = NodePath("OverlayFrame/Slider/Arrows/ArrowLeft")
+node_arrow_right = NodePath("OverlayFrame/Slider/Arrows/ArrowRight")
+current_value = 2.0
 
-[node name="OverlayPanel" type="PanelContainer" parent="." unique_id=1378768941]
-layout_mode = 0
+[node name="OverlayFrame" type="Control" parent="." unique_id=778476681]
+layout_mode = 1
+anchors_preset = 0
 offset_left = 950.0
-offset_top = 520.0
-offset_right = 1050.0
-offset_bottom = 699.99915
+offset_top = 630.0
+offset_right = 950.0
+offset_bottom = 630.0
+
+[node name="OverlayPanel" type="PanelContainer" parent="OverlayFrame" unique_id=1014359338]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -56.0
+offset_top = -240.0
+offset_right = 56.0
+grow_horizontal = 2
+grow_vertical = 0
 theme = SubResource("Theme_lgowx")
-theme_override_styles/panel = SubResource("StyleBoxFlat_1j4x4")
+theme_override_styles/panel = SubResource("StyleBoxFlat_0t0hq")
 
-[node name="OverlayVboxContainer" type="VBoxContainer" parent="OverlayPanel" unique_id=679876289]
-layout_mode = 2
-
-[node name="Title" type="Label" parent="OverlayPanel/OverlayVboxContainer" unique_id=1278107807]
-layout_mode = 2
+[node name="Title" type="Label" parent="OverlayFrame" unique_id=1278107807]
+layout_mode = 0
+offset_left = -45.0
+offset_top = -230.0
+offset_right = 47.000122
+offset_bottom = -194.0
 text = "PUSH
 FREQUENCY"
 label_settings = SubResource("LabelSettings_pa624")
 horizontal_alignment = 1
 
-[node name="MaxValue" type="Label" parent="OverlayPanel/OverlayVboxContainer" unique_id=1471418302]
-layout_mode = 2
-text = "max"
-label_settings = SubResource("LabelSettings_1j4x4")
-horizontal_alignment = 1
-
-[node name="SliderZone" type="ColorRect" parent="OverlayPanel/OverlayVboxContainer" unique_id=1147785939]
-custom_minimum_size = Vector2(20, 100)
-layout_mode = 2
-size_flags_horizontal = 4
-
-[node name="TargetZone" type="Control" parent="OverlayPanel/OverlayVboxContainer/SliderZone" unique_id=1857701781]
-custom_minimum_size = Vector2(20, 10)
-layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_top = -10.0
-grow_vertical = 0
-
-[node name="GreenZone" type="ColorRect" parent="OverlayPanel/OverlayVboxContainer/SliderZone/TargetZone" unique_id=791038250]
-layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_top = -10.0
-offset_right = 20.0
-grow_vertical = 0
-scale = Vector2(1, -1)
-color = Color(0, 0.7607843, 0.39215687, 1)
-
-[node name="MinTargetValue" type="Label" parent="OverlayPanel/OverlayVboxContainer/SliderZone/TargetZone/GreenZone" unique_id=413093685]
-layout_mode = 1
-offset_left = -25.0
-offset_right = -6.0
-offset_bottom = 14.0
-scale = Vector2(1, -1)
-pivot_offset = Vector2(0, 4)
-text = "min"
-label_settings = SubResource("LabelSettings_pa624")
-horizontal_alignment = 2
-autowrap_mode = 2
-
-[node name="MaxTargetValue" type="Label" parent="OverlayPanel/OverlayVboxContainer/SliderZone/TargetZone/GreenZone" unique_id=186569926]
-layout_mode = 0
-offset_left = -25.0
-offset_right = -6.0
-offset_bottom = 14.0
-scale = Vector2(1, -1)
-pivot_offset = Vector2(0, 4)
-text = "max"
-label_settings = SubResource("LabelSettings_pa624")
-horizontal_alignment = 2
-autowrap_mode = 2
-
-[node name="Slider" type="Control" parent="OverlayPanel/OverlayVboxContainer/SliderZone" unique_id=676311746]
+[node name="Slider" type="Control" parent="OverlayFrame" unique_id=1659008761]
 anchors_preset = 0
+offset_top = -15.0
+offset_bottom = -15.0
 
-[node name="HboxContainer" type="HBoxContainer" parent="OverlayPanel/OverlayVboxContainer/SliderZone/Slider" unique_id=1281199947]
+[node name="MaxValue" type="Label" parent="OverlayFrame/Slider" unique_id=1410977112]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -19.0
+offset_top = -134.0
+offset_right = 21.0
+offset_bottom = -120.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "2.5"
+label_settings = SubResource("LabelSettings_pa624")
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="MaxTargetValue" type="Label" parent="OverlayFrame/Slider" unique_id=1987572853]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -49.74
+offset_right = 20.0
+offset_bottom = -35.74
+grow_horizontal = 2
+grow_vertical = 0
+text = "1.2"
+label_settings = SubResource("LabelSettings_pa624")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RedZoneLeft" type="Panel" parent="OverlayFrame/Slider" unique_id=309708774]
+layout_mode = 0
+offset_left = -18.0
+offset_right = -12.0
+offset_bottom = 120.0
+rotation = 3.1415927
+pivot_offset_ratio = Vector2(0.5, 0)
+theme_override_styles/panel = SubResource("StyleBoxFlat_j17sm")
+
+[node name="GreenZoneLeft" type="Panel" parent="OverlayFrame/Slider" unique_id=1469113480]
+layout_mode = 0
+offset_left = -18.0
+offset_right = -12.0
+offset_bottom = 40.0
+rotation = 3.1415927
+pivot_offset_ratio = Vector2(0.5, 0)
+theme_override_styles/panel = SubResource("StyleBoxFlat_l4rqa")
+
+[node name="RedZoneRight" type="Panel" parent="OverlayFrame/Slider" unique_id=773871717]
+layout_mode = 0
+offset_left = 19.0
+offset_right = 25.000002
+offset_bottom = 120.0
+rotation = 3.1415927
+theme_override_styles/panel = SubResource("StyleBoxFlat_j17sm")
+
+[node name="GreenZoneRight" type="Panel" parent="OverlayFrame/Slider" unique_id=1583098816]
+layout_mode = 0
+offset_left = 19.0
+offset_right = 25.0
+offset_bottom = 40.0
+rotation = 3.1415927
+theme_override_styles/panel = SubResource("StyleBoxFlat_l4rqa")
+
+[node name="CurrentValue" type="Panel" parent="OverlayFrame/Slider" unique_id=1299647065]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -18.0
+offset_right = 19.0
+offset_bottom = 18.0
+grow_horizontal = 2
+grow_vertical = 0
+rotation = 3.1415927
+pivot_offset_ratio = Vector2(0.5, 0)
+theme_override_styles/panel = SubResource("StyleBoxFlat_qh5xg")
+
+[node name="SliderPanel" type="PanelContainer" parent="OverlayFrame/Slider" unique_id=1012215059]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -22.5
+offset_top = -178.0
+offset_right = 22.5
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = SubResource("Theme_lgowx")
+theme_override_styles/panel = SubResource("StyleBoxFlat_1j4x4")
+
+[node name="Arrows" type="Control" parent="OverlayFrame/Slider" unique_id=2017620503]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 20.0
+offset_right = 60.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 3.1415927
+
+[node name="ArrowRight" type="Control" parent="OverlayFrame/Slider/Arrows" unique_id=614396413]
+custom_minimum_size = Vector2(200, 100)
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
-offset_top = -7.0
-offset_right = 56.0
-offset_bottom = 7.0
+offset_left = -5.0
+offset_top = -50.0
+offset_right = 195.0
+offset_bottom = 50.0
 grow_vertical = 2
+rotation = 3.1415927
+scale = Vector2(0.15, 0.15)
+pivot_offset_ratio = Vector2(0, 0.5)
 
-[node name="RedLineSlider" type="ColorRect" parent="OverlayPanel/OverlayVboxContainer/SliderZone/Slider/HboxContainer" unique_id=1613428399]
-custom_minimum_size = Vector2(20, 6)
-layout_mode = 2
-size_flags_vertical = 4
-color = Color(0.76, 0, 0, 1)
+[node name="HeadArrow" type="Panel" parent="OverlayFrame/Slider/Arrows/ArrowRight" unique_id=227370516]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -75.0
+offset_right = 70.0
+offset_bottom = 75.0
+grow_vertical = 2
+scale = Vector2(1, 0.5)
+pivot_offset_ratio = Vector2(0, 0.5)
+theme_override_styles/panel = SubResource("StyleBoxFlat_htwnh")
 
-[node name="CurrentValue" type="Label" parent="OverlayPanel/OverlayVboxContainer/SliderZone/Slider/HboxContainer" unique_id=903269268]
-layout_mode = 2
-text = "current value"
-label_settings = SubResource("LabelSettings_7yiij")
-vertical_alignment = 1
+[node name="LineArrow" type="Panel" parent="OverlayFrame/Slider/Arrows/ArrowRight" unique_id=1633117317]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 62.0
+offset_top = -17.5
+offset_right = 150.0
+offset_bottom = 17.499996
+grow_vertical = 2
+pivot_offset_ratio = Vector2(0, 0.5)
+theme_override_styles/panel = SubResource("StyleBoxFlat_ft802")
 
-[node name="MinValue" type="Label" parent="OverlayPanel/OverlayVboxContainer" unique_id=1533846735]
-layout_mode = 2
-text = "min"
-label_settings = SubResource("LabelSettings_pa624")
-horizontal_alignment = 1
+[node name="ArrowLeft" type="Control" parent="OverlayFrame/Slider/Arrows" unique_id=92818907]
+custom_minimum_size = Vector2(200, 100)
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 5.0
+offset_top = -50.0
+offset_right = 205.0
+offset_bottom = 50.0
+grow_horizontal = 0
+grow_vertical = 2
+scale = Vector2(0.15, 0.15)
+pivot_offset_ratio = Vector2(0, 0.5)
+
+[node name="HeadArrow" type="Panel" parent="OverlayFrame/Slider/Arrows/ArrowLeft" unique_id=1102669907]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -75.0
+offset_right = 70.0
+offset_bottom = 75.0
+grow_vertical = 2
+scale = Vector2(1, 0.5)
+pivot_offset_ratio = Vector2(0, 0.5)
+theme_override_styles/panel = SubResource("StyleBoxFlat_htwnh")
+
+[node name="LineArrow" type="Panel" parent="OverlayFrame/Slider/Arrows/ArrowLeft" unique_id=1278822201]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 62.0
+offset_top = -17.5
+offset_right = 150.0
+offset_bottom = 17.499996
+grow_vertical = 2
+pivot_offset_ratio = Vector2(0, 0.5)
+theme_override_styles/panel = SubResource("StyleBoxFlat_ft802")

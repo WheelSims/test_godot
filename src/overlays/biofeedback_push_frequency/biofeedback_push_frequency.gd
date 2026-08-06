@@ -11,7 +11,7 @@ extends Control
 @export var min_value = 0.0
 @export var max_value = 2.5
 
-@export var min_target_value = 0.4
+@export var min_target_value = 0.0
 @export var max_target_value = 1.2
 
 # UI elements
@@ -24,10 +24,37 @@ extends Control
 @export var node_slider_zone: Node
 @export var node_slider: Node
 @export var node_target_zone: Node
-@export var node_green_zone: Node
+
+@export var node_current_value: Node
+@export var node_red_zone_left: Node
+@export var node_green_zone_left: Node
+@export var node_red_zone_right: Node
+@export var node_green_zone_right: Node
+@export var node_frame_overlay: Node
+@export var node_all_overlay: Node
+@export var node_arrows: Node
+@export var node_head_arrow: Node
+@export var node_line_arrow: Node
+@export var node_arrow_left: Node
+@export var node_arrow_right: Node
+
+
+var temp_current_value = 0.0
+
+@export var time_shake_scale = 0.2
+@export var time_shake_rotation = 0.2
+@export var deg = 0.2
+@export var sca = 1.05
+var tween_arrow_left: Tween
+var tween_arrow_right: Tween
+var tween_arrow_color: Tween
+var tween_current_value: Tween
 
 # Push frequency value from python script biofeedback
-var current_value = 0.0
+@export var current_value = 0.0
+var height_slider = 120
+
+var slider_value = 0.0
 
 # Connection flags and request arguments
 var connected = false
@@ -77,30 +104,53 @@ func _update_slider(data):
 		if data["command"] == "biofeedback_update":
 			var side = data["data"].keys()[0]
 			if data["data"][side].has("mean_push_frequency"):
+
 				current_value = data["data"][side]["mean_push_frequency"]
 
-	node_min_value.text = str(min_value)
-	node_max_value.text = str(max_value)
-	node_value.text = str(snappedf(current_value, 0.1))
+				node_red_zone_left.size.y = height_slider
+				node_red_zone_right.size.y = height_slider
+				node_max_value.text = str(max_value)
+				
+				node_green_zone_left.size.y = height_slider * (max_target_value/max_value)
+				node_green_zone_right.size.y = height_slider * (max_target_value/max_value)
+				node_max_target_value.text = str(max_target_value)
+				node_max_target_value.position.y = - height_slider * (max_target_value/max_value)
 
-	node_slider.position.y = (
-		node_slider_zone.size.y
-		- (current_value - min_value) * node_slider_zone.size.y / (max_value - min_value)
-	)
-	node_slider.size.x = node_slider_zone.size.x
+				var node_source
+				
+				if current_value < max_target_value:
+					node_source = node_green_zone_left
+				else:
+					node_source = node_red_zone_left
+					
+				var source_style = node_source.get_theme_stylebox("panel")
+				
+				var style = StyleBoxFlat.new()
+				style.bg_color = source_style.bg_color
+				style.corner_radius_top_left = 10
+				style.corner_radius_top_right = 10
+				
+				node_current_value.add_theme_stylebox_override("panel", style)
 
-	node_target_zone.position.y = (
-		node_slider_zone.size.y
-		- (min_target_value - min_value) * node_slider_zone.size.y / (max_value - min_value)
-	)
-	node_green_zone.size.y = (
-		node_slider_zone.size.y * (max_target_value - min_target_value) / (max_value - min_value)
-	)
+				if current_value <= 0:
+					node_head_arrow.get_theme_stylebox("panel").bg_color = Color(0.03, 0.03, 0.03)
+					node_line_arrow.get_theme_stylebox("panel").bg_color = Color(0.03, 0.03, 0.03)
+				elif current_value > 0 and (tween_current_value == null or tween_current_value.is_valid() == false):
+					node_head_arrow.get_theme_stylebox("panel").bg_color = source_style.bg_color
+					node_line_arrow.get_theme_stylebox("panel").bg_color = source_style.bg_color
+					slider_value = current_value
+					node_current_value.size.y = height_slider * (slider_value/max_value)
+					node_arrows.position.y = - height_slider * (slider_value/max_value)
 
-	node_min_target_value.text = str(min_target_value)
-	node_max_target_value.text = str(max_target_value)
-
-	node_max_target_value.position.y = node_green_zone.size.y
+				if (tween_arrow_left == null or !tween_arrow_left.is_running()) and (tween_arrow_right == null or !tween_arrow_right.is_running()):
+					node_arrow_left.scale = 0.15 * Vector2.ONE
+					node_arrow_right.scale = 0.15 * Vector2.ONE
+					tween_arrow_left = create_tween()
+					tween_arrow_left.tween_property(node_arrow_left, "scale", Vector2.ONE * 0.10, 0.1)
+					tween_arrow_left.tween_property(node_arrow_left, "scale", Vector2.ONE * 0.15, 0.4).set_trans(Tween.TRANS_BOUNCE).set_ease(Tween.EASE_OUT)
+					tween_arrow_right = create_tween()
+					tween_arrow_right.tween_property(node_arrow_right, "scale", Vector2.ONE * 0.10, 0.1)
+					tween_arrow_right.tween_property(node_arrow_right, "scale", Vector2.ONE * 0.15, 0.4).set_trans(Tween.TRANS_BOUNCE).set_ease(Tween.EASE_OUT)
 
 
 # Update the arguments to send the requests to the python bridge
