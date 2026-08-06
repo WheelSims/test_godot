@@ -42,9 +42,9 @@ node_green_zone = NodePath("OverlayPanel/OverlayVboxContainer/SliderZone/TargetZ
 [node name="OverlayPanel" type="PanelContainer" parent="." unique_id=1378768941]
 layout_mode = 0
 offset_left = 950.0
-offset_top = 520.0
+offset_top = 480.0
 offset_right = 1050.0
-offset_bottom = 699.99915
+offset_bottom = 676.0
 theme = SubResource("Theme_lgowx")
 theme_override_styles/panel = SubResource("StyleBoxFlat_1j4x4")
 

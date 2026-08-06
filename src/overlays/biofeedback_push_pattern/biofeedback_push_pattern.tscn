@@ -27,6 +27,18 @@ corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d5do3"]
+bg_color = Color(0, 0, 0, 0.392157)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(1, 1, 1, 0.392157)
+corner_radius_top_left = 30
+corner_radius_top_right = 30
+corner_radius_bottom_right = 30
+corner_radius_bottom_left = 30
+
 [sub_resource type="ViewportTexture" id="ViewportTexture_ohdpe"]
 viewport_path = NodePath("ViewLeft1")
 
@@ -71,30 +83,55 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="OverlayFrame" type="PanelContainer" parent="." unique_id=1522539722]
-offset_left = 320.0
+visible = false
+offset_left = 390.0
 offset_top = 524.0
-offset_right = 820.0
+offset_right = 750.0
 offset_bottom = 704.0
 theme = SubResource("Theme_2n6hd")
 theme_override_styles/panel = SubResource("StyleBoxFlat_hiv0f")
 
+[node name="OverlayFrame3" type="PanelContainer" parent="." unique_id=1407314898]
+offset_left = 291.0
+offset_top = 525.0
+offset_right = 451.0
+offset_bottom = 688.0
+theme = SubResource("Theme_2n6hd")
+theme_override_styles/panel = SubResource("StyleBoxFlat_d5do3")
+
+[node name="OverlayFrame4" type="PanelContainer" parent="." unique_id=1114911213]
+offset_left = 690.0
+offset_top = 525.0
+offset_right = 850.0
+offset_bottom = 688.0
+theme = SubResource("Theme_2n6hd")
+theme_override_styles/panel = SubResource("StyleBoxFlat_d5do3")
+
+[node name="OverlayFrame5" type="PanelContainer" parent="." unique_id=266491190]
+offset_left = 452.0
+offset_top = 525.0
+offset_right = 687.0
+offset_bottom = 687.0
+theme = SubResource("Theme_2n6hd")
+theme_override_styles/panel = SubResource("StyleBoxFlat_d5do3")
+
 [node name="OverlayViewLeft1" type="Sprite2D" parent="." unique_id=1306518705]
-position = Vector2(231, 180)
+position = Vector2(210, 180)
 texture = SubResource("ViewportTexture_ohdpe")
 centered = false
 
 [node name="OverlayViewLeft2" type="Sprite2D" parent="." unique_id=1177554049]
-position = Vector2(210, 347)
+position = Vector2(145, 347)
 texture = SubResource("ViewportTexture_itwwm")
 centered = false
 
 [node name="OverlayViewRight1" type="Sprite2D" parent="." unique_id=957343018]
-position = Vector2(270, 180)
+position = Vector2(290, 180)
 texture = SubResource("ViewportTexture_euvgy")
 centered = false
 
 [node name="OverlayViewRight2" type="Sprite2D" parent="." unique_id=306445949]
-position = Vector2(532, 347)
+position = Vector2(595, 347)
 texture = SubResource("ViewportTexture_ilqvj")
 centered = false
 
