@@ -156,6 +156,6 @@ func parse_trail_points(data):
 
 	for p in data:
 		p[2] = 0  # 2D projection
-		result.append(Vector3(p[0], p[1], p[2]) - pos_center_wheel)
+		result.append(Vector3(p[0], p[1], p[2]))
 
 	return result
