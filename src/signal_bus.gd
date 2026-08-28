@@ -10,6 +10,8 @@ signal python_connected
 # signal pertaining to the current scene (main.gd)
 @warning_ignore("unused_signal")
 signal session_scene
+@warning_ignore("unused_signal")
+signal current_scene
 
 # signal pertaining to player.gd, which saves (global_position, rotation)
 @warning_ignore("unused_signal")

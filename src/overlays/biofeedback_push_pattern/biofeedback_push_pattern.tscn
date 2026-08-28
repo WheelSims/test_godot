@@ -117,71 +117,71 @@ transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 
 script = ExtResource("5_nqdaa")
 side = "right"
 
-[node name="BézierCircle_004" parent="current_scene_3D/wheel_right/rear_wheel_right/rear_wheel" parent_id_path=PackedInt32Array(1979307876, 1701913547) index="0" unique_id=882467497]
+[node name="BézierCircle_004" parent="current_scene_3D/wheel_right/rear_wheel_right/rear_wheel" parent_id_path=PackedInt32Array(1979307876, 1701913547) index="0" unique_id=492824724]
 layers = 4
 
-[node name="BézierCircle_005" parent="current_scene_3D/wheel_right/rear_wheel_right/rear_wheel" parent_id_path=PackedInt32Array(1979307876, 1701913547) index="1" unique_id=1025637904]
+[node name="BézierCircle_005" parent="current_scene_3D/wheel_right/rear_wheel_right/rear_wheel" parent_id_path=PackedInt32Array(1979307876, 1701913547) index="1" unique_id=1967190373]
 layers = 4
 
-[node name="BézierCircle_006" parent="current_scene_3D/wheel_right/rear_wheel_right/rear_wheel" parent_id_path=PackedInt32Array(1979307876, 1701913547) index="2" unique_id=1504770310]
+[node name="BézierCircle_006" parent="current_scene_3D/wheel_right/rear_wheel_right/rear_wheel" parent_id_path=PackedInt32Array(1979307876, 1701913547) index="2" unique_id=1293971367]
 layers = 4
 
-[node name="Cylinder_013" parent="current_scene_3D/wheel_right/rear_wheel_right/rear_wheel" parent_id_path=PackedInt32Array(1979307876, 1701913547) index="3" unique_id=509998079]
+[node name="Cylinder_013" parent="current_scene_3D/wheel_right/rear_wheel_right/rear_wheel" parent_id_path=PackedInt32Array(1979307876, 1701913547) index="3" unique_id=1915422161]
 layers = 4
 
-[node name="Cylinder_014" parent="current_scene_3D/wheel_right/rear_wheel_right/rear_wheel" parent_id_path=PackedInt32Array(1979307876, 1701913547) index="4" unique_id=707179226]
+[node name="Cylinder_014" parent="current_scene_3D/wheel_right/rear_wheel_right/rear_wheel" parent_id_path=PackedInt32Array(1979307876, 1701913547) index="4" unique_id=871273199]
 layers = 4
 
-[node name="Cylinder_015" parent="current_scene_3D/wheel_right/rear_wheel_right/rear_wheel" parent_id_path=PackedInt32Array(1979307876, 1701913547) index="5" unique_id=1034262287]
+[node name="Cylinder_015" parent="current_scene_3D/wheel_right/rear_wheel_right/rear_wheel" parent_id_path=PackedInt32Array(1979307876, 1701913547) index="5" unique_id=1866239796]
 layers = 4
 
-[node name="Cylinder_016" parent="current_scene_3D/wheel_right/rear_wheel_right/rear_wheel" parent_id_path=PackedInt32Array(1979307876, 1701913547) index="6" unique_id=158674963]
+[node name="Cylinder_016" parent="current_scene_3D/wheel_right/rear_wheel_right/rear_wheel" parent_id_path=PackedInt32Array(1979307876, 1701913547) index="6" unique_id=582229067]
 layers = 4
 
-[node name="Cylinder_017" parent="current_scene_3D/wheel_right/rear_wheel_right/rear_wheel" parent_id_path=PackedInt32Array(1979307876, 1701913547) index="7" unique_id=212633737]
+[node name="Cylinder_017" parent="current_scene_3D/wheel_right/rear_wheel_right/rear_wheel" parent_id_path=PackedInt32Array(1979307876, 1701913547) index="7" unique_id=132602823]
 layers = 4
 
-[node name="Cylinder_018" parent="current_scene_3D/wheel_right/rear_wheel_right/rear_wheel" parent_id_path=PackedInt32Array(1979307876, 1701913547) index="8" unique_id=829778180]
+[node name="Cylinder_018" parent="current_scene_3D/wheel_right/rear_wheel_right/rear_wheel" parent_id_path=PackedInt32Array(1979307876, 1701913547) index="8" unique_id=553216785]
 layers = 4
 
-[node name="Cylinder_019" parent="current_scene_3D/wheel_right/rear_wheel_right/rear_wheel" parent_id_path=PackedInt32Array(1979307876, 1701913547) index="9" unique_id=1176196163]
+[node name="Cylinder_019" parent="current_scene_3D/wheel_right/rear_wheel_right/rear_wheel" parent_id_path=PackedInt32Array(1979307876, 1701913547) index="9" unique_id=1782011555]
 layers = 4
 
-[node name="Cylinder_020" parent="current_scene_3D/wheel_right/rear_wheel_right/rear_wheel" parent_id_path=PackedInt32Array(1979307876, 1701913547) index="10" unique_id=171283948]
+[node name="Cylinder_020" parent="current_scene_3D/wheel_right/rear_wheel_right/rear_wheel" parent_id_path=PackedInt32Array(1979307876, 1701913547) index="10" unique_id=397632586]
 layers = 4
 
-[node name="Cylinder_021" parent="current_scene_3D/wheel_right/rear_wheel_right/rear_wheel" parent_id_path=PackedInt32Array(1979307876, 1701913547) index="11" unique_id=914793908]
+[node name="Cylinder_021" parent="current_scene_3D/wheel_right/rear_wheel_right/rear_wheel" parent_id_path=PackedInt32Array(1979307876, 1701913547) index="11" unique_id=1264964103]
 layers = 4
 
-[node name="Cylinder_022" parent="current_scene_3D/wheel_right/rear_wheel_right/rear_wheel" parent_id_path=PackedInt32Array(1979307876, 1701913547) index="12" unique_id=417096654]
+[node name="Cylinder_022" parent="current_scene_3D/wheel_right/rear_wheel_right/rear_wheel" parent_id_path=PackedInt32Array(1979307876, 1701913547) index="12" unique_id=1785887012]
 layers = 4
 
-[node name="Cylinder_023" parent="current_scene_3D/wheel_right/rear_wheel_right/rear_wheel" parent_id_path=PackedInt32Array(1979307876, 1701913547) index="13" unique_id=1535209184]
+[node name="Cylinder_023" parent="current_scene_3D/wheel_right/rear_wheel_right/rear_wheel" parent_id_path=PackedInt32Array(1979307876, 1701913547) index="13" unique_id=903056405]
 layers = 4
 
-[node name="Cylinder_024" parent="current_scene_3D/wheel_right/rear_wheel_right/rear_wheel" parent_id_path=PackedInt32Array(1979307876, 1701913547) index="14" unique_id=1688906746]
+[node name="Cylinder_024" parent="current_scene_3D/wheel_right/rear_wheel_right/rear_wheel" parent_id_path=PackedInt32Array(1979307876, 1701913547) index="14" unique_id=1417923883]
 layers = 4
 
-[node name="Cylinder_025" parent="current_scene_3D/wheel_right/rear_wheel_right/rear_wheel" parent_id_path=PackedInt32Array(1979307876, 1701913547) index="15" unique_id=1672128077]
+[node name="Cylinder_025" parent="current_scene_3D/wheel_right/rear_wheel_right/rear_wheel" parent_id_path=PackedInt32Array(1979307876, 1701913547) index="15" unique_id=1128864618]
 layers = 4
 
 [node name="contact_angle_end_right" parent="current_scene_3D/wheel_right" unique_id=434550697 instance=ExtResource("3_ss2qs")]
 script = ExtResource("8_tdhcr")
 phase = "end"
 
-[node name="Circle" parent="current_scene_3D/wheel_right/contact_angle_end_right/angle_contact" index="0" unique_id=1421840405]
+[node name="Circle" parent="current_scene_3D/wheel_right/contact_angle_end_right/angle_contact" index="0" unique_id=1646293624]
 layers = 4
 
 [node name="contact_angle_start_right" parent="current_scene_3D/wheel_right" unique_id=1398161811 instance=ExtResource("3_ss2qs")]
 script = ExtResource("8_tdhcr")
 phase = "start"
 
-[node name="Circle" parent="current_scene_3D/wheel_right/contact_angle_start_right/angle_contact" index="0" unique_id=1421840405]
+[node name="Circle" parent="current_scene_3D/wheel_right/contact_angle_start_right/angle_contact" index="0" unique_id=1646293624]
 layers = 4
 
 [node name="handrim_right" parent="current_scene_3D/wheel_right" unique_id=8043099 instance=ExtResource("4_8bgme")]
 
-[node name="BézierCircle_003" parent="current_scene_3D/wheel_right/handrim_right/handrim" parent_id_path=PackedInt32Array(8043099, 196758062) index="0" unique_id=36970047]
+[node name="BézierCircle_003" parent="current_scene_3D/wheel_right/handrim_right/handrim" parent_id_path=PackedInt32Array(8043099, 196758062) index="0" unique_id=1785037892]
 layers = 5
 
 [node name="wheel_left" type="Node3D" parent="current_scene_3D" unique_id=915408687]
@@ -191,71 +191,71 @@ transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 
 script = ExtResource("5_nqdaa")
 side = "left"
 
-[node name="BézierCircle_004" parent="current_scene_3D/wheel_left/rear_wheel_left/rear_wheel" parent_id_path=PackedInt32Array(9668413, 1701913547) index="0" unique_id=882467497]
+[node name="BézierCircle_004" parent="current_scene_3D/wheel_left/rear_wheel_left/rear_wheel" parent_id_path=PackedInt32Array(9668413, 1701913547) index="0" unique_id=492824724]
 layers = 2
 
-[node name="BézierCircle_005" parent="current_scene_3D/wheel_left/rear_wheel_left/rear_wheel" parent_id_path=PackedInt32Array(9668413, 1701913547) index="1" unique_id=1025637904]
+[node name="BézierCircle_005" parent="current_scene_3D/wheel_left/rear_wheel_left/rear_wheel" parent_id_path=PackedInt32Array(9668413, 1701913547) index="1" unique_id=1967190373]
 layers = 2
 
-[node name="BézierCircle_006" parent="current_scene_3D/wheel_left/rear_wheel_left/rear_wheel" parent_id_path=PackedInt32Array(9668413, 1701913547) index="2" unique_id=1504770310]
+[node name="BézierCircle_006" parent="current_scene_3D/wheel_left/rear_wheel_left/rear_wheel" parent_id_path=PackedInt32Array(9668413, 1701913547) index="2" unique_id=1293971367]
 layers = 2
 
-[node name="Cylinder_013" parent="current_scene_3D/wheel_left/rear_wheel_left/rear_wheel" parent_id_path=PackedInt32Array(9668413, 1701913547) index="3" unique_id=509998079]
+[node name="Cylinder_013" parent="current_scene_3D/wheel_left/rear_wheel_left/rear_wheel" parent_id_path=PackedInt32Array(9668413, 1701913547) index="3" unique_id=1915422161]
 layers = 2
 
-[node name="Cylinder_014" parent="current_scene_3D/wheel_left/rear_wheel_left/rear_wheel" parent_id_path=PackedInt32Array(9668413, 1701913547) index="4" unique_id=707179226]
+[node name="Cylinder_014" parent="current_scene_3D/wheel_left/rear_wheel_left/rear_wheel" parent_id_path=PackedInt32Array(9668413, 1701913547) index="4" unique_id=871273199]
 layers = 2
 
-[node name="Cylinder_015" parent="current_scene_3D/wheel_left/rear_wheel_left/rear_wheel" parent_id_path=PackedInt32Array(9668413, 1701913547) index="5" unique_id=1034262287]
+[node name="Cylinder_015" parent="current_scene_3D/wheel_left/rear_wheel_left/rear_wheel" parent_id_path=PackedInt32Array(9668413, 1701913547) index="5" unique_id=1866239796]
 layers = 2
 
-[node name="Cylinder_016" parent="current_scene_3D/wheel_left/rear_wheel_left/rear_wheel" parent_id_path=PackedInt32Array(9668413, 1701913547) index="6" unique_id=158674963]
+[node name="Cylinder_016" parent="current_scene_3D/wheel_left/rear_wheel_left/rear_wheel" parent_id_path=PackedInt32Array(9668413, 1701913547) index="6" unique_id=582229067]
 layers = 2
 
-[node name="Cylinder_017" parent="current_scene_3D/wheel_left/rear_wheel_left/rear_wheel" parent_id_path=PackedInt32Array(9668413, 1701913547) index="7" unique_id=212633737]
+[node name="Cylinder_017" parent="current_scene_3D/wheel_left/rear_wheel_left/rear_wheel" parent_id_path=PackedInt32Array(9668413, 1701913547) index="7" unique_id=132602823]
 layers = 2
 
-[node name="Cylinder_018" parent="current_scene_3D/wheel_left/rear_wheel_left/rear_wheel" parent_id_path=PackedInt32Array(9668413, 1701913547) index="8" unique_id=829778180]
+[node name="Cylinder_018" parent="current_scene_3D/wheel_left/rear_wheel_left/rear_wheel" parent_id_path=PackedInt32Array(9668413, 1701913547) index="8" unique_id=553216785]
 layers = 2
 
-[node name="Cylinder_019" parent="current_scene_3D/wheel_left/rear_wheel_left/rear_wheel" parent_id_path=PackedInt32Array(9668413, 1701913547) index="9" unique_id=1176196163]
+[node name="Cylinder_019" parent="current_scene_3D/wheel_left/rear_wheel_left/rear_wheel" parent_id_path=PackedInt32Array(9668413, 1701913547) index="9" unique_id=1782011555]
 layers = 2
 
-[node name="Cylinder_020" parent="current_scene_3D/wheel_left/rear_wheel_left/rear_wheel" parent_id_path=PackedInt32Array(9668413, 1701913547) index="10" unique_id=171283948]
+[node name="Cylinder_020" parent="current_scene_3D/wheel_left/rear_wheel_left/rear_wheel" parent_id_path=PackedInt32Array(9668413, 1701913547) index="10" unique_id=397632586]
 layers = 2
 
-[node name="Cylinder_021" parent="current_scene_3D/wheel_left/rear_wheel_left/rear_wheel" parent_id_path=PackedInt32Array(9668413, 1701913547) index="11" unique_id=914793908]
+[node name="Cylinder_021" parent="current_scene_3D/wheel_left/rear_wheel_left/rear_wheel" parent_id_path=PackedInt32Array(9668413, 1701913547) index="11" unique_id=1264964103]
 layers = 2
 
-[node name="Cylinder_022" parent="current_scene_3D/wheel_left/rear_wheel_left/rear_wheel" parent_id_path=PackedInt32Array(9668413, 1701913547) index="12" unique_id=417096654]
+[node name="Cylinder_022" parent="current_scene_3D/wheel_left/rear_wheel_left/rear_wheel" parent_id_path=PackedInt32Array(9668413, 1701913547) index="12" unique_id=1785887012]
 layers = 2
 
-[node name="Cylinder_023" parent="current_scene_3D/wheel_left/rear_wheel_left/rear_wheel" parent_id_path=PackedInt32Array(9668413, 1701913547) index="13" unique_id=1535209184]
+[node name="Cylinder_023" parent="current_scene_3D/wheel_left/rear_wheel_left/rear_wheel" parent_id_path=PackedInt32Array(9668413, 1701913547) index="13" unique_id=903056405]
 layers = 2
 
-[node name="Cylinder_024" parent="current_scene_3D/wheel_left/rear_wheel_left/rear_wheel" parent_id_path=PackedInt32Array(9668413, 1701913547) index="14" unique_id=1688906746]
+[node name="Cylinder_024" parent="current_scene_3D/wheel_left/rear_wheel_left/rear_wheel" parent_id_path=PackedInt32Array(9668413, 1701913547) index="14" unique_id=1417923883]
 layers = 2
 
-[node name="Cylinder_025" parent="current_scene_3D/wheel_left/rear_wheel_left/rear_wheel" parent_id_path=PackedInt32Array(9668413, 1701913547) index="15" unique_id=1672128077]
+[node name="Cylinder_025" parent="current_scene_3D/wheel_left/rear_wheel_left/rear_wheel" parent_id_path=PackedInt32Array(9668413, 1701913547) index="15" unique_id=1128864618]
 layers = 2
 
 [node name="contact_angle_end_left" parent="current_scene_3D/wheel_left" unique_id=178996732 instance=ExtResource("3_ss2qs")]
 script = ExtResource("8_tdhcr")
 phase = "end"
 
-[node name="Circle" parent="current_scene_3D/wheel_left/contact_angle_end_left/angle_contact" index="0" unique_id=1421840405]
+[node name="Circle" parent="current_scene_3D/wheel_left/contact_angle_end_left/angle_contact" index="0" unique_id=1646293624]
 layers = 2
 
 [node name="contact_angle_start_left" parent="current_scene_3D/wheel_left" unique_id=1651147978 instance=ExtResource("3_ss2qs")]
 script = ExtResource("8_tdhcr")
 phase = "start"
 
-[node name="Circle" parent="current_scene_3D/wheel_left/contact_angle_start_left/angle_contact" index="0" unique_id=1421840405]
+[node name="Circle" parent="current_scene_3D/wheel_left/contact_angle_start_left/angle_contact" index="0" unique_id=1646293624]
 layers = 2
 
 [node name="handrim_left" parent="current_scene_3D/wheel_left" unique_id=1417836334 instance=ExtResource("4_8bgme")]
 
-[node name="BézierCircle_003" parent="current_scene_3D/wheel_left/handrim_left/handrim" parent_id_path=PackedInt32Array(1417836334, 196758062) index="0" unique_id=36970047]
+[node name="BézierCircle_003" parent="current_scene_3D/wheel_left/handrim_left/handrim" parent_id_path=PackedInt32Array(1417836334, 196758062) index="0" unique_id=1785037892]
 layers = 2
 
 [node name="trail_hand_left" type="MultiMeshInstance3D" parent="current_scene_3D" unique_id=748685228]
