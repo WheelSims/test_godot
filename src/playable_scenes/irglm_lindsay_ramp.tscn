@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://c4j1qqpy3y7dr"]
 
-[ext_resource type="PackedScene" uid="uid://bc8dr0hobakjf" path="res://environments/irglm/irglm_lindsay_ramp_environment.tscn" id="1_yen6j"]
+[ext_resource type="PackedScene" uid="uid://bc8dr0hobakjf" path="res://maps/irglm/irglm_lindsay_ramp.tscn" id="1_yen6j"]
 [ext_resource type="PackedScene" uid="uid://biluq7vv8ghsm" path="res://player/player.tscn" id="2_533jw"]
 
 [node name="IRGLMLindsayRamp" type="Node3D" unique_id=893113534]

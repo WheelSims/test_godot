@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+# Hook: pre-commit | Enforce file size limit (5 MB)
+
+set -euo pipefail
+
+MAX_SIZE=5242880
+STAGED_FILES=$(git diff --cached --name-only --diff-filter=ACM || true)
+
+if [ -z "$STAGED_FILES" ]; then
+  exit 0
+fi
+
+FOUND=0
+while IFS= read -r file; do
+  SIZE=$(git cat-file -s ":$file" 2>/dev/null || echo 0)
+  if [ "$SIZE" -gt "$MAX_SIZE" ]; then
+    echo "⚠ File too large: $file ($((SIZE / 1048576)) MB > 5 MB)"
+    FOUND=1
+  fi
+done <<< "$STAGED_FILES"
+
+if [ "$FOUND" -eq 1 ]; then
+  echo "\nCommit blocked. Remove or reduce large files."
+  exit 1
+fi
+
+exit 0

@@ -7,7 +7,8 @@ extends Node2D
 # - controls visibility of wheels, handrims, contact angles, and trails
 # - provides an always-on-top GUI window for aiming calibration
 # - spawns OptiTrack scene when running standalone (outside Globals.main scene)
-# - updates the push pattern label based on propulsive cycle detection from the Python biofeedback script
+# - updates the push pattern label based on propulsive cycle detection from the
+#   Python biofeedback script
 # ---------------------------------------------------------------------- #
 
 # Nodes
@@ -60,6 +61,7 @@ var window
 func _ready() -> void:
 	# Create an isolated World3D so this SubViewport scene is not rendered in the Globals.main viewport
 	var world = World3D.new()
+	current_scene_3d = $CurrentScene3D
 	current_scene_3d.world_3d = world
 
 	# Share the same World3D across all SubViewports so it is only rendered through UI overlays
@@ -149,24 +151,26 @@ func window_user():
 
 	add_child(window)
 
+
 # Update the push pattern label when the Python biofeedback script detects a propulsive cycle
 func update_push_pattern_label():
 	if Globals.main.has_node("PythonBridge"):
 		var data = Globals.main.get_node("PythonBridge").receive("push_pattern_label")
-		
+
 		if data is Dictionary and data.has("data") and data["data"].size() > 0:
 			if data["command"] == "biofeedback_update":
 				var side = data["data"].keys()[0]
 				if data["data"][side].has("label_push_pattern") and side == "right":
-
 					node_push_pattern_label.text = data["data"][side]["label_push_pattern"]
-					
+
 					if push_pattern_tween:
 						push_pattern_tween.kill()
 					node_push_pattern_label.scale = Vector2.ZERO
 
 					push_pattern_tween = create_tween()
-					push_pattern_tween.tween_property(node_push_pattern_label, "scale", Vector2.ONE, 0.1)
+					push_pattern_tween.tween_property(
+						node_push_pattern_label, "scale", Vector2.ONE, 0.1
+					)
 	else:
 		node_push_pattern_label.text = ""
 

@@ -1,0 +1,17 @@
+[gd_resource type="Environment" format=3 uid="uid://c680007dvsdyh"]
+
+[ext_resource type="Texture2D" uid="uid://wacfloxc8is" path="res://environments/daytime.hdr" id="1_5n31d"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_u6pll"]
+panorama = ExtResource("1_5n31d")
+
+[sub_resource type="Sky" id="Sky_jka67"]
+sky_material = SubResource("PanoramaSkyMaterial_u6pll")
+
+[resource]
+background_mode = 2
+sky = SubResource("Sky_jka67")
+ambient_light_color = Color(0.733333, 0.854902, 0.909804, 1)
+ambient_light_sky_contribution = 0.0
+reflected_light_source = 2
+ssr_enabled = true
