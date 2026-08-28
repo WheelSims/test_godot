@@ -15,6 +15,10 @@ extends MultiMeshInstance3D
 @export_enum("last_push_pattern_1", "last_push_pattern_2", "last_push_pattern_3")
 var last_push_pattern: String
 
+# Nodes
+@export var node_virtual_wheel_left: Node
+@export var node_virtual_wheel_right: Node
+
 # Variables
 var positions := []
 var trail_size := 0.11
@@ -39,11 +43,11 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	# Once start the analysis by sending a request to the python bridge
 	if Globals.main:
-		if Globals.main.has_node("python_bridge"):
-			if Globals.main.get_node("python_bridge")._udp_receiver_connected and not connected:
+		if Globals.main.has_node("PythonBridge"):
+			if Globals.main.get_node("PythonBridge")._udp_receiver_connected and not connected:
 				connected = true
 				_update_arg()
-				Globals.main.get_node("python_bridge").send("biofeedback_update", arg, "start")
+				Globals.main.get_node("PythonBridge").send("biofeedback_update", arg, "start")
 		# Reset the connected flag if the python bridge is disconnected
 		else:
 			if connected:
@@ -52,10 +56,8 @@ func _process(_delta: float) -> void:
 	# Update loop process if the process is connected
 	if connected:
 		visible = true
-		if Globals.main.has_node("python_bridge"):
-			var data = Globals.main.get_node("python_bridge").receive(
-				last_push_pattern + "_" + side
-			)
+		if Globals.main.has_node("PythonBridge"):
+			var data = Globals.main.get_node("PythonBridge").receive(last_push_pattern + "_" + side)
 
 			if data is Dictionary and data.has("data") and data["data"].size() > 0:
 				if data["command"] == "biofeedback_update":
@@ -67,18 +69,18 @@ func _process(_delta: float) -> void:
 		visible = false
 
 	# Should we quit
-	if not Config.get_value("overlays.biofeedback_optitrack.enabled"):
+	if not Config.get_value("overlays.biofeedback_push_pattern.enabled"):
 		# Stop the biofeedback from python bridge if this overlays is shut down
 		if (
-			Globals.main.has_node("python_bridge")
+			Globals.main.has_node("PythonBridge")
 			and connected
 			and not Config.get_value("overlays.biofeedback_push_frequency.enabled")
 		):
 			# Tell the python bridge to stop the repeating update process
-			Globals.main.get_node("python_bridge").send("biofeedback_update", {}, "stop")
+			Globals.main.get_node("PythonBridge").send("biofeedback_update", {}, "stop")
 			# Send a final request to reset the biofeedback script data
 			_update_arg()
-			Globals.main.get_node("python_bridge").send("biofeedback_stop", arg, "once")
+			Globals.main.get_node("PythonBridge").send("biofeedback_stop", arg, "once")
 		# Remove the overlay node from the scene tree
 		queue_free()
 
@@ -100,12 +102,12 @@ func _apply_side():
 		layer = 1 << 7
 		coordinates_wheel_center = "coordinates.left_wheel_center"
 		offset_trail = 0.1
-		virtual_wheel = "../wheel_left"
+		virtual_wheel = node_virtual_wheel_left
 	elif side == "right":
 		layer = 1 << 8
 		coordinates_wheel_center = "coordinates.right_wheel_center"
 		offset_trail = -0.1
-		virtual_wheel = "../wheel_right"
+		virtual_wheel = node_virtual_wheel_right
 
 
 # Initialize a MultiMesh instance used to render the push pattern trail
@@ -147,13 +149,13 @@ func parse_trail_points(data):
 	var pos_center_wheel = Vector3(
 		Config.get_value(coordinates_wheel_center)[0],
 		Config.get_value(coordinates_wheel_center)[1],
-		get_node(virtual_wheel).position[2] + offset_trail
+		virtual_wheel.position[2] + offset_trail
 	)
 
 	var result: Array = []
 
 	for p in data:
 		p[2] = 0  # 2D projection
-		result.append(Vector3(p[0], p[1], p[2]) - pos_center_wheel)
+		result.append(Vector3(p[0], p[1], p[2]))
 
 	return result

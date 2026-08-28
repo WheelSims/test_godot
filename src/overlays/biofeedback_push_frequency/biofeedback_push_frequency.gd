@@ -27,20 +27,22 @@ extends Control
 @export var node_green_zone: Node
 
 # Push frequency value from python script biofeedback
-var value = 0.0  #!TODO Change name for current_value
+var current_value = 0.0
 
 # Connection flags and request arguments
 var connected = false
-var arg  #!TODO Change name for something more specific
+var biofeedback_args
 
 
 func _process(_delta) -> void:
 	# Once start the analysis by sending a request to the python bridge
-	if Globals.main.has_node("python_bridge"):
-		if Globals.main.get_node("python_bridge")._udp_receiver_connected and not connected:
+	if Globals.main.has_node("PythonBridge"):
+		if Globals.main.get_node("PythonBridge")._udp_receiver_connected and not connected:
 			connected = true
 			_update_arg()
-			Globals.main.get_node("python_bridge").send("biofeedback_update", arg, "start")
+			Globals.main.get_node("PythonBridge").send(
+				"biofeedback_update", biofeedback_args, "start"
+			)
 	# Reset the connected flag if the python bridge is disconnected
 	else:
 		if connected:
@@ -48,23 +50,23 @@ func _process(_delta) -> void:
 
 	# Update the slider if the process is connected
 	if connected:
-		if Globals.main.has_node("python_bridge"):
-			var data = Globals.main.get_node("python_bridge").receive("biofeedback_push_frequency")
+		if Globals.main.has_node("PythonBridge"):
+			var data = Globals.main.get_node("PythonBridge").receive("biofeedback_push_frequency")
 			_update_slider(data)
 
 	# Should we quit
 	if not Config.get_value("overlays.biofeedback_push_frequency.enabled"):
 		# Stop the biofeedback from python bridge if this overlays is shut down
 		if (
-			Globals.main.has_node("python_bridge")
+			Globals.main.has_node("PythonBridge")
 			and connected
-			and not Config.get_value("overlays.biofeedback_optitrack.enabled")
+			and not Config.get_value("overlays.biofeedback_push_pattern.enabled")
 		):
 			# Tell the python bridge to stop the repeating update process
-			Globals.main.get_node("python_bridge").send("biofeedback_update", {}, "stop")
+			Globals.main.get_node("PythonBridge").send("biofeedback_update", {}, "stop")
 			# Send a final request to reset the biofeedback script data
 			_update_arg()
-			Globals.main.get_node("python_bridge").send("biofeedback_stop", arg, "once")
+			Globals.main.get_node("PythonBridge").send("biofeedback_stop", biofeedback_args, "once")
 		# Remove the overlay node from the scene tree
 		queue_free()
 
@@ -75,15 +77,15 @@ func _update_slider(data):
 		if data["command"] == "biofeedback_update":
 			var side = data["data"].keys()[0]
 			if data["data"][side].has("mean_push_frequency"):
-				value = data["data"][side]["mean_push_frequency"]
+				current_value = data["data"][side]["mean_push_frequency"]
 
 	node_min_value.text = str(min_value)
 	node_max_value.text = str(max_value)
-	node_value.text = str(snappedf(value, 0.1))
+	node_value.text = str(snappedf(current_value, 0.1))
 
 	node_slider.position.y = (
 		node_slider_zone.size.y
-		- (value - min_value) * node_slider_zone.size.y / (max_value - min_value)
+		- (current_value - min_value) * node_slider_zone.size.y / (max_value - min_value)
 	)
 	node_slider.size.x = node_slider_zone.size.x
 
@@ -103,7 +105,7 @@ func _update_slider(data):
 
 # Update the arguments to send the requests to the python bridge
 func _update_arg():
-	arg = {
+	biofeedback_args = {
 		"coordinates_left_wheel_center": Config.get_value("coordinates.left_wheel_center"),
 		"coordinates_right_wheel_center": Config.get_value("coordinates.right_wheel_center"),
 		"coordinates_left_hand": Config.get_value("coordinates.left_hand"),

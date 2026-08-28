@@ -133,9 +133,9 @@ func _on_button_pressed():
 		reference_frame_id = 202
 
 	if Globals.main:
-		node_optitrack = Globals.main.get_node("optitrack")
+		node_optitrack = Globals.main.get_node("Optitrack")
 	else:  # If overlay scene runs standalone (outside Globals.main)
-		node_optitrack = get_tree().current_scene.get_node("optitrack")
+		node_optitrack = get_tree().current_scene.get_node("Optitrack")
 
 	if node_optitrack.get_node(str(probe_id)) and node_optitrack.get_node(str(reference_frame_id)):
 		var node_probe = node_optitrack.get_node(str(probe_id))
