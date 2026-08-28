@@ -53,7 +53,7 @@ func _process(_delta):
 			queue_free()
 	if _udp_receiver_connected:
 		_process_received_packets()
-		
+
 	if Config.get_value("devices.data_logging.enabled") == true:
 		SignalBus.python_connected.emit(_udp_receiver_connected)
 

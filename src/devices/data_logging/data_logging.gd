@@ -17,6 +17,7 @@ var data = {}
 var connected = false
 var connection_command = NAN
 
+
 # called everytime a signal is received from main.gd to save it
 func _scene_signal_received(scene_name):
 	scenes["new"] = scene_name.get_file().split(".")[0].replace("_", "")
@@ -50,10 +51,11 @@ func _python_signal_received(connection):
 
 		elif connection == null:
 			connection_command = "end_logging"
-			
+
 		if Config.get_value("devices.data_logging.enabled"):
 			update_logging()
 			Globals.main.get_node("PythonBridge").send(connection_command, data, "once")
+
 
 # Update logging on/off variables
 func update_logging():
@@ -81,11 +83,12 @@ func _ready() -> void:
 		SignalBus.python_connected.connect(_python_signal_received)
 		if Config.get_value("devices.data_logging.player_trajectory") == true:
 			SignalBus.player_trajectory.connect(_player_signal_received)
-			
+
 	if SignalBus.session_scene.is_connected(_scene_signal_received) == false:
 		SignalBus.session_scene.connect(_scene_signal_received)
 		# connect to main.gd and see if a scene is already on
 		SignalBus.current_scene.emit(true)
+
 
 func _process(_delta: float) -> void:
 	if SignalBus.session_scene.is_connected(_scene_signal_received) == false:
