@@ -29,12 +29,16 @@ func _scene_signal_received(scene_name):
 				Globals.main.get_node("PythonBridge").send("end_trial", data, "once")
 			player_trajectory["position"] = NAN
 			player_trajectory["rotation"] = NAN
-		
+
 		scenes["current"] = scenes["new"]
 		update_data()
-		
+
 		# If new trial is not empty, create one
-		if logging["current"] == true and scene_name != "" and Globals.main.has_node("PythonBridge"):
+		if (
+			logging["current"] == true
+			and scene_name != ""
+			and Globals.main.has_node("PythonBridge")
+		):
 			Globals.main.get_node("PythonBridge").send("create_trial", data, "once")
 
 
