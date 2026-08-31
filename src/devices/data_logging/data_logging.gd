@@ -21,7 +21,7 @@ var connection_command = NAN
 # called everytime a signal is received from main.gd to save it
 func _scene_signal_received(scene_name):
 	scenes["new"] = scene_name.get_file().split(".")[0].replace("_", "")
-	# When logging in on, initiate a new file (trial) and update current scene if new
+	# When logging in on, update current scene if new
 	if scenes["current"] != scenes["new"]:
 		# If a trial was in progress (i.e. previous scene is not blank), end it
 		if scenes["current"] != "":
@@ -29,10 +29,12 @@ func _scene_signal_received(scene_name):
 				Globals.main.get_node("PythonBridge").send("end_trial", data, "once")
 			player_trajectory["position"] = NAN
 			player_trajectory["rotation"] = NAN
-
+		
 		scenes["current"] = scenes["new"]
 		update_data()
-		if logging["current"] == true and Globals.main.has_node("PythonBridge"):
+		
+		# If new trial is not empty, create one
+		if logging["current"] == true and scene_name != "" and Globals.main.has_node("PythonBridge"):
 			Globals.main.get_node("PythonBridge").send("create_trial", data, "once")
 
 
