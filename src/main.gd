@@ -39,6 +39,8 @@ func load_scene(path: String):
 func unload_scene():
 	if _current_scene_node:
 		_current_scene_node.queue_free()
+	if (Config.get_value("devices.data_logging.enabled")) == true:
+		SignalBus.session_scene.emit("")
 
 
 func _current_scene(_connection):
