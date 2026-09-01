@@ -1,0 +1,48 @@
+[gd_scene format=3 uid="uid://ccudr43mvulkw"]
+
+[ext_resource type="Script" uid="uid://ihas823kxmv8" path="res://overlays/biofeedback_pushrim_kinetics/biofeedback_pushrim_kinetics.gd" id="1_vub0q"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_6fgjp"]
+size = Vector2(2, 2)
+
+[sub_resource type="MultiMesh" id="MultiMesh_knsph"]
+use_colors = true
+mesh = SubResource("QuadMesh_6fgjp")
+
+[sub_resource type="Theme" id="Theme_2n6hd"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hiv0f"]
+bg_color = Color(0, 0, 0, 0.392157)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(1, 1, 1, 0.392157)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[node name="BiofeedbackPushrimKinetics" type="Node2D" unique_id=2135710720]
+script = ExtResource("1_vub0q")
+
+[node name="MultiMeshInstance2D" type="MultiMeshInstance2D" parent="." unique_id=1491659974]
+unique_name_in_owner = true
+position = Vector2(419, 227)
+scale = Vector2(2, 2)
+multimesh = SubResource("MultiMesh_knsph")
+
+[node name="OverlayFrame" type="PanelContainer" parent="." unique_id=1522539722]
+offset_left = 390.0
+offset_top = 74.0
+offset_right = 750.0
+offset_bottom = 254.0
+theme = SubResource("Theme_2n6hd")
+theme_override_styles/panel = SubResource("StyleBoxFlat_hiv0f")
+
+[node name="Label" type="Label" parent="." unique_id=1917131834]
+offset_left = 393.0
+offset_top = 53.0
+offset_right = 444.0
+offset_bottom = 76.0
+text = "Forces"

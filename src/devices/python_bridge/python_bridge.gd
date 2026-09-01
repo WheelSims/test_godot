@@ -19,6 +19,8 @@ var _udp_receiver = PacketPeerUDP.new()
 var _udp_sender = PacketPeerUDP.new()
 var _udp_receiver_connected = false
 
+var _python_process_id : int
+
 
 func _ready():
 	# Launch Python app
@@ -33,7 +35,7 @@ func _ready():
 		print("Cannot launch Python because Python app script is unset.")
 		return
 
-	OS.create_process(python_app_path, [python_script_path], true)
+	_python_process_id = OS.create_process(python_app_path, [python_script_path], true)
 
 	# Set UDP receiver and UDP sender
 	_udp_receiver.bind(udp_receive_port)
@@ -114,8 +116,11 @@ func send(command: String, args: Dictionary, run_mode: String):
 
 ## Debug overlay
 func get_debug_text() -> String:
-	var text = ""
-	text += "Python "
+	var text = "\n"
+	text += "Python PID: "
+	text += str(_python_process_id)
+		
+	text += "\nPython "
 	if not _udp_receiver_connected:
 		text += "not "
 	text += "connected.\n"

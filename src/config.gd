@@ -37,7 +37,8 @@ var _defaults: Dictionary[String, Dictionary] = {
 		"type": "float",
 		"default": 0.62,
 		"min": 0.40,
-		"max": 0.80
+		"max": 0.80,
+		"step": 0.01,
 	},
 	"player.pushrim_diameter":
 	{
@@ -47,7 +48,8 @@ var _defaults: Dictionary[String, Dictionary] = {
 		"type": "float",
 		"default": 0.54,
 		"min": 0.40,
-		"max": 0.80
+		"max": 0.80,
+		"step": 0.01,
 	},
 	"player.camera.fov":
 	{
@@ -142,6 +144,8 @@ var _defaults: Dictionary[String, Dictionary] = {
 		"min": 1,
 		"max": 5
 	},
+	"overlays.biofeedback_pushrim_kinetics.enabled":
+		{"order": 3.07, "label": "Biofeedback Pushrim Kinetics", "type": "bool", "default": false},
 	"devices.screens.front_floor_screens": {"order": 4.3, "label": "Front+floor screens"},
 	"devices.screens.front_floor_screens.enabled":
 	{"order": 4.31, "label": "Enabled", "type": "bool", "default": false},
