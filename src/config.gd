@@ -145,7 +145,7 @@ var _defaults: Dictionary[String, Dictionary] = {
 		"max": 5
 	},
 	"overlays.biofeedback_pushrim_kinetics.enabled":
-		{"order": 3.07, "label": "Biofeedback Pushrim Kinetics", "type": "bool", "default": false},
+	{"order": 3.07, "label": "Biofeedback Pushrim Kinetics", "type": "bool", "default": false},
 	"devices.screens.front_floor_screens": {"order": 4.3, "label": "Front+floor screens"},
 	"devices.screens.front_floor_screens.enabled":
 	{"order": 4.31, "label": "Enabled", "type": "bool", "default": false},

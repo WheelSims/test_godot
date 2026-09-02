@@ -14,11 +14,10 @@ extends Node3D
 @export var udp_send_port: int = 4243  # Python port
 @export var udp_receive_port: int = 4242  # Godot port
 
-var queue_requests_by_id = {}  # Queue storing received request data per id
 var _udp_receiver = PacketPeerUDP.new()
 var _udp_sender = PacketPeerUDP.new()
-var _udp_receiver_connected = false
-var _signal_counter : int = 0
+var _signal_counter: int = 0
+
 
 func _ready():
 	# Launch Python app
@@ -35,113 +34,88 @@ func _ready():
 
 	if OS.get_name() == "macOS":
 		print("Launching a terminal window for Python Bridge...")
-		OS.create_process("/usr/bin/osascript", ["-e", 'tell app "Terminal" to do script "' + python_app_path + " " + python_script_path + '"'])
+		OS.create_process(
+			"/usr/bin/osascript",
+			[
+				"-e",
+				(
+					'tell app "Terminal" to do script "'
+					+ python_app_path
+					+ " "
+					+ python_script_path
+					+ '"'
+				)
+			]
+		)
 	else:
 		OS.create_process(python_app_path, [python_script_path], true)
-		
 
 	# Set UDP receiver and UDP sender
 	_udp_receiver.bind(udp_receive_port)
 	_udp_sender.connect_to_host(udp_send_ip, udp_send_port)
-
-	# Waiting ping request from Python bridge
-	while _udp_receiver.get_available_packet_count() == 0:
-		await get_tree().create_timer(1.0).timeout
-	_udp_receiver_connected = true
-	SignalBus.python_connected.emit(_udp_receiver_connected)
 
 
 func _process(_delta):
 	if Globals.main:
 		if not Config.get_value("devices.python_bridge.enabled"):
 			queue_free()
-	if _udp_receiver_connected:
-		_process_received_packets()
 
-
-## Receive and save JSON data from Python bridge in requests queues
-func _process_received_packets():
 	while _udp_receiver.get_available_packet_count() > 0:  # We received something
 		var data = _udp_receiver.get_packet()
 		var json_string = data.get_string_from_utf8()
 		var json = JSON.new()
 		json.parse(json_string)
-		
-		if json.get_data() == {"id": "ready"}:
+		var data_dict: Dictionary = json.get_data()
+
+		if data_dict["id"] == "ready":
+			# This is the only "return value" not associated to a call from
+			# Godot. Therefore there is no signal to emit or value to return.
+			SignalBus.python_bridge_connected.emit(true)
+			_signal_counter += 1
 			return
-		
-		var data_dict : Dictionary = json.get_data()
+
 		emit_signal(data_dict["id"], data_dict["value"])
 		remove_user_signal(data_dict["id"])
 
 
-## Receive data from Python.
+## Run a Python command
 ##
-## Parameters
-## ----------
-## id
-##     Name of the receive queue. If the receive queue does not exist yet, it is created. Each
-##     received data is appended to every receive queue, which ensures that calling receive() with
-##     a unique queue gives access to every received packets.
-##
-## Returns
-## -------
-## Dictionary
-##     If no data is available, returns an empty dictionary.
-##     If data is available, returns a dictionary with keys "command", which is the name of the
-##     python command that sent this data, and "data", which is a dictionary with the actual
-##     data.
-func receive(id: String) -> Dictionary:
-	if id not in queue_requests_by_id:
-		queue_requests_by_id[id] = []
-		return {}
-	if queue_requests_by_id[id].size() > 0:
-		var last_data = queue_requests_by_id[id].pop_at(-1)
-		return last_data
-	return {}
-
-
-## Run a Python command.
+## To use:
+##     result = await python_bridge.run(python_command, kwargs)
 ##
 ## Parameters
 ## ----------
 ## command
-##     One of the available commands in the python_bridge.py's COMMAND_MAPPING
-## args
-##     A dictionary containing any information required by the command
-## run_mode
-##     "once" to launch the command once, "start" to run it continuously, and "stop" to
-##     stop from running it continuously.
-func send(command: String, args: Dictionary, run_mode: String):
-	#!TODO Remove
-	var request = {"command": command, "args": args, "run_mode": run_mode}
-	_udp_sender.put_packet(JSON.stringify(request).to_utf8_buffer())
-
-
-func run(command: String, args: Array, kwargs: Dictionary) -> Signal:
-	#!TODO Remove run_mode and change args when it's done in the python counterpart.
-	var id : String = command + "_" + str(Time.get_ticks_usec()) + "_" + str(_signal_counter)
+##     Python command, as defined in the COMMAND_DICT dictionary of main.py
+## kwargs
+##     Optional. Arguments of the command, in the form {"argname": value, ...}
+##
+## Returns
+## -------
+## signal
+##     A signal to await. The result of the Python function is returned with the
+##     signal.
+func run(command: String, kwargs: Dictionary = {}) -> Signal:
+	var id: String = command + "_" + str(Time.get_ticks_usec()) + "_" + str(_signal_counter)
 	_signal_counter += 1
 	if _signal_counter >= 1000000:
-		_signal_counter = 0
+		_signal_counter = 1
 
 	var request = {"command": command, "kwargs": kwargs, "id": id}
 	_udp_sender.put_packet(JSON.stringify(request).to_utf8_buffer())
 	add_user_signal(id)
 	return Signal(self, id)  # Reference to the created signal
 
+
 ## Debug overlay
 func get_debug_text() -> String:
-	var text = "\nPython "
-	if not _udp_receiver_connected:
-		text += "not "
-	text += "connected.\n"
+	var text = "Received " + str(_signal_counter) + " UDP packets."
 	return text
 
 
 ## Close the python app when the node exits the scene tree
 func _exit_tree():
-	SignalBus.python_connected.emit(null)
-	send("close", {}, "once")
+	SignalBus.python_bridge_connected.emit()
+	await run("close")
 	# Delay to allow other overlays/devices to shut down before this device
 	await get_tree().create_timer(0.1).timeout
