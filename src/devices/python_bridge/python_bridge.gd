@@ -18,9 +18,7 @@ var queue_requests_by_id = {}  # Queue storing received request data per id
 var _udp_receiver = PacketPeerUDP.new()
 var _udp_sender = PacketPeerUDP.new()
 var _udp_receiver_connected = false
-
-var _python_process_id : int
-
+var _signal_counter : int = 0
 
 func _ready():
 	# Launch Python app
@@ -35,7 +33,12 @@ func _ready():
 		print("Cannot launch Python because Python app script is unset.")
 		return
 
-	_python_process_id = OS.create_process(python_app_path, [python_script_path], true)
+	if OS.get_name() == "macOS":
+		print("Launching a terminal window for Python Bridge...")
+		OS.create_process("/usr/bin/osascript", ["-e", 'tell app "Terminal" to do script "' + python_app_path + " " + python_script_path + '"'])
+	else:
+		OS.create_process(python_app_path, [python_script_path], true)
+		
 
 	# Set UDP receiver and UDP sender
 	_udp_receiver.bind(udp_receive_port)
@@ -45,8 +48,7 @@ func _ready():
 	while _udp_receiver.get_available_packet_count() == 0:
 		await get_tree().create_timer(1.0).timeout
 	_udp_receiver_connected = true
-	if Config.get_value("devices.data_logging.enabled") == true:
-		SignalBus.python_connected.emit(_udp_receiver_connected)
+	SignalBus.python_connected.emit(_udp_receiver_connected)
 
 
 func _process(_delta):
@@ -56,9 +58,6 @@ func _process(_delta):
 	if _udp_receiver_connected:
 		_process_received_packets()
 
-	if Config.get_value("devices.data_logging.enabled") == true:
-		SignalBus.python_connected.emit(_udp_receiver_connected)
-
 
 ## Receive and save JSON data from Python bridge in requests queues
 func _process_received_packets():
@@ -67,9 +66,13 @@ func _process_received_packets():
 		var json_string = data.get_string_from_utf8()
 		var json = JSON.new()
 		json.parse(json_string)
-
-		for id in queue_requests_by_id:
-			queue_requests_by_id[id].append(json.get_data())
+		
+		if json.get_data() == {"id": "ready"}:
+			return
+		
+		var data_dict : Dictionary = json.get_data()
+		emit_signal(data_dict["id"], data_dict["value"])
+		remove_user_signal(data_dict["id"])
 
 
 ## Receive data from Python.
@@ -110,17 +113,26 @@ func receive(id: String) -> Dictionary:
 ##     "once" to launch the command once, "start" to run it continuously, and "stop" to
 ##     stop from running it continuously.
 func send(command: String, args: Dictionary, run_mode: String):
+	#!TODO Remove
 	var request = {"command": command, "args": args, "run_mode": run_mode}
 	_udp_sender.put_packet(JSON.stringify(request).to_utf8_buffer())
 
 
+func run(command: String, args: Array, kwargs: Dictionary) -> Signal:
+	#!TODO Remove run_mode and change args when it's done in the python counterpart.
+	var id : String = command + "_" + str(Time.get_ticks_usec()) + "_" + str(_signal_counter)
+	_signal_counter += 1
+	if _signal_counter >= 1000000:
+		_signal_counter = 0
+
+	var request = {"command": command, "kwargs": kwargs, "id": id}
+	_udp_sender.put_packet(JSON.stringify(request).to_utf8_buffer())
+	add_user_signal(id)
+	return Signal(self, id)  # Reference to the created signal
+
 ## Debug overlay
 func get_debug_text() -> String:
-	var text = "\n"
-	text += "Python PID: "
-	text += str(_python_process_id)
-		
-	text += "\nPython "
+	var text = "\nPython "
 	if not _udp_receiver_connected:
 		text += "not "
 	text += "connected.\n"
